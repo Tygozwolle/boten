@@ -1,1 +1,2 @@
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/c8e347723be847b98cee7f3980c7f01e)](https://app.codacy.com/gh/Tygozwolle/boten/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/c8e347723be847b98cee7f3980c7f01e)](https://app.codacy.com/gh/Tygozwolle/boten/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_coverage)
