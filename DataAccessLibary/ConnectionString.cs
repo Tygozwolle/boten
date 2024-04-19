@@ -3,7 +3,7 @@ using MySqlConnector;
 
 namespace DataAccessLibary
 {
-    public class ConnectionString
+    public abstract class ConnectionString
     {
 
         public static string ConectionString()
