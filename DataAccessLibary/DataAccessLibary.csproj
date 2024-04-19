@@ -15,4 +15,8 @@
     <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\RoeiVerenigingLibary\RoeiVerenigingLibary.csproj" />
+  </ItemGroup>
+
 </Project>
