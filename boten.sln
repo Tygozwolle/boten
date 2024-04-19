@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34714.143
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoeiVerenigingLibary", "RoeiVerenigingLibary\RoeiVerenigingLibary.csproj", "{8B7380DF-4CBD-4737-8C80-262D3DE57CBF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RoeiVerenigingLibary", "RoeiVerenigingLibary\RoeiVerenigingLibary.csproj", "{8B7380DF-4CBD-4737-8C80-262D3DE57CBF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoeiVerenigingUnitTests", "RoeiVerenigingUnitTests\RoeiVerenigingUnitTests.csproj", "{377335C6-7E66-46C5-917F-7DB22C6C5052}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RoeiVerenigingUnitTests", "RoeiVerenigingUnitTests\RoeiVerenigingUnitTests.csproj", "{377335C6-7E66-46C5-917F-7DB22C6C5052}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessLibary", "DataAccessLibary\DataAccessLibary.csproj", "{BE543AD8-4958-4A1E-B85C-BEC124E7C682}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccessLibary", "DataAccessLibary\DataAccessLibary.csproj", "{BE543AD8-4958-4A1E-B85C-BEC124E7C682}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoeiVerenigingWPF", "RoeiVerenigingWPF\RoeiVerenigingWPF.csproj", "{14E9FAAA-ABC5-4E8B-BBE7-3E0728D94088}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RoeiVerenigingWPF", "RoeiVerenigingWPF\RoeiVerenigingWPF.csproj", "{14E9FAAA-ABC5-4E8B-BBE7-3E0728D94088}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestConsoleApp", "TestConsoleApp\TestConsoleApp.csproj", "{CEBB323B-9378-4746-9731-9C92ABB621BE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{14E9FAAA-ABC5-4E8B-BBE7-3E0728D94088}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{14E9FAAA-ABC5-4E8B-BBE7-3E0728D94088}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{14E9FAAA-ABC5-4E8B-BBE7-3E0728D94088}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CEBB323B-9378-4746-9731-9C92ABB621BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEBB323B-9378-4746-9731-9C92ABB621BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEBB323B-9378-4746-9731-9C92ABB621BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEBB323B-9378-4746-9731-9C92ABB621BE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
