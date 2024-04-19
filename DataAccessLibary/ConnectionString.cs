@@ -6,7 +6,7 @@ namespace DataAccessLibary
     public abstract class ConnectionString
     {
 
-        public static string ConectionString()
+        public static string GetString()
         {
             IConfigurationRoot config = new ConfigurationBuilder().AddUserSecrets<ConnectionString>().Build();
             MySqlConnectionStringBuilder builder = new MySqlConnectionStringBuilder();

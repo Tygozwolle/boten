@@ -9,8 +9,8 @@ namespace TestConsoleApp
         static void Main(string[] args)
         {
             Console.WriteLine("Hello, World!");
-            Console.WriteLine(ConnectionString.ConectionString());
-            using (MySqlConnection connection = new MySqlConnection(ConnectionString.ConectionString()))
+            Console.WriteLine(ConnectionString.GetString());
+            using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
             {
                 connection.Open();
 
