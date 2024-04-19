@@ -14,7 +14,7 @@ namespace TestConsoleApp
             {
                 connection.Open();
                 // Do work here; connection closed on following line.
-                String sql = "SELECT * FROM 'members'";
+                String sql = "SELECT * FROM members";
 
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {
@@ -22,7 +22,7 @@ namespace TestConsoleApp
                     {
                         while (reader.Read())
                         {
-                            Console.WriteLine("{0} {1}", reader.GetString(0), reader.GetString(1));
+                            Console.WriteLine("{0} {1}", reader.GetInt32(0), reader.GetString(1));
                         }
                     }
                 }
