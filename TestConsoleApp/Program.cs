@@ -13,7 +13,7 @@ namespace TestConsoleApp
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.ConectionString()))
             {
                 connection.Open();
-                // Do work here; connection closed on following line.
+
                 String sql = "SELECT * FROM members";
 
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
