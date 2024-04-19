@@ -1,5 +1,9 @@
-﻿using DataAccessLibary;
+
+using DataAccessLibary;
 using MySqlConnector;
+
+
+using RoeiVerenigingLibary;
 
 
 namespace TestConsoleApp
@@ -9,6 +13,7 @@ namespace TestConsoleApp
         static void Main(string[] args)
         {
             Console.WriteLine("Hello, World!");
+
             Console.WriteLine(ConnectionString.GetString());
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
             {
@@ -29,5 +34,10 @@ namespace TestConsoleApp
             }
 
     } }
-    }
+
+            
+
+        }
+
+    
 
