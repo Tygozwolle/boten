@@ -22,7 +22,7 @@ namespace TestConsoleApp
                     {
                         while (reader.Read())
                         {
-                            Console.WriteLine("{0} {1}", reader.GetInt32(0), reader.GetString(1));
+                            Console.WriteLine("{0} {1} {2} {3} {4}", reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(4));
                         }
                     }
                 }
