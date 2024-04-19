@@ -1,6 +1,6 @@
 ﻿using DataAccessLibary;
 using MySqlConnector;
-using System.Data.SqlClient;
+
 
 namespace TestConsoleApp
 {
