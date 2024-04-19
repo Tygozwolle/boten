@@ -1,4 +1,5 @@
 ﻿using DataAccessLibary;
+using MySqlConnector;
 using System.Data.SqlClient;
 
 namespace TestConsoleApp
@@ -9,15 +10,15 @@ namespace TestConsoleApp
         {
             Console.WriteLine("Hello, World!");
             Console.WriteLine(ConnectionString.ConectionString());
-            using (SqlConnection connection = new SqlConnection(ConnectionString.ConectionString()))
+            using (MySqlConnection connection = new MySqlConnection(ConnectionString.ConectionString()))
             {
                 connection.Open();
                 // Do work here; connection closed on following line.
                 String sql = "SELECT * FROM 'members'";
 
-                using (SqlCommand command = new SqlCommand(sql, connection))
+                using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {
-                    using (SqlDataReader reader = command.ExecuteReader())
+                    using (MySqlDataReader reader = command.ExecuteReader())
                     {
                         while (reader.Read())
                         {
