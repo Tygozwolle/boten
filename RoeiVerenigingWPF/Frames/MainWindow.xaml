@@ -1,0 +1,13 @@
+<Window x:Class="RoeiVerenigingWPF.Frames.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:RoeiVerenigingWPF.Frames"
+        xmlns:views="clr-namespace:RoeiVerenigingWPF.Views"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="1024" Width="1440">
+    <Grid>
+        <views:Header/>
+    </Grid>
+</Window>
