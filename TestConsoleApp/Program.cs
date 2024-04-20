@@ -14,7 +14,7 @@ namespace TestConsoleApp
         {
             Console.WriteLine("Hello, World!");
             MemberService memberService = new MemberService(new MemberRepository());
-            Member tygo = memberService.Login("simon@will.roeien.nl", "Test123$");
+            Member tygo = memberService.Login("tygo@windesheim.be", "Test123$");
             Console.WriteLine(tygo.FirstName);
             Console.WriteLine(tygo.Roles.Count);
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))

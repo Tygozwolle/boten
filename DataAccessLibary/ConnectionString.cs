@@ -16,7 +16,7 @@ namespace DataAccessLibary
             builder.Port = 22;
             builder.Server = config["DB:adress"];
             builder.Database = "boten_reservering";
-            builder.SslMode = MySqlSslMode.Disabled;
+            builder.SslMode = MySqlSslMode.VerifyFull;
             builder.DnsCheckInterval = 10;
             builder.ConnectionProtocol = MySqlConnectionProtocol.Tcp;
 
