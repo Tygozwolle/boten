@@ -1,6 +1,8 @@
 ﻿using MySqlConnector;
 using RoeiVerenigingLibary;
 using System.ComponentModel;
+using System.Net.Mail;
+using Microsoft.VisualBasic.CompilerServices;
 
 namespace DataAccessLibary;
 
@@ -8,21 +10,28 @@ public class MemberRepository : IMemberRepository
 {
     public Member Get(string email, string passwordHash)
     {
+        if (!IsValid(email))
+        {
+            throw new Exception("is not a email");
+        }
 
         Member? member;
         using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
         {
             connection.Open();
-            String sql = $"SELECT * FROM members WHERE email = '{email}' AND password = '{passwordHash}'";
+            String sql = $"SELECT * FROM members WHERE email = @email AND password = '{passwordHash}'";
             Console.WriteLine(sql);
 
             using (MySqlCommand command = new MySqlCommand(sql, connection))
             {
+                command.Parameters.Add("@email", MySqlDbType.VarChar);
+                command.Parameters["@email"].Value = email;
                 using (MySqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        return new Member(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), GetRoles(reader.GetInt32(0)));
+                        return new Member(reader.GetInt32(0), reader.GetString(1), reader.GetString(2),
+                            reader.GetString(3), GetRoles(reader.GetInt32(0)));
                     }
                 }
             }
@@ -30,6 +39,7 @@ public class MemberRepository : IMemberRepository
 
         return null;
     }
+
     private List<string> GetRoles(int id)
     {
         var list = new List<string>();
@@ -50,7 +60,14 @@ public class MemberRepository : IMemberRepository
                 }
             }
         }
+
         return list;
+    }
+
+    private bool IsValid(string email)
+    {
+        return MailAddress.TryCreate(email, out var result);
+
     }
 
     public Member Create(string firstName, string lastName, string email, string passwordHash)
