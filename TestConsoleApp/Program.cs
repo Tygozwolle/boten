@@ -17,9 +17,8 @@ namespace TestConsoleApp
             Member tygo = memberService.Login("tygo@windesheim.be", "Test123$");
             Console.WriteLine(tygo.FirstName);
             Console.WriteLine(tygo.Roles.Count);
-
-
-            Member newMember = memberService.Create(tygo, "gerard", "Jhon", "hoi@doei.be", "Test123$");
+            
+            Member newMember = memberService.Create(tygo, "gerard", "John", "hoi@doei.be", "Test123$");
             Console.WriteLine(newMember.FirstName);
         }
     }

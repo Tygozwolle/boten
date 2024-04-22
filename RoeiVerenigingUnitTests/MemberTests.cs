@@ -38,7 +38,15 @@ namespace RoeiVerenigingUnitTests
         [Test]
         public void CreateMemberSuccesfull()
         {
-            
+            var member = new Member(1, "tygo", "olst van", "tygo@windesheim.nl", new List<string>());
+            var admin = new Member(1, "simon", "van den Berg", "simon@windesheim.nl", new List<string>());
+            admin.Roles.Add("beheerder");
+            var memberRepository = new Mock<IMemberRepository>();
+            memberRepository.Setup(x => x.Create(It.IsAny<string>(), It.IsAny<string>(),It.IsAny<string>(), It.IsAny<string>())).Returns(member);
+            var memberService = new MemberService(memberRepository.Object);
+            var result = memberService.Create(admin,"tygo", "olst van", "tygo@windesheim.nl", "Test1234");
+
+            Assert.AreEqual(result, member);
         }
     }
 }
