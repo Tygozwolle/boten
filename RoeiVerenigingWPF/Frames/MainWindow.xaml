@@ -6,24 +6,23 @@
         xmlns:local="clr-namespace:RoeiVerenigingWPF.Frames"
         xmlns:views="clr-namespace:RoeiVerenigingWPF.Views"
         mc:Ignorable="d"
-        Title="MainWindow" Height="1024" Width="1440">
+        Title="MainWindow" Height="1080" Width="1920">
     <Grid>
         
         <!-- Grid.RowDefinition and Grid.ColumnDefinition --> 
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
-            <RowDefinition Height="924"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="350"/>
-            <ColumnDefinition Width="740"/>
+            <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="350"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         
         <!-- All the reusable components-->
-        <views:Header Grid.Row="0" Grid.ColumnSpan="4"/>
+        <views:Header Grid.Row="0" Grid.ColumnSpan="5"/>
         <views:Buttons Grid.Row="1" Grid.Column="0"/> 
 
         <!-- Other components -->
