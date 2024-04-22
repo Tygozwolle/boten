@@ -19,7 +19,7 @@ namespace TestConsoleApp
             Console.WriteLine(tygo.Roles.Count);
 
 
-            Member newMember = memberService.Create(tygo, "gerard", "Jonh", "hoi@doei.be", "Test123$");
+            Member newMember = memberService.Create(tygo, "gerard", "Jhon", "hoi@doei.be", "Test123$");
             Console.WriteLine(newMember.FirstName);
         }
     }
