@@ -72,6 +72,35 @@ public class MemberRepository : IMemberRepository
 
     public Member Create(string firstName, string lastName, string email, string passwordHash)
     {
-        throw new NotImplementedException();
+
+        Member? member;
+        using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
+        {
+            connection.Open();
+            String sql = $"INSERT INTO `members`( `first_name`, `last_name`, `email`, `password`) VALUES (@firstName,@lastName,@email,@passwordHash)";
+            Console.WriteLine(sql);
+
+            using (MySqlCommand command = new MySqlCommand(sql, connection))
+            {
+                command.Parameters.Add("@firstName", MySqlDbType.VarChar);
+                command.Parameters["@firstName"].Value = firstName;
+
+                command.Parameters.Add("@lastName", MySqlDbType.VarChar);
+                command.Parameters["@lastName"].Value = lastName;
+
+                command.Parameters.Add("@email", MySqlDbType.VarChar);
+                command.Parameters["@email"].Value = email;
+
+                command.Parameters.Add("@passwordHash", MySqlDbType.VarChar);
+                command.Parameters["@passwordHash"].Value = passwordHash;
+                command.ExecuteReader();
+                 return new Member((int) command.LastInsertedId, firstName, lastName, email, GetRoles((int) command.LastInsertedId));
+              
+                }
+            }
+            
+        }
+
+       
+        
     }
-}
