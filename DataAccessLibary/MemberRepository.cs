@@ -19,13 +19,15 @@ public class MemberRepository : IMemberRepository
         using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
         {
             connection.Open();
-            String sql = $"SELECT * FROM members WHERE email = @email AND password = '{passwordHash}'";
+            String sql = $"SELECT * FROM members WHERE email = @email AND password = @password";
             Console.WriteLine(sql);
 
             using (MySqlCommand command = new MySqlCommand(sql, connection))
             {
                 command.Parameters.Add("@email", MySqlDbType.VarChar);
                 command.Parameters["@email"].Value = email;
+                command.Parameters.Add("@password", MySqlDbType.VarChar);
+                command.Parameters["@password"].Value = passwordHash;
                 using (MySqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
