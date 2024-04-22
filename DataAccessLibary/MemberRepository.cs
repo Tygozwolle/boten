@@ -19,7 +19,7 @@ public class MemberRepository : IMemberRepository
         using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
         {
             connection.Open();
-            String sql = $"SELECT * FROM members WHERE email = @email AND password = @passwordHash";
+           const String sql = $"SELECT * FROM members WHERE email = @email AND password = @passwordHash";
             Console.WriteLine(sql);
 
             using (MySqlCommand command = new MySqlCommand(sql, connection))
@@ -48,11 +48,13 @@ public class MemberRepository : IMemberRepository
         using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
         {
             connection.Open();
-            String sql = $"SELECT * FROM member_roles WHERE member_id = {id}";
+          const  String sql = $"SELECT * FROM member_roles WHERE member_id = @id";
             Console.WriteLine(sql);
 
             using (MySqlCommand command = new MySqlCommand(sql, connection))
             {
+                command.Parameters.Add("@id", MySqlDbType.VarChar);
+                command.Parameters["@id"].Value = id;
                 using (MySqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
@@ -79,7 +81,7 @@ public class MemberRepository : IMemberRepository
         using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
         {
             connection.Open();
-            String sql = $"INSERT INTO `members`( `first_name`, `last_name`, `email`, `password`) VALUES (@firstName,@lastName,@email,@passwordHash)";
+          const  String sql = $"INSERT INTO `members`( `first_name`, `last_name`, `email`, `password`) VALUES (@firstName,@lastName,@email,@passwordHash)";
             Console.WriteLine(sql);
 
             using (MySqlCommand command = new MySqlCommand(sql, connection))
