@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RoeiVerenigingLibary.Exceptions
 {
-    class IncorrectRightsExeption : Exception
+    public class IncorrectRightsExeption : Exception
     {
         public override string Message => ("U heeft geen rechten om deze actie uit te voeren");
     }
