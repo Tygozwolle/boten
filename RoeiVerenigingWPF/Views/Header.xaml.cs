@@ -8,5 +8,6 @@ public partial class Header : UserControl
     {
         InitializeComponent();
         DataContext = this;
+        
     }
 }
