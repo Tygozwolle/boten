@@ -5,30 +5,34 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:RoeiVerenigingWPF.Views"
              mc:Ignorable="d"
-             d:DesignHeight="924" d:DesignWidth="350">
+             d:DesignHeight="924" d:DesignWidth="350"
+             Background="#CCE8FF">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="200"/> <!-- Image -->
-            <RowDefinition Height="50"/>  <!-- Label 1 -->
-            <RowDefinition Height="200"/> <!-- Label 2 -->
-            <RowDefinition Height="Auto"/> <!-- Buttons -->
+            <RowDefinition Height="200" /> <!-- Image -->
+            <RowDefinition Height="Auto" />  <!-- Titel voor tekst -->
+            <RowDefinition Height="Auto" /> <!-- Tekst over vereniging -->
+            <RowDefinition Height="*" /> <!-- Boten -->
+            <RowDefinition Height="*" /> <!-- Schade -->
+            <RowDefinition Height="*" /> <!-- Evenementen -->
+            <RowDefinition Height="*" /> <!-- Reserveringen -->
         </Grid.RowDefinitions>
 
         <!-- Image -->
         <Image Name="VerenigingsAfbeelding" Grid.Row="0" VerticalAlignment="Top" />
 
         <!-- Label 1 -->
-        <TextBlock Grid.Row="1" Margin="10" VerticalAlignment="Center" Text="Over onze vereniging:" FontFamily="Franklin Gothic Medium" FontSize="32" />
+        <TextBlock Grid.Row="1" Margin="10" VerticalAlignment="Center" Text="Over onze vereniging:"
+                   FontFamily="Franklin Gothic Medium" FontSize="32" Foreground="#1A517A" />
 
         <!-- Label 2 -->
-        <TextBlock Grid.Row="2" Margin="10 10" TextWrapping="WrapWithOverflow" Text="Langs de kalme oevers van de rivier, gewiegd door het zachte ruisen van het water, ontstond de roeivereniging Rivier Stroom. Een groepje vrienden, betoverd door de serene schoonheid van de omgeving, besloot hun passie voor roeien te delen. Met zelfgemaakte boten en een ontembare geest van avontuur begonnen ze samen te trainen. Hun enthousiasme verspreidde zich als een golf door de gemeenschap, en al snel sloten anderen zich aan. Gedreven door hun liefde voor de sport en de natuur, groeide Rivier Stroom uit tot een bloeiende vereniging, waar vriendschap en passie samenvloeiden op het kabbelende water."/>
+        <TextBlock Grid.Row="2" Margin="10 10" TextWrapping="WrapWithOverflow" FontFamily="Times New Roman" FontSize="13.5"
+                   Text="Langs de kalme oevers van de rivier, gewiegd door het zachte ruisen van het water, ontstond de roeivereniging Rivier Stroom. Een groepje vrienden, betoverd door de serene schoonheid van de omgeving, besloot hun passie voor roeien te delen. Met zelfgemaakte boten en een ontembare geest van avontuur begonnen ze samen te trainen. Hun enthousiasme verspreidde zich als een golf door de gemeenschap, en al snel sloten anderen zich aan. Gedreven door hun liefde voor de sport en de natuur, groeide Rivier Stroom uit tot een bloeiende vereniging, waar vriendschap en passie samenvloeiden op het kabbelende water." />
 
         <!-- Buttons -->
-        <StackPanel Grid.Row="3" Orientation="Vertical" Margin="0 0 0 0">
-            <Button Content="Boten" Width="315" Height="75" Margin="17 30"/>
-            <Button Content="Schade" Width="315" Height="75" Margin="17 30"/>
-            <Button Content="Evenementen" Width="315" Height="75" Margin="17 30"/>
-            <Button Content="Reserveringen" Width="315" Height="75" Margin="17 30"/>
-        </StackPanel>
+        <Button Grid.Row="3" Content="Boten" Margin="20" FontFamily="Franklin Gothic Medium" FontSize="32" Foreground="#1A517A" Background="#88BFEA"/>
+        <Button Grid.Row="4" Content="Schade" Margin="20" FontFamily="Franklin Gothic Medium" FontSize="32" Foreground="#1A517A" Background="#88BFEA"/>
+        <Button Grid.Row="5" Content="Evenementen" Margin="20" FontFamily="Franklin Gothic Medium" FontSize="32" Foreground="#1A517A" Background="#88BFEA"/>
+        <Button Grid.Row="6" Content="Reserveringen" Margin="20" FontFamily="Franklin Gothic Medium" FontSize="32" Foreground="#1A517A" Background="#88BFEA"/>
     </Grid>
 </UserControl>
