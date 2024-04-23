@@ -17,13 +17,12 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="350"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="350"/>
-            <ColumnDefinition Width="Auto"/>
+        
         </Grid.ColumnDefinitions>
         
         <!-- All the reusable components-->
-        <Components:Header Grid.Row="0" Grid.ColumnSpan="5"/>
+        <Components:Header Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
         <Components:Buttons Grid.Row="1" Grid.Column="0"/> 
-<Frame x:Name="MainContent" Grid.Row="1" Grid.Column="1"/>        <!-- Other components -->
+        <Frame x:Name="MainContent" Grid.Row="1" Grid.Column="1"/>        <!-- Other components -->
     </Grid>
 </Window>

@@ -15,4 +15,9 @@
     </Content>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DataAccessLibary\DataAccessLibary.csproj" />
+    <ProjectReference Include="..\RoeiVerenigingLibary\RoeiVerenigingLibary.csproj" />
+  </ItemGroup>
+
 </Project>

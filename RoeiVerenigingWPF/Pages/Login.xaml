@@ -5,7 +5,9 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:RoeiVerenigingWPF.Pages"
       mc:Ignorable="d"
-      Title="Login" Height="450" Width="800">
+      Title="Login"
+      Background="HotPink"
+      >
     <Grid>
         <TextBlock Text="Pagina 1"></TextBlock>
     </Grid>
