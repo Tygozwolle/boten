@@ -17,19 +17,21 @@
             <!-- Title Column -->
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
+
+
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="350" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
 
         <!-- Header -->
         <views:Header Grid.ColumnSpan="4" Grid.Row="0"/>
 
         <!-- Titel -->
-        <Label Content="Boot X Reserveren" FontSize="30" Grid.Row="1" Grid.Column="1"/>
+        <Label Content="Boot X Reserveren" FontSize="30" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"/>
 
         <!-- calender -->
         <Viewbox
@@ -41,10 +43,11 @@
 
         <!-- Photo -->
         <Image Source="/img/Image_not_available.png" Grid.Column="2" Grid.Row="2"/>
-        
+
         <!-- Tekst Label -->
         <Label Content="Tekst over Boten" Grid.Row="2" Grid.Column="3"/>
-        
+
+        <Button Grid.Column="3" Grid.Row="3" MaxHeight="50" Margin="50,162,50,38" Content="Reserveren"></Button>
 
     </Grid>
 
