@@ -1,0 +1,30 @@
+<Window x:Class="RoeiVerenigingWPF.Frames.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:RoeiVerenigingWPF.Frames"
+        xmlns:views="clr-namespace:RoeiVerenigingWPF.Views"
+        mc:Ignorable="d"
+        Title="MainWindow" WindowState="Maximized">
+    <Grid>
+        
+        <!-- Grid.RowDefinition and Grid.ColumnDefinition --> 
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="350"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="350"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        
+        <!-- All the reusable components-->
+        <views:Header Grid.Row="0" Grid.ColumnSpan="5"/>
+        <views:Buttons Grid.Row="1" Grid.Column="0"/> 
+
+        <!-- Other components -->
+    </Grid>
+</Window>
