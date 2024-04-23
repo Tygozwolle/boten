@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using DataAccessLibary;
 using RoeiVerenigingLibary;
+using RoeiVerenigingLibary.Exceptions;
 using RoeiVerenigingWPF.Frames;
 
 namespace RoeiVerenigingWPF.Pages;
@@ -22,6 +23,13 @@ public partial class Login : Page
         string password = Password.Password;
 
         MemberService service = new MemberService(new MemberRepository());
-        MainWindow.LoggedInMember = service.Login(email, password);
+        try
+        {
+            MainWindow.LoggedInMember = service.Login(email, password);
+        }
+        catch (IncorrectEmailOrPasswordException e)
+        {
+            MessageBox.Show(e.Message);
+        }
     }
 }
