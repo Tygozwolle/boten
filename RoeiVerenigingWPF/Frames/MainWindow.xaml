@@ -22,8 +22,7 @@
         
         <!-- All the reusable components-->
         <Components:Header Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
-        <Components:Buttons Grid.Row="1" Grid.Column="0"/> 
-        <Frame x:Name="MainContent" Grid.Row="1" Grid.Column="1"/>
-        <!-- Other components -->
+        <Components:Buttons x:Name="___ButtonClass_" Grid.Row="1" Grid.Column="0"/> 
+        <Frame x:Name="MainContent" Grid.Row="1" Grid.Column="1"/>        <!-- Other components -->
     </Grid>
 </Window>
