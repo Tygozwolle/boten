@@ -9,5 +9,6 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
         MainContent.Navigate(new Login());
+        ___ButtonClass_.main = this;
     }
 }
