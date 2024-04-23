@@ -1,4 +1,5 @@
 using RoeiVerenigingWPF.Frames;
+using RoeiVerenigingWPF.Pages;
 using System.Security.Policy;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
@@ -7,7 +8,7 @@ namespace RoeiVerenigingWPF.Components;
 
 public partial class Buttons : UserControl
 {
-    public MainWindow main { public set; public get; }
+    public MainWindow main {  set;  get; }
     public void ButtonsMenu_Loaded()
     {
         VerenigingsAfbeelding.Source =
@@ -18,6 +19,30 @@ public partial class Buttons : UserControl
     {
         InitializeComponent();
         ButtonsMenu_Loaded();
-        main.MainContent.Navigate();
+        
+    }
+
+    private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
+    {
+        if(sender == ___BotenButton_)
+        {
+            //main.MainContent.Navigate(new );
+            throw new NotImplementedException("reservering");
+        }
+        else if(sender == ___DamageButton_)
+        {
+            //  main.MainContent.Navigate(new );
+            throw new NotImplementedException("damage");
+        }
+        else if(sender == ___EventsButton_)
+        {
+            //  main.MainContent.Navigate(new );
+            throw new NotImplementedException("events");
+        }
+        else if(sender == ___ReserveButton_)
+        {
+            //  main.MainContent.Navigate(new );
+            throw new NotImplementedException("reserve");
+        }
     }
 }
