@@ -6,21 +6,22 @@
       xmlns:local="clr-namespace:RoeiVerenigingWPF.Pages"
       mc:Ignorable="d"
       Title="Login"
-      Background="HotPink"
       >
-    <Grid>
+    <Grid Margin="0,350,0,0">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Label Grid.Row="0" Content="Username:"/>
-        <TextBox Grid.Row="0" x:Name="Email" Width="200" Margin="5"/>
+        <Label Grid.Row="0" Content="Username:" Width="200" FontFamily="Franklin Gothic Medium" FontSize="16" Foreground="#1A517A"/>
+        <TextBox Grid.Row="1" x:Name="Email" Width="200" BorderBrush="Black"/>
 
-        <Label Grid.Row="1" Content="Password:"/>
-        <PasswordBox Grid.Row="1" x:Name="Password" Width="200" Margin="5"/>
-
-        <Button Grid.Row="2" Content="Login" Click="LoginMember" Width="200" Margin="5"/>
+        <Label Grid.Row="2" Content="Password:" Width="200" FontFamily="Franklin Gothic Medium" FontSize="16" Foreground="#1A517A"/>
+        <PasswordBox Grid.Row="3" x:Name="Password" Width="200" BorderBrush="Black"/>
+        
+        <Button Grid.Row="4" Content="Login" Click="LoginMember" Width="200" Margin="20" FontFamily="Franklin Gothic Medium" FontSize="32" Foreground="#1A517A" Background="#88BFEA" />
     </Grid>
 </Page>
