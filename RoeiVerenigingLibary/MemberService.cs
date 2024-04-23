@@ -49,7 +49,10 @@ public class MemberService
         {
             throw new MemberAlreadyExistsException();
         }
-
+        if(member == null)
+        {
+            throw new MemberAlreadyExistsException();
+        }
         return member;
     }
 
