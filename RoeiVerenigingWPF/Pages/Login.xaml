@@ -9,6 +9,18 @@
       Background="HotPink"
       >
     <Grid>
-        <TextBlock Text="Pagina 1"></TextBlock>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Content="Username:"/>
+        <TextBox Grid.Row="0" x:Name="Email" Width="200" Margin="5"/>
+
+        <Label Grid.Row="1" Content="Password:"/>
+        <PasswordBox Grid.Row="1" x:Name="Password" Width="200" Margin="5"/>
+
+        <Button Grid.Row="2" Content="Login" Click="LoginMember" Width="200" Margin="5"/>
     </Grid>
 </Page>
