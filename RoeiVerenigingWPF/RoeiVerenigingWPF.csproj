@@ -10,7 +10,7 @@
 
   <ItemGroup>
     <None Remove="img\twee-mensen-in-polyester-roeiboot.png" />
-    <Content Include="img\twee-mensen-in-polyester-roeiboot.png">
+    <Content Include="Images\twee-mensen-in-polyester-roeiboot.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

@@ -4,7 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:RoeiVerenigingWPF.Frames"
-        xmlns:views="clr-namespace:RoeiVerenigingWPF.Views"
+        xmlns:Components="clr-namespace:RoeiVerenigingWPF.Components"
         mc:Ignorable="d"
         Title="MainWindow" WindowState="Maximized">
     <Grid>
@@ -22,9 +22,8 @@
         </Grid.ColumnDefinitions>
         
         <!-- All the reusable components-->
-        <views:Header Grid.Row="0" Grid.ColumnSpan="5"/>
-        <views:Buttons Grid.Row="1" Grid.Column="0"/> 
-
-        <!-- Other components -->
+        <Components:Header Grid.Row="0" Grid.ColumnSpan="5"/>
+        <Components:Buttons Grid.Row="1" Grid.Column="0"/> 
+<Frame x:Name="MainContent" Grid.Row="1" Grid.Column="1"/>        <!-- Other components -->
     </Grid>
 </Window>

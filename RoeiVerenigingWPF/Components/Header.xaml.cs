@@ -1,6 +1,6 @@
 using System.Windows.Controls;
 
-namespace RoeiVerenigingWPF.Views;
+namespace RoeiVerenigingWPF.Components;
 
 public partial class Header : UserControl
 {
