@@ -24,25 +24,26 @@ public partial class Buttons : UserControl
 
     private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
     {
-        if(sender == ___BotenButton_)
+        switch (sender)
         {
-            //main.MainContent.Navigate(new );
-            throw new NotImplementedException("reservering");
-        }
-        else if(sender == ___DamageButton_)
-        {
-            //  main.MainContent.Navigate(new );
-            throw new NotImplementedException("damage");
-        }
-        else if(sender == ___EventsButton_)
-        {
-            //  main.MainContent.Navigate(new );
-            throw new NotImplementedException("events");
-        }
-        else if(sender == ___ReserveButton_)
-        {
-            //  main.MainContent.Navigate(new );
-            throw new NotImplementedException("reserve");
+            case Button button when button == ___BotenButton_:
+                //main.MainContent.Navigate(new );
+                throw new NotImplementedException("reservering");
+
+            case Button button when button == ___DamageButton_:
+                //main.MainContent.Navigate(new );
+                throw new NotImplementedException("damage");
+
+            case Button button when button == ___EventsButton_:
+                //main.MainContent.Navigate(new );
+                throw new NotImplementedException("events");
+
+            case Button button when button == ___ReserveButton_:
+                //main.MainContent.Navigate(new );
+                throw new NotImplementedException("reserve");
+
+            default:
+                break;
         }
     }
 }
