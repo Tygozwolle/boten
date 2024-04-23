@@ -9,10 +9,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="img\Image_not_available.png" />
     <None Remove="img\twee-mensen-in-polyester-roeiboot.png" />
     <Content Include="img\twee-mensen-in-polyester-roeiboot.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="img\Image_not_available.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.6.0" />
   </ItemGroup>
 
 </Project>
