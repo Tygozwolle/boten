@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:RoeiVerenigingWPF.Frames"
         xmlns:views="clr-namespace:RoeiVerenigingWPF.Views"
         mc:Ignorable="d"
-        Title="Reservering Aanmaken" Height="1024" Width="1440">
+        Title="Reservering Aanmaken" WindowState="Maximized">
     <Grid>
 
 
@@ -15,8 +15,8 @@
             <!-- Header Column -->
             <RowDefinition Height="50"/>
             <!-- Title Column -->
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
 
 
         </Grid.RowDefinitions>
@@ -29,6 +29,7 @@
 
         <!-- Header -->
         <views:Header Grid.ColumnSpan="4" Grid.Row="0"/>
+        <views:Buttons Grid.Row="1" Grid.Column="0" Grid.RowSpan="4"/>
 
         <!-- Titel -->
         <Label Content="Boot X Reserveren" FontSize="30" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"/>
@@ -47,7 +48,7 @@
         <!-- Tekst Label -->
         <Label Content="Tekst over Boten" Grid.Row="2" Grid.Column="3"/>
 
-        <Button Grid.Column="3" Grid.Row="3" MaxHeight="50" Margin="50,162,50,38" Content="Reserveren"></Button>
+        <Button Grid.Column="3" Grid.Row="3" MaxHeight="50" Margin="50,162,50,38" Content="Reserveren" FontSize="20"></Button>
 
     </Grid>
 
