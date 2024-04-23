@@ -11,9 +11,5 @@ public partial class Header : UserControl
     {
         InitializeComponent();
         DataContext = this;
-        Binding binding = new Binding(null);
-       binding.Source = main;
-        binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
-        ___Name_.SetBinding(ComboBoxItem.ContentProperty, binding);
     }
 }
