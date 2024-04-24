@@ -20,7 +20,12 @@ namespace RoeiVerenigingWPF.Frames
                     _loggedInMember = value;
                     OnPropertyChanged();
                 }
-                this.HeaderClass.NameComboBoxItem.Content = value.FirstName + " " + value.Infix + " " + value.LastName;
+
+                if (_loggedInMember != null)
+                    this.HeaderClass.NameComboBoxItem.Content =
+                        value.FirstName + " " + value.Infix + " " + value.LastName;
+                else
+                    this.HeaderClass.NameComboBoxItem.Content = "Uitgelogd";
             }
         }
 
@@ -39,6 +44,5 @@ namespace RoeiVerenigingWPF.Frames
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
     }
 }

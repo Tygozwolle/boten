@@ -11,29 +11,32 @@
             <ColumnDefinition Width="*" /> <!-- Header Column -->
             <ColumnDefinition Width="350" /> <!-- Dropdown Column -->
         </Grid.ColumnDefinitions>
-        
+
         <Grid.RowDefinitions>
-            <RowDefinition Height="100"/> <!-- Header -->
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="100" /> <!-- Header -->
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <!-- Header -->
         <Border Grid.Row="0" Grid.Column="0" Background="#1A517A" Height="100">
             <!-- Your header content goes here -->
-            <TextBlock Text="Roeivereniging Rivierstroom" FontFamily="Franklin Gothic Medium" FontSize="40" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#CCE8FF"/>
+            <TextBlock Text="Roeivereniging Rivierstroom" FontFamily="Franklin Gothic Medium" FontSize="40"
+                       VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#CCE8FF" />
         </Border>
 
         <!-- Dropdown -->
         <Border Grid.Row="0" Grid.Column="1" Background="#88BFEA" Height="100">
             <!-- Your dropdown content goes here -->
-            <ComboBox VerticalContentAlignment="Center" FontFamily="Times New Roman" FontSize="20" Background="#88BFEA">
-                <ComboBoxItem x:Name="NameComboBoxItem" Height="50" Content="Uitgelogd" Visibility="Collapsed" IsSelected="True" Background="#88BFEA" />
-                <ComboBoxItem Height="50" Content="Option 1"/>
-                <ComboBoxItem Height="50" Content="Option 2"/>
-                <ComboBoxItem Height="50" Content="Option 3"/>
-                <ComboBoxItem Height="50" Content="Option 4"/>
+            <ComboBox VerticalContentAlignment="Center" FontFamily="Times New Roman" FontSize="20" Background="#88BFEA"
+                      SelectionChanged="MemberFunctions_SelectionChanged">
+                <ComboBoxItem x:Name="NameComboBoxItem" Height="50" Content="Uitgelogd" Visibility="Collapsed"
+                              IsSelected="True" Background="#88BFEA" />
+                <ComboBoxItem Height="50" Content="Option 1" />
+                <ComboBoxItem Height="50" Content="Option 2" />
+                <ComboBoxItem Height="50" Content="Option 3" />
+                <ComboBoxItem Height="50" Content="Uitloggen" />
             </ComboBox>
         </Border>
-        
+
     </Grid>
 </UserControl>
