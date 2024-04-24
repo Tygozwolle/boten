@@ -27,7 +27,7 @@
         <Border Grid.Row="0" Grid.Column="1" Background="#88BFEA" Height="100">
             <!-- Your dropdown content goes here -->
             <ComboBox VerticalContentAlignment="Center" FontFamily="Times New Roman" FontSize="20" Background="#88BFEA">
-                <ComboBoxItem x:Name="___Name_" Height="50" Content="Uitgelogd" Visibility="Collapsed" IsSelected="True" Background="#88BFEA" />
+                <ComboBoxItem x:Name="NameComboBoxItem" Height="50" Content="Uitgelogd" Visibility="Collapsed" IsSelected="True" Background="#88BFEA" />
                 <ComboBoxItem Height="50" Content="Option 1"/>
                 <ComboBoxItem Height="50" Content="Option 2"/>
                 <ComboBoxItem Height="50" Content="Option 3"/>
