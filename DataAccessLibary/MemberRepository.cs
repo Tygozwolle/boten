@@ -3,6 +3,7 @@ using RoeiVerenigingLibary;
 using System.ComponentModel;
 using System.Net.Mail;
 using Microsoft.VisualBasic.CompilerServices;
+using System.Reflection.Metadata.Ecma335;
 
 namespace DataAccessLibary;
 
@@ -15,7 +16,6 @@ public class MemberRepository : IMemberRepository
             throw new Exception("is not a email");
         }
 
-        Member? member;
         using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
         {
             connection.Open();
@@ -73,8 +73,6 @@ public class MemberRepository : IMemberRepository
 
     public Member Create(string firstName, string lastName, string email, string passwordHash)
     {
-
-        Member? member;
         using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
         {
             connection.Open();
@@ -98,9 +96,7 @@ public class MemberRepository : IMemberRepository
               
                 }
             }
-            
+        return null;
         }
-
-       
         
     }
