@@ -41,7 +41,7 @@ public class MemberRepository : IMemberRepository
         return null;
     }
 
-    private List<string> GetRoles(int id)
+    private static List<string> GetRoles(int id)
     {
         var list = new List<string>();
         using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
@@ -66,7 +66,7 @@ public class MemberRepository : IMemberRepository
         return list;
     }
 
-    private bool IsValid(string email)
+    private static bool IsValid(string email)
     {
         return MailAddress.TryCreate(email, out var result);
     }
