@@ -31,5 +31,6 @@ public partial class Login : Page
         {
             MessageBox.Show(e.Message);
         }
+        //todo: send to main page
     }
 }

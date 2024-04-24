@@ -34,7 +34,7 @@ public class MemberService
         return member;
     }
 
-    public Member Create(Member loggedInMember, string firstName, string lastName, string email, string password)
+    public Member Create(Member loggedInMember, string firstName, string infix, string lastName, string email, string password)
     {
         if(!loggedInMember.Roles.Contains("beheerder"))
         {
@@ -44,7 +44,7 @@ public class MemberService
         Member? member;
         try
         {
-            member = _memberRepository.Create(firstName, lastName, email, CreatePasswordHash(password));
+            member = _memberRepository.Create(firstName, infix, lastName, email, CreatePasswordHash(password));
         }
         catch (Exception)
         {

@@ -20,7 +20,7 @@ namespace RoeiVerenigingWPF.Frames
                     _loggedInMember = value;
                     OnPropertyChanged();
                 }
-                this.HeaderClass.NameComboBoxItem.Content = value.FirstName + " " + value.LastName;
+                this.HeaderClass.NameComboBoxItem.Content = value.FirstName + " " + value.Infix + " " + value.LastName;
             }
         }
 
