@@ -6,7 +6,7 @@ namespace RoeiVerenigingWPF.Components;
 
 public partial class Header : UserControl
 {
-    public MainWindow main { set; get; }
+    public MainWindow MainWindow { set; get; }
     public Header()
     {
         InitializeComponent();

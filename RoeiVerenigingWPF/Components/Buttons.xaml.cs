@@ -8,7 +8,7 @@ namespace RoeiVerenigingWPF.Components;
 
 public partial class Buttons : UserControl
 {
-    public MainWindow main {  set;  get; }
+    public MainWindow MainWindow {  set;  get; }
     public void ButtonsMenu_Loaded()
     {
         VerenigingsAfbeelding.Source =
@@ -27,19 +27,19 @@ public partial class Buttons : UserControl
         switch (sender)
         {
             case Button button when button == BotenButton:
-                //main.MainContent.Navigate(new );
+                //MainWindow.MainContent.Navigate(new );
                 throw new NotImplementedException("reservering");
 
             case Button button when button == DamageButton:
-                //main.MainContent.Navigate(new );
+                //MainWindow.MainContent.Navigate(new );
                 throw new NotImplementedException("damage");
 
             case Button button when button == EventsButton:
-                //main.MainContent.Navigate(new );
+                //MainWindow.MainContent.Navigate(new );
                 throw new NotImplementedException("events");
 
             case Button button when button == ReserveButton:
-                //main.MainContent.Navigate(new );
+                //MainWindow.MainContent.Navigate(new );
                 throw new NotImplementedException("reserve");
 
             default:

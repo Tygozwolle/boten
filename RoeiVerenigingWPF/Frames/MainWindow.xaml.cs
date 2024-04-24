@@ -29,8 +29,8 @@ namespace RoeiVerenigingWPF.Frames
             InitializeComponent();
             MainContent.Navigate(new Login(this));
             DataContext = this;
-            ___ButtonClass_.main = this;
-            ___HeaderClass_.main = this;
+            ___ButtonClass_.MainWindow = this;
+            ___HeaderClass_.MainWindow = this;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
