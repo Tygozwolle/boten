@@ -20,7 +20,6 @@ public class MemberRepository : IMemberRepository
         {
             connection.Open();
            const String sql = $"SELECT * FROM members WHERE email = @email AND password = @passwordHash";
-            Console.WriteLine(sql);
 
             using (MySqlCommand command = new MySqlCommand(sql, connection))
             {
@@ -49,7 +48,6 @@ public class MemberRepository : IMemberRepository
         {
             connection.Open();
           const  String sql = $"SELECT * FROM member_roles WHERE member_id = @id";
-            Console.WriteLine(sql);
 
             using (MySqlCommand command = new MySqlCommand(sql, connection))
             {
@@ -71,7 +69,6 @@ public class MemberRepository : IMemberRepository
     private bool IsValid(string email)
     {
         return MailAddress.TryCreate(email, out var result);
-
     }
 
     public Member Create(string firstName, string lastName, string email, string passwordHash)
@@ -82,7 +79,6 @@ public class MemberRepository : IMemberRepository
         {
             connection.Open();
           const  String sql = $"INSERT INTO `members`( `first_name`, `last_name`, `email`, `password`) VALUES (@firstName,@lastName,@email,@passwordHash)";
-            Console.WriteLine(sql);
 
             using (MySqlCommand command = new MySqlCommand(sql, connection))
             {
