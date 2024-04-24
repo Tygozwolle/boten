@@ -34,9 +34,9 @@ public class MemberService
         return member;
     }
 
-    public Member Create(Member LoggedInMember, string firstName, string lastName, string email, string password)
+    public Member Create(Member loggedInMember, string firstName, string lastName, string email, string password)
     {
-        if(!LoggedInMember.Roles.Contains("beheerder"))
+        if(!loggedInMember.Roles.Contains("beheerder"))
         {
             throw new IncorrectRightsExeption();
         }
