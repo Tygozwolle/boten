@@ -26,9 +26,10 @@ public class MemberService
             throw new IncorrectEmailOrPasswordException();
         }
 
-        if(member == null)
+        if (member == null)
+        {
             throw new IncorrectEmailOrPasswordException();
-
+        }
 
         return member;
     }
