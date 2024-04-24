@@ -9,12 +9,12 @@ namespace RoeiVerenigingWPF.Pages;
 
 public partial class Login : Page
 {
-    private MainWindow MainWindow;
+    private MainWindow _mainWindow;
 
     public Login(MainWindow mainWindow)
     {
         InitializeComponent();
-        MainWindow = mainWindow;
+        _mainWindow = mainWindow;
     }
 
     public void LoginMember(object sender, RoutedEventArgs routedEventArgs)
@@ -25,7 +25,7 @@ public partial class Login : Page
         MemberService service = new MemberService(new MemberRepository());
         try
         {
-            MainWindow.LoggedInMember = service.Login(email, password);
+            _mainWindow.LoggedInMember = service.Login(email, password);
         }
         catch (IncorrectEmailOrPasswordException e)
         {
