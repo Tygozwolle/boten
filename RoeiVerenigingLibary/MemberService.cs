@@ -8,7 +8,7 @@ namespace RoeiVerenigingLibary;
 public class MemberService
 {
 
-    private IMemberRepository _memberRepository;
+    private readonly IMemberRepository _memberRepository;
 
     public MemberService(IMemberRepository repository)
     {
