@@ -20,7 +20,7 @@ namespace RoeiVerenigingWPF.Frames
                     _loggedInMember = value;
                     OnPropertyChanged();
                 }
-                this.___HeaderClass_.NameComboBoxItem.Content = value.FirstName + " " + value.LastName;
+                this.HeaderClass.NameComboBoxItem.Content = value.FirstName + " " + value.LastName;
             }
         }
 
@@ -29,8 +29,8 @@ namespace RoeiVerenigingWPF.Frames
             InitializeComponent();
             MainContent.Navigate(new Login(this));
             DataContext = this;
-            ___ButtonClass_.MainWindow = this;
-            ___HeaderClass_.MainWindow = this;
+            ButtonClass.MainWindow = this;
+            HeaderClass.MainWindow = this;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
