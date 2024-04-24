@@ -26,19 +26,19 @@ public partial class Buttons : UserControl
     {
         switch (sender)
         {
-            case Button button when button == ___BotenButton_:
+            case Button button when button == BotenButton:
                 //main.MainContent.Navigate(new );
                 throw new NotImplementedException("reservering");
 
-            case Button button when button == ___DamageButton_:
+            case Button button when button == DamageButton:
                 //main.MainContent.Navigate(new );
                 throw new NotImplementedException("damage");
 
-            case Button button when button == ___EventsButton_:
+            case Button button when button == EventsButton:
                 //main.MainContent.Navigate(new );
                 throw new NotImplementedException("events");
 
-            case Button button when button == ___ReserveButton_:
+            case Button button when button == ReserveButton:
                 //main.MainContent.Navigate(new );
                 throw new NotImplementedException("reserve");
 
