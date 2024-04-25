@@ -40,8 +40,6 @@ public partial class Header : UserControl
                     break;
                 }
         }
-        // MessageBox.Show(selectedContent);
-
     }
 
     private bool allowNavigation(string selectedContent)
