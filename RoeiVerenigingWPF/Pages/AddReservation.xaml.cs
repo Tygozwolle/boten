@@ -21,7 +21,7 @@ namespace RoeiVerenigingWPF.Frames
             set;
         }
 //placeholder for logged in member
-        private Member _member = new Member(1111,  "tygo", "Iris", "simon", "123@456.be", new List<string>());
+        private Member _member = new Member(1010,  "tygo", "Iris", "simon", "123@456.be", new List<string>());
 
         public DateTime? currentDateTime = DateTime.Now;
 
@@ -60,7 +60,7 @@ namespace RoeiVerenigingWPF.Frames
             this.EndTime = EndTimePicker.Value;
             this.SelectedDate = Calendar.SelectedDate;
 
-            ReservationCreator r = new ReservationCreator(_member, 1, new ReservationRepository());
+            ReservationCreator r = new ReservationCreator(_member, 3, new ReservationRepository()); //om de een of andere reden pakt hij member.Id als Boat.Id
             try
             {
                 if (r.TimeChecker(StartTime, EndTime))

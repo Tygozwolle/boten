@@ -6,7 +6,7 @@ namespace DataAccessLibary;
 
 public class ReservationRepository : IReservationRepository
 {
-    public ReservationCreator Create(int userId, int boatId, DateTime StartTime, DateTime EndTime)
+    public ReservationCreator Create(int boatId, int userId, DateTime StartTime, DateTime EndTime)
     {
 
         using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))

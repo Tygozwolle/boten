@@ -27,7 +27,7 @@ public class ReservationCreator
         }
         else
         {
-            throw new InvalidTimeException("not valid time, time should be ");
+            throw new InvalidTimeException("not valid time, start time should be earlier than end time. ");
         }
     }
 
