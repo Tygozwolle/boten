@@ -34,6 +34,7 @@ namespace RoeiVerenigingWPF.Pages
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             MemberService service = new MemberService(new MemberRepository());
+            try { 
             string firstName = FirstName.Text;
             string infix = Infix.Text;
             string lastName = LastName.Text;
@@ -44,8 +45,12 @@ namespace RoeiVerenigingWPF.Pages
             {
                 MessageBox.Show($"{createdMember.FirstName} {createdMember.Infix} {createdMember.LastName} is aangemaakt met lidnummer {createdMember.Id}");
             }
-        
+        }
+            catch (MemberAlreadyExistsException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
 
-}
+        }
     }
 }
