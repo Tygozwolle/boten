@@ -22,10 +22,14 @@ namespace RoeiVerenigingWPF.Frames
                 }
 
                 if (_loggedInMember != null)
+                {
                     this.HeaderClass.NameComboBoxItem.Content =
                         value.FirstName + " " + value.Infix + " " + value.LastName;
+                }
                 else
+                {
                     this.HeaderClass.NameComboBoxItem.Content = "Uitgelogd";
+                }
             }
         }
 
