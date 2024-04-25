@@ -19,7 +19,7 @@ public class MemberRepository : IMemberRepository
         using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
         {
             connection.Open();
-            const String sql = $"SELECT * FROM members WHERE email = @email AND password = @passwordHash";
+            const string sql = $"SELECT * FROM members WHERE email = @email AND password = @passwordHash";
 
             using (MySqlCommand command = new MySqlCommand(sql, connection))
             {
