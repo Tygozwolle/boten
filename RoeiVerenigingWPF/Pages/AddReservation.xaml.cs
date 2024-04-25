@@ -13,7 +13,7 @@ namespace RoeiVerenigingWPF.Frames
     /// 
     public partial class AddReservation
     {
-        public string? SelectedDate { get; set; }
+        public DateTime? SelectedDate { get; set; }
         private DateTime? StartTime { get; set; }
         private DateTime? EndTime
         {
@@ -58,9 +58,9 @@ namespace RoeiVerenigingWPF.Frames
         {
             this.StartTime = BeginTimePicker.Value;
             this.EndTime = EndTimePicker.Value;
-            this.SelectedDate = Calendar.DisplayDate.ToString("dd-mm-yyyy");
+            this.SelectedDate = Calendar.SelectedDate;
 
-            ReservationCreator r = new ReservationCreator(_member, 10100, new ReservationRepository());
+            ReservationCreator r = new ReservationCreator(_member, 1, new ReservationRepository());
             try
             {
                 if (r.TimeChecker(StartTime, EndTime))

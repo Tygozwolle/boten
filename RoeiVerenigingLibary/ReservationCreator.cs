@@ -6,8 +6,8 @@ public class ReservationCreator
     private int UserId { get; set; }
     private int BoatId { get; set; }
     public string? Email { get; set; }
-    private string StartTime { get; set; }
-    private string EndTime { get; set; }
+    private DateTime StartTime { get; set; }
+    private DateTime EndTime { get; set; }
     private IReservationRepository _reservationRepository;
     
 
@@ -21,10 +21,8 @@ public class ReservationCreator
     
     public bool TimeChecker(DateTime? start, DateTime? end)
     {
-        if (int.Parse(start.Value.ToString("HH")) < int.Parse(end.Value.ToString("HH")) || start.Value.Equals(end.Value))
+        if (start < end)
         {
-            this.StartTime = start.Value.ToString("HH:mm");
-            this.EndTime = end.Value.ToString("HH:mm");
             return true;
         }
         else
