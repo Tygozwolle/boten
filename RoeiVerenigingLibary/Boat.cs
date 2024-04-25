@@ -1,13 +1,13 @@
 ﻿namespace RoeiVerenigingLibary
 {
-    public class Boats
+    public class Boat
     {
         public int Id { get; set; }
         public int CaptainSeat { get; set; }
         public int Seats { get; set; }
         //public Url Image { get; set; }
 
-        public Boats(int id, int captainSeat, int Seats)
+        public Boat(int id, int captainSeat, int Seats)
         {
             this.Id = id;
             CaptainSeat = captainSeat;
