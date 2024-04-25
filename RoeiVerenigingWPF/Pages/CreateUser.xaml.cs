@@ -31,5 +31,15 @@ namespace RoeiVerenigingWPF.Pages
             _mainWindow = mainWindow;
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            MemberService service = new MemberService(new MemberRepository());
+            string firstName = FirstName.Text;
+            string infix = Infix.Text;
+            string lastName = LastName.Text;
+            string email = Email.Text;
+            string password = Password.Password;
+            service.Create(_mainWindow.LoggedInMember, firstName, infix, lastName, email, password);
+        }
     }
 }
