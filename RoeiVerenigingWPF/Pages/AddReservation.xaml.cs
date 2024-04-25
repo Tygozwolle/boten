@@ -5,31 +5,23 @@ using System.Windows.Input;
 namespace RoeiVerenigingWPF.Frames
 {
     /// <summary>
-    /// Interaction logic for ReservationWindow.xaml
+    /// Interaction logic for AddReservation.xaml
     /// </summary>
     /// 
-    public partial class ReservationWindow : Window
+    public partial class AddReservation
     {
-
         public DateTime currentDateTime = DateTime.Now;
 
-        public ReservationWindow()
+        public AddReservation()
         {
             InitializeComponent();
             DataContext = this;
-
         }
 
         public DateTime CurrentDateTime
         {
-            get
-            {
-                return currentDateTime;
-            }
-            set
-            {
-                currentDateTime = value;
-            }
+            get { return currentDateTime; }
+            set { currentDateTime = value; }
         }
 
 
@@ -38,7 +30,6 @@ namespace RoeiVerenigingWPF.Frames
             var textBox = FocusManager.GetFocusedElement(this) as TextBox;
             if (textBox != null)
             {
-                
             }
         }
     }
