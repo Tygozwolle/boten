@@ -28,9 +28,9 @@ public partial class Buttons : UserControl
         {
             case Button button when button == BotenButton:
  
-                    MainWindow.MainContent.Navigate(new CreateUser(MainWindow));
+                    //MainWindow.MainContent.Navigate(new CreateUser(MainWindow));
         
-                //       throw new NotImplementedException("reservering");
+                       throw new NotImplementedException("reservering");
                 break;
             case Button button when button == DamageButton:
                 //MainWindow.MainContent.Navigate(new );

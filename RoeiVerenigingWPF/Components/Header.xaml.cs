@@ -2,6 +2,7 @@ using System.Windows;
 using RoeiVerenigingWPF.Frames;
 using System.Windows.Controls;
 using System.Windows.Data;
+using RoeiVerenigingWPF.Pages;
 
 namespace RoeiVerenigingWPF.Components;
 
@@ -32,6 +33,11 @@ public partial class Header : UserControl
                 MainWindow.LoggedInMember = null;
                 break;
             }
+            case "Nieuw Lid":
+                {
+                    MainWindow.MainContent.Navigate(new CreateUser(MainWindow));
+                    break;
+                }
         }
         // MessageBox.Show(selectedContent);
 

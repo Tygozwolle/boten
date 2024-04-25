@@ -33,7 +33,7 @@
                               IsSelected="True" Background="#88BFEA" />
                 <ComboBoxItem Height="50" Content="Option 1" />
                 <ComboBoxItem Height="50" Content="Option 2" />
-                <ComboBoxItem Height="50" Content="Option 3" />
+                <ComboBoxItem Height="50" Content="Nieuw Lid" />
                 <ComboBoxItem Height="50" Content="Uitloggen" />
             </ComboBox>
         </Border>
