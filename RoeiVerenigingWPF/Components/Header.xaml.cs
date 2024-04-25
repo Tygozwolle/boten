@@ -23,17 +23,18 @@ public partial class Header : UserControl
         string selectedContent = (string)selectedItem.Content;
         comboBox.SelectedIndex = 0;
 
-        if(!allowNavigation(selectedContent))
+        if (!allowNavigation(selectedContent))
+        {
             return;
-
+        }
         switch (selectedContent)
         {
             case "Uitloggen":
-            {
-                MainWindow.LoggedInMember = null;
-                MainWindow.MainContent.Navigate(new Login(MainWindow));
-                break;
-            }
+                {
+                    MainWindow.LoggedInMember = null;
+                    MainWindow.MainContent.Navigate(new Login(MainWindow));
+                    break;
+                }
             case "Nieuw Lid":
                 {
                     MainWindow.MainContent.Navigate(new CreateUser(MainWindow));
