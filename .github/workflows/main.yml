@@ -45,7 +45,7 @@ jobs:
           # Use always() to always run this step to publish test results when there are test failures
       if: ${{ always() }}
     - name: Run codacy-coverage-reporter
-      if: github.repository_owner == 'Tygozwolle'
+      if: github.actor!= 'dependabot[bot]'
       uses: codacy/codacy-coverage-reporter-action@v1.3.0
       with:
         project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
