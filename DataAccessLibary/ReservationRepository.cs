@@ -4,9 +4,9 @@ using RoeiVerenigingLibary;
  
 namespace DataAccessLibary;
 
-public class ReserveDB
+public class ReservationRepository : IReservationRepository
 {
-    private Reservation Get(int userId, int boatId, DateTime startTijd, DateTime eindTijd)
+    public ReservationCreator Create(int userId, int boatId, string startTijd, string eindTijd)
     { 
 
         using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
@@ -27,7 +27,9 @@ public class ReserveDB
                 command.Parameters["@UserId"].Value = userId;
                 command.Parameters["@startTijd"].Value = startTijd;
                 command.Parameters["@eindTijd"].Value = eindTijd;
+                command.ExecuteReader();
             }
+            
             connection.Close();
         }
       

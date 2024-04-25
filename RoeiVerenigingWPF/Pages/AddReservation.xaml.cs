@@ -1,6 +1,9 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using DataAccessLibary;
+using RoeiVerenigingLibary;
+using RoeiVerenigingLibary.Exceptions;
 
 namespace RoeiVerenigingWPF.Frames
 {
@@ -10,27 +13,66 @@ namespace RoeiVerenigingWPF.Frames
     /// 
     public partial class AddReservation
     {
-        public DateTime currentDateTime = DateTime.Now;
+        public string? SelectedDate { get; set; }
+        private DateTime? StartTime { get; set; }
+        private DateTime? EndTime
+        {
+            get;
+            set;
+        }
+//placeholder for logged in member
+        private Member _member = new Member(1111,  "tygo", "Iris", "simon", "123@456.be", new List<string>());
+
+        public DateTime? currentDateTime = DateTime.Now;
 
         public AddReservation()
         {
             InitializeComponent();
             DataContext = this;
+            
+
         }
 
         public DateTime CurrentDateTime
         {
-            get { return currentDateTime; }
-            set { currentDateTime = value; }
+            get
+            {
+                return CurrentDateTime;
+            }
+            set
+            {
+                currentDateTime = value;
+            }
         }
 
 
-        void TimePicker_TextChanged(object sender, TextChangedEventArgs e)
+        private void TimePicker_TextChanged(object sender, TextChangedEventArgs e)
         {
             var textBox = FocusManager.GetFocusedElement(this) as TextBox;
             if (textBox != null)
             {
             }
         }
+
+        public void ConfirmButton(Object sender, RoutedEventArgs e)
+        {
+            this.StartTime = BeginTimePicker.Value;
+            this.EndTime = EndTimePicker.Value;
+            this.SelectedDate = Calendar.DisplayDate.ToString("dd-mm-yyyy");
+
+            ReservationCreator r = new ReservationCreator(_member, 10100, new ReservationRepository());
+            try
+            {
+                if (r.TimeChecker(StartTime, EndTime))
+                {
+                    r.CommitToDb();
+                }
+            }
+            catch(InvalidTimeException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        
     }
 }

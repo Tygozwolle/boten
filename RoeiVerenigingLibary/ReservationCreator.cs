@@ -1,5 +1,4 @@
 using RoeiVerenigingLibary.Exceptions;
-
 namespace RoeiVerenigingLibary;
 
 public class ReservationCreator
@@ -12,12 +11,12 @@ public class ReservationCreator
     private IReservationRepository _reservationRepository;
     
 
-    public ReservationCreator(Member member, int boat)
+    public ReservationCreator(Member member, int boat, IReservationRepository reservationRepository)
     {
         this.Email = member.Email;
         this.UserId = member.Id;
         this.BoatId = boat;
-
+        _reservationRepository = reservationRepository;
     }
     
     public bool TimeChecker(DateTime? start, DateTime? end)
