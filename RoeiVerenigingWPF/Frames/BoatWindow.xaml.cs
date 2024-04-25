@@ -23,5 +23,10 @@ namespace RoeiVerenigingWPF.Frames
         {
             InitializeComponent();
         }
+
+        private void Buttons_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

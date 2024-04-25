@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:RoeiVerenigingWPF.Frames"
 xmlns:views="clr-namespace:RoeiVerenigingWPF.Views" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
 mc:Ignorable="d"
-Title="Reservering Aanmaken" WindowState="Maximized">
+Title="Lijst met boten" WindowState="Maximized">
     <Grid>
 
 
@@ -22,7 +22,7 @@ Title="Reservering Aanmaken" WindowState="Maximized">
 
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="350" />
             <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="1*"/>
 
@@ -44,11 +44,21 @@ Title="Reservering Aanmaken" WindowState="Maximized">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
+
+                <Border  Grid.Column="0" Grid.Row="0" BorderBrush="Black" 
+        BorderThickness="1,1,1,1" Background="{x:Null}">
+                    <UniformGrid>
+                        <Label Content="test :D"></Label>
+                    </UniformGrid>
+                </Border>
             </Grid>
         </ScrollViewer>
 
