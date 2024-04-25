@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="img\Image_not_available.png" />
     <None Remove="img\twee-mensen-in-polyester-roeiboot.png" />
     <Content Include="Images\twee-mensen-in-polyester-roeiboot.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -18,6 +19,13 @@
   <ItemGroup>
     <ProjectReference Include="..\DataAccessLibary\DataAccessLibary.csproj" />
     <ProjectReference Include="..\RoeiVerenigingLibary\RoeiVerenigingLibary.csproj" />
+    <Content Include="Images\Image_not_available.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.6.0" />
   </ItemGroup>
 
 </Project>
