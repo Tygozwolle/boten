@@ -31,6 +31,7 @@ public partial class Header : UserControl
             case "Uitloggen":
             {
                 MainWindow.LoggedInMember = null;
+                MainWindow.MainContent.Navigate(new Login(MainWindow));
                 break;
             }
             case "Nieuw Lid":
