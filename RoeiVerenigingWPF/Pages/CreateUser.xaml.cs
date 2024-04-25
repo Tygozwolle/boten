@@ -39,7 +39,13 @@ namespace RoeiVerenigingWPF.Pages
             string lastName = LastName.Text;
             string email = Email.Text;
             string password = Password.Password;
-            service.Create(_mainWindow.LoggedInMember, firstName, infix, lastName, email, password);
-        }
+           Member createdMember = service.Create(_mainWindow.LoggedInMember, firstName, infix, lastName, email, password);
+            if (createdMember != null)
+            {
+                MessageBox.Show($"{createdMember.FirstName} {createdMember.Infix} {createdMember.LastName} is aangemaakt met lidnummer {createdMember.Id}");
+            }
+        
+
+}
     }
 }
