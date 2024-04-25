@@ -17,7 +17,7 @@ namespace RoeiVerenigingUnitTests
         public void InlogSuccesfull()
         {
             //Arrange
-            var member = new Member(1, "simon", "van den","Berg", "simon@windesheim.nl", new List<string>());
+            var member = new Member(1, "simon", "van den", "Berg", "simon@windesheim.nl", new List<string>());
             var memberRepository = new Mock<IMemberRepository>();
             memberRepository.Setup(x => x.Get(It.IsAny<string>(), It.IsAny<string>())).Returns(member);
             var memberService = new MemberService(memberRepository.Object);
@@ -42,14 +42,14 @@ namespace RoeiVerenigingUnitTests
         public void CreateMemberSuccesfull()
         {
             //Arrange
-            var member = new Member(1, "tygo", "van","olst", "tygo@windesheim.nl", new List<string>());
-            var admin = new Member(1, "simon", "van den ","Berg", "simon@windesheim.nl", new List<string>());
+            var member = new Member(1, "tygo", "van", "olst", "tygo@windesheim.nl", new List<string>());
+            var admin = new Member(1, "simon", "van den ", "Berg", "simon@windesheim.nl", new List<string>());
             admin.Roles.Add("beheerder");
             var memberRepository = new Mock<IMemberRepository>();
-            memberRepository.Setup(x => x.Create(It.IsAny<string>(), It.IsAny<string>(),It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Returns(member);
+            memberRepository.Setup(x => x.Create(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Returns(member);
             var memberService = new MemberService(memberRepository.Object);
             //Act
-            var result = memberService.Create(admin, "tygo", "van","olst", "tygo@windesheim.nl", "Test1234");
+            var result = memberService.Create(admin, "tygo", "van", "olst", "tygo@windesheim.nl", "Test1234");
             //Assert
             Assert.That(Is.Equals(result, member));
         }
@@ -58,24 +58,24 @@ namespace RoeiVerenigingUnitTests
         public void CreateMemberAlreadyExist()
         {
             //Arrange
-            var admin = new Member(1, "simon", "van den ","Berg", "simon@windesheim.nl", new List<string>());
+            var admin = new Member(1, "simon", "van den ", "Berg", "simon@windesheim.nl", new List<string>());
             admin.Roles.Add("beheerder");
             var memberRepository = new Mock<IMemberRepository>();
             memberRepository.Setup(x => x.Create(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Returns((Member)null);
             var memberService = new MemberService(memberRepository.Object);
             //Act and Assert
-            Assert.Throws<MemberAlreadyExistsException> (() => memberService.Create(admin ,"tygo","van", "olst", "tygo@windesheim.nl", "Test1234"));
+            Assert.Throws<MemberAlreadyExistsException>(() => memberService.Create(admin, "tygo", "van", "olst", "tygo@windesheim.nl", "Test1234"));
         }
         [Test]
         public void CreateMemberNoAdmin()
         {
             //Arrange
-            var admin = new Member(1, "simon", "van den ","Berg", "simon@windesheim.nl", new List<string>());
+            var admin = new Member(1, "simon", "van den ", "Berg", "simon@windesheim.nl", new List<string>());
             var memberRepository = new Mock<IMemberRepository>();
             memberRepository.Setup(x => x.Create(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Returns((Member)null);
             var memberService = new MemberService(memberRepository.Object);
             //Act and Assert
-            Assert.Throws<IncorrectRightsExeption>(() => memberService.Create(admin, "tygo","van", "olst", "tygo@windesheim.nl", "Test1234"));
+            Assert.Throws<IncorrectRightsExeption>(() => memberService.Create(admin, "tygo", "van", "olst", "tygo@windesheim.nl", "Test1234"));
         }
     }
 }
