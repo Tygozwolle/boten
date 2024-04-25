@@ -22,9 +22,9 @@ namespace RoeiVerenigingUnitTests
             memberRepository.Setup(x => x.Get(It.IsAny<string>(), It.IsAny<string>())).Returns(member);
             var memberService = new MemberService(memberRepository.Object);
             //Act
-            var result = memberService.Login("simon@windesheim.nl", "Test1234");
+            var result = memberService.Login("simon@windeheim.nl", "Test1234");
             //Assert
-            Assert.AreEqual(result, member);
+            Assert.That(Is.Equals(result, member));
         }
 
         [Test]
@@ -51,7 +51,7 @@ namespace RoeiVerenigingUnitTests
             //Act
             var result = memberService.Create(admin, "tygo", "van","olst", "tygo@windesheim.nl", "Test1234");
             //Assert
-            Assert.AreEqual(result, member);
+            Assert.That(Is.Equals(result, member));
         }
 
         [Test]
