@@ -16,7 +16,7 @@
                         <GridViewColumnHeader> 
                             <StackPanel>
                                 <TextBlock Text="Id"/>
-                                <TextBox Name="IdFilter"></TextBox>
+                                <TextBox Name="IdFilter" TextChanged="UpdateFilter"></TextBox>
                             </StackPanel>
                             <GridViewColumnHeader.ContextMenu>
                                 <ContextMenu MenuItem.Click="SortMember" Name="Id">
@@ -31,7 +31,7 @@
                         <GridViewColumnHeader>
                             <StackPanel>
                                 <TextBlock Text="FirstName"/>
-                                <TextBox Name="FirstNameFilter"></TextBox>
+                                <TextBox Name="FirstNameFilter" TextChanged="UpdateFilter"></TextBox>
                             </StackPanel>
                             <GridViewColumnHeader.ContextMenu>
                                 <ContextMenu MenuItem.Click="SortMember" Name="FirstName">
@@ -48,7 +48,7 @@
                         <GridViewColumnHeader>
                             <StackPanel>
                                 <TextBlock Text="LastName"/>
-                                <TextBox Name="LastNameFilter"></TextBox>
+                                <TextBox Name="LastNameFilter" TextChanged="UpdateFilter"></TextBox>
                             </StackPanel>
                             <GridViewColumnHeader.ContextMenu>
                             <ContextMenu MenuItem.Click="SortMember" Name="LastName">
@@ -63,7 +63,7 @@
                         <GridViewColumnHeader>
                             <StackPanel>
                                 <TextBlock Text="Email"/>
-                                <TextBox Name="EmailFilter"></TextBox>
+                                <TextBox Name="EmailFilter" TextChanged="UpdateFilter"></TextBox>
                             </StackPanel>
                             <GridViewColumnHeader.ContextMenu>
                             <ContextMenu MenuItem.Click="SortMember" Name="Email">
@@ -78,7 +78,7 @@
                         <GridViewColumnHeader>
                             <StackPanel>
                                 <TextBlock Text="Roles"/>
-                                <TextBox Name="RolesFilter"></TextBox>
+                                <TextBox Name="RolesFilter" TextChanged="UpdateFilter"></TextBox>
                             </StackPanel>
                             <GridViewColumnHeader.ContextMenu>
                                 <ContextMenu MenuItem.Click="SortMember" Name="Roles">

@@ -31,7 +31,8 @@ namespace RoeiVerenigingWPF.Pages
             InitializeComponent();
             this.DataContext = this;
             _memberList = service.GetMembers();
-            ___UserList_.ItemsSource = _memberList; 
+            ___UserList_.ItemsSource = _memberList;
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(___UserList_.ItemsSource);
             ___UserList_.Items.Filter = Filter;
             
          //   ___UserList_.Items.SortDescriptions.Add(new SortDescription("Id", ListSortDirection.Ascending));
@@ -68,13 +69,63 @@ namespace RoeiVerenigingWPF.Pages
             }
         }
 
+        public void UpdateFilter(object sender, RoutedEventArgs routedEventArgs)
+        {
+          //  ___UserList_.Items.Refresh();
+            CollectionViewSource.GetDefaultView(___UserList_.ItemsSource).Refresh();
+        }
         private bool Filter(object item)
         {
+            List<bool> result = new List<bool>();
             if (String.IsNullOrEmpty(IdFilter.Text))
-                return true;
+            {
+                result.Add(true);
+            }
             else
-                return ((item as Member).FirstName.IndexOf($"{IdFilter.Text}", StringComparison.OrdinalIgnoreCase) >= 0);
+            {
+                result.Add(((item as Member).Id.ToString().IndexOf($"{IdFilter.Text}", StringComparison.OrdinalIgnoreCase) >= 0)) ; 
+            }
+
+            if (String.IsNullOrEmpty(FirstNameFilter.Text))
+            {
+                result.Add(true);
+            }
+            else
+            {
+                result.Add(((item as Member).FirstName.IndexOf($"{FirstNameFilter.Text}", StringComparison.OrdinalIgnoreCase) >= 0));
+            }
+
+            if (String.IsNullOrEmpty(LastNameFilter.Text))
+            {
+                result.Add(true);
+            }
+            else
+            {
+                result.Add(((item as Member).LastName.IndexOf($"{LastNameFilter.Text}", StringComparison.OrdinalIgnoreCase) >= 0));
+            }
+
+            if (String.IsNullOrEmpty(EmailFilter.Text))
+            {
+                result.Add(true);
+            }
+            else
+            {
+                result.Add(((item as Member).Email.IndexOf($"{EmailFilter.Text}", StringComparison.OrdinalIgnoreCase) >= 0));
+            }
+
+            if (String.IsNullOrEmpty(RolesFilter.Text))
+            {
+                result.Add(true);
+            }
+            else
+            {
+                result.Add(((item as Member).RolesString.IndexOf($"{RolesFilter.Text}", StringComparison.OrdinalIgnoreCase) >= 0));
+            }
+
+            return !result.Contains(false);
         }
+    }
         
     }
-}
+
+
