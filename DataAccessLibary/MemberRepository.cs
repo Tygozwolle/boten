@@ -74,6 +74,10 @@ public class MemberRepository : IMemberRepository
 
     public Member Create(string firstName, string infix, string lastName, string email, string passwordHash)
     {
+        if (!IsValid(email))
+        {
+            throw new Exception("is not a email");
+        }
         using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
         {
             connection.Open();
