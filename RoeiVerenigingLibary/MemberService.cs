@@ -65,4 +65,9 @@ public class MemberService
             return Convert.ToBase64String(hashedBytes);
         }
     }
+
+    public  List<Member> GetMembers()
+    {
+        return _memberRepository.GetMembers();
+    }
 }
