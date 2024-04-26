@@ -104,4 +104,45 @@ public class MemberRepository : IMemberRepository
 
         return null;
     }
+
+
+    public List<Member> GetMembers()
+    {
+        List<Member> members = new List<Member>();
+
+        using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
+        {
+            connection.Open();
+            const string sql = $"SELECT * FROM members";
+
+            using (MySqlCommand command = new MySqlCommand(sql, connection))
+            {
+                using (MySqlDataReader reader = command.ExecuteReader())
+                {
+                    List<Task> tasks = new List<Task>();
+                    while (reader.Read())
+                    {
+                        var id = reader.GetInt32(0);
+                        var firstName = reader.GetString(1);
+                        string? infix = null;
+                        if (!reader.IsDBNull(2))
+                        {
+                            infix = reader.GetString(2);
+                        }
+
+                        var lastName = reader.GetString(3);
+                        var email = reader.GetString(4);
+                        var task = new Task(() =>
+                        {
+                            members.Add(new Member(id, firstName, infix, lastName, email, GetRoles(id)));
+                        });
+                        task.Start();
+                        tasks.Add(task);
+                    }
+                    Task.WaitAll(tasks.ToArray());
+                }
+            }
+        }
+        return members;
+    }
 }
