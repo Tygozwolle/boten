@@ -143,6 +143,7 @@ public class MemberRepository : IMemberRepository
                 }
             }
         }
-        return members;
+        
+        return members.OrderBy(x => x.Id).ToList();
     }
 }
