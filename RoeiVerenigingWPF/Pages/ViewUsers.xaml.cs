@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,6 +31,26 @@ namespace RoeiVerenigingWPF.Pages
             this.DataContext = this;
             _memberList = service.GetMembers();
             ___UserList_.ItemsSource = _memberList;
+         //   ___UserList_.Items.SortDescriptions.Add(new SortDescription("Id", ListSortDirection.Ascending));
+        }
+
+        public void SortMember(object sender, RoutedEventArgs routedEventArgs)
+        {
+      ContextMenu   sendercast = (System.Windows.Controls.ContextMenu)sender;
+      if (sendercast.Name == "Id")
+      {
+          MenuItem routedEventArgsCast = (MenuItem)routedEventArgs.Source;
+          if (routedEventArgsCast.Header.ToString() == "Ascending")
+          {
+              ___UserList_.Items.SortDescriptions.Clear();
+                    ___UserList_.Items.SortDescriptions.Add(new SortDescription("Id", ListSortDirection.Ascending));
+          }
+          else
+          {
+              ___UserList_.Items.SortDescriptions.Clear();
+                    ___UserList_.Items.SortDescriptions.Add(new SortDescription("Id", ListSortDirection.Descending));
+          }
+      }
         }
     }
 }
