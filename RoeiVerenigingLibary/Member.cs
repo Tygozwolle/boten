@@ -11,6 +11,21 @@ public class Member
     public string Email { get; set; }
     public List<string> Roles {get;}
 
+    public string RolesString
+    {
+        get
+        {
+            string result = "";
+            foreach (string role in Roles)
+            {
+              result =  result.Insert(result.Length, $"{role} {Environment.NewLine}");
+            }
+
+            result= result.Trim();
+            return result;
+        }
+    }
+
     public Member(int id, string firstName, string infix, string lastName, string email, List<string> roles)
     {
         Id = id;

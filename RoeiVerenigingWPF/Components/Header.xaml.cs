@@ -40,6 +40,11 @@ public partial class Header : UserControl
                     MainWindow.MainContent.Navigate(new CreateUser(MainWindow));
                     break;
                 }
+            case "Leden":
+            {
+                MainWindow.MainContent.Navigate(new ViewUsers());
+                break;
+            }
         }
     }
 
