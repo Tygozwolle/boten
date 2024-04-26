@@ -11,11 +11,6 @@ public class MemberRepository : IMemberRepository
 {
     public Member Get(string email, string passwordHash)
     {
-        if (!IsValid(email))
-        {
-            throw new Exception("is not a email");
-        }
-
         using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
         {
             connection.Open();
@@ -67,11 +62,6 @@ public class MemberRepository : IMemberRepository
         return list;
     }
 
-    private static bool IsValid(string email)
-    {
-        return MailAddress.TryCreate(email, out var result);
-    }
-
     public Member Create(string firstName, string infix, string lastName, string email, string passwordHash)
     {
         using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
@@ -101,7 +91,25 @@ public class MemberRepository : IMemberRepository
                     GetRoles((int)command.LastInsertedId));
             }
         }
+    }
 
-        return null;
+    public void ChangePassword(string email, string passwordHash)
+    {
+        using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
+        {
+            connection.Open();
+            const String sql =
+                $"UPDATE `members` SET `password` = @passwordHash WHERE `email` = @email;";
+
+            using (MySqlCommand command = new MySqlCommand(sql, connection))
+            {
+                command.Parameters.Add("@email", MySqlDbType.VarChar);
+                command.Parameters["@email"].Value = email;
+
+                command.Parameters.Add("@passwordHash", MySqlDbType.VarChar);
+                command.Parameters["@passwordHash"].Value = passwordHash;
+                command.ExecuteReader();
+            }
+        }
     }
 }

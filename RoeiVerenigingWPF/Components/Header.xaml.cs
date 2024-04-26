@@ -27,19 +27,30 @@ public partial class Header : UserControl
         {
             return;
         }
+
         switch (selectedContent)
         {
             case "Uitloggen":
-                {
-                    MainWindow.LoggedInMember = null;
-                    MainWindow.MainContent.Navigate(new Login(MainWindow));
-                    break;
-                }
+            {
+                MainWindow.LoggedInMember = null;
+                MainWindow.MainContent.Navigate(new Login(MainWindow));
+                break;
+            }
             case "Nieuw Lid":
-                {
-                    MainWindow.MainContent.Navigate(new CreateUser(MainWindow));
-                    break;
-                }
+            {
+                MainWindow.MainContent.Navigate(new CreateUser(MainWindow));
+                break;
+            }
+            case "Beheer account":
+            {
+                MainWindow.MainContent.Navigate(new ChangePassword(MainWindow));
+                break;
+            }
+            default:
+            {
+                //todo send to main page
+                break;
+            }
         }
     }
 

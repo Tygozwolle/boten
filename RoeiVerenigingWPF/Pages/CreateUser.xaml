@@ -34,7 +34,7 @@
         <Label Grid.Row="6" Content="Email:" Width="200" FontFamily="Franklin Gothic Medium" FontSize="16" Foreground="#1A517A"/>
         <TextBox Grid.Row="7" x:Name="Email" Width="200" BorderBrush="Black"/>
 
-        <Label Grid.Row="8" Content="Password:" Width="200" FontFamily="Franklin Gothic Medium" FontSize="16" Foreground="#1A517A"/>
+        <Label Grid.Row="8" Content="Wachtwoord:" Width="200" FontFamily="Franklin Gothic Medium" FontSize="16" Foreground="#1A517A"/>
         <PasswordBox Grid.Row="9" x:Name="Password" Width="200" BorderBrush="Black"/>
 
         <Button Grid.Row="10" Content="Create" Width="200" Margin="20" FontFamily="Franklin Gothic Medium" FontSize="32" Foreground="#1A517A" Background="#88BFEA" Click="Button_Click" />
