@@ -28,7 +28,11 @@
                     </GridViewColumn>
 
                     <GridViewColumn  DisplayMemberBinding="{Binding FirstName}">
-                        <GridViewColumnHeader>FirstName
+                        <GridViewColumnHeader>
+                            <StackPanel>
+                                <TextBlock Text="FirstName"/>
+                                <TextBox Name="FirstNameFilter"></TextBox>
+                            </StackPanel>
                             <GridViewColumnHeader.ContextMenu>
                                 <ContextMenu MenuItem.Click="SortMember" Name="FirstName">
                                 <MenuItem Header="Ascending" />
@@ -41,8 +45,12 @@
                     <GridViewColumn Header="Infix" DisplayMemberBinding="{Binding      Infix}"/>
 
                     <GridViewColumn DisplayMemberBinding="{Binding LastName}">
-                    <GridViewColumnHeader>LastName
-                        <GridViewColumnHeader.ContextMenu>
+                        <GridViewColumnHeader>
+                            <StackPanel>
+                                <TextBlock Text="LastName"/>
+                                <TextBox Name="LastNameFilter"></TextBox>
+                            </StackPanel>
+                            <GridViewColumnHeader.ContextMenu>
                             <ContextMenu MenuItem.Click="SortMember" Name="LastName">
                                 <MenuItem Header="Ascending" />
                                 <MenuItem Header="Descending" />
@@ -52,8 +60,12 @@
                     </GridViewColumn>
 
                     <GridViewColumn  DisplayMemberBinding="{Binding Email}">
-                    <GridViewColumnHeader>Email
-                        <GridViewColumnHeader.ContextMenu>
+                        <GridViewColumnHeader>
+                            <StackPanel>
+                                <TextBlock Text="Email"/>
+                                <TextBox Name="EmailFilter"></TextBox>
+                            </StackPanel>
+                            <GridViewColumnHeader.ContextMenu>
                             <ContextMenu MenuItem.Click="SortMember" Name="Email">
                                 <MenuItem Header="Ascending" />
                                 <MenuItem Header="Descending" />
@@ -63,7 +75,11 @@
                     </GridViewColumn>
 
                     <GridViewColumn  DisplayMemberBinding="{Binding RolesString}">
-                        <GridViewColumnHeader>Roles
+                        <GridViewColumnHeader>
+                            <StackPanel>
+                                <TextBlock Text="Roles"/>
+                                <TextBox Name="RolesFilter"></TextBox>
+                            </StackPanel>
                             <GridViewColumnHeader.ContextMenu>
                                 <ContextMenu MenuItem.Click="SortMember" Name="Roles">
                                     <MenuItem Header="Ascending" />
