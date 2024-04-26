@@ -9,7 +9,12 @@
       Title="ViewUsers">
 
     <Grid>
-        <ListView x:Name="___UserList_" Margin="118,24,0,0" VerticalAlignment="Top" d:ItemsSource="{d:SampleData ItemCount=5}" HorizontalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Button x:Name="___EditMember_" Content="Edit Member" HorizontalAlignment="Center" FontSize="20" Margin="0,14,0,0" Padding="10,10,10,11" Click="___EditMember__Click"/>
+        <ListView x:Name="___UserList_" Margin="0,14,0,0" VerticalAlignment="Top" d:ItemsSource="{d:SampleData ItemCount=5}" HorizontalAlignment="Center" Grid.Row="1">
             <ListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding Id}">

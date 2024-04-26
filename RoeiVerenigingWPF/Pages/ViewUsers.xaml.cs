@@ -121,6 +121,12 @@ namespace RoeiVerenigingWPF.Pages
 
             return !result.Contains(false);
         }
+
+        private void ___EditMember__Click(object sender, RoutedEventArgs e)
+        {
+            Member selectedMember = (Member)___UserList_.SelectedItem;
+
+        }
     }
         
     }
