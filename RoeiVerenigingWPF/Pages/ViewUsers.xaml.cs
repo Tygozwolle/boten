@@ -73,6 +73,7 @@ namespace RoeiVerenigingWPF.Pages
         private bool Filter(object item)
         {
             List<bool> result = new List<bool>();
+            // filter ID
             if (String.IsNullOrEmpty(IdFilter.Text))
             {
                 result.Add(true);
@@ -82,6 +83,7 @@ namespace RoeiVerenigingWPF.Pages
                 result.Add(((item as Member).Id.ToString().IndexOf($"{IdFilter.Text}", StringComparison.OrdinalIgnoreCase) >= 0)) ; 
             }
 
+            //Filter FirstName
             if (String.IsNullOrEmpty(FirstNameFilter.Text))
             {
                 result.Add(true);
@@ -91,6 +93,7 @@ namespace RoeiVerenigingWPF.Pages
                 result.Add(((item as Member).FirstName.IndexOf($"{FirstNameFilter.Text}", StringComparison.OrdinalIgnoreCase) >= 0));
             }
 
+            //Filter LastName
             if (String.IsNullOrEmpty(LastNameFilter.Text))
             {
                 result.Add(true);
@@ -100,6 +103,7 @@ namespace RoeiVerenigingWPF.Pages
                 result.Add(((item as Member).LastName.IndexOf($"{LastNameFilter.Text}", StringComparison.OrdinalIgnoreCase) >= 0));
             }
 
+            //Filter Email
             if (String.IsNullOrEmpty(EmailFilter.Text))
             {
                 result.Add(true);
@@ -109,6 +113,7 @@ namespace RoeiVerenigingWPF.Pages
                 result.Add(((item as Member).Email.IndexOf($"{EmailFilter.Text}", StringComparison.OrdinalIgnoreCase) >= 0));
             }
 
+            //Filter Roles
             if (String.IsNullOrEmpty(RolesFilter.Text))
             {
                 result.Add(true);
