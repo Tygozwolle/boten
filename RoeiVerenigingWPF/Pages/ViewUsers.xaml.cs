@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,21 +37,32 @@ namespace RoeiVerenigingWPF.Pages
 
         public void SortMember(object sender, RoutedEventArgs routedEventArgs)
         {
-      ContextMenu   sendercast = (System.Windows.Controls.ContextMenu)sender;
-      if (sendercast.Name == "Id")
-      {
-          MenuItem routedEventArgsCast = (MenuItem)routedEventArgs.Source;
-          if (routedEventArgsCast.Header.ToString() == "Ascending")
-          {
-              ___UserList_.Items.SortDescriptions.Clear();
-                    ___UserList_.Items.SortDescriptions.Add(new SortDescription("Id", ListSortDirection.Ascending));
-          }
-          else
-          {
-              ___UserList_.Items.SortDescriptions.Clear();
-                    ___UserList_.Items.SortDescriptions.Add(new SortDescription("Id", ListSortDirection.Descending));
-          }
-      }
+            try
+            {
+                ContextMenu sendercast = (System.Windows.Controls.ContextMenu)sender;
+                string[] validStrings = { "Id", "FirstName", "LastName", "Email" };
+                if (validStrings.Contains(sendercast.Name))
+                {
+                    MenuItem routedEventArgsCast = (MenuItem)routedEventArgs.Source;
+                    if (routedEventArgsCast.Header.ToString() == "Ascending")
+                    {
+                        ___UserList_.Items.SortDescriptions.Clear();
+                        ___UserList_.Items.SortDescriptions.Add(new SortDescription(sendercast.Name,
+                            ListSortDirection.Ascending));
+                    }
+                    else
+                    {
+                        ___UserList_.Items.SortDescriptions.Clear();
+                        ___UserList_.Items.SortDescriptions.Add(new SortDescription(sendercast.Name,
+                            ListSortDirection.Descending));
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+            }
         }
+        
     }
 }

@@ -22,11 +22,42 @@
                         </GridViewColumnHeader.ContextMenu>
                         </GridViewColumnHeader>
                     </GridViewColumn>
-                    <GridViewColumn Header="FirstName" DisplayMemberBinding="{Binding FirstName}"/>
+
+                    <GridViewColumn  DisplayMemberBinding="{Binding FirstName}">
+                        <GridViewColumnHeader>FirstName
+                            <GridViewColumnHeader.ContextMenu>
+                                <ContextMenu MenuItem.Click="SortMember" Name="FirstName">
+                                <MenuItem Header="Ascending" />
+                                <MenuItem Header="Descending" />
+                            </ContextMenu>
+                        </GridViewColumnHeader.ContextMenu>
+                    </GridViewColumnHeader>
+                    </GridViewColumn>
+
                     <GridViewColumn Header="Infix" DisplayMemberBinding="{Binding      Infix}"/>
-                    <GridViewColumn Header="LastName" DisplayMemberBinding="{Binding LastName}"/>
-                    <GridViewColumn Header="Email" DisplayMemberBinding="{Binding Email}"/>
-                    
+
+                    <GridViewColumn DisplayMemberBinding="{Binding LastName}">
+                    <GridViewColumnHeader>LastName
+                        <GridViewColumnHeader.ContextMenu>
+                            <ContextMenu MenuItem.Click="SortMember" Name="LastName">
+                                <MenuItem Header="Ascending" />
+                                <MenuItem Header="Descending" />
+                            </ContextMenu>
+                        </GridViewColumnHeader.ContextMenu>
+                    </GridViewColumnHeader>
+                    </GridViewColumn>
+
+                    <GridViewColumn  DisplayMemberBinding="{Binding Email}">
+                    <GridViewColumnHeader>Email
+                        <GridViewColumnHeader.ContextMenu>
+                            <ContextMenu MenuItem.Click="SortMember" Name="Email">
+                                <MenuItem Header="Ascending" />
+                                <MenuItem Header="Descending" />
+                            </ContextMenu>
+                        </GridViewColumnHeader.ContextMenu>
+                    </GridViewColumnHeader>
+                    </GridViewColumn>
+
                 </GridView>
             </ListView.View>
         </ListView>
