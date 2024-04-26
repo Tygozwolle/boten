@@ -31,7 +31,9 @@ namespace RoeiVerenigingWPF.Pages
             InitializeComponent();
             this.DataContext = this;
             _memberList = service.GetMembers();
-            ___UserList_.ItemsSource = _memberList;
+            ___UserList_.ItemsSource = _memberList; 
+            ___UserList_.Items.Filter = Filter;
+            
          //   ___UserList_.Items.SortDescriptions.Add(new SortDescription("Id", ListSortDirection.Ascending));
         }
 
@@ -43,7 +45,7 @@ namespace RoeiVerenigingWPF.Pages
                 string[] validStrings = { "Id", "FirstName", "LastName", "Email" };
                 if (validStrings.Contains(sendercast.Name))
                 {
-                    ___UserList_.Items.Filter = Filter;
+                   
                     
                     MenuItem routedEventArgsCast = (MenuItem)routedEventArgs.Source;
                     if (routedEventArgsCast.Header.ToString() == "Ascending")
@@ -68,10 +70,10 @@ namespace RoeiVerenigingWPF.Pages
 
         private bool Filter(object item)
         {
-        //    if (String.IsNullOrEmpty(.Text))
-          //      return true;
-          //  else
-                return ((item as Member).FirstName.IndexOf("ty", StringComparison.OrdinalIgnoreCase) >= 0);
+            if (String.IsNullOrEmpty(IdFilter.Text))
+                return true;
+            else
+                return ((item as Member).FirstName.IndexOf($"{IdFilter.Text}", StringComparison.OrdinalIgnoreCase) >= 0);
         }
         
     }

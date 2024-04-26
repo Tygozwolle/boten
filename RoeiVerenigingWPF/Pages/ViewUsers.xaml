@@ -13,8 +13,11 @@
             <ListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding Id}">
-                        <GridViewColumnHeader> Id 
-                            
+                        <GridViewColumnHeader> 
+                            <StackPanel>
+                                <TextBlock Text="Id"/>
+                                <TextBox Name="IdFilter"></TextBox>
+                            </StackPanel>
                             <GridViewColumnHeader.ContextMenu>
                                 <ContextMenu MenuItem.Click="SortMember" Name="Id">
                                 <MenuItem Header="Ascending" />
