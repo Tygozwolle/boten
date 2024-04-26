@@ -119,7 +119,8 @@ public class MemberRepository : IMemberRepository
             {
                 using (MySqlDataReader reader = command.ExecuteReader())
                 {
-                    List<Task> tasks = new List<Task>();
+                    List<Task> tasks = new List<Task>(reader.FieldCount);
+                    
                     while (reader.Read())
                     {
                         var id = reader.GetInt32(0);
@@ -129,7 +130,6 @@ public class MemberRepository : IMemberRepository
                         {
                             infix = reader.GetString(2);
                         }
-
                         var lastName = reader.GetString(3);
                         var email = reader.GetString(4);
                         var task = new Task(() =>
