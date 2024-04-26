@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using DataAccessLibary;
 using RoeiVerenigingLibary;
 
 namespace RoeiVerenigingWPF.Pages
@@ -21,10 +22,14 @@ namespace RoeiVerenigingWPF.Pages
     /// </summary>
     public partial class ViewUsers : Page
     {
-        List<Member> memberList = new List<Member>();
+        private List<Member> _memberList;
         public ViewUsers()
         {
+            MemberService service = new MemberService(new MemberRepository());
             InitializeComponent();
+            this.DataContext = this;
+            _memberList = service.GetMembers();
+            ___UserList_.ItemsSource = _memberList;
         }
     }
 }

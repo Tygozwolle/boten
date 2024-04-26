@@ -9,10 +9,15 @@
       Title="ViewUsers">
 
     <Grid>
-        <ListView HorizontalAlignment="Left" Height="416" Margin="118,24,0,0" VerticalAlignment="Top" Width="348" d:ItemsSource="{d:SampleData ItemCount=5}">
+        <ListView x:Name="___UserList_" HorizontalAlignment="Left" Margin="118,24,0,0" VerticalAlignment="Top" d:ItemsSource="{d:SampleData ItemCount=5}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn/>
+                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}"/>
+                    <GridViewColumn Header="FirstName" DisplayMemberBinding="{Binding FirstName}"/>
+                    <GridViewColumn Header="Infix" DisplayMemberBinding="{Binding      Infix}"/>
+                    <GridViewColumn Header="LastName" DisplayMemberBinding="{Binding LastName}"/>
+                    <GridViewColumn Header="Email" DisplayMemberBinding="{Binding Email}"/>
+                    
                 </GridView>
             </ListView.View>
         </ListView>
