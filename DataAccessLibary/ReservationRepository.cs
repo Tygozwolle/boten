@@ -6,7 +6,7 @@ namespace DataAccessLibary;
 
 public class ReservationRepository : IReservationRepository
 {
-    public ReservationCreator Create(int boatId, int userId, DateTime StartTime, DateTime EndTime)
+    public ReservationCreator Create(int boatId, int userId, DateTime? startTime, DateTime? endTime)
     {
 
         using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
@@ -25,8 +25,8 @@ public class ReservationRepository : IReservationRepository
               
                 command.Parameters["@BoatId"].Value = boatId;
                 command.Parameters["@UserId"].Value = userId;
-                command.Parameters["@StartingTime"].Value = StartTime;
-                command.Parameters["@EndTime"].Value = EndTime;
+                command.Parameters["@StartingTime"].Value = startTime;
+                command.Parameters["@EndTime"].Value = endTime;
                 command.ExecuteReader();
             }
             

@@ -21,7 +21,7 @@ namespace RoeiVerenigingWPF.Frames
             set;
         }
 //placeholder for logged in member
-        private Member _member = new Member(1010,  "tygo", "Iris", "simon", "123@456.be", new List<string>());
+        private Member _member = new Member(30,  "rick", "wil", "roeien", "rick@windesheim.be", new List<string>());
 
         public DateTime? currentDateTime = DateTime.Now;
 

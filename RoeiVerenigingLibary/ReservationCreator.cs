@@ -6,8 +6,8 @@ public class ReservationCreator
     private int UserId { get; set; }
     private int BoatId { get; set; }
     public string? Email { get; set; }
-    private DateTime StartTime { get; set; }
-    private DateTime EndTime { get; set; }
+    private DateTime? StartTime { get; set; }
+    private DateTime? EndTime { get; set; }
     private IReservationRepository _reservationRepository;
     
 
@@ -23,6 +23,8 @@ public class ReservationCreator
     {
         if (start < end)
         {
+            this.StartTime = start;
+            this.EndTime = end;
             return true;
         }
         else
