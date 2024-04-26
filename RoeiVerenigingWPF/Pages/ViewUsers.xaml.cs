@@ -32,7 +32,6 @@ namespace RoeiVerenigingWPF.Pages
             this.DataContext = this;
             _memberList = service.GetMembers();
             ___UserList_.ItemsSource = _memberList;
-            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(___UserList_.ItemsSource);
             ___UserList_.Items.Filter = Filter;
         }
 
