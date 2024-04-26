@@ -9,13 +9,13 @@
       Title="ViewUsers">
 
     <Grid>
-        <ListView x:Name="___UserList_" HorizontalAlignment="Left" Margin="118,24,0,0" VerticalAlignment="Top" d:ItemsSource="{d:SampleData ItemCount=5}">
+        <ListView x:Name="___UserList_" Margin="118,24,0,0" VerticalAlignment="Top" d:ItemsSource="{d:SampleData ItemCount=5}" HorizontalAlignment="Center">
             <ListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding Id}">
                         <GridViewColumnHeader> 
                             <StackPanel>
-                                <TextBlock Text="Id"/>
+                                <TextBlock Text="Id" MinWidth="60"/>
                                 <TextBox Name="IdFilter" TextChanged="UpdateFilter"></TextBox>
                             </StackPanel>
                             <GridViewColumnHeader.ContextMenu>
@@ -30,7 +30,7 @@
                     <GridViewColumn  DisplayMemberBinding="{Binding FirstName}">
                         <GridViewColumnHeader>
                             <StackPanel>
-                                <TextBlock Text="FirstName"/>
+                                <TextBlock Text="FirstName" MinWidth="60"/>
                                 <TextBox Name="FirstNameFilter" TextChanged="UpdateFilter"></TextBox>
                             </StackPanel>
                             <GridViewColumnHeader.ContextMenu>
@@ -42,12 +42,12 @@
                     </GridViewColumnHeader>
                     </GridViewColumn>
 
-                    <GridViewColumn Header="Infix" DisplayMemberBinding="{Binding      Infix}"/>
+                    <GridViewColumn Header="Infix" DisplayMemberBinding="{Binding  Infix}"/>
 
                     <GridViewColumn DisplayMemberBinding="{Binding LastName}">
                         <GridViewColumnHeader>
                             <StackPanel>
-                                <TextBlock Text="LastName"/>
+                                <TextBlock Text="LastName" MinWidth="60"/>
                                 <TextBox Name="LastNameFilter" TextChanged="UpdateFilter"></TextBox>
                             </StackPanel>
                             <GridViewColumnHeader.ContextMenu>
@@ -62,7 +62,7 @@
                     <GridViewColumn  DisplayMemberBinding="{Binding Email}">
                         <GridViewColumnHeader>
                             <StackPanel>
-                                <TextBlock Text="Email"/>
+                                <TextBlock Text="Email" MinWidth="60"/>
                                 <TextBox Name="EmailFilter" TextChanged="UpdateFilter"></TextBox>
                             </StackPanel>
                             <GridViewColumnHeader.ContextMenu>
@@ -77,7 +77,7 @@
                     <GridViewColumn  DisplayMemberBinding="{Binding RolesString}">
                         <GridViewColumnHeader>
                             <StackPanel>
-                                <TextBlock Text="Roles"/>
+                                <TextBlock Text="Roles" MinWidth="60"/>
                                 <TextBox Name="RolesFilter" TextChanged="UpdateFilter"></TextBox>
                             </StackPanel>
                             <GridViewColumnHeader.ContextMenu>

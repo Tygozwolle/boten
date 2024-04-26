@@ -34,8 +34,6 @@ namespace RoeiVerenigingWPF.Pages
             ___UserList_.ItemsSource = _memberList;
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(___UserList_.ItemsSource);
             ___UserList_.Items.Filter = Filter;
-            
-         //   ___UserList_.Items.SortDescriptions.Add(new SortDescription("Id", ListSortDirection.Ascending));
         }
 
         public void SortMember(object sender, RoutedEventArgs routedEventArgs)
@@ -71,7 +69,6 @@ namespace RoeiVerenigingWPF.Pages
 
         public void UpdateFilter(object sender, RoutedEventArgs routedEventArgs)
         {
-          //  ___UserList_.Items.Refresh();
             CollectionViewSource.GetDefaultView(___UserList_.ItemsSource).Refresh();
         }
         private bool Filter(object item)
