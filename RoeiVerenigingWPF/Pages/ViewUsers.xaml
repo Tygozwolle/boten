@@ -58,6 +58,17 @@
                     </GridViewColumnHeader>
                     </GridViewColumn>
 
+                    <GridViewColumn  DisplayMemberBinding="{Binding RolesString}">
+                        <GridViewColumnHeader>Roles
+                            <GridViewColumnHeader.ContextMenu>
+                                <ContextMenu MenuItem.Click="SortMember" Name="Roles">
+                                    <MenuItem Header="Ascending" />
+                                    <MenuItem Header="Descending" />
+                                </ContextMenu>
+                            </GridViewColumnHeader.ContextMenu>
+                        </GridViewColumnHeader>
+                    </GridViewColumn>
+
                 </GridView>
             </ListView.View>
         </ListView>
