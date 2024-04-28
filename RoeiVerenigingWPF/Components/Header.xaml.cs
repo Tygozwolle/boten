@@ -46,6 +46,11 @@ public partial class Header : UserControl
                 MainWindow.MainContent.Navigate(new ChangePassword(MainWindow));
                 break;
             }
+            case "Leden":
+            {
+                MainWindow.MainContent.Navigate(new ViewUsers());
+                break;
+            }
             default:
             {
                 //todo send to main page

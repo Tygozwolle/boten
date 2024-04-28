@@ -108,4 +108,9 @@ public class MemberService
     {
         return MailAddress.TryCreate(email, out var result);
     }
+
+    public List<Member> GetMembers()
+    {
+        return _memberRepository.GetMembers();
+    }
 }
