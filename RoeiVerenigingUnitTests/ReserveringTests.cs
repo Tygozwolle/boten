@@ -26,8 +26,8 @@ namespace RoeiVerenigingUnitTests
            // var result = 
              var result = ReservationService.Create(member, 4, new DateTime(3), new DateTime(4));
             //Assert
-            // Assert.That(Is.Equals(result, member));
-            Assert.Pass();
+             Assert.That(Is.Equals(result, reservation));
+          //  Assert.Pass();
         }
 
  
