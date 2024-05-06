@@ -8,12 +8,12 @@
         {
             _boatRepository = repository;
         }
-        public List<Boat>? Get(int id, int captainSeat, int Seats)
+        public List<Boat>? Get()
         {
             List<Boat> boat;
             try
             {
-                boat = _boatRepository.Get(id, captainSeat, Seats);
+                boat = _boatRepository.Get();
             }
             catch (Exception)
             {
