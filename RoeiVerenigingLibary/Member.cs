@@ -25,7 +25,13 @@ public class Member
             return result;
         }
     }
-
+    public string FullName
+    {
+        get
+        {
+            return $"{FirstName} {Infix} {LastName}";
+        }
+    }
     public Member(int id, string firstName, string infix, string lastName, string email, List<string> roles)
     {
         Id = id;
