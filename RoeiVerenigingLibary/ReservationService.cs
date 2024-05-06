@@ -27,4 +27,9 @@ public class ReservationService
         //todo: check if boat is available
         _reservationRepository.Create(boatId, loggedInMember.Id, startTime, endTime);
     }
+    
+    public List<Reservation> GetReservations()
+    {
+        return _reservationRepository.GetReservations();
+    }
 }
