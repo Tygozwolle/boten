@@ -8,12 +8,7 @@ namespace RoeiVerenigingUnitTests
 {
     public class ReservationTests
     {
-        [SetUp]
-        public void Setup()
-        {
-        }
-
-        [Test]
+       [Test]
         public void ReservationSuccesfull()
         {
             //Arrange
