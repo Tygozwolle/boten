@@ -25,7 +25,7 @@ public class ReservationService
     {
         //TODO: check if boat is available
         //TODO: check if duration is less than 2 hours
-     return _reservationRepository.CreateReservation(member, boatId, startTime, endTime);
+        return _reservationRepository.CreateReservation(member, boatId, startTime, endTime);
     }
 
     public List<Reservation> GetReservations()

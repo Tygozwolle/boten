@@ -9,7 +9,7 @@ namespace DataAccessLibary;
 public class ReservationRepository : IReservationRepository
 {
     public Reservation CreateReservation(Member member, int boatId, DateTime startTime, DateTime endTime)
-    {   
+    {
         using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
         {
             connection.Open();
@@ -32,12 +32,17 @@ public class ReservationRepository : IReservationRepository
 
                 using (MySqlDataReader reader = command.ExecuteReader())
                 {
-                    while (reader.Read()) { 
-                    return new Reservation(member, reader.GetDateTime(3), startTime, endTime, boatId,   reader.GetInt32(0));
-                } }}
+                    while (reader.Read())
+                    {
+                        return new Reservation(member, reader.GetDateTime(3), startTime, endTime, boatId,
+                            reader.GetInt32(0));
+                    }
+                }
+            }
 
             connection.Close();
         }
+
         return null;
     }
 

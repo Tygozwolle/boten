@@ -16,9 +16,7 @@ namespace RoeiVerenigingWPF.Pages
     {
         private Member _loggedInMember;
 
-        public DateTime? currentDateTime = DateTime.Now;
-
-        private ReservationService _service = new (new ReservationRepository());
+        private ReservationService _service = new(new ReservationRepository());
         private int _boatId;
 
         public AddReservation(Member loggedInMember, int boatId)
@@ -29,13 +27,6 @@ namespace RoeiVerenigingWPF.Pages
             _loggedInMember = loggedInMember;
             DataContext = this;
         }
-
-        public DateTime CurrentDateTime
-        {
-            get { return CurrentDateTime; }
-            set { currentDateTime = value; }
-        }
-
 
         private void TimePicker_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -65,7 +56,7 @@ namespace RoeiVerenigingWPF.Pages
             {
                 if (_service.TimeChecker(startTime, endTime))
                 {
-                 Reservation reservation = _service.Create(_loggedInMember,_boatId, startDateTime, endDateTime);
+                    _service.Create(_loggedInMember, _boatId, startDateTime, endDateTime);
                 }
             }
             catch (InvalidTimeException ex)

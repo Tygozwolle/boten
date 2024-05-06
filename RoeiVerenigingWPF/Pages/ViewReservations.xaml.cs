@@ -23,8 +23,8 @@ namespace RoeiVerenigingWPF.Pages
             InitializeComponent();
             this.DataContext = this;
 
-            ___ReservationList_.ItemsSource = _reservationList;
-            ___ReservationList_.Items.Filter = Filter;
+            ReservationList.ItemsSource = _reservationList;
+            ReservationList.Items.Filter = Filter;
         }
 
         public void SortReservation(object sender, RoutedEventArgs routedEventArgs)
@@ -38,14 +38,14 @@ namespace RoeiVerenigingWPF.Pages
                     MenuItem routedEventArgsCast = (MenuItem)routedEventArgs.Source;
                     if (routedEventArgsCast.Header.ToString() == "Ascending")
                     {
-                        ___ReservationList_.Items.SortDescriptions.Clear();
-                        ___ReservationList_.Items.SortDescriptions.Add(new SortDescription(sendercast.Name,
+                        ReservationList.Items.SortDescriptions.Clear();
+                        ReservationList.Items.SortDescriptions.Add(new SortDescription(sendercast.Name,
                             ListSortDirection.Ascending));
                     }
                     else
                     {
-                        ___ReservationList_.Items.SortDescriptions.Clear();
-                        ___ReservationList_.Items.SortDescriptions.Add(new SortDescription(sendercast.Name,
+                        ReservationList.Items.SortDescriptions.Clear();
+                        ReservationList.Items.SortDescriptions.Add(new SortDescription(sendercast.Name,
                             ListSortDirection.Descending));
                     }
                 }
@@ -58,7 +58,7 @@ namespace RoeiVerenigingWPF.Pages
 
         public void UpdateFilter(object sender, RoutedEventArgs routedEventArgs)
         {
-            CollectionViewSource.GetDefaultView(___ReservationList_.ItemsSource).Refresh();
+            CollectionViewSource.GetDefaultView(ReservationList.ItemsSource).Refresh();
         }
 
         private bool Filter(object item)
@@ -134,9 +134,9 @@ namespace RoeiVerenigingWPF.Pages
             return !result.Contains(false);
         }
 
-        private void ___EditReserevation__Click(object sender, RoutedEventArgs e)
+        private void EditReserevation__Click(object sender, RoutedEventArgs e)
         {
-            Reservation selectedReservation = (Reservation)___ReservationList_.SelectedItem;
+            Reservation selectedReservation = (Reservation)ReservationList.SelectedItem;
         }
     }
 }

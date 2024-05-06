@@ -1,8 +1,5 @@
-
 using DataAccessLibary;
 using MySqlConnector;
-
-
 using RoeiVerenigingLibary;
 
 
@@ -19,9 +16,7 @@ namespace TestConsoleApp
             Console.WriteLine(tygo.Roles.Count);
             List<Member> member = memberService.GetMembers();
             var reservation = new ReservationRepository();
-          var res =  reservation.GetReservations();
-            //   Member newMember = memberService.CreateReservation(tygo, "gerardus","", "Johnesses", "HIHI@doei.be", "Test123$");
-            // Console.WriteLine(newMember.FirstName);
+            var res = reservation.GetReservations();
         }
     }
 }

@@ -16,9 +16,9 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <Button x:Name="___EditReserevation_" Content="wijzig Reserevering" HorizontalAlignment="Center" FontSize="20"
-                Margin="0,14,0,0" Padding="10,10,10,11" Click="___EditReserevation__Click" />
-        <ListView x:Name="___ReservationList_" Margin="0,14,0,0" VerticalAlignment="Top"
+        <Button x:Name="EditReserevation" Content="wijzig Reserevering" HorizontalAlignment="Center" FontSize="20"
+                Margin="0,14,0,0" Padding="10,10,10,11" Click="EditReserevation__Click" />
+        <ListView x:Name="ReservationList" Margin="0,14,0,0" VerticalAlignment="Top"
                   d:ItemsSource="{d:SampleData ItemCount=5}" HorizontalAlignment="Center" Grid.Row="1"
                   ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible"
                   MaxHeight="700">
@@ -117,11 +117,8 @@
                             </GridViewColumnHeader.ContextMenu>
                         </GridViewColumnHeader>
                     </GridViewColumn>
-
-
                 </GridView>
             </ListView.View>
         </ListView>
-
     </Grid>
 </Page>
