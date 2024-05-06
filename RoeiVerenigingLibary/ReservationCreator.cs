@@ -37,4 +37,8 @@ public class ReservationCreator
     {
         _reservationRepository.Create(this.BoatId, this.UserId, this.StartTime, this.EndTime);
     }
+    public List<Reservation> GetReservations()
+    {
+        return _reservationRepository.GetReservations();
+    }
 }
