@@ -13,7 +13,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Button x:Name="___EditMember_" Content="Edit Member" HorizontalAlignment="Center" FontSize="20" Margin="0,14,0,0" Padding="10,10,10,11" Click="___EditMember__Click"/>
+        <Button x:Name="___EditReserevation_" Content="Edit Reserevation" HorizontalAlignment="Center" FontSize="20" Margin="0,14,0,0" Padding="10,10,10,11" Click="___EditReserevation__Click"/>
         <ListView x:Name="___ReservationList_" Margin="0,14,0,0" VerticalAlignment="Top" d:ItemsSource="{d:SampleData ItemCount=5}" HorizontalAlignment="Center" Grid.Row="1" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible" MaxHeight="700">
             <ListView.View>
                 <GridView>
@@ -24,7 +24,7 @@
                                 <TextBox Name="IdFilter" TextChanged="UpdateFilter"></TextBox>
                             </StackPanel>
                             <GridViewColumnHeader.ContextMenu>
-                                <ContextMenu MenuItem.Click="SortMember" Name="Id">
+                                <ContextMenu MenuItem.Click="SortReservation" Name="Id">
                                 <MenuItem Header="Ascending" />
                                 <MenuItem Header="Descending" />
                             </ContextMenu>
@@ -39,7 +39,7 @@
                                 <TextBox Name="FullNameFilter" TextChanged="UpdateFilter"></TextBox>
                             </StackPanel>
                             <GridViewColumnHeader.ContextMenu>
-                                <ContextMenu MenuItem.Click="SortMember" Name="FullName">
+                                <ContextMenu MenuItem.Click="SortReservation" Name="FullName">
                                     <MenuItem Header="Ascending" />
                                     <MenuItem Header="Descending" />
                                 </ContextMenu>
@@ -54,7 +54,7 @@
                                 <TextBox Name="BoatIdFilter" TextChanged="UpdateFilter"></TextBox>
                             </StackPanel>
                             <GridViewColumnHeader.ContextMenu>
-                                <ContextMenu MenuItem.Click="SortMember" Name="BoatId">
+                                <ContextMenu MenuItem.Click="SortReservation" Name="BoatId">
                                 <MenuItem Header="Ascending" />
                                 <MenuItem Header="Descending" />
                             </ContextMenu>
@@ -71,7 +71,7 @@
                                 <TextBox Name="StartTimeFilter" TextChanged="UpdateFilter"></TextBox>
                             </StackPanel>
                             <GridViewColumnHeader.ContextMenu>
-                                <ContextMenu MenuItem.Click="SortMember" Name="StartTime">
+                                <ContextMenu MenuItem.Click="SortReservation" Name="StartTime">
                                 <MenuItem Header="Ascending" />
                                 <MenuItem Header="Descending" />
                             </ContextMenu>
@@ -86,7 +86,7 @@
                                 <TextBox Name="EndTimeFilter" TextChanged="UpdateFilter"></TextBox>
                             </StackPanel>
                             <GridViewColumnHeader.ContextMenu>
-                                <ContextMenu MenuItem.Click="SortMember" Name="EndTime">
+                                <ContextMenu MenuItem.Click="SortReservation" Name="EndTime">
                                     <MenuItem Header="Ascending" />
                                     <MenuItem Header="Descending" />
                                 </ContextMenu>
@@ -101,7 +101,7 @@
                                 <TextBox Name="CreationDateFilter" TextChanged="UpdateFilter"></TextBox>
                             </StackPanel>
                             <GridViewColumnHeader.ContextMenu>
-                                <ContextMenu MenuItem.Click="SortMember" Name="CreationDate">
+                                <ContextMenu MenuItem.Click="SortReservation" Name="CreationDate">
                                 <MenuItem Header="Ascending" />
                                 <MenuItem Header="Descending" />
                             </ContextMenu>

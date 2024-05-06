@@ -27,17 +27,17 @@ namespace RoeiVerenigingWPF.Pages
         private List<Reservation> _reservationList;
         public ViewReservations()
         {
-            // MemberService service = new MemberService(new MemberRepository());
-            var reservation = new ReservationRepository();
-            _reservationList = reservation.GetReservations();
+             ReservationService service = new ReservationService(new ReservationRepository());
+
+            _reservationList = service.GetReservations();
             InitializeComponent();
             this.DataContext = this;
-           // _reservationList = service.GetMembers();
+           
             ___ReservationList_.ItemsSource = _reservationList;
             ___ReservationList_.Items.Filter = Filter;
         }
 
-        public void SortMember(object sender, RoutedEventArgs routedEventArgs)
+        public void SortReservation(object sender, RoutedEventArgs routedEventArgs)
         {
             try
             {
@@ -138,7 +138,7 @@ namespace RoeiVerenigingWPF.Pages
             return !result.Contains(false);
         }
 
-        private void ___EditMember__Click(object sender, RoutedEventArgs e)
+        private void ___EditReserevation__Click(object sender, RoutedEventArgs e)
         {
             Reservation selectedReservation = (Reservation)___ReservationList_.SelectedItem;
 
