@@ -83,8 +83,11 @@ public class MemberService
             throw new IncorrectPasswordException();
         }
 
-        if (newPassword != newPasswordConfirm) { throw new PasswordsDontMatchException(); }
+        if (newPassword != newPasswordConfirm)
+        {
             throw new PasswordsDontMatchException();
+        }
+
         try
         {
             _memberRepository.ChangePassword(loggedInMember.Email, CreatePasswordHash(newPassword));
