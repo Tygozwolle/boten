@@ -13,7 +13,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Button x:Name="___EditReserevation_" Content="Edit Reserevation" HorizontalAlignment="Center" FontSize="20" Margin="0,14,0,0" Padding="10,10,10,11" Click="___EditReserevation__Click"/>
+        <Button x:Name="___EditReserevation_" Content="wijzig Reserevering" HorizontalAlignment="Center" FontSize="20" Margin="0,14,0,0" Padding="10,10,10,11" Click="___EditReserevation__Click"/>
         <ListView x:Name="___ReservationList_" Margin="0,14,0,0" VerticalAlignment="Top" d:ItemsSource="{d:SampleData ItemCount=5}" HorizontalAlignment="Center" Grid.Row="1" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible" MaxHeight="700">
             <ListView.View>
                 <GridView>
@@ -50,7 +50,7 @@
                     <GridViewColumn  DisplayMemberBinding="{Binding BoatID}">
                         <GridViewColumnHeader>
                             <StackPanel>
-                                <TextBlock Text="BoatId" MinWidth="60"/>
+                                <TextBlock Text="BootId" MinWidth="60"/>
                                 <TextBox Name="BoatIdFilter" TextChanged="UpdateFilter"></TextBox>
                             </StackPanel>
                             <GridViewColumnHeader.ContextMenu>
@@ -67,7 +67,7 @@
                     <GridViewColumn DisplayMemberBinding="{Binding StartTime}">
                         <GridViewColumnHeader>
                             <StackPanel>
-                                <TextBlock Text="StartTime" MinWidth="60"/>
+                                <TextBlock Text="Start tijd" MinWidth="60"/>
                                 <TextBox Name="StartTimeFilter" TextChanged="UpdateFilter"></TextBox>
                             </StackPanel>
                             <GridViewColumnHeader.ContextMenu>
@@ -82,7 +82,7 @@
                     <GridViewColumn  DisplayMemberBinding="{Binding EndTime}">
                         <GridViewColumnHeader>
                             <StackPanel>
-                                <TextBlock Text="EndTime" MinWidth="60"/>
+                                <TextBlock Text="Eind tijd" MinWidth="60"/>
                                 <TextBox Name="EndTimeFilter" TextChanged="UpdateFilter"></TextBox>
                             </StackPanel>
                             <GridViewColumnHeader.ContextMenu>
@@ -97,7 +97,7 @@
                     <GridViewColumn  DisplayMemberBinding="{Binding CreationDate}">
                         <GridViewColumnHeader>
                             <StackPanel>
-                                <TextBlock Text="CreationDate" MinWidth="60"/>
+                                <TextBlock Text="Aanmaak Datum" MinWidth="60"/>
                                 <TextBox Name="CreationDateFilter" TextChanged="UpdateFilter"></TextBox>
                             </StackPanel>
                             <GridViewColumnHeader.ContextMenu>
