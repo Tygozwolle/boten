@@ -37,7 +37,7 @@ public class ReservationRepository : IReservationRepository
 
         return null;
     }
-    public List<Member> GetReservations()
+    public List<Reservation> GetReservations()
     {
         List<Reservation> reservations = new List<Reservation>();
 
@@ -63,7 +63,7 @@ public class ReservationRepository : IReservationRepository
                         
                         var task = new Task(() =>
                         {
-                            reservations.Add(new Reservation(MemberRepository.Get(memberId),creationDate,startTime,endTime,boatId,id);
+                            reservations.Add(new Reservation(MemberRepository.Get(memberId),creationDate,startTime,endTime,boatId,id));
                         });
                         task.Start();
                         tasks.Add(task);
@@ -73,6 +73,6 @@ public class ReservationRepository : IReservationRepository
             }
         }
 
-        return Reservation.OrderBy(x => x.Id).ToList();
+        return reservations.OrderBy(x => x.Id).ToList();
     }
 }
