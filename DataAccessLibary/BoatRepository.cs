@@ -7,7 +7,7 @@ namespace DataAccessLibary
     {
         public List<Boat> Get()
         {
-            var boat = new List<Boat>();
+            List<Boat> boat = new List<Boat>();
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
             {
                 connection.Open();
@@ -25,17 +25,12 @@ namespace DataAccessLibary
                             while (reader.Read())
                             {
                                 var id = reader.GetInt32(0);
-                                var captainSeat = reader.GetInt32(1);
+                                var captainSeat = reader.GetBoolean(1);
                                 var Seats = reader.GetInt32(2);
 
-                                var task = new Task(() =>
-                                {
-                                    boat.Add(new Boat(id, captainSeat, Seats));
-                                });
-                                task.Start();
-                                tasks.Add(task);
+                                boat.Add(new Boat(id, captainSeat, Seats));
                             }
-                            Task.WaitAll(tasks.ToArray());
+
                         }
                     }
                 }
