@@ -32,14 +32,14 @@
                         </GridViewColumnHeader>
                     </GridViewColumn>
 
-                    <GridViewColumn  DisplayMemberBinding="{Binding BoatId}">
+                    <GridViewColumn  DisplayMemberBinding="{Binding BoatID}">
                         <GridViewColumnHeader>
                             <StackPanel>
-                                <TextBlock Text="FirstName" MinWidth="60"/>
-                                <TextBox Name="FirstNameFilter" TextChanged="UpdateFilter"></TextBox>
+                                <TextBlock Text="BoatId" MinWidth="60"/>
+                                <TextBox Name="BoatIdFilter" TextChanged="UpdateFilter"></TextBox>
                             </StackPanel>
                             <GridViewColumnHeader.ContextMenu>
-                                <ContextMenu MenuItem.Click="SortMember" Name="FirstName">
+                                <ContextMenu MenuItem.Click="SortMember" Name="BoatId">
                                 <MenuItem Header="Ascending" />
                                 <MenuItem Header="Descending" />
                             </ContextMenu>
@@ -47,16 +47,16 @@
                     </GridViewColumnHeader>
                     </GridViewColumn>
 
-                    <GridViewColumn Header="Infix" DisplayMemberBinding="{Binding  Infix}"/>
 
-                    <GridViewColumn DisplayMemberBinding="{Binding LastName}">
+
+                    <GridViewColumn DisplayMemberBinding="{Binding StartTime}">
                         <GridViewColumnHeader>
                             <StackPanel>
-                                <TextBlock Text="LastName" MinWidth="60"/>
-                                <TextBox Name="LastNameFilter" TextChanged="UpdateFilter"></TextBox>
+                                <TextBlock Text="StartTime" MinWidth="60"/>
+                                <TextBox Name="StartTimeFilter" TextChanged="UpdateFilter"></TextBox>
                             </StackPanel>
                             <GridViewColumnHeader.ContextMenu>
-                            <ContextMenu MenuItem.Click="SortMember" Name="LastName">
+                                <ContextMenu MenuItem.Click="SortMember" Name="StartTime">
                                 <MenuItem Header="Ascending" />
                                 <MenuItem Header="Descending" />
                             </ContextMenu>
@@ -64,35 +64,37 @@
                     </GridViewColumnHeader>
                     </GridViewColumn>
 
-                    <GridViewColumn  DisplayMemberBinding="{Binding Email}">
+                    <GridViewColumn  DisplayMemberBinding="{Binding EndTime}">
                         <GridViewColumnHeader>
                             <StackPanel>
-                                <TextBlock Text="Email" MinWidth="60"/>
-                                <TextBox Name="EmailFilter" TextChanged="UpdateFilter"></TextBox>
+                                <TextBlock Text="EndTime" MinWidth="60"/>
+                                <TextBox Name="EndTimeFilter" TextChanged="UpdateFilter"></TextBox>
                             </StackPanel>
                             <GridViewColumnHeader.ContextMenu>
-                            <ContextMenu MenuItem.Click="SortMember" Name="Email">
-                                <MenuItem Header="Ascending" />
-                                <MenuItem Header="Descending" />
-                            </ContextMenu>
-                        </GridViewColumnHeader.ContextMenu>
-                    </GridViewColumnHeader>
-                    </GridViewColumn>
-
-                    <GridViewColumn  DisplayMemberBinding="{Binding RolesString}">
-                        <GridViewColumnHeader>
-                            <StackPanel>
-                                <TextBlock Text="Roles" MinWidth="60"/>
-                                <TextBox Name="RolesFilter" TextChanged="UpdateFilter"></TextBox>
-                            </StackPanel>
-                            <GridViewColumnHeader.ContextMenu>
-                                <ContextMenu MenuItem.Click="SortMember" Name="Roles">
+                                <ContextMenu MenuItem.Click="SortMember" Name="EndTime">
                                     <MenuItem Header="Ascending" />
                                     <MenuItem Header="Descending" />
                                 </ContextMenu>
                             </GridViewColumnHeader.ContextMenu>
                         </GridViewColumnHeader>
                     </GridViewColumn>
+
+                    <GridViewColumn  DisplayMemberBinding="{Binding CreationDate}">
+                        <GridViewColumnHeader>
+                            <StackPanel>
+                                <TextBlock Text="CreationDate" MinWidth="60"/>
+                                <TextBox Name="CreationDateFilter" TextChanged="UpdateFilter"></TextBox>
+                            </StackPanel>
+                            <GridViewColumnHeader.ContextMenu>
+                                <ContextMenu MenuItem.Click="SortMember" Name="CreationDate">
+                                <MenuItem Header="Ascending" />
+                                <MenuItem Header="Descending" />
+                            </ContextMenu>
+                        </GridViewColumnHeader.ContextMenu>
+                    </GridViewColumnHeader>
+                    </GridViewColumn>
+
+                    
 
                 </GridView>
             </ListView.View>

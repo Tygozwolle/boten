@@ -37,9 +37,9 @@ public partial class Buttons : UserControl
                 throw new NotImplementedException("damage");
 
             case Button button when button == EventsButton:
-                //MainWindow.MainContent.Navigate(new );
-                throw new NotImplementedException("events");
-
+                MainWindow.MainContent.Navigate(new ViewReservations());
+                //throw new NotImplementedException("events");
+                break;
             case Button button when button == ReserveButton:
                 MainWindow.MainContent.Navigate(new AddReservation(MainWindow.LoggedInMember, 1));
                 // throw new NotImplementedException("reserve");
