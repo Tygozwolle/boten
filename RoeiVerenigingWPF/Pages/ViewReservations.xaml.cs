@@ -74,6 +74,7 @@ namespace RoeiVerenigingWPF.Pages
         }
         private bool Filter(object item)
         {
+            const string format = "dd-MM-yyyy HH:mm:ss";
             List<bool> result = new List<bool>();
             // filter ID
             if (String.IsNullOrEmpty(IdFilter.Text))
@@ -112,7 +113,7 @@ namespace RoeiVerenigingWPF.Pages
             }
             else
             {
-                result.Add(((item as Reservation).StartTime.ToString().IndexOf($"{StartTimeFilter.Text}", StringComparison.OrdinalIgnoreCase) >= 0));
+                result.Add(((item as Reservation).StartTime.ToString(format).IndexOf($"{StartTimeFilter.Text}", StringComparison.OrdinalIgnoreCase) >= 0));
             }
 
             //Filter EndTime
@@ -122,7 +123,7 @@ namespace RoeiVerenigingWPF.Pages
             }
             else
             {
-                result.Add(((item as Reservation).EndTime.ToString().IndexOf($"{EndTimeFilter.Text}", StringComparison.OrdinalIgnoreCase) >= 0));
+                result.Add(((item as Reservation).EndTime.ToString(format).IndexOf($"{EndTimeFilter.Text}", StringComparison.OrdinalIgnoreCase) >= 0));
             }
 
             //Filter CreationDate
@@ -132,7 +133,7 @@ namespace RoeiVerenigingWPF.Pages
             }
             else
             {
-                result.Add(((item as Reservation).CreationDate.ToString().IndexOf($"{CreationDateFilter.Text}", StringComparison.OrdinalIgnoreCase) >= 0));
+                result.Add(((item as Reservation).CreationDate.ToString(format).IndexOf($"{CreationDateFilter.Text}", StringComparison.OrdinalIgnoreCase) >= 0));
             }
 
             return !result.Contains(false);
