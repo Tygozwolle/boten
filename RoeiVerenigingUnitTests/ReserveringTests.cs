@@ -23,11 +23,9 @@ namespace RoeiVerenigingUnitTests
             ReservationRepository.Setup(x => x.CreateReservation(It.IsAny<Member>(), It.IsAny<int>(), It.IsAny<DateTime>(), It.IsAny<DateTime>())).Returns(reservation);
             var ReservationService = new ReservationService(ReservationRepository.Object);
             //Act
-           // var result = 
              var result = ReservationService.Create(member, 4, new DateTime(3), new DateTime(4));
             //Assert
              Assert.That(Is.Equals(result, reservation));
-          //  Assert.Pass();
         }
 
  
