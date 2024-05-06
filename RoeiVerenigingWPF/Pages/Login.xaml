@@ -5,23 +5,25 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:RoeiVerenigingWPF.Pages"
       mc:Ignorable="d"
-      Title="Login"
-      >
+      Title="Login">
     <Grid Margin="0,350,0,0">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Label Grid.Row="0" Content="Email:" Width="200" FontFamily="Franklin Gothic Medium" FontSize="16" Foreground="#1A517A"/>
-        <TextBox Grid.Row="1" x:Name="Email" Width="200" BorderBrush="Black"/>
+        <Label Grid.Row="0" Content="Email:" Width="200" FontFamily="Franklin Gothic Medium" FontSize="16"
+               Foreground="#1A517A" />
+        <TextBox Grid.Row="1" x:Name="Email" Width="200" BorderBrush="Black" />
 
-        <Label Grid.Row="2" Content="Wachtwoord:" Width="200" FontFamily="Franklin Gothic Medium" FontSize="16" Foreground="#1A517A"/>
-        <PasswordBox Grid.Row="3" x:Name="Password" Width="200" BorderBrush="Black"/>
-        
-        <Button Grid.Row="4" Content="Login" Click="LoginMember" Width="200" Margin="20" FontFamily="Franklin Gothic Medium" FontSize="32" Foreground="#1A517A" Background="#88BFEA" />
+        <Label Grid.Row="2" Content="Wachtwoord:" Width="200" FontFamily="Franklin Gothic Medium" FontSize="16"
+               Foreground="#1A517A" />
+        <PasswordBox Grid.Row="3" x:Name="Password" Width="200" BorderBrush="Black" />
+
+        <Button Grid.Row="4" Content="Login" Click="LoginMember" Width="200" Margin="20"
+                FontFamily="Franklin Gothic Medium" FontSize="32" Foreground="#1A517A" Background="#88BFEA" />
     </Grid>
 </Page>

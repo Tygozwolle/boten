@@ -1,19 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using DataAccessLibary;
 using RoeiVerenigingLibary;
 
@@ -25,6 +14,7 @@ namespace RoeiVerenigingWPF.Pages
     public partial class ViewUsers : Page
     {
         private List<Member> _memberList;
+
         public ViewUsers()
         {
             MemberService service = new MemberService(new MemberRepository());
@@ -43,8 +33,6 @@ namespace RoeiVerenigingWPF.Pages
                 string[] validStrings = { "Id", "FirstName", "LastName", "Email" };
                 if (validStrings.Contains(sendercast.Name))
                 {
-                   
-                    
                     MenuItem routedEventArgsCast = (MenuItem)routedEventArgs.Source;
                     if (routedEventArgsCast.Header.ToString() == "Ascending")
                     {
@@ -70,6 +58,7 @@ namespace RoeiVerenigingWPF.Pages
         {
             CollectionViewSource.GetDefaultView(___UserList_.ItemsSource).Refresh();
         }
+
         private bool Filter(object item)
         {
             List<bool> result = new List<bool>();
@@ -80,7 +69,8 @@ namespace RoeiVerenigingWPF.Pages
             }
             else
             {
-                result.Add(((item as Member).Id.ToString().IndexOf($"{IdFilter.Text}", StringComparison.OrdinalIgnoreCase) >= 0)) ; 
+                result.Add(((item as Member).Id.ToString()
+                    .IndexOf($"{IdFilter.Text}", StringComparison.OrdinalIgnoreCase) >= 0));
             }
 
             //Filter FirstName
@@ -90,7 +80,8 @@ namespace RoeiVerenigingWPF.Pages
             }
             else
             {
-                result.Add(((item as Member).FirstName.IndexOf($"{FirstNameFilter.Text}", StringComparison.OrdinalIgnoreCase) >= 0));
+                result.Add(((item as Member).FirstName.IndexOf($"{FirstNameFilter.Text}",
+                    StringComparison.OrdinalIgnoreCase) >= 0));
             }
 
             //Filter LastName
@@ -100,7 +91,8 @@ namespace RoeiVerenigingWPF.Pages
             }
             else
             {
-                result.Add(((item as Member).LastName.IndexOf($"{LastNameFilter.Text}", StringComparison.OrdinalIgnoreCase) >= 0));
+                result.Add(((item as Member).LastName.IndexOf($"{LastNameFilter.Text}",
+                    StringComparison.OrdinalIgnoreCase) >= 0));
             }
 
             //Filter Email
@@ -110,7 +102,8 @@ namespace RoeiVerenigingWPF.Pages
             }
             else
             {
-                result.Add(((item as Member).Email.IndexOf($"{EmailFilter.Text}", StringComparison.OrdinalIgnoreCase) >= 0));
+                result.Add(((item as Member).Email.IndexOf($"{EmailFilter.Text}", StringComparison.OrdinalIgnoreCase) >=
+                            0));
             }
 
             //Filter Roles
@@ -120,7 +113,8 @@ namespace RoeiVerenigingWPF.Pages
             }
             else
             {
-                result.Add(((item as Member).RolesString.IndexOf($"{RolesFilter.Text}", StringComparison.OrdinalIgnoreCase) >= 0));
+                result.Add(((item as Member).RolesString.IndexOf($"{RolesFilter.Text}",
+                    StringComparison.OrdinalIgnoreCase) >= 0));
             }
 
             return !result.Contains(false);
@@ -129,10 +123,6 @@ namespace RoeiVerenigingWPF.Pages
         private void ___EditMember__Click(object sender, RoutedEventArgs e)
         {
             Member selectedMember = (Member)___UserList_.SelectedItem;
-
         }
     }
-        
-    }
-
-
+}

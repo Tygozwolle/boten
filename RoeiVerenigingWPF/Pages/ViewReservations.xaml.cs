@@ -1,19 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using DataAccessLibary;
 using RoeiVerenigingLibary;
 
@@ -25,14 +14,15 @@ namespace RoeiVerenigingWPF.Pages
     public partial class ViewReservations : Page
     {
         private List<Reservation> _reservationList;
+
         public ViewReservations()
         {
-             ReservationService service = new ReservationService(new ReservationRepository());
+            ReservationService service = new ReservationService(new ReservationRepository());
 
             _reservationList = service.GetReservations();
             InitializeComponent();
             this.DataContext = this;
-           
+
             ___ReservationList_.ItemsSource = _reservationList;
             ___ReservationList_.Items.Filter = Filter;
         }
@@ -45,8 +35,6 @@ namespace RoeiVerenigingWPF.Pages
                 string[] validStrings = { "Id", "FullName", "BoatId", "StartTime", "EndTime", "CreationDate" };
                 if (validStrings.Contains(sendercast.Name))
                 {
-                   
-                    
                     MenuItem routedEventArgsCast = (MenuItem)routedEventArgs.Source;
                     if (routedEventArgsCast.Header.ToString() == "Ascending")
                     {
@@ -72,6 +60,7 @@ namespace RoeiVerenigingWPF.Pages
         {
             CollectionViewSource.GetDefaultView(___ReservationList_.ItemsSource).Refresh();
         }
+
         private bool Filter(object item)
         {
             const string format = "dd-MM-yyyy HH:mm:ss";
@@ -83,7 +72,8 @@ namespace RoeiVerenigingWPF.Pages
             }
             else
             {
-                result.Add(((item as Reservation).Id.ToString().IndexOf($"{IdFilter.Text}", StringComparison.OrdinalIgnoreCase) >= 0)) ; 
+                result.Add(((item as Reservation).Id.ToString()
+                    .IndexOf($"{IdFilter.Text}", StringComparison.OrdinalIgnoreCase) >= 0));
             }
 
             // filter name
@@ -93,7 +83,8 @@ namespace RoeiVerenigingWPF.Pages
             }
             else
             {
-                result.Add(((item as Reservation).Member.FullName.IndexOf($"{FullNameFilter.Text}", StringComparison.OrdinalIgnoreCase) >= 0));
+                result.Add(((item as Reservation).Member.FullName.IndexOf($"{FullNameFilter.Text}",
+                    StringComparison.OrdinalIgnoreCase) >= 0));
             }
 
             //Filter BoatId
@@ -103,7 +94,8 @@ namespace RoeiVerenigingWPF.Pages
             }
             else
             {
-                result.Add(((item as Reservation).BoatID.ToString().IndexOf($"{BoatIdFilter.Text}", StringComparison.OrdinalIgnoreCase) >= 0));
+                result.Add(((item as Reservation).BoatID.ToString()
+                    .IndexOf($"{BoatIdFilter.Text}", StringComparison.OrdinalIgnoreCase) >= 0));
             }
 
             //Filter StartTime
@@ -113,7 +105,8 @@ namespace RoeiVerenigingWPF.Pages
             }
             else
             {
-                result.Add(((item as Reservation).StartTime.ToString(format).IndexOf($"{StartTimeFilter.Text}", StringComparison.OrdinalIgnoreCase) >= 0));
+                result.Add(((item as Reservation).StartTime.ToString(format)
+                    .IndexOf($"{StartTimeFilter.Text}", StringComparison.OrdinalIgnoreCase) >= 0));
             }
 
             //Filter EndTime
@@ -123,7 +116,8 @@ namespace RoeiVerenigingWPF.Pages
             }
             else
             {
-                result.Add(((item as Reservation).EndTime.ToString(format).IndexOf($"{EndTimeFilter.Text}", StringComparison.OrdinalIgnoreCase) >= 0));
+                result.Add(((item as Reservation).EndTime.ToString(format)
+                    .IndexOf($"{EndTimeFilter.Text}", StringComparison.OrdinalIgnoreCase) >= 0));
             }
 
             //Filter CreationDate
@@ -133,7 +127,8 @@ namespace RoeiVerenigingWPF.Pages
             }
             else
             {
-                result.Add(((item as Reservation).CreationDate.ToString(format).IndexOf($"{CreationDateFilter.Text}", StringComparison.OrdinalIgnoreCase) >= 0));
+                result.Add(((item as Reservation).CreationDate.ToString(format)
+                    .IndexOf($"{CreationDateFilter.Text}", StringComparison.OrdinalIgnoreCase) >= 0));
             }
 
             return !result.Contains(false);
@@ -142,10 +137,6 @@ namespace RoeiVerenigingWPF.Pages
         private void ___EditReserevation__Click(object sender, RoutedEventArgs e)
         {
             Reservation selectedReservation = (Reservation)___ReservationList_.SelectedItem;
-
         }
     }
-        
-    }
-
-
+}

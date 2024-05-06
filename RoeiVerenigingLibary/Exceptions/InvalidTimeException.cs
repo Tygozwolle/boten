@@ -1,7 +1,12 @@
 namespace RoeiVerenigingLibary.Exceptions;
 
-public class InvalidTimeException : Exception 
+public class InvalidTimeException : Exception
 {
-    public   InvalidTimeException(){}
-    public InvalidTimeException(string message) : base(message) {}
+    public InvalidTimeException()
+    {
+    }
+
+    public InvalidTimeException(string message) : base(message)
+    {
+    }
 }

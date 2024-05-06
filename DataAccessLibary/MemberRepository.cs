@@ -62,6 +62,7 @@ public class MemberRepository : IMemberRepository
 
         return null;
     }
+
     private static List<string> GetRoles(int id)
     {
         var list = new List<string>();
@@ -153,7 +154,7 @@ public class MemberRepository : IMemberRepository
                 using (MySqlDataReader reader = command.ExecuteReader())
                 {
                     List<Task> tasks = new List<Task>(reader.FieldCount);
-                    
+
                     while (reader.Read())
                     {
                         var id = reader.GetInt32(0);
@@ -163,6 +164,7 @@ public class MemberRepository : IMemberRepository
                         {
                             infix = reader.GetString(2);
                         }
+
                         var lastName = reader.GetString(3);
                         var email = reader.GetString(4);
                         var task = new Task(() =>
@@ -172,11 +174,12 @@ public class MemberRepository : IMemberRepository
                         task.Start();
                         tasks.Add(task);
                     }
+
                     Task.WaitAll(tasks.ToArray());
                 }
             }
         }
-        
+
         return members.OrderBy(x => x.Id).ToList();
     }
 }

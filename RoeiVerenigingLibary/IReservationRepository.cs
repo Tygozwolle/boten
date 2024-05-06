@@ -2,6 +2,6 @@ namespace RoeiVerenigingLibary;
 
 public interface IReservationRepository
 {
-    public void Create(int boatId, int userId, DateTime? startTime, DateTime? endTime);
+    public void CreateReservation(Reservation reservation);
     public List<Reservation> GetReservations();
 }

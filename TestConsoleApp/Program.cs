@@ -20,7 +20,7 @@ namespace TestConsoleApp
             List<Member> member = memberService.GetMembers();
             var reservation = new ReservationRepository();
           var res =  reservation.GetReservations();
-            //   Member newMember = memberService.Create(tygo, "gerardus","", "Johnesses", "HIHI@doei.be", "Test123$");
+            //   Member newMember = memberService.CreateReservation(tygo, "gerardus","", "Johnesses", "HIHI@doei.be", "Test123$");
             // Console.WriteLine(newMember.FirstName);
         }
     }

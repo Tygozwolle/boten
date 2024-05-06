@@ -4,22 +4,22 @@ using System.Windows.Input;
 using DataAccessLibary;
 using RoeiVerenigingLibary;
 using RoeiVerenigingLibary.Exceptions;
+using RoeiVerenigingWPF.Frames;
 
-namespace RoeiVerenigingWPF.Frames
+namespace RoeiVerenigingWPF.Pages
 {
     /// <summary>
     /// Interaction logic for AddReservation.xaml
     /// </summary>
     /// 
-    public partial class AddReservation
+    public partial class AddReservation : Page
     {
         private Member _loggedInMember;
 
         public DateTime? currentDateTime = DateTime.Now;
 
-        private ReservationService _service = new ReservationService(new ReservationRepository());
+        private ReservationService _service = new (new ReservationRepository());
         private int _boatId;
-
 
         public AddReservation(Member loggedInMember, int boatId)
         {
@@ -48,23 +48,26 @@ namespace RoeiVerenigingWPF.Frames
         public void ConfirmButton(Object sender, RoutedEventArgs e)
         {
             //check if all fields are valid
-            DateTime? StartTime = BeginTimePicker.Value;
-            DateTime? EndTime = EndTimePicker.Value;
-            DateTime? SelectedDate = Calendar.SelectedDate;
-            if (!StartTime.HasValue || !EndTime.HasValue || !SelectedDate.HasValue)
+            DateTime? startTime = BeginTimePicker.Value;
+            DateTime? endTime = EndTimePicker.Value;
+            DateTime? selectedDate = Calendar.SelectedDate;
+            if (!startTime.HasValue || !endTime.HasValue || !selectedDate.HasValue)
             {
+                MessageBox.Show("Selecteer een datum en begin en eindtijd!");
                 return;
             }
 
             //add date and time together
-            DateTime startDateTime = SelectedDate.Value.Date.Add(StartTime.Value.TimeOfDay);
-            DateTime endDateTime = SelectedDate.Value.Date.Add(EndTime.Value.TimeOfDay);
+            DateTime startDateTime = selectedDate.Value.Date.Add(startTime.Value.TimeOfDay);
+            DateTime endDateTime = selectedDate.Value.Date.Add(endTime.Value.TimeOfDay);
 
             try
             {
-                if (_service.TimeChecker(StartTime, EndTime))
+                if (_service.TimeChecker(startTime, endTime))
                 {
-                    _service.Create(_loggedInMember, _boatId, startDateTime, endDateTime);
+                    Reservation reservation =
+                        new Reservation(_loggedInMember, _boatId, startDateTime, endDateTime);
+                    _service.Create(reservation);
                 }
             }
             catch (InvalidTimeException ex)
