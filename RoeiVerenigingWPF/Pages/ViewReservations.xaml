@@ -36,10 +36,10 @@
                         <GridViewColumnHeader>
                             <StackPanel>
                                 <TextBlock Text="naam" MinWidth="60"/>
-                                <TextBox Name="MemberIdFilter" TextChanged="UpdateFilter"></TextBox>
+                                <TextBox Name="FullNameFilter" TextChanged="UpdateFilter"></TextBox>
                             </StackPanel>
                             <GridViewColumnHeader.ContextMenu>
-                                <ContextMenu MenuItem.Click="SortMember" Name="MemberId">
+                                <ContextMenu MenuItem.Click="SortMember" Name="FullName">
                                     <MenuItem Header="Ascending" />
                                     <MenuItem Header="Descending" />
                                 </ContextMenu>

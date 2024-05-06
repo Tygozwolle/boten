@@ -42,7 +42,7 @@ namespace RoeiVerenigingWPF.Pages
             try
             {
                 ContextMenu sendercast = (System.Windows.Controls.ContextMenu)sender;
-                string[] validStrings = { "Id", "FirstName", "LastName", "Email" };
+                string[] validStrings = { "Id", "FullName", "BoatId", "StartTime", "EndTime", "CreationDate" };
                 if (validStrings.Contains(sendercast.Name))
                 {
                    
@@ -83,6 +83,16 @@ namespace RoeiVerenigingWPF.Pages
             else
             {
                 result.Add(((item as Reservation).Id.ToString().IndexOf($"{IdFilter.Text}", StringComparison.OrdinalIgnoreCase) >= 0)) ; 
+            }
+
+            // filter name
+            if (String.IsNullOrEmpty(FullNameFilter.Text))
+            {
+                result.Add(true);
+            }
+            else
+            {
+                result.Add(((item as Reservation).Member.FullName.IndexOf($"{FullNameFilter.Text}", StringComparison.OrdinalIgnoreCase) >= 0));
             }
 
             //Filter BoatId
