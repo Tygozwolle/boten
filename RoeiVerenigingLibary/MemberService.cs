@@ -83,7 +83,7 @@ public class MemberService
             throw new IncorrectPasswordException();
         }
 
-        if (newPassword != newPasswordConfirm)
+        if (newPassword != newPasswordConfirm) { throw new PasswordsDontMatchException(); }
             throw new PasswordsDontMatchException();
         try
         {
