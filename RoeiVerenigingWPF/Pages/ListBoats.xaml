@@ -46,7 +46,7 @@
                                 <!-- Define your item layout here -->
                                 <Border BorderBrush="Black" BorderThickness="1" Margin="5">
                                     <Grid>
-                                        <Image Source="/Frames/Image_not_available.png" MaxHeight="100px" MaxWidth="200px" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                        <Image Source="/Images/Image_not_available.png" MaxHeight="100px" MaxWidth="200px" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                                         <StackPanel Margin="110 0 5 0">
                                             <TextBlock Text="{Binding Id, StringFormat='Boot: {0}'}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="25"/>
                                             <TextBlock Text="{Binding Seats, StringFormat='Aantal man: {0}'}" VerticalAlignment="Center" HorizontalAlignment="Right"/>

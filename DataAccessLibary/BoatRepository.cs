@@ -20,18 +20,13 @@ namespace DataAccessLibary
                     {
                         while (reader.Read())
                         {
-                            List<Task> tasks = new List<Task>(reader.FieldCount);
+                            var id = reader.GetInt32(0);
+                            var captainSeat = reader.GetBoolean(1);
+                            var Seats = reader.GetInt32(2);
 
-                            while (reader.Read())
-                            {
-                                var id = reader.GetInt32(0);
-                                var captainSeat = reader.GetBoolean(1);
-                                var Seats = reader.GetInt32(2);
-
-                                boat.Add(new Boat(id, captainSeat, Seats));
-                            }
-
+                            boat.Add(new Boat(id, captainSeat, Seats));
                         }
+
                     }
                 }
             }
