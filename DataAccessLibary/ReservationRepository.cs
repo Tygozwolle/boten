@@ -1,3 +1,5 @@
+using System;
+using System.Data;
 using System.Threading.Channels;
 using MySqlConnector;
 using RoeiVerenigingLibary;
@@ -6,13 +8,8 @@ namespace DataAccessLibary;
 
 public class ReservationRepository : IReservationRepository
 {
-    public void CreateReservation(Reservation reservation)
-    {
-        int boatId = reservation.BoatID;
-        int userId = reservation.Member.Id;
-        DateTime startTime = reservation.StartTime;
-        DateTime endTime = reservation.EndTime;
-        
+    public Reservation CreateReservation(Member member, int boatId, DateTime startTime, DateTime endTime)
+    {   
         using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
         {
             connection.Open();
@@ -29,14 +26,19 @@ public class ReservationRepository : IReservationRepository
                 command.Parameters.Add("@EndTime", MySqlDbType.DateTime);
 
                 command.Parameters["@BoatId"].Value = boatId;
-                command.Parameters["@UserId"].Value = userId;
+                command.Parameters["@UserId"].Value = member.Id;
                 command.Parameters["@StartingTime"].Value = startTime;
                 command.Parameters["@EndTime"].Value = endTime;
-                command.ExecuteReader();
-            }
+
+                using (MySqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read()) { 
+                    return new Reservation(member, reader.GetDateTime(3), startTime, endTime, boatId,   reader.GetInt32(0));
+                } }}
 
             connection.Close();
         }
+        return null;
     }
 
     public List<Reservation> GetReservations()

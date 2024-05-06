@@ -21,11 +21,11 @@ public class ReservationService
         throw new InvalidTimeException("not valid time, start time should be earlier than end time. ");
     }
 
-    public void Create(Reservation reservation)
+    public Reservation Create(Member member, int boatId, DateTime startTime, DateTime endTime)
     {
         //TODO: check if boat is available
         //TODO: check if duration is less than 2 hours
-        _reservationRepository.CreateReservation(reservation);
+     return _reservationRepository.CreateReservation(member, boatId, startTime, endTime);
     }
 
     public List<Reservation> GetReservations()

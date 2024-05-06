@@ -50,7 +50,7 @@ namespace RoeiVerenigingWPF.Pages
             //check if all fields are valid
             DateTime? startTime = BeginTimePicker.Value;
             DateTime? endTime = EndTimePicker.Value;
-            DateTime? selectedDate = Calendar.SelectedDate;
+            DateTime? selectedDate = calendar.SelectedDate;
             if (!startTime.HasValue || !endTime.HasValue || !selectedDate.HasValue)
             {
                 MessageBox.Show("Selecteer een datum en begin en eindtijd!");
@@ -65,9 +65,7 @@ namespace RoeiVerenigingWPF.Pages
             {
                 if (_service.TimeChecker(startTime, endTime))
                 {
-                    Reservation reservation =
-                        new Reservation(_loggedInMember, _boatId, startDateTime, endDateTime);
-                    _service.Create(reservation);
+                 Reservation reservation = _service.Create(_loggedInMember,_boatId, startDateTime, endDateTime);
                 }
             }
             catch (InvalidTimeException ex)

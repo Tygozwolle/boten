@@ -38,7 +38,7 @@
             Grid.Row="2"
             Grid.Column="1"
             StretchDirection="Both">
-            <Calendar Name="Calendar" SelectionMode="SingleDate" />
+            <Calendar x:Name="calendar" SelectionMode="SingleDate" />
         </Viewbox>
 
         <!-- Photo -->
