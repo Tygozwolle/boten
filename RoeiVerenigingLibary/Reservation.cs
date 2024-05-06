@@ -19,4 +19,12 @@ public class Reservation
         this.Id = ID;
     }
 
+    public Reservation(Member member, int boatId, DateTime startTime, DateTime endTime)
+    {
+        this.Member = member;
+        this.StartTime = startTime;
+        this.EndTime = endTime;
+        this.BoatID = boatId;
+    }
+
 }

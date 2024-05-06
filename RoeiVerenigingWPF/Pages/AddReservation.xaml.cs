@@ -13,36 +13,27 @@ namespace RoeiVerenigingWPF.Frames
     /// 
     public partial class AddReservation
     {
-        public DateTime? SelectedDate { get; set; }
-        private DateTime? StartTime { get; set; }
-        private DateTime? EndTime
-        {
-            get;
-            set;
-        }
-//placeholder for logged in member
-        private Member _member = new Member(30,  "rick", "wil", "roeien", "rick@windesheim.be", new List<string>());
+        private Member _loggedInMember;
 
         public DateTime? currentDateTime = DateTime.Now;
 
-        public AddReservation()
+        private ReservationService _service = new ReservationService(new ReservationRepository());
+        private int _boatId;
+
+
+        public AddReservation(Member loggedInMember, int boatId)
         {
             InitializeComponent();
+            //todo: use boat_id from selected boat, set it in this constructor
+            _boatId = boatId;
+            _loggedInMember = loggedInMember;
             DataContext = this;
-            
-
         }
 
         public DateTime CurrentDateTime
         {
-            get
-            {
-                return CurrentDateTime;
-            }
-            set
-            {
-                currentDateTime = value;
-            }
+            get { return CurrentDateTime; }
+            set { currentDateTime = value; }
         }
 
 
@@ -56,23 +47,34 @@ namespace RoeiVerenigingWPF.Frames
 
         public void ConfirmButton(Object sender, RoutedEventArgs e)
         {
-            this.StartTime = BeginTimePicker.Value;
-            this.EndTime = EndTimePicker.Value;
-            this.SelectedDate = Calendar.SelectedDate;
+            //check if all fields are valid
+            DateTime? StartTime = BeginTimePicker.Value;
+            DateTime? EndTime = EndTimePicker.Value;
+            DateTime? SelectedDate = Calendar.SelectedDate;
+            if (!StartTime.HasValue || !EndTime.HasValue || !SelectedDate.HasValue)
+            {
+                return;
+            }
 
-            ReservationCreator r = new ReservationCreator(_member, 3, new ReservationRepository()); //om de een of andere reden pakt hij member.Id als Boat.Id
+            //add date and time together
+            DateTime startDateTime = SelectedDate.Value.Date.Add(StartTime.Value.TimeOfDay);
+            DateTime endDateTime = SelectedDate.Value.Date.Add(EndTime.Value.TimeOfDay);
+
             try
             {
-                if (r.TimeChecker(StartTime, EndTime))
+                if (_service.TimeChecker(StartTime, EndTime))
                 {
-                    r.CommitToDb();
+                    _service.Create(_loggedInMember, _boatId, startDateTime, endDateTime);
                 }
             }
-            catch(InvalidTimeException ex)
+            catch (InvalidTimeException ex)
             {
                 MessageBox.Show(ex.Message);
+                return;
             }
+
+            MessageBox.Show("Reservering aangemaakt");
+            //todo: send to reservation overview
         }
-        
     }
 }
