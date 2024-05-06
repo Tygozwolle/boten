@@ -31,7 +31,7 @@
                       SelectionChanged="MemberFunctions_SelectionChanged">
                 <ComboBoxItem x:Name="NameComboBoxItem" Height="50" Content="Uitgelogd" Visibility="Collapsed"
                               IsSelected="True" Background="#88BFEA" />
-                <ComboBoxItem Height="50" Content="Option 1" />
+                <ComboBoxItem Height="50" Content="Wachtwoord wijzigen" />
                 <ComboBoxItem Height="50" Content="Leden" />
                 <ComboBoxItem Height="50" Content="Nieuw Lid" />
                 <ComboBoxItem Height="50" Content="Uitloggen" />
