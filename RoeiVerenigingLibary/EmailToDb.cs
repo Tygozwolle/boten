@@ -18,7 +18,7 @@ namespace RoeiVerenigingLibary
             IConfigurationRoot config = new ConfigurationBuilder().AddUserSecrets<EmailToDb>().Build();
             ImapClient client = new ImapClient("imap.gmail.com", 993, config["Mail:username"], config["Mail:password"]);
             client.SelectFolder(ImapFolderInfo.InBox);
-            ImapMessageInfoCollection messages = client.ListMessages(1);
+            ImapMessageInfoCollection messages = client.ListMessages();
             List<Aspose.Email.Attachment> attachments = new List<Aspose.Email.Attachment>();
             foreach (ImapMessageInfo messageInfo in messages)
             {
@@ -30,7 +30,7 @@ namespace RoeiVerenigingLibary
                     // Handle other attachment types similarly
                 }
             }
-
+            Console.WriteLine();
         }
 
     }
