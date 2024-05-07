@@ -22,7 +22,19 @@ namespace RoeiVerenigingUnitTests
             //Assert
              Assert.That(Is.Equals(result, reservation));
         }
+        [Test]
+        public void TimeChecker_BothTimesValidAndStartBeforeEnd_ReturnsTrue()
+        {
+            // Arrange
+            var start = new DateTime(2024, 5, 7, 14, 0, 0);
+            var end = new DateTime(2024, 5, 7, 15, 0, 0);
+            var checker = new ReservationService(new Mock<IReservationRepository>().Object); 
+            // Act
+            bool result = checker.TimeChecker(start, end);
 
- 
+            // Assert
+            Assert.That(result);
+        }
+
     }
 }
