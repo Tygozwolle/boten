@@ -8,21 +8,21 @@
         mc:Ignorable="d"
         Title="MainWindow" WindowState="Maximized">
     <Grid>
-        
-        <!-- Grid.RowDefinition and Grid.ColumnDefinition --> 
+
+        <!-- Grid.RowDefinition and Grid.ColumnDefinition -->
         <Grid.RowDefinitions>
-            <RowDefinition Height="100"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="100" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="350"/>
-            <ColumnDefinition Width="*"/>
-        
+            <ColumnDefinition Width="350" />
+            <ColumnDefinition Width="*" />
+
         </Grid.ColumnDefinitions>
-        
+
         <!-- All the reusable components-->
-        <Components:Header  x:Name="HeaderClass" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
-        <Components:Buttons x:Name="ButtonClass" Grid.Row="1" Grid.Column="0"/> 
-        <Frame x:Name="MainContent" Grid.Row="1" Grid.Column="1"/>        <!-- Other components -->
+        <Components:Header x:Name="HeaderClass" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" />
+        <Components:Buttons x:Name="ButtonClass" Grid.Row="1" Grid.Column="0" />
+        <Frame x:Name="MainContent" Grid.Row="1" Grid.Column="1" />        <!-- Other components -->
     </Grid>
 </Window>

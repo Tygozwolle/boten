@@ -2,7 +2,6 @@
 using System.Windows.Controls;
 using DataAccessLibary;
 using RoeiVerenigingLibary;
-using RoeiVerenigingLibary.Exceptions;
 using RoeiVerenigingWPF.Frames;
 
 namespace RoeiVerenigingWPF.Pages;
@@ -10,6 +9,7 @@ namespace RoeiVerenigingWPF.Pages;
 public partial class ChangePassword : Page
 {
     private MainWindow _mainWindow;
+
     public ChangePassword(MainWindow mainWindow)
     {
         InitializeComponent();

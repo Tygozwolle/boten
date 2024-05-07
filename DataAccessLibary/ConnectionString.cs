@@ -5,7 +5,6 @@ namespace DataAccessLibary
 {
     public abstract class ConnectionString
     {
-
         public static string GetString()
         {
             IConfigurationRoot config = new ConfigurationBuilder().AddUserSecrets<ConnectionString>().Build();
@@ -21,7 +20,6 @@ namespace DataAccessLibary
             builder.ConnectionProtocol = MySqlConnectionProtocol.Tcp;
 
             return builder.ConnectionString;
-
         }
     }
 
