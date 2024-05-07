@@ -35,6 +35,20 @@ namespace RoeiVerenigingUnitTests
             // Assert
             Assert.That(result);
         }
+        [Test]
+        public void TimeChecker_exeption()
+        {
+            // Arrange
+            var start = new DateTime(2024, 5, 7, 15, 0, 0);
+            var end = new DateTime(2024, 5, 7, 14, 0, 0);
+            
+            var checker = new ReservationService(new Mock<IReservationRepository>().Object);
+            // Act
+            
 
+            // Assert
+
+            Assert.Throws< InvalidTimeException >( () =>checker.TimeChecker(start, end));
+        }
     }
 }
