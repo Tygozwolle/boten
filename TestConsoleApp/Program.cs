@@ -9,14 +9,16 @@ namespace TestConsoleApp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
-            MemberService memberService = new MemberService(new MemberRepository());
-            Member tygo = memberService.Login("tygo@windesheim.be", "Test123$");
-            Console.WriteLine(tygo.FirstName);
-            Console.WriteLine(tygo.Roles.Count);
-            List<Member> member = memberService.GetMembers();
-            var reservation = new ReservationRepository();
-            var res = reservation.GetReservations();
+            //Console.WriteLine("Hello, World!");
+            //MemberService memberService = new MemberService(new MemberRepository());
+            //Member tygo = memberService.Login("tygo@windesheim.be", "Test123$");
+            //Console.WriteLine(tygo.FirstName);
+            //Console.WriteLine(tygo.Roles.Count);
+            //List<Member> member = memberService.GetMembers();
+            //var reservation = new ReservationRepository();
+            //var res = reservation.GetReservations();
+
+           EmailToDb test = new EmailToDb();
         }
     }
 }
