@@ -22,6 +22,4 @@ namespace DataAccessLibary
             return builder.ConnectionString;
         }
     }
-
 }
-
