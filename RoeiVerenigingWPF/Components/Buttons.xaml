@@ -26,13 +26,20 @@
                    FontFamily="Franklin Gothic Medium" FontSize="32" Foreground="#1A517A" />
 
         <!-- Label 2 -->
-        <TextBlock Grid.Row="2" Margin="10 10" TextWrapping="WrapWithOverflow" FontFamily="Times New Roman" FontSize="13.5"
+        <TextBlock Grid.Row="2" Margin="10 10" TextWrapping="WrapWithOverflow" FontFamily="Times New Roman"
+                   FontSize="13.5"
                    Text="Langs de kalme oevers van de rivier, gewiegd door het zachte ruisen van het water, ontstond de roeivereniging Rivier Stroom. Een groepje vrienden, betoverd door de serene schoonheid van de omgeving, besloot hun passie voor roeien te delen. Met zelfgemaakte boten en een ontembare geest van avontuur begonnen ze samen te trainen. Hun enthousiasme verspreidde zich als een golf door de gemeenschap, en al snel sloten anderen zich aan. Gedreven door hun liefde voor de sport en de natuur, groeide Rivier Stroom uit tot een bloeiende vereniging, waar vriendschap en passie samenvloeiden op het kabbelende water." />
 
         <!-- Buttons -->
-        <Button x:Name="BotenButton" Grid.Row="3" Content="Boten" Margin="20" FontFamily="Franklin Gothic Medium" FontSize="32" Foreground="#1A517A" Background="#88BFEA" Click="Button_Click"/>
-        <Button x:Name="DamageButton" Grid.Row="4" Content="Schade" Margin="20" FontFamily="Franklin Gothic Medium" FontSize="32" Foreground="#1A517A" Background="#88BFEA" Click="Button_Click"/>
-        <Button x:Name="EventsButton" Grid.Row="5" Content="Evenementen" Margin="20" FontFamily="Franklin Gothic Medium" FontSize="32" Foreground="#1A517A" Background="#88BFEA" Click="Button_Click"/>
-        <Button x:Name="ReserveButton" Grid.Row="6" Content="Reserveringen" Margin="20" FontFamily="Franklin Gothic Medium" FontSize="32" Foreground="#1A517A" Background="#88BFEA" Click="Button_Click"/>
+        <Button x:Name="BotenButton" Grid.Row="3" Content="Boten" Margin="20" FontFamily="Franklin Gothic Medium"
+                FontSize="32" Foreground="#1A517A" Background="#88BFEA" Click="Button_Click" />
+        <Button x:Name="DamageButton" Grid.Row="4" Content="Schade" Margin="20" FontFamily="Franklin Gothic Medium"
+                FontSize="32" Foreground="#1A517A" Background="#88BFEA" Click="Button_Click" />
+        <Button x:Name="EventsButton" Grid.Row="5" Content="Evenementen" Margin="20"
+                FontFamily="Franklin Gothic Medium" FontSize="32" Foreground="#1A517A" Background="#88BFEA"
+                Click="Button_Click" />
+        <Button x:Name="ReserveButton" Grid.Row="6" Content="Reserveringen" Margin="20"
+                FontFamily="Franklin Gothic Medium" FontSize="32" Foreground="#1A517A" Background="#88BFEA"
+                Click="Button_Click" />
     </Grid>
 </UserControl>

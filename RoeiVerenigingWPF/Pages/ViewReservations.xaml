@@ -1,21 +1,24 @@
-﻿<Page x:Class="RoeiVerenigingWPF.Pages.ViewUsers"
+﻿<Page x:Class="RoeiVerenigingWPF.Pages.ViewReservations"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:RoeiVerenigingWPF.Pages"
+
       mc:Ignorable="d"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ViewUsers">
-
+    <Page.Resources>
+        <local:PropertyValueStringConverter x:Key="PropertyValueStringConverter" />
+    </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <Button x:Name="___EditMember_" Content="Edit Member" HorizontalAlignment="Center" FontSize="20"
-                Margin="0,14,0,0" Padding="10,10,10,11" Click="___EditMember__Click" />
-        <ListView x:Name="___UserList_" Margin="0,14,0,0" VerticalAlignment="Top"
+        <Button x:Name="EditReserevation" Content="wijzig Reserevering" HorizontalAlignment="Center" FontSize="20"
+                Margin="0,14,0,0" Padding="10,10,10,11" Click="EditReserevation__Click" />
+        <ListView x:Name="ReservationList" Margin="0,14,0,0" VerticalAlignment="Top"
                   d:ItemsSource="{d:SampleData ItemCount=5}" HorizontalAlignment="Center" Grid.Row="1"
                   ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible"
                   MaxHeight="700">
@@ -28,7 +31,7 @@
                                 <TextBox Name="IdFilter" TextChanged="UpdateFilter"></TextBox>
                             </StackPanel>
                             <GridViewColumnHeader.ContextMenu>
-                                <ContextMenu MenuItem.Click="SortMember" Name="Id">
+                                <ContextMenu MenuItem.Click="SortReservation" Name="Id">
                                     <MenuItem Header="Ascending" />
                                     <MenuItem Header="Descending" />
                                 </ContextMenu>
@@ -36,14 +39,14 @@
                         </GridViewColumnHeader>
                     </GridViewColumn>
 
-                    <GridViewColumn DisplayMemberBinding="{Binding FirstName}">
+                    <GridViewColumn DisplayMemberBinding="{Binding Member.FullName}">
                         <GridViewColumnHeader>
                             <StackPanel>
-                                <TextBlock Text="FirstName" MinWidth="60" />
-                                <TextBox Name="FirstNameFilter" TextChanged="UpdateFilter"></TextBox>
+                                <TextBlock Text="naam" MinWidth="60" />
+                                <TextBox Name="FullNameFilter" TextChanged="UpdateFilter"></TextBox>
                             </StackPanel>
                             <GridViewColumnHeader.ContextMenu>
-                                <ContextMenu MenuItem.Click="SortMember" Name="FirstName">
+                                <ContextMenu MenuItem.Click="SortReservation" Name="FullName">
                                     <MenuItem Header="Ascending" />
                                     <MenuItem Header="Descending" />
                                 </ContextMenu>
@@ -51,16 +54,14 @@
                         </GridViewColumnHeader>
                     </GridViewColumn>
 
-                    <GridViewColumn Header="Infix" DisplayMemberBinding="{Binding  Infix}" />
-
-                    <GridViewColumn DisplayMemberBinding="{Binding LastName}">
+                    <GridViewColumn DisplayMemberBinding="{Binding BoatID}">
                         <GridViewColumnHeader>
                             <StackPanel>
-                                <TextBlock Text="LastName" MinWidth="60" />
-                                <TextBox Name="LastNameFilter" TextChanged="UpdateFilter"></TextBox>
+                                <TextBlock Text="BootId" MinWidth="60" />
+                                <TextBox Name="BoatIdFilter" TextChanged="UpdateFilter"></TextBox>
                             </StackPanel>
                             <GridViewColumnHeader.ContextMenu>
-                                <ContextMenu MenuItem.Click="SortMember" Name="LastName">
+                                <ContextMenu MenuItem.Click="SortReservation" Name="BoatId">
                                     <MenuItem Header="Ascending" />
                                     <MenuItem Header="Descending" />
                                 </ContextMenu>
@@ -68,14 +69,16 @@
                         </GridViewColumnHeader>
                     </GridViewColumn>
 
-                    <GridViewColumn DisplayMemberBinding="{Binding Email}">
+
+                    <GridViewColumn
+                        DisplayMemberBinding="{Binding StartTime, Converter={StaticResource PropertyValueStringConverter}}">
                         <GridViewColumnHeader>
                             <StackPanel>
-                                <TextBlock Text="Email" MinWidth="60" />
-                                <TextBox Name="EmailFilter" TextChanged="UpdateFilter"></TextBox>
+                                <TextBlock Text="Start tijd" MinWidth="60" />
+                                <TextBox Name="StartTimeFilter" TextChanged="UpdateFilter"></TextBox>
                             </StackPanel>
                             <GridViewColumnHeader.ContextMenu>
-                                <ContextMenu MenuItem.Click="SortMember" Name="Email">
+                                <ContextMenu MenuItem.Click="SortReservation" Name="StartTime">
                                     <MenuItem Header="Ascending" />
                                     <MenuItem Header="Descending" />
                                 </ContextMenu>
@@ -83,14 +86,15 @@
                         </GridViewColumnHeader>
                     </GridViewColumn>
 
-                    <GridViewColumn DisplayMemberBinding="{Binding RolesString}">
+                    <GridViewColumn
+                        DisplayMemberBinding="{Binding EndTime, Converter={StaticResource PropertyValueStringConverter}}">
                         <GridViewColumnHeader>
                             <StackPanel>
-                                <TextBlock Text="Roles" MinWidth="60" />
-                                <TextBox Name="RolesFilter" TextChanged="UpdateFilter"></TextBox>
+                                <TextBlock Text="Eind tijd" MinWidth="60" />
+                                <TextBox Name="EndTimeFilter" TextChanged="UpdateFilter"></TextBox>
                             </StackPanel>
                             <GridViewColumnHeader.ContextMenu>
-                                <ContextMenu MenuItem.Click="SortMember" Name="Roles">
+                                <ContextMenu MenuItem.Click="SortReservation" Name="EndTime">
                                     <MenuItem Header="Ascending" />
                                     <MenuItem Header="Descending" />
                                 </ContextMenu>
@@ -98,9 +102,23 @@
                         </GridViewColumnHeader>
                     </GridViewColumn>
 
+                    <GridViewColumn
+                        DisplayMemberBinding="{Binding CreationDate, Converter={StaticResource PropertyValueStringConverter}}">
+                        <GridViewColumnHeader>
+                            <StackPanel>
+                                <TextBlock Text="Aanmaak Datum" MinWidth="60" />
+                                <TextBox Name="CreationDateFilter" TextChanged="UpdateFilter"></TextBox>
+                            </StackPanel>
+                            <GridViewColumnHeader.ContextMenu>
+                                <ContextMenu MenuItem.Click="SortReservation" Name="CreationDate">
+                                    <MenuItem Header="Ascending" />
+                                    <MenuItem Header="Descending" />
+                                </ContextMenu>
+                            </GridViewColumnHeader.ContextMenu>
+                        </GridViewColumnHeader>
+                    </GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>
-
     </Grid>
 </Page>
