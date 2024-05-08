@@ -6,16 +6,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Aspose.Email.Mime;
+using Microsoft.VisualBasic;
 
 namespace DataAccessLibary
 {
     public class ImageRepository : IImageRepository
     {
-        public static void Add(int id, Stream image)
+        private void Add(int id, Stream image, MySqlConnection connection)
         {
-            using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
-            {
-                connection.Open();
                 const String sql =
                     $"INSERT INTO `damage_report_fotos`(`damage_report_id`, `image_ulr`) VALUES (@reportID,@image)";
                  //   $"INSERT INTO `members`( `first_name`,`infix`, `last_name`, `email`, `password`) VALUES (@firstName,@infix,@lastName,@email,@passwordHash)";
@@ -30,10 +28,51 @@ namespace DataAccessLibary
 
                     command.ExecuteReader();
                     
+                
+            }
+        }
+
+        public void Add(int id, Stream image)
+        {
+            using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
+            {
+                connection.Open();
+                Add(id,image,connection);
+            }
+        }
+
+        public void Add(int id, List<Stream> images)
+        {
+            using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
+            {
+                connection.Open();
+
+                //  connection.BeginTransaction();
+                const String sql =
+                    $"START TRANSACTION ";
+                using (MySqlCommand command = new MySqlCommand(sql, connection))
+                {
+                    command.ExecuteReader();
+                } 
+
+                const String sqlAutocommit = "SET autocommit=0";
+                using (MySqlCommand command = new MySqlCommand(sqlAutocommit, connection))
+                {
+                    command.ExecuteReader();
+                }
+                foreach (var image in images)
+                {
+                    Add(id,image, connection);
+                }
+                const String sqlCommit = "COMMIT";
+                using (MySqlCommand command = new MySqlCommand(sqlCommit, connection))
+                {
+                    command.ExecuteReader();
                 }
             }
         }
-        public static List<Stream> get(int id)
+
+        public List<Stream> get(int id)
         {
            
             
