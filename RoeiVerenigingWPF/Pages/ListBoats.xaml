@@ -47,7 +47,7 @@
                                 <Border BorderBrush="Black" BorderThickness="1" Margin="5">
                                     <Grid>
                                         <Image Source="/Images/Image_not_available.png" MaxHeight="100px" MaxWidth="200px" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                                        <StackPanel Margin="110 0 5 0">
+                                        <StackPanel Margin="110 0 5 0" MouseLeftButtonUp="StackPanel_MouseLeftButtonUp" >
                                             <TextBlock Text="{Binding Id, StringFormat='Boot: {0}'}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="25"/>
                                             <TextBlock Text="{Binding Seats, StringFormat='Aantal man: {0}'}" VerticalAlignment="Center" HorizontalAlignment="Right"/>
                                             <TextBlock Text="{Binding CaptainSeat, StringFormat='Stuurman? {0}'}" VerticalAlignment="Center" HorizontalAlignment="Right"/>

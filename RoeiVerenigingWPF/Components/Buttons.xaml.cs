@@ -27,8 +27,7 @@ public partial class Buttons : UserControl
         switch (sender)
         {
             case Button button when button == BotenButton:
-                //MainWindow.MainContent.Navigate(new CreateUser(MainWindow));
-                throw new NotImplementedException("reservering");
+                MainWindow.MainContent.Navigate(new ListBoats());   
                 break;
             case Button button when button == DamageButton:
                 //MainWindow.MainContent.Navigate(new );

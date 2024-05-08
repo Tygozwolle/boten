@@ -1,6 +1,10 @@
-﻿using DataAccessLibary;
-using RoeiVerenigingLibary;
+﻿using System.ComponentModel;
+using System.Diagnostics;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using DataAccessLibary;
+using RoeiVerenigingLibary;
 
 namespace RoeiVerenigingWPF.Pages
 {
@@ -11,17 +15,25 @@ namespace RoeiVerenigingWPF.Pages
 
     public partial class ListBoats : Page
     {
-        public required List<Boat> boats { get; set; }
+        public List<Boat> boats { get; set; }
+
         public ListBoats()
         {
-
+            InitializeComponent();
             BoatService service = new BoatService(new BoatRepository());
             this.DataContext = this;
 
-            DataContext = this;
             boats = service.Get();
 
-            InitializeComponent();
+
+        }
+
+        private void StackPanel_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (sender is StackPanel)
+            {
+                StackPanel casted = sender as StackPanel;
+            }
         }
     }
 }
