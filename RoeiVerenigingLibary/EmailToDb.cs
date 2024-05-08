@@ -43,14 +43,17 @@ namespace RoeiVerenigingLibary
                 }
                 
                 int result;
-                Int32.TryParse(messageInfo.Subject, out result);
+               
                 try
                 {
                     repository.Add(Int32.Parse(messageInfo.Subject), streams);
                 }
                 catch (Exception e)
                 {
+                    if( Int32.TryParse(messageInfo.Subject, out result)){
                     client.RemoveMessageFlags(messageInfo.UniqueId, ImapMessageFlags.IsRead);
+                }
+
                 }
 
             }
