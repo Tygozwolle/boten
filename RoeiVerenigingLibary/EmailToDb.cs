@@ -9,6 +9,7 @@ using Aspose.Email;
 using Aspose.Email.Clients;
 using Aspose.Email.Clients.Imap;
 using Aspose.Email.Clients.Pop3;
+using Aspose.Email.Mime;
 using Microsoft.Extensions.Configuration;
 using Attachment = Aspose.Email.Attachment;
 
@@ -22,8 +23,9 @@ namespace RoeiVerenigingLibary
             try
             {
                 IConfigurationRoot config = new ConfigurationBuilder().AddUserSecrets<EmailToDb>().Build();
-                ImapClient client = new ImapClient("imap.gmail.com", 993, config["Mail:username"], config["Mail:password"]);
-                client.SelectFolder("images"); 
+                ImapClient client = new ImapClient("imap.gmail.com", 993, config["Mail:username"],
+                    config["Mail:password"]);
+                client.SelectFolder("images");
                 ImapQueryBuilder builder = new ImapQueryBuilder();
                 builder.HasNoFlags(ImapMessageFlags.IsRead);
                 ImapMessageInfoCollection messages = client.ListMessages(builder.GetQuery());
@@ -32,11 +34,19 @@ namespace RoeiVerenigingLibary
                 foreach (ImapMessageInfo messageInfo in messages)
                 {
                     // Access the email message
+                    string[] allowedFileTypes = new[]
+                    {
+                        MediaTypeNames.Image.Jpeg, MediaTypeNames.Image.Png, MediaTypeNames.Image.Gif,
+                        MediaTypeNames.Image.Bmp, MediaTypeNames.Image.Tiff
+                    };
                     Aspose.Email.MailMessage message = client.FetchMessage(messageInfo.UniqueId);
                     List<Stream> streams = new List<Stream>();
                     foreach (Aspose.Email.Attachment attachment in message.Attachments)
                     {
-                        streams.Add(attachment.ContentStream);
+                        if (allowedFileTypes.Contains(attachment.ContentType.MediaType))
+                        {
+                            streams.Add(attachment.ContentStream);
+                        }
                     }
 
                     try
