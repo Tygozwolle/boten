@@ -9,7 +9,7 @@ using Aspose.Email.Mime;
 
 namespace DataAccessLibary
 {
-    public class ImageRepository
+    public class ImageRepository : IImageRepository
     {
         public static void Add(int id, Stream image)
         {
