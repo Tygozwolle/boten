@@ -19,51 +19,56 @@ namespace RoeiVerenigingLibary
 
         public EmailToDb(IImageRepository repository)
         {
-            IConfigurationRoot config = new ConfigurationBuilder().AddUserSecrets<EmailToDb>().Build();
-            ImapClient client = new ImapClient("imap.gmail.com", 993, config["Mail:username"], config["Mail:password"]);
-            client.SelectFolder("images"); //Unread [Gmail]/Starred
-            ImapQueryBuilder builder = new ImapQueryBuilder();
-            builder.HasNoFlags(ImapMessageFlags.IsRead);
-            ImapMessageInfoCollection messages = client.ListMessages(builder.GetQuery());
-
-            List<Aspose.Email.Attachment> attachments = new List<Aspose.Email.Attachment>();
-            foreach (ImapMessageInfo messageInfo in messages)
+            try
             {
-                // Access the email message
-                Aspose.Email.MailMessage message = client.FetchMessage(messageInfo.UniqueId);
-                List<Stream> streams = new List<Stream>();
-                foreach (Aspose.Email.Attachment attachment in message.Attachments)
+                IConfigurationRoot config = new ConfigurationBuilder().AddUserSecrets<EmailToDb>().Build();
+                ImapClient client = new ImapClient("imap.gmail.com", 993, config["Mail:username"], config["Mail:password"]);
+                client.SelectFolder("images"); //Unread [Gmail]/Starred
+                ImapQueryBuilder builder = new ImapQueryBuilder();
+                builder.HasNoFlags(ImapMessageFlags.IsRead);
+                ImapMessageInfoCollection messages = client.ListMessages(builder.GetQuery());
+
+                List<Aspose.Email.Attachment> attachments = new List<Aspose.Email.Attachment>();
+                foreach (ImapMessageInfo messageInfo in messages)
                 {
-
-                    // attachments.Add(attachment);
-                    streams.Add(attachment.ContentStream);
-                    //    repository.Add(Int32.Parse(message.Subject), attachment.ContentStream );
-
-
-                    // Handle other attachment types similarly
-                }
-
-                int result;
-
-                try
-                {
-                    repository.Add(Int32.Parse(messageInfo.Subject), streams);
-                }
-                catch (Exception e)
-                {
-                    if (Int32.TryParse(messageInfo.Subject, out result))
+                    // Access the email message
+                    Aspose.Email.MailMessage message = client.FetchMessage(messageInfo.UniqueId);
+                    List<Stream> streams = new List<Stream>();
+                    foreach (Aspose.Email.Attachment attachment in message.Attachments)
                     {
-                        client.RemoveMessageFlags(messageInfo.UniqueId, ImapMessageFlags.IsRead);
+                        // attachments.Add(attachment);
+                        
+                        streams.Add(attachment.ContentStream);
+                        //    repository.Add(Int32.Parse(message.Subject), attachment.ContentStream );
+                        // Handle other attachment types similarly
                     }
 
+                    int result;
+
+                    try
+                    {
+                        repository.Add(Int32.Parse(messageInfo.Subject), streams);
+                    }
+                    catch (Exception e)
+                    {
+                        if (Int32.TryParse(messageInfo.Subject, out result))
+                        {
+                            client.RemoveMessageFlags(messageInfo.UniqueId, ImapMessageFlags.IsRead);
+                        }
+                    }
                 }
 
+                Console.WriteLine();
+                AttachmentsList = attachments;
             }
-
-            Console.WriteLine();
-            AttachmentsList = attachments;
-
+            catch (ImapException ex)
+            {
+                Console.WriteLine($"Unable to connect to the server: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred: {ex.Message}");
+            }
         }
-
     }
 }

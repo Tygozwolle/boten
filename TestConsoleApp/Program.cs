@@ -24,7 +24,7 @@ EmailToDb test = new EmailToDb(imageRepository);
            
 
            var imaList = imageRepository.get(1);
-          var stream = imaList[0];
+          // var stream = imaList[0];
         //  var fileStream = File.Create($"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}/imageDb.png");
          // stream.Seek(0, SeekOrigin.Begin);
        //  stream.CopyTo(fileStream);
