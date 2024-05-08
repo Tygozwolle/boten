@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Aspose.Email.Mime;
 
 namespace DataAccessLibary
 {
@@ -59,6 +60,10 @@ namespace DataAccessLibary
                 return list;
             }
 
-        
+        //var i = new BitmapImage();
+        //i.BeginInit();
+        //i.StreamSource = ImageRepository.get(1)[0];
+        //i.CacheOption = BitmapCacheOption.OnLoad;
+        //i.EndInit();
     }
 }
