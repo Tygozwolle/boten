@@ -11,12 +11,14 @@ namespace TestConsoleApp
         {
             Console.WriteLine("Hello, World!");
             MemberService memberService = new MemberService(new MemberRepository());
-            Member tygo = memberService.Login("tygo@windesheim.be", "Test123$");
+            Member tygo = memberService.Login("tygo@windesheim.nl", "Test123$");
             Console.WriteLine(tygo.FirstName);
             Console.WriteLine(tygo.Roles.Count);
             List<Member> member = memberService.GetMembers();
             var reservation = new ReservationRepository();
-            var res = reservation.GetReservations();
+            var res = reservation.GetReservations(tygo);
+            Console.WriteLine();
+            
         }
     }
 }

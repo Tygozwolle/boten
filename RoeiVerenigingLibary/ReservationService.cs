@@ -32,4 +32,9 @@ public class ReservationService
     {
         return _reservationRepository.GetReservations();
     }
+    public List<Reservation> GetReservations(Member member)
+    {
+        return _reservationRepository.GetReservations(member);
+    }
+
 }

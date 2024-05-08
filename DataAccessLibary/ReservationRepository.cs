@@ -86,4 +86,42 @@ public class ReservationRepository : IReservationRepository
 
         return reservations.OrderBy(x => x.Id).ToList();
     }
+    public List<Reservation> GetReservations(Member member)
+    {
+        List<Reservation> reservations = new List<Reservation>();
+
+        using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
+        {
+            connection.Open();
+            const string sql = $"SELECT * FROM reservation WHERE `member_id` = @memberId";
+
+            using (MySqlCommand command = new MySqlCommand(sql, connection))
+            {
+                command.Parameters.Add("@memberId", MySqlDbType.Int32);
+                command.Parameters["@memberId"].Value = member.Id;
+
+                using (MySqlDataReader reader = command.ExecuteReader())
+                {
+                   
+
+                    while (reader.Read())
+                    {
+                        var id = reader.GetInt32(0);
+                        var boatId = reader.GetInt32(1);
+                        var memberId = reader.GetInt32(2);
+                        var creationDate = reader.GetDateTime(3);
+                        var startTime = reader.GetDateTime(4);
+                        var endTime = reader.GetDateTime(5);
+
+                            reservations.Add(new Reservation(member, creationDate,
+                                startTime, endTime, boatId, id));
+                    }
+
+                    
+                }
+            }
+        }
+
+        return reservations.OrderBy(x => x.Id).ToList();
+    }
 }
