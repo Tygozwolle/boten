@@ -18,10 +18,10 @@ namespace RoeiVerenigingLibary
         {
             IConfigurationRoot config = new ConfigurationBuilder().AddUserSecrets<EmailToDb>().Build();
             ImapClient client = new ImapClient("imap.gmail.com", 993, config["Mail:username"], config["Mail:password"]);
-            client.SelectFolder(ImapFolderInfo.InBox);//Unread [Gmail]/Starred
+            client.SelectFolder("images");//Unread [Gmail]/Starred
             ImapQueryBuilder builder = new ImapQueryBuilder();
             builder.HasNoFlags(ImapMessageFlags.IsRead);
-            ImapMessageInfoCollection messages = client.ListMessages(builder.GetQuery());//
+            ImapMessageInfoCollection messages = client.ListMessages(builder.GetQuery());
             
             List<Aspose.Email.Attachment> attachments = new List<Aspose.Email.Attachment>();
             foreach (ImapMessageInfo messageInfo in messages)
@@ -33,11 +33,7 @@ namespace RoeiVerenigingLibary
                     attachments.Add(attachment);
                     // Handle other attachment types similarly
                 }
-            //   client.RemoveMessageFlags(message.MessageId, ImapMessageFlags.Flagged );
-               //if (messageInfo.Flags.HasFlag(ImapMessageFlags.Flagged))
-               //{
-               //    client.RemoveMessageFlags(messageInfo.UniqueId, ImapMessageFlags.Flagged); //message.
-               //}
+
             }
             Console.WriteLine();
             attachments.ToArray();
