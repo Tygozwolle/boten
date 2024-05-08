@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Mail;
 using System.Text;
@@ -38,8 +39,6 @@ namespace RoeiVerenigingLibary
                         streams.Add(attachment.ContentStream);
                     }
 
-                    int result;
-
                     try
                     {
                         repository.Add(Int32.Parse(messageInfo.Subject), streams);
@@ -47,7 +46,7 @@ namespace RoeiVerenigingLibary
                     }
                     catch (Exception e)
                     {
-                        if (Int32.TryParse(messageInfo.Subject, out result))
+                        if (Int32.TryParse(messageInfo.Subject, out int result))
                         {
                             client.RemoveMessageFlags(messageInfo.UniqueId, ImapMessageFlags.IsRead);
                         }
@@ -56,11 +55,11 @@ namespace RoeiVerenigingLibary
             }
             catch (ImapException ex)
             {
-                Console.WriteLine($"Unable to connect to the server: {ex.Message}");
+                Debug.WriteLine($"Unable to connect to the server: {ex.Message}");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"An error occurred: {ex.Message}");
+                Debug.WriteLine($"An error occurred: {ex.Message}");
             }
         }
     }

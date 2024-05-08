@@ -17,7 +17,6 @@ namespace DataAccessLibary
         {
             const String sql =
                 $"INSERT INTO `damage_report_fotos`(`damage_report_id`, `image`) VALUES (@reportID,@image)";
-            //   $"INSERT INTO `members`( `first_name`,`infix`, `last_name`, `email`, `password`) VALUES (@firstName,@infix,@lastName,@email,@passwordHash)";
 
             using (MySqlCommand command = new MySqlCommand(sql, connection))
             {
@@ -28,8 +27,6 @@ namespace DataAccessLibary
                 command.Parameters["@image"].Value = image;
                 command.Transaction = transaction;
                 command.ExecuteNonQuery();
-
-
             }
         }
 
@@ -62,15 +59,8 @@ namespace DataAccessLibary
                 connection.Open();
                 using (MySqlTransaction transaction = connection.BeginTransaction())
                 {
-
-
-
-
                     try
                     {
-                        //  connection.BeginTransaction();
-
-
                         const String sqlAutocommit = "SET autocommit=0";
                         using (MySqlCommand command = new MySqlCommand(sqlAutocommit, connection))
                         {
