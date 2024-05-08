@@ -15,15 +15,14 @@ namespace RoeiVerenigingLibary
 {
     public class EmailToDb
     {
-        public List<Attachment> AttachmentsList;
 
-        public EmailToDb(IImageRepository repository)
+        public static void GetImagesFromEmail(IImageRepository repository)
         {
             try
             {
                 IConfigurationRoot config = new ConfigurationBuilder().AddUserSecrets<EmailToDb>().Build();
                 ImapClient client = new ImapClient("imap.gmail.com", 993, config["Mail:username"], config["Mail:password"]);
-                client.SelectFolder("images"); //Unread [Gmail]/Starred
+                client.SelectFolder("images"); 
                 ImapQueryBuilder builder = new ImapQueryBuilder();
                 builder.HasNoFlags(ImapMessageFlags.IsRead);
                 ImapMessageInfoCollection messages = client.ListMessages(builder.GetQuery());
@@ -36,11 +35,11 @@ namespace RoeiVerenigingLibary
                     List<Stream> streams = new List<Stream>();
                     foreach (Aspose.Email.Attachment attachment in message.Attachments)
                     {
-                        // attachments.Add(attachment);
+
                         
                         streams.Add(attachment.ContentStream);
-                        //    repository.Add(Int32.Parse(message.Subject), attachment.ContentStream );
-                        // Handle other attachment types similarly
+ 
+             
                     }
 
                     int result;
@@ -57,9 +56,6 @@ namespace RoeiVerenigingLibary
                         }
                     }
                 }
-
-                Console.WriteLine();
-                AttachmentsList = attachments;
             }
             catch (ImapException ex)
             {

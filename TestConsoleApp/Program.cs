@@ -20,7 +20,7 @@ namespace TestConsoleApp
       //  C: \Users\Gebruiker\Downloads\imageDB
        
        ImageRepository imageRepository = new ImageRepository();
-EmailToDb test = new EmailToDb(imageRepository);
+        EmailToDb.GetImagesFromEmail(imageRepository);
            
 
            var imaList = imageRepository.get(1);
