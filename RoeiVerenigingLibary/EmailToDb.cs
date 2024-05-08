@@ -9,11 +9,13 @@ using Aspose.Email.Clients;
 using Aspose.Email.Clients.Imap;
 using Aspose.Email.Clients.Pop3;
 using Microsoft.Extensions.Configuration;
+using Attachment = Aspose.Email.Attachment;
 
 namespace RoeiVerenigingLibary
 {
     public class EmailToDb
     {
+        public List<Attachment> AttachmentsList;
        public EmailToDb()
         {
             IConfigurationRoot config = new ConfigurationBuilder().AddUserSecrets<EmailToDb>().Build();
@@ -36,7 +38,8 @@ namespace RoeiVerenigingLibary
 
             }
             Console.WriteLine();
-            attachments.ToArray();
+            AttachmentsList = attachments;
+
         }
 
     }
