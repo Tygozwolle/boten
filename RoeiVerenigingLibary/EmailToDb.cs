@@ -62,5 +62,11 @@ namespace RoeiVerenigingLibary
                 Debug.WriteLine($"An error occurred: {ex.Message}");
             }
         }
+
+        public static string GetStringForEmail(int id)
+        {
+            IConfigurationRoot config = new ConfigurationBuilder().AddUserSecrets<EmailToDb>().Build();
+            return $"mailto:{config["Mail:username"]}?subject={id}";
+        }
     }
 }
