@@ -16,7 +16,7 @@ namespace DataAccessLibary
         private void Add(int id, Stream image, MySqlConnection connection, MySqlTransaction transaction)
         {
             const String sql =
-                $"INSERT INTO `damage_report_fotos`(`damage_report_id`, `image_ulr`) VALUES (@reportID,@image)";
+                $"INSERT INTO `damage_report_fotos`(`damage_report_id`, `image`) VALUES (@reportID,@image)";
             //   $"INSERT INTO `members`( `first_name`,`infix`, `last_name`, `email`, `password`) VALUES (@firstName,@infix,@lastName,@email,@passwordHash)";
 
             using (MySqlCommand command = new MySqlCommand(sql, connection))
