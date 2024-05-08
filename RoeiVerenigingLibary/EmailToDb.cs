@@ -35,11 +35,7 @@ namespace RoeiVerenigingLibary
                     List<Stream> streams = new List<Stream>();
                     foreach (Aspose.Email.Attachment attachment in message.Attachments)
                     {
-
-                        
                         streams.Add(attachment.ContentStream);
- 
-             
                     }
 
                     int result;
@@ -47,6 +43,7 @@ namespace RoeiVerenigingLibary
                     try
                     {
                         repository.Add(Int32.Parse(messageInfo.Subject), streams);
+                        client.MoveMessage(messageInfo.UniqueId, "proccesed");
                     }
                     catch (Exception e)
                     {
