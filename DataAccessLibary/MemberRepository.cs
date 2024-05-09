@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Net.Mail;
 using Microsoft.VisualBasic.CompilerServices;
 using System.Reflection.Metadata.Ecma335;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace DataAccessLibary;
 
@@ -142,7 +143,7 @@ public class MemberRepository : IMemberRepository
 
     public List<Member> GetMembers()
     {
-        List<Member> members = new List<Member>();
+        List<Member> members;
 
         using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
         {
@@ -154,7 +155,7 @@ public class MemberRepository : IMemberRepository
                 using (MySqlDataReader reader = command.ExecuteReader())
                 {
                     List<Task> tasks = new List<Task>(reader.FieldCount);
-
+                    members = new List<Member>(reader.FieldCount);
                     while (reader.Read())
                     {
                         var id = reader.GetInt32(0);
@@ -169,10 +170,15 @@ public class MemberRepository : IMemberRepository
                         var email = reader.GetString(4);
                         var task = new Task(() =>
                         {
-                            members.Add(new Member(id, firstName, infix, lastName, email, GetRoles(id)));
+                            Member memberToAdd = new Member(id, firstName, infix, lastName, email, GetRoles(id));
+                            lock (members)
+                            {
+                                members.Add(memberToAdd);
+                            }
                         });
                         task.Start();
                         tasks.Add(task);
+
                     }
 
                     Task.WaitAll(tasks.ToArray());
