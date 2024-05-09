@@ -170,9 +170,10 @@ public class MemberRepository : IMemberRepository
                         var email = reader.GetString(4);
                         var task = new Task(() =>
                         {
+                            Member memberToAdd = new Member(id, firstName, infix, lastName, email, GetRoles(id));
                             lock (members)
                             {
-                                members.Add(new Member(id, firstName, infix, lastName, email, GetRoles(id)));
+                                members.Add(memberToAdd);
                             }
                         });
                         task.Start();

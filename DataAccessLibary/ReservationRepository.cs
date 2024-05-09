@@ -73,10 +73,11 @@ public class ReservationRepository : IReservationRepository
 
                         var task = new Task(() =>
                         {
+                            var reservationToAdd = new Reservation(MemberRepository.Get(memberId), creationDate,
+                                startTime, endTime, boatId, id);
                             lock (reservations)
                             {
-                                reservations.Add(new Reservation(MemberRepository.Get(memberId), creationDate,
-                                startTime, endTime, boatId, id));
+                                reservations.Add(reservationToAdd);
                             }
                             
                         });
