@@ -1,10 +1,7 @@
-﻿using System.ComponentModel;
-using System.Diagnostics;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using DataAccessLibary;
+﻿using DataAccessLibary;
 using RoeiVerenigingLibary;
+using RoeiVerenigingWPF.Frames;
+using System.Windows.Controls;
 
 namespace RoeiVerenigingWPF.Pages
 {
@@ -16,6 +13,7 @@ namespace RoeiVerenigingWPF.Pages
     public partial class ListBoats : Page
     {
         public List<Boat> boats { get; set; }
+        public MainWindow MainWindow { set; get; }
 
         public ListBoats()
         {
@@ -28,11 +26,16 @@ namespace RoeiVerenigingWPF.Pages
 
         }
 
-        private void StackPanel_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+
+        private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            if (sender is StackPanel)
+            if (sender is Button)
             {
-                StackPanel casted = sender as StackPanel;
+                Button casted = sender as Button;
+                object command = casted.CommandParameter;
+                int id = Int32.Parse(command.ToString());
+
+                MainWindow.MainContent.Navigate(new AddReservation(MainWindow.LoggedInMember, id));
             }
         }
     }

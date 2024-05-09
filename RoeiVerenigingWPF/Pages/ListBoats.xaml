@@ -43,18 +43,22 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Grid  Margin="50 20 50 0" Width="650" Height="200" >
-                                <!-- Define your item layout here -->
-                                <Border BorderBrush="Black" BorderThickness="1" Margin="5">
-                                    <Grid>
-                                        <Image Source="/Images/Image_not_available.png" MaxHeight="100px" MaxWidth="200px" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                                        <StackPanel Margin="110 0 5 0" MouseLeftButtonUp="StackPanel_MouseLeftButtonUp" >
-                                            <TextBlock Text="{Binding Id, StringFormat='Boot: {0}'}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="25"/>
-                                            <TextBlock Text="{Binding Seats, StringFormat='Aantal man: {0}'}" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                                            <TextBlock Text="{Binding CaptainSeat, StringFormat='Stuurman? {0}'}" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                                            <TextBlock Text="{Binding info, StringFormat='Info over de Boot {0}'}" VerticalAlignment="Center" HorizontalAlignment="left"/>
-                                        </StackPanel>
-                                    </Grid>
-                                </Border>
+                                <Button Click="Button_Click" CommandParameter="{Binding Id}">
+                                    <!-- Define your item layout here -->
+                                    
+                                    <Border BorderBrush="Black" BorderThickness="1" Width="650" Height="200">
+                                        <Grid>
+                                            <Image Source="/Images/Image_not_available.png" MaxHeight="100px" MaxWidth="200px" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                            <StackPanel Margin="110 0 5 0">
+                                                <TextBlock Text="{Binding Id, StringFormat='Boot: {0}'}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="25"/>
+                                                <TextBlock Text="{Binding Seats, StringFormat='Aantal man: {0}'}" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                                                <TextBlock Text="{Binding CaptainSeat, StringFormat='Stuurman? {0}'}" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                                                <TextBlock Text="{Binding info, StringFormat='Info over de Boot {0}'}" VerticalAlignment="Center" HorizontalAlignment="left"/>
+                                            </StackPanel>
+                                        </Grid>
+                                    </Border>
+                                   
+                                </Button>
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>
