@@ -12,7 +12,7 @@ namespace RoeiVerenigingUnitTests
             // Mocking BoatRepository
             var mockBoatRepository = new Mock<IBoatRepository>();
             Boat boat = new Boat(1, true, 4);
-            List<Boat> boatlist = null;
+            List<Boat> boatlist = new List<Boat>();
             boatlist.Add(boat);
             // Set up mock repository to return mocked connection
             mockBoatRepository.Setup(x => x.Getboats()).Returns(boatlist);
