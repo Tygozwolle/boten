@@ -41,6 +41,11 @@ public partial class Header : UserControl
                 MainWindow.MainContent.Navigate(new CreateUser(MainWindow));
                 break;
             }
+            case "Gegevens wijzigen":
+            {
+                MainWindow.MainContent.Navigate(new EditUser(MainWindow));
+                break;
+            }
             case "Wachtwoord wijzigen":
             {
                 MainWindow.MainContent.Navigate(new ChangePassword(MainWindow));
