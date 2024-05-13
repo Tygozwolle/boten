@@ -5,7 +5,7 @@ namespace DataAccessLibary
 {
     public class BoatRepository : IBoatRepository
     {
-        public List<Boat> Get()
+        public List<Boat> Getboats()
         {
             List<Boat> boat = new List<Boat>();
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))

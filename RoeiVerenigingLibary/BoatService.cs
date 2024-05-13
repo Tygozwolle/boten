@@ -8,11 +8,11 @@
         {
             _boatRepository = repository;
         }
-        public List<Boat>? Get()
+        public List<Boat>? Getboats()
         {
             List<Boat> boat;
 
-            boat = _boatRepository.Get();
+            boat = _boatRepository.Getboats();
 
             return boat;
         }

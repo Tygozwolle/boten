@@ -2,6 +2,6 @@
 {
     public interface IBoatRepository
     {
-        public List<Boat> Get();
+        public List<Boat> Getboats();
     }
 }

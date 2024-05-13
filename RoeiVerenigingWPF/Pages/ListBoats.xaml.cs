@@ -21,7 +21,7 @@ namespace RoeiVerenigingWPF.Pages
             BoatService service = new BoatService(new BoatRepository());
             this.DataContext = this;
             MainWindow = mw;
-            boats = service.Get();
+            boats = service.Getboats();
         }
         private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
         {
