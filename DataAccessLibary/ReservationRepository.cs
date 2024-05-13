@@ -48,7 +48,7 @@ public class ReservationRepository : IReservationRepository
 
     public List<Reservation> GetReservations()
     {
-        List<Reservation> reservations = new List<Reservation>();
+        List<Reservation> reservations;
 
         using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
         {
@@ -60,6 +60,7 @@ public class ReservationRepository : IReservationRepository
                 using (MySqlDataReader reader = command.ExecuteReader())
                 {
                     List<Task> tasks = new List<Task>(reader.FieldCount);
+                    reservations = new List<Reservation>(reader.FieldCount);
 
                     while (reader.Read())
                     {
@@ -72,8 +73,13 @@ public class ReservationRepository : IReservationRepository
 
                         var task = new Task(() =>
                         {
-                            reservations.Add(new Reservation(MemberRepository.Get(memberId), creationDate,
-                                startTime, endTime, boatId, id));
+                            var reservationToAdd = new Reservation(MemberRepository.Get(memberId), creationDate,
+                                startTime, endTime, boatId, id);
+                            lock (reservations)
+                            {
+                                reservations.Add(reservationToAdd);
+                            }
+                            
                         });
                         task.Start();
                         tasks.Add(task);
