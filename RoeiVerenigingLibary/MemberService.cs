@@ -40,6 +40,28 @@ public class MemberService
         return member;
     }
 
+    public Member GetById(int id)
+    {
+        Member? member;
+        try
+        {
+            member = _memberRepository.GetById(id);
+        }
+        catch (Exception)
+        {
+            //todo replace with new exception
+            throw new IncorrectEmailOrPasswordException();
+        }
+
+        if (member == null)
+        {
+            //todo replace with new exception
+            throw new IncorrectEmailOrPasswordException();
+        }
+
+        return member;
+    }
+
     public Member Create(Member loggedInMember, string firstName, string infix, string lastName, string email,
         string password)
     {

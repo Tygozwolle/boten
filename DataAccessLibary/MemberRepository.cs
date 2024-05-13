@@ -38,6 +38,32 @@ public class MemberRepository : IMemberRepository
         return null;
     }
 
+    public Member GetById(int id)
+    {
+        using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
+        {
+            connection.Open();
+            const string sql = $"SELECT * FROM members WHERE member_id = @id";
+
+            using (MySqlCommand command = new MySqlCommand(sql, connection))
+            {
+                command.Parameters.Add("@id", MySqlDbType.Int32);
+                command.Parameters["@id"].Value = id;
+                using (MySqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        string? infix = reader.IsDBNull(2) ? "" : reader.GetString(2);
+                        return new Member(reader.GetInt32(0), reader.GetString(1), infix, reader.GetString(3),
+                            reader.GetString(4), GetRoles(reader.GetInt32(0)));
+                    }
+                }
+            }
+        }
+
+        return null;
+    }
+
     public static Member Get(int ID)
     {
         using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))

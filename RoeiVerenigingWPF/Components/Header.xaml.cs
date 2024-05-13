@@ -53,7 +53,7 @@ public partial class Header : UserControl
             }
             case "Leden":
             {
-                MainWindow.MainContent.Navigate(new ViewUsers());
+                MainWindow.MainContent.Navigate(new ViewUsers(MainWindow));
                 break;
             }
             default:
