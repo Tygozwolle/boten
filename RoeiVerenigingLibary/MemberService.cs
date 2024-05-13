@@ -39,10 +39,14 @@ public class MemberService
 
         return member;
     }
-    public Member Create(Member loggedInMember, string firstName, string infix, string lastName, string email, string password){
 
-        return Create(loggedInMember, firstName, infix, lastName, email, password,1);
+    public Member Create(Member loggedInMember, string firstName, string infix, string lastName, string email,
+        string password)
+    {
+
+        return Create(loggedInMember, firstName, infix, lastName, email, password, 1);
     }
+
     public Member Create(Member loggedInMember, string firstName, string infix, string lastName, string email,
         string password, int level)
     {
@@ -59,7 +63,7 @@ public class MemberService
         Member? member;
         try
         {
-            member = _memberRepository.Create(firstName, infix, lastName, email, CreatePasswordHash(password),level);
+            member = _memberRepository.Create(firstName, infix, lastName, email, CreatePasswordHash(password), level);
         }
         catch (Exception)
         {

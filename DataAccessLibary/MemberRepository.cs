@@ -29,7 +29,7 @@ public class MemberRepository : IMemberRepository
                     {
                         return new Member(reader.GetInt32(0), reader.GetString(1), reader.GetString(2),
                             reader.GetString(3),
-                            reader.GetString(5), GetRoles(reader.GetInt32(0)),reader.GetInt32(4));
+                            reader.GetString(5), GetRoles(reader.GetInt32(0)), reader.GetInt32(4));
                     }
                 }
             }
@@ -55,7 +55,7 @@ public class MemberRepository : IMemberRepository
                     {
                         return new Member(reader.GetInt32(0), reader.GetString(1), reader.GetString(2),
                             reader.GetString(3),
-                            reader.GetString(5), GetRoles(reader.GetInt32(0)),reader.GetInt32(4));
+                            reader.GetString(5), GetRoles(reader.GetInt32(0)), reader.GetInt32(4));
                     }
                 }
             }
@@ -182,7 +182,7 @@ public class MemberRepository : IMemberRepository
                         var level = reader.GetInt32(4);
                         var task = new Task(() =>
                         {
-                            Member memberToAdd = new Member(id, firstName, infix, lastName, email, GetRoles(id),level);
+                            Member memberToAdd = new Member(id, firstName, infix, lastName, email, GetRoles(id), level);
                             lock (members)
                             {
                                 members.Add(memberToAdd);
