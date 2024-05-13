@@ -26,14 +26,4 @@ public class Reservation
         EndTime = endTime;
         BoatID = boatId;
     }
-
-    private void checkIfBoatIsInUse()
-    {
-        
-    }
-
-    private void checkIfReservationIsValid(int memberId)
-    {
-        
-    }
 }
