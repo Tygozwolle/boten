@@ -64,6 +64,38 @@ public class MemberRepository : IMemberRepository
         return null;
     }
 
+    public Member Update(int id, string firstName, string infix, string lastName, string email)
+    {
+        using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
+        {
+            connection.Open();
+            const String sql =
+                $"UPDATE `members` SET `first_name` = @firstName, `infix` = @infix, `last_name` = @lastName, `email` = @email WHERE `member_id` = @id";
+
+            using (MySqlCommand command = new MySqlCommand(sql, connection))
+            {
+                command.Parameters.Add("@id", MySqlDbType.Int32);
+                command.Parameters["@id"].Value = id;
+
+                command.Parameters.Add("@firstName", MySqlDbType.VarChar);
+                command.Parameters["@firstName"].Value = firstName;
+
+                command.Parameters.Add("@infix", MySqlDbType.VarChar);
+                command.Parameters["@infix"].Value = infix;
+
+                command.Parameters.Add("@lastName", MySqlDbType.VarChar);
+                command.Parameters["@lastName"].Value = lastName;
+
+                command.Parameters.Add("@email", MySqlDbType.VarChar);
+                command.Parameters["@email"].Value = email;
+
+                command.ExecuteNonQuery();
+
+                return new Member(id, firstName, infix, lastName, email, GetRoles(id));
+            }
+        }
+    }
+
     private static List<string> GetRoles(int id)
     {
         var list = new List<string>();
@@ -178,7 +210,6 @@ public class MemberRepository : IMemberRepository
                         });
                         task.Start();
                         tasks.Add(task);
-
                     }
 
                     Task.WaitAll(tasks.ToArray());
