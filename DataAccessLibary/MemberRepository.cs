@@ -89,14 +89,21 @@ public class MemberRepository : IMemberRepository
         return list;
     }
 
-    public Member Create(string firstName, string infix, string lastName, string email, string passwordHash)
+    public Member Create(string firstName, string infix, string lastName, string email, string passwordHash, int level)
     {
         using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
         {
             connection.Open();
-            const String sql =
-                $"INSERT INTO `members`( `first_name`,`infix`, `last_name`, `email`, `password`) VALUES (@firstName,@infix,@lastName,@email,@passwordHash)";
-
+            string sql = null;
+            if(level != null){
+              sql =
+                $"INSERT INTO `members`( `first_name`,`infix`, `last_name`, `email`, `password`, 'level') VALUES (@firstName,@infix,@lastName,@email,@passwordHash, @level)";
+}
+            else
+            {
+                  sql =
+                    $"INSERT INTO `members`( `first_name`,`infix`, `last_name`, `email`, `password`) VALUES (@firstName,@infix,@lastName,@email,@passwordHash)";
+            }
             using (MySqlCommand command = new MySqlCommand(sql, connection))
             {
                 command.Parameters.Add("@firstName", MySqlDbType.VarChar);
@@ -113,9 +120,14 @@ public class MemberRepository : IMemberRepository
 
                 command.Parameters.Add("@passwordHash", MySqlDbType.VarChar);
                 command.Parameters["@passwordHash"].Value = passwordHash;
+                if (level != null)
+                {
+                    command.Parameters.Add("@level", MySqlDbType.Int16);
+                    command.Parameters["@level"].Value = level;
+                }
                 command.ExecuteReader();
                 return new Member((int)command.LastInsertedId, firstName, infix, lastName, email,
-                    GetRoles((int)command.LastInsertedId));
+                    GetRoles((int)command.LastInsertedId),level);
             }
         }
     }
