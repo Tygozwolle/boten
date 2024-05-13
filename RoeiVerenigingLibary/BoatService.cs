@@ -11,14 +11,9 @@
         public List<Boat>? Get()
         {
             List<Boat> boat;
-            try
-            {
-                boat = _boatRepository.Get();
-            }
-            catch (Exception)
-            {
-                throw new Exception();
-            }
+
+            boat = _boatRepository.Get();
+
             return boat;
         }
     }

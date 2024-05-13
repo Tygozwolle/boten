@@ -22,11 +22,7 @@ namespace RoeiVerenigingWPF.Pages
             this.DataContext = this;
             MainWindow = mw;
             boats = service.Get();
-
-
         }
-
-
         private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             if (sender is Button)

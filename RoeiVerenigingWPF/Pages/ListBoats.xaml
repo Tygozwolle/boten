@@ -7,21 +7,15 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ListBoats">
-
     <Grid>
-
-
         <Grid.RowDefinitions>
             <RowDefinition Height="1*" MaxHeight="100px"/>
             <RowDefinition Height="50" MaxHeight="100px"/>
             <RowDefinition Height="1*" />
-
-
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="1*"/>
-
             <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
 
@@ -29,40 +23,47 @@
         <Label Content="Boten" FontSize="30" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
 
         <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="4" MaxHeight="750px">
-            <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled">
-                <ListView ItemsSource="{Binding boats}" Grid.IsSharedSizeScope="True" d:ItemsSource="{d:SampleData ItemCount=8}">
-                    <ListView.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <UniformGrid Columns="2"/>
-                        </ItemsPanelTemplate>
-                    </ListView.ItemsPanel>
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <Grid  Margin="50 20 50 0" Width="650" Height="200" >
-                                <Button Click="Button_Click" CommandParameter="{Binding Id}">
-                                    <!-- Define your item layout here -->
-                                    
-                                    <Border BorderBrush="Black" BorderThickness="1" Width="650" Height="200">
-                                        <Grid>
-                                            <Image Source="/Images/Image_not_available.png" MaxHeight="100px" MaxWidth="200px" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                                            <StackPanel Margin="110 0 5 0">
-                                                <TextBlock Text="{Binding Id, StringFormat='Boot: {0}'}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="25"/>
-                                                <TextBlock Text="{Binding Seats, StringFormat='Aantal man: {0}'}" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                                                <TextBlock Text="{Binding CaptainSeat, StringFormat='Stuurman? {0}'}" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                                                <TextBlock Text="{Binding info, StringFormat='Info over de Boot {0}'}" VerticalAlignment="Center" HorizontalAlignment="left"/>
-                                            </StackPanel>
-                                        </Grid>
-                                    </Border>
-                                   
-                                </Button>
-                            </Grid>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </ScrollViewer>
+            <ListView ItemsSource="{Binding boats}" Grid.IsSharedSizeScope="True" d:ItemsSource="{d:SampleData ItemCount=8}" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="2"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid  Margin="50 20 50 0" Width="650" Height="200">
+                            <Button Click="Button_Click" CommandParameter="{Binding Id}">
+                                <Border BorderBrush="Black" BorderThickness="1" Width="650" Height="200">
+                                    <Grid>
+                                        <Image Source="/Images/Image_not_available.png" MaxHeight="100px" MaxWidth="200px" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                        <StackPanel Margin="110 0 5 0">
+                                            <TextBlock Text="{Binding Id, StringFormat='Boot: {0}'}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="25"/>
+                                            <TextBlock Text="{Binding Seats, StringFormat='Aantal man: {0}'}" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right">
+                                                <TextBlock.Style>
+                                                    <Style TargetType="TextBlock">
+                                                        <Setter Property="Text" Value="{Binding CaptainSeat, StringFormat='Stuurman {0}'}"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding CaptainSeat}" Value="True">
+                                                                <Setter Property="Text" Value="Stuurman aanwezig"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding CaptainSeat}" Value="False">
+                                                                <Setter Property="Text" Value="Stuurman niet aanwezig"/>
+                                                            </DataTrigger>
+                                                            <!-- Add more DataTriggers for other conditions if needed -->
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+
+                            </Button>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </Grid>
-
-
-
     </Grid>
 </Page>
