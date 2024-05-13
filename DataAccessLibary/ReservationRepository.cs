@@ -86,4 +86,26 @@ public class ReservationRepository : IReservationRepository
 
         return reservations.OrderBy(x => x.Id).ToList();
     }
+    public int GetAmountOfBoatsCurrRenting(int ID)
+    {
+        using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
+        {
+            connection.Open();
+            const string sql = $"SELECT COUNT(reservation_id) FROM reservation WHERE member_id = @Id AND start_time > NOW()";
+
+            using (MySqlCommand command = new MySqlCommand(sql, connection))
+            {
+                command.Parameters.Add("@Id", MySqlDbType.Int32);
+                command.Parameters["@Id"].Value = ID;
+                using (MySqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        return(reader.GetInt32(0));
+                    }
+                }
+            }
+        }
+        return -1;
+    }
 }
