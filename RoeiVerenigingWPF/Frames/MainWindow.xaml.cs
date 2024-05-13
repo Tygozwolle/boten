@@ -63,12 +63,6 @@ namespace RoeiVerenigingWPF.Frames
                 MessageBox.Show(e.Message);
             }
             catch { }
-            
-                
-                
-
-
-
         }
     }
 }
