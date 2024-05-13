@@ -36,6 +36,7 @@ namespace RoeiVerenigingWPF.Frames
         public MainWindow()
         {
             InitializeComponent();
+            SetupExceptionHandling();
             MainContent.Navigate(new Login(this));
             DataContext = this;
             ButtonClass.MainWindow = this;
@@ -47,6 +48,26 @@ namespace RoeiVerenigingWPF.Frames
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private void SetupExceptionHandling()
+        {
+            AppDomain.CurrentDomain.UnhandledException += (s, e) =>
+                LogUnhandledException((Exception)e.ExceptionObject, e);
+
+
+
+        }
+
+        private void LogUnhandledException(Exception exception, UnhandledExceptionEventArgs args)
+        {
+            Exception e = (Exception)args.ExceptionObject;
+                MessageBox.Show(e.Message);
+                
+                
+
+
+
         }
     }
 }
