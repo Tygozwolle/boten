@@ -52,17 +52,18 @@ namespace RoeiVerenigingWPF.Frames
 
         private void SetupExceptionHandling()
         {
-            AppDomain.CurrentDomain.UnhandledException += (s, e) =>
-                LogUnhandledException((Exception)e.ExceptionObject, e);
-
-
-
+            AppDomain.CurrentDomain.UnhandledException += LogUnhandledException;
         }
 
-        private void LogUnhandledException(Exception exception, UnhandledExceptionEventArgs args)
+        private void LogUnhandledException(object sender, UnhandledExceptionEventArgs args)
         {
-            Exception e = (Exception)args.ExceptionObject;
+            try
+            {
+                Exception e = (Exception)args.ExceptionObject;
                 MessageBox.Show(e.Message);
+            }
+            catch { }
+            
                 
                 
 
