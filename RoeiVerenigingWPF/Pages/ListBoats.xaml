@@ -28,10 +28,6 @@
         <!-- Titel -->
         <Label Content="Boten" FontSize="30" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
 
-        <!-- Filter -->
-        <Label Content="Filter:" FontSize="15" Grid.Row="0" Grid.Column="3"/>
-
-
         <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="4" MaxHeight="750px">
             <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled">
                 <ListView ItemsSource="{Binding boats}" Grid.IsSharedSizeScope="True" d:ItemsSource="{d:SampleData ItemCount=8}">

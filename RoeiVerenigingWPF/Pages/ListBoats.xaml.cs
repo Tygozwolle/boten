@@ -15,12 +15,12 @@ namespace RoeiVerenigingWPF.Pages
         public List<Boat> boats { get; set; }
         public MainWindow MainWindow { set; get; }
 
-        public ListBoats()
+        public ListBoats(MainWindow mw)
         {
             InitializeComponent();
             BoatService service = new BoatService(new BoatRepository());
             this.DataContext = this;
-
+            MainWindow = mw;
             boats = service.Get();
 
 

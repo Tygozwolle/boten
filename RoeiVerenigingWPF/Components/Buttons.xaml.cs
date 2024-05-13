@@ -1,6 +1,5 @@
 using RoeiVerenigingWPF.Frames;
 using RoeiVerenigingWPF.Pages;
-using System.Security.Policy;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 
@@ -27,7 +26,7 @@ public partial class Buttons : UserControl
         switch (sender)
         {
             case Button button when button == BotenButton:
-                MainWindow.MainContent.Navigate(new ListBoats());   
+                MainWindow.MainContent.Navigate(new ListBoats(MainWindow));
                 break;
             case Button button when button == DamageButton:
                 //MainWindow.MainContent.Navigate(new );
