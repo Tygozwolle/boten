@@ -62,7 +62,7 @@ public partial class Header : UserControl
     private bool AllowNavigation(string selectedContent)
     {
         // Check if MainWindow or LoggedInMember is null
-        if (MainWindow.LoggedInMember == null)
+        if (MainWindow == null || MainWindow.LoggedInMember == null)
         {
             return false;
         }
