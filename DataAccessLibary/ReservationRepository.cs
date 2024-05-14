@@ -1,6 +1,4 @@
-using System;
 using System.Data;
-using System.Threading.Channels;
 using MySqlConnector;
 using RoeiVerenigingLibary;
 
@@ -8,7 +6,7 @@ namespace DataAccessLibary;
 
 public class ReservationRepository : IReservationRepository
 {
-    public Reservation getReservation(int memberId, int boatId)
+    public Reservation GetSingleReservation(int memberId, int boatId)
     {
         using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
         {
@@ -24,15 +22,10 @@ public class ReservationRepository : IReservationRepository
                 
                 using (MySqlDataReader reader = command.ExecuteReader())
                 {
-                    DateTime startTime;
-                    int boat;
-                    DateTime endTime;
+                  
                     
                     while (reader.Read())
                     {
-                        startTime = reader.GetDateTime(4);
-                        endTime = reader.GetDateTime(5);
-                        boat = reader.GetInt16(1);
                         return new Reservation(reader.GetInt16(2), reader.GetInt16(1), reader.GetDateTime(4),
                             reader.GetDateTime(5));
                     }
@@ -47,7 +40,7 @@ public class ReservationRepository : IReservationRepository
         return null;
     }
 
-    public Reservation ChangeReservation(Member member, int BoatId)
+    public Reservation ChangeReservation(Member member, int boatId)
     {
         using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
         {

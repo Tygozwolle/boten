@@ -30,7 +30,7 @@ public class Reservation
     public Reservation(int memberId, int boatId, DateTime startTime, DateTime endtime)
     {
         Id = memberId;
-        BoatID = boatId;
+        BoatId = boatId;
         StartTime = startTime;
         EndTime = endtime;
     }

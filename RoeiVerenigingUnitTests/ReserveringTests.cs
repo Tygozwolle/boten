@@ -76,7 +76,7 @@ namespace RoeiVerenigingUnitTests
             var start = new DateTime(2024, 5, 06, 3, 00, 00);
             var end = new DateTime(2024, 5, 06, 4, 00, 00);
 
-            var member = new Member(10, "Tygo", "van den", "Berg", "Tygo@zwolle.be", new List<string>());
+            var member = new Member(10, "Tygo", "van den", "Berg", "Tygo@zwolle.be", new List<string>(), 1);
             var reservationService = new ReservationService(new Mock<IReservationRepository>().Object);
             
             //Act
@@ -95,7 +95,7 @@ namespace RoeiVerenigingUnitTests
             var start = new DateTime(2024, 5, 06, 3, 00, 00);
             var end = new DateTime(2024, 5, 06, 4, 00, 00);
 
-            var member = new Member(10, "Tygo", "van den", "Berg", "Tygo@zwolle.be", new List<string>());
+            var member = new Member(10, "Tygo", "van den", "Berg", "Tygo@zwolle.be", new List<string>(), 1);
             var reservationService = new ReservationService(new Mock<IReservationRepository>().Object);
 
             reservationService.Create(member, 2, start, end);

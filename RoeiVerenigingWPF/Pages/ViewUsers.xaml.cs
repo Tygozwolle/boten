@@ -124,5 +124,7 @@ namespace RoeiVerenigingWPF.Pages
         {
             Member selectedMember = (Member)___UserList_.SelectedItem;
         }
+        
+        
     }
 }

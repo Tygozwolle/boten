@@ -32,4 +32,10 @@ public class ReservationService
     {
         return _reservationRepository.GetReservations();
     }
+
+    public Reservation GetReservation(int memberId, int boatId)
+    {
+        return _reservationRepository.GetSingleReservation(memberId, boatId);
+    }
+    
 }

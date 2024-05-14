@@ -15,7 +15,7 @@ public class ReservationUnitTests
     {
         var startTime = new DateTime(2024, 04, 02, 3, 00, 00);
         var endTime = new DateTime(2024, 04, 02, 4, 00, 00);
-        var loggedInMember = new Member(1, "Rick", "", "Hesp", "123@windesheim.be", new List<string>());
+        var loggedInMember = new Member(1, "Rick", "", "Hesp", "123@windesheim.be", new List<string>(), 1);
         var reservation = new Reservation(loggedInMember, 3, startTime, endTime);
         var reservationRepository = new Mock<IReservationRepository>();
         reservationRepository.Setup(x => x.CreateReservation(loggedInMember, 3, startTime, endTime))
