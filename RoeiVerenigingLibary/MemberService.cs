@@ -27,7 +27,7 @@ public class MemberService
         {
             member = _memberRepository.Get(email, CreatePasswordHash(password));
         }
-        catch (Exception)
+        catch (Exception e)
         {
             throw new IncorrectEmailOrPasswordException();
         }
@@ -43,6 +43,13 @@ public class MemberService
     public Member Create(Member loggedInMember, string firstName, string infix, string lastName, string email,
         string password)
     {
+
+        return Create(loggedInMember, firstName, infix, lastName, email, password, 1);
+    }
+
+    public Member Create(Member loggedInMember, string firstName, string infix, string lastName, string email,
+        string password, int level)
+    {
         if (!loggedInMember.Roles.Contains("beheerder"))
         {
             throw new IncorrectRightsExeption();
@@ -56,7 +63,7 @@ public class MemberService
         Member? member;
         try
         {
-            member = _memberRepository.Create(firstName, infix, lastName, email, CreatePasswordHash(password));
+            member = _memberRepository.Create(firstName, infix, lastName, email, CreatePasswordHash(password), level);
         }
         catch (Exception)
         {
