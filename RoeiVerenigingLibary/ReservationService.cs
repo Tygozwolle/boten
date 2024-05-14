@@ -5,7 +5,7 @@ namespace RoeiVerenigingLibary;
 public class ReservationService
 {
     private IReservationRepository _reservationRepository;
-    TimeSpan maxReservationTime = new TimeSpan(2, 0, 0);
+    private readonly TimeSpan maxReservationTime = new TimeSpan(2, 0, 0);
 
     public ReservationService(IReservationRepository reservationRepository)
     {
