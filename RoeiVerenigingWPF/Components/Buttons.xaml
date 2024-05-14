@@ -8,6 +8,9 @@
              d:DesignHeight="924" d:DesignWidth="350"
              Background="#CCE8FF">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="350"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="197" /> <!-- Image -->
             <RowDefinition Height="Auto" />  <!-- Titel voor tekst -->
