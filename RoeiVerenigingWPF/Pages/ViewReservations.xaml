@@ -54,7 +54,7 @@
                         </GridViewColumnHeader>
                     </GridViewColumn>
 
-                    <GridViewColumn DisplayMemberBinding="{Binding BoatID}">
+                    <GridViewColumn DisplayMemberBinding="{Binding BoatId}">
                         <GridViewColumnHeader>
                             <StackPanel>
                                 <TextBlock Text="BootId" MinWidth="60" />

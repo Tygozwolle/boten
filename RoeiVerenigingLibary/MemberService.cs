@@ -6,26 +6,19 @@ using RoeiVerenigingLibary.Exceptions;
 
 namespace RoeiVerenigingLibary;
 
-public class MemberService
+public class MemberService(IMemberRepository memberRepository)
 {
-    private readonly IMemberRepository _memberRepository;
-
-    public MemberService(IMemberRepository repository)
-    {
-        _memberRepository = repository;
-    }
-
     public Member Login(string email, string password)
     {
         if (!IsValid(email))
         {
-            throw new Exception("Dit is geen email adres");
+            throw new InvalidEmailException();
         }
 
         Member? member;
         try
         {
-            member = _memberRepository.Get(email, CreatePasswordHash(password));
+            member = memberRepository.Get(email, CreatePasswordHash(password));
         }
         catch (Exception e)
         {
@@ -43,7 +36,6 @@ public class MemberService
     public Member Create(Member loggedInMember, string firstName, string infix, string lastName, string email,
         string password)
     {
-
         return Create(loggedInMember, firstName, infix, lastName, email, password, 1);
     }
 
@@ -63,7 +55,7 @@ public class MemberService
         Member? member;
         try
         {
-            member = _memberRepository.Create(firstName, infix, lastName, email, CreatePasswordHash(password), level);
+            member = memberRepository.Create(firstName, infix, lastName, email, CreatePasswordHash(password), level);
         }
         catch (Exception)
         {
@@ -97,7 +89,7 @@ public class MemberService
 
         try
         {
-            _memberRepository.ChangePassword(loggedInMember.Email, CreatePasswordHash(newPassword));
+            memberRepository.ChangePassword(loggedInMember.Email, CreatePasswordHash(newPassword));
         }
         catch (Exception e)
         {
@@ -121,6 +113,6 @@ public class MemberService
 
     public List<Member> GetMembers()
     {
-        return _memberRepository.GetMembers();
+        return memberRepository.GetMembers();
     }
 }

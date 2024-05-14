@@ -6,7 +6,7 @@ public class Reservation
     public DateTime CreationDate { get; }
     public DateTime StartTime { get; set; }
     public DateTime EndTime { get; set; }
-    public int BoatID { get; set; }
+    public int BoatId { get; set; }
     public int Id { get; }
 
     public Reservation(Member member, DateTime creationDate, DateTime startTime, DateTime endTime, int boatId, int id)
@@ -15,7 +15,7 @@ public class Reservation
         CreationDate = creationDate;
         StartTime = startTime;
         EndTime = endTime;
-        BoatID = boatId;
+        BoatId = boatId;
         Id = id;
     }
 
@@ -24,7 +24,7 @@ public class Reservation
         Member = member;
         StartTime = startTime;
         EndTime = endTime;
-        BoatID = boatId;
+        BoatId = boatId;
     }
 
     public Reservation(int memberId, int boatId, DateTime startTime, DateTime endtime)

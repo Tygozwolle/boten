@@ -127,7 +127,6 @@ public class ReservationRepository : IReservationRepository
                             {
                                 reservations.Add(reservationToAdd);
                             }
-                            
                         });
                         task.Start();
                         tasks.Add(task);

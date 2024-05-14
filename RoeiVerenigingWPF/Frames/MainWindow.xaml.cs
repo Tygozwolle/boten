@@ -28,7 +28,7 @@ namespace RoeiVerenigingWPF.Frames
                 }
                 else
                 {
-                    this.HeaderClass.NameComboBoxItem.Content = "Uitgelogd";
+                    HeaderClass.NameComboBoxItem.Content = "Uitgelogd";
                 }
             }
         }
@@ -62,7 +62,9 @@ namespace RoeiVerenigingWPF.Frames
                 Exception e = (Exception)args.ExceptionObject;
                 MessageBox.Show(e.Message);
             }
-            catch { }
+            catch
+            {
+            }
         }
     }
 }

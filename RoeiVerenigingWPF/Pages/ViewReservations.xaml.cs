@@ -94,7 +94,7 @@ namespace RoeiVerenigingWPF.Pages
             }
             else
             {
-                result.Add(((item as Reservation).BoatID.ToString()
+                result.Add(((item as Reservation).BoatId.ToString()
                     .IndexOf($"{BoatIdFilter.Text}", StringComparison.OrdinalIgnoreCase) >= 0));
             }
 
