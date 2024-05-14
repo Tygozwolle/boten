@@ -27,7 +27,7 @@ public class MemberService
         {
             member = _memberRepository.Get(email, CreatePasswordHash(password));
         }
-        catch (Exception)
+        catch (Exception e)
         {
             throw new IncorrectEmailOrPasswordException();
         }
