@@ -54,15 +54,12 @@ namespace RoeiVerenigingWPF.Pages
 
             try
             {
-                if (_service.TimeChecker(startTime, endTime))
-                {
-                    _service.Create(_loggedInMember, _boatId, startDateTime, endDateTime);
-                }
+                _service.TimeChecker(startTime, endTime); //throws exception if not valid
+                _service.Create(_loggedInMember, _boatId, startDateTime, endDateTime);
             }
             catch (InvalidTimeException ex)
             {
                 MessageBox.Show(ex.Message);
-                return;
             }
 
             MessageBox.Show("Reservering aangemaakt");

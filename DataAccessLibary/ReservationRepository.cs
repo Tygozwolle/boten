@@ -8,6 +8,50 @@ namespace DataAccessLibary;
 
 public class ReservationRepository : IReservationRepository
 {
+    public Reservation getReservation(int memberId, int boatId)
+    {
+        using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
+        {
+            connection.Open();
+            string query = $"SELECT * FROM reservation WHERE member_id = @userId AND boat_id = @boatId";
+            using (MySqlCommand command = new MySqlCommand(query, connection))
+            {
+                command.Parameters.Add("@userId", DbType.Int32);
+                command.Parameters.Add("@boatId", DbType.Int32);
+                
+                command.Parameters["@boatId"].Value = boatId;
+                command.Parameters["@userId"].Value = memberId;
+                
+                // using (MySqlDataReader reader = command.ExecuteReader())
+                // {
+                //     DateTime startTime;
+                //     int boatId;
+                //     DateTime endTime;
+                //     
+                //     while (reader.Read())
+                //     {
+                //         
+                //     }
+                // }
+            }
+        }
+
+        return null;
+    }
+    public Reservation checkReservations(Member member, int boat)
+    {
+        return null;
+    }
+
+    public Reservation ChangeReservation(Member member, int BoatId)
+    {
+        using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
+        {
+            connection.Open();
+            string query = $"UPDATE reservations";
+        }
+        return null;
+    }
     public Reservation CreateReservation(Member member, int boatId, DateTime startTime, DateTime endTime)
     {
         using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))

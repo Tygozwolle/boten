@@ -13,12 +13,23 @@ public class ReservationService
 
     public bool TimeChecker(DateTime? start, DateTime? end)
     {
-        if (start < end)
+        var hours = (start.Value - end.Value).TotalHours;
+        if (start > end)
+        {
+            throw new InvalidTimeException("Start time should be earlier than end time.");
+        }else if(hours > 2)
+        {
+            throw new InvalidTimeException("A reservation cannot be made for more than 2 hours.");
+        }else if (hours < 1)
+        {
+            throw new InvalidTimeException("A Reservation has to be longer than 1 hour.");
+        }
+        else
         {
             return true;
         }
 
-        throw new InvalidTimeException("not valid time, start time should be earlier than end time. ");
+      
     }
 
     public Reservation Create(Member member, int boatId, DateTime startTime, DateTime endTime)
