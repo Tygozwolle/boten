@@ -59,9 +59,19 @@ namespace RoeiVerenigingWPF.Pages
                     _service.Create(_loggedInMember, _boatId, startDateTime, endDateTime);
                 }
             }
-            catch (InvalidTimeException ex)
+            catch (InvalidTimeException invalidTimeException)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(invalidTimeException.Message);
+                return;
+            }
+            catch (MaxAmountOfReservationExceeded maxAmountOfReservationExceededException)
+            {
+                MessageBox.Show(maxAmountOfReservationExceededException.Message);
+                return;
+            }
+            catch (ArgumentOutOfRangeException argumentOutOfRangeException)
+            {
+                MessageBox.Show(argumentOutOfRangeException.Message);
                 return;
             }
 
