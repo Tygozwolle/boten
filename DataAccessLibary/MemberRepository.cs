@@ -5,6 +5,7 @@ using System.Net.Mail;
 using Microsoft.VisualBasic.CompilerServices;
 using System.Reflection.Metadata.Ecma335;
 using static System.Net.Mime.MediaTypeNames;
+using System.Reflection.PortableExecutable;
 
 namespace DataAccessLibary;
 
@@ -23,11 +24,18 @@ public class MemberRepository : IMemberRepository
                 command.Parameters["@email"].Value = email;
                 command.Parameters.Add("@passwordHash", MySqlDbType.VarChar);
                 command.Parameters["@passwordHash"].Value = passwordHash;
+           
                 using (MySqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        return new Member(reader.GetInt32(0), reader.GetString(1), reader.GetString(2),
+     string? infix = null;
+                if (!reader.IsDBNull(2))
+                {
+                    infix = reader.GetString(2);
+                }
+
+                        return new Member(reader.GetInt32(0), reader.GetString(1), infix,
                             reader.GetString(3),
                             reader.GetString(5), GetRoles(reader.GetInt32(0)), reader.GetInt32(4));
                     }
@@ -53,7 +61,13 @@ public class MemberRepository : IMemberRepository
                 {
                     while (reader.Read())
                     {
-                        return new Member(reader.GetInt32(0), reader.GetString(1), reader.GetString(2),
+                        string? infix = null;
+                        if (!reader.IsDBNull(2))
+                        {
+                            infix = reader.GetString(2);
+                        }
+
+                        return new Member(reader.GetInt32(0), reader.GetString(1), infix,
                             reader.GetString(3),
                             reader.GetString(5), GetRoles(reader.GetInt32(0)), reader.GetInt32(4));
                     }
@@ -101,7 +115,7 @@ public class MemberRepository : IMemberRepository
             connection.Open();
 
             const string sql =
-                $"INSERT INTO `members`( `first_name`,`infix`, `last_name`, `email`, `password`, 'level') VALUES (@firstName,@infix,@lastName,@email,@passwordHash, @level)";
+                $"INSERT INTO `members`( `first_name`,`infix`, `last_name`, `email`, `password`, `level`) VALUES (@firstName,@infix,@lastName,@email,@passwordHash, @level)";
 
 
             using (MySqlCommand command = new MySqlCommand(sql, connection))

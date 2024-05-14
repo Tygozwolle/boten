@@ -20,7 +20,7 @@ public class MemberService(IMemberRepository repository)
         {
             member = repository.Get(email, CreatePasswordHash(password));
         }
-        catch (Exception)
+        catch (Exception e)
         {
             throw new IncorrectEmailOrPasswordException();
         }
