@@ -27,7 +27,7 @@ public class MemberService
         {
             member = _memberRepository.Get(email, CreatePasswordHash(password));
         }
-        catch (Exception)
+        catch (Exception e)
         {
             throw new IncorrectEmailOrPasswordException();
         }
@@ -65,6 +65,13 @@ public class MemberService
     public Member Create(Member loggedInMember, string firstName, string infix, string lastName, string email,
         string password)
     {
+
+        return Create(loggedInMember, firstName, infix, lastName, email, password, 1);
+    }
+
+    public Member Create(Member loggedInMember, string firstName, string infix, string lastName, string email,
+        string password, int level)
+    {
         if (!loggedInMember.Roles.Contains("beheerder"))
         {
             throw new IncorrectRightsExeption();
@@ -78,7 +85,7 @@ public class MemberService
         Member? member;
         try
         {
-            member = _memberRepository.Create(firstName, infix, lastName, email, CreatePasswordHash(password));
+            member = _memberRepository.Create(firstName, infix, lastName, email, CreatePasswordHash(password), level);
         }
         catch (Exception)
         {
@@ -96,7 +103,7 @@ public class MemberService
     /**
      * This method updates the members data based on the given id. this can only be done if the loggedInMember is an admin
      */
-    public Member Update(Member loggedInMember, int id, string firstName, string infix, string lastName, string email)
+    public Member Update(Member loggedInMember, int id, string firstName, string infix, string lastName, string email, int level)
     {
         if (!loggedInMember.Roles.Contains("beheerder"))
         {
@@ -111,7 +118,7 @@ public class MemberService
         Member? member;
         try
         {
-            member = _memberRepository.Update(id, firstName, infix, lastName, email);
+            member = _memberRepository.Update(id, firstName, infix, lastName, email, level);
         }
         catch (Exception)
         {

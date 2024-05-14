@@ -12,7 +12,7 @@ namespace RoeiVerenigingUnitTests
         public void ReservationSuccesfull()
         {
             //Arrange
-            var member = new Member(1, "simon", "van den", "Berg", "simon@windesheim.nl", new List<string>());
+            var member = new Member(1, "simon", "van den", "Berg", "simon@windesheim.nl", new List<string>(),1);
             var ReservationRepository = new Mock<IReservationRepository>();
             Reservation reservation = new Reservation(member, 4, new DateTime(3), new DateTime(4));
             ReservationRepository.Setup(x => x.CreateReservation(It.IsAny<Member>(), It.IsAny<int>(), It.IsAny<DateTime>(), It.IsAny<DateTime>())).Returns(reservation);

@@ -5,6 +5,7 @@ using System.Net.Mail;
 using Microsoft.VisualBasic.CompilerServices;
 using System.Reflection.Metadata.Ecma335;
 using static System.Net.Mime.MediaTypeNames;
+using System.Reflection.PortableExecutable;
 
 namespace DataAccessLibary;
 
@@ -23,13 +24,20 @@ public class MemberRepository : IMemberRepository
                 command.Parameters["@email"].Value = email;
                 command.Parameters.Add("@passwordHash", MySqlDbType.VarChar);
                 command.Parameters["@passwordHash"].Value = passwordHash;
+
                 using (MySqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        return new Member(reader.GetInt32(0), reader.GetString(1), reader.GetString(2),
+                        string? infix = null;
+                        if (!reader.IsDBNull(2))
+                        {
+                            infix = reader.GetString(2);
+                        }
+
+                        return new Member(reader.GetInt32(0), reader.GetString(1), infix,
                             reader.GetString(3),
-                            reader.GetString(4), GetRoles(reader.GetInt32(0)));
+                            reader.GetString(5), GetRoles(reader.GetInt32(0)), reader.GetInt32(4));
                     }
                 }
             }
@@ -55,7 +63,7 @@ public class MemberRepository : IMemberRepository
                     {
                         string? infix = reader.IsDBNull(2) ? "" : reader.GetString(2);
                         return new Member(reader.GetInt32(0), reader.GetString(1), infix, reader.GetString(3),
-                            reader.GetString(4), GetRoles(reader.GetInt32(0)));
+                            reader.GetString(5), GetRoles(reader.GetInt32(0)), reader.GetInt32(4));
                     }
                 }
             }
@@ -79,9 +87,15 @@ public class MemberRepository : IMemberRepository
                 {
                     while (reader.Read())
                     {
-                        return new Member(reader.GetInt32(0), reader.GetString(1), reader.GetString(2),
+                        string? infix = null;
+                        if (!reader.IsDBNull(2))
+                        {
+                            infix = reader.GetString(2);
+                        }
+
+                        return new Member(reader.GetInt32(0), reader.GetString(1), infix,
                             reader.GetString(3),
-                            reader.GetString(4), GetRoles(reader.GetInt32(0)));
+                            reader.GetString(5), GetRoles(reader.GetInt32(0)), reader.GetInt32(4));
                     }
                 }
             }
@@ -90,6 +104,41 @@ public class MemberRepository : IMemberRepository
         return null;
     }
 
+    public Member Update(int id, string firstName, string infix, string lastName, string email, int level)
+    {
+        using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
+        {
+            connection.Open();
+            const String sql =
+                $"UPDATE `members` SET `first_name` = @firstName, `infix` = @infix, `last_name` = @lastName, `email` = @email, `level` = @level WHERE `member_id` = @id";
+
+            using (MySqlCommand command = new MySqlCommand(sql, connection))
+            {
+                command.Parameters.Add("@id", MySqlDbType.Int32);
+                command.Parameters["@id"].Value = id;
+
+                command.Parameters.Add("@firstName", MySqlDbType.VarChar);
+                command.Parameters["@firstName"].Value = firstName;
+
+                command.Parameters.Add("@infix", MySqlDbType.VarChar);
+                command.Parameters["@infix"].Value = infix;
+
+                command.Parameters.Add("@lastName", MySqlDbType.VarChar);
+                command.Parameters["@lastName"].Value = lastName;
+
+                command.Parameters.Add("@email", MySqlDbType.VarChar);
+                command.Parameters["@email"].Value = email;
+
+                command.Parameters.Add("@level", MySqlDbType.Int32);
+                command.Parameters["@level"].Value = level;
+
+                command.ExecuteNonQuery();
+                //todo: add level
+                return new Member(id, firstName, infix, lastName, email, GetRoles(id), 1);
+            }
+        }
+    }
+    
     public Member Update(int id, string firstName, string infix, string lastName, string email)
     {
         using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
@@ -116,8 +165,8 @@ public class MemberRepository : IMemberRepository
                 command.Parameters["@email"].Value = email;
 
                 command.ExecuteNonQuery();
-
-                return new Member(id, firstName, infix, lastName, email, GetRoles(id));
+                //todo: add level
+                return new Member(id, firstName, infix, lastName, email, GetRoles(id), 1);
             }
         }
     }
@@ -149,11 +198,18 @@ public class MemberRepository : IMemberRepository
 
     public Member Create(string firstName, string infix, string lastName, string email, string passwordHash)
     {
+        return Create(firstName, infix, lastName, email, passwordHash, 1);
+    }
+
+    public Member Create(string firstName, string infix, string lastName, string email, string passwordHash, int level)
+    {
         using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
         {
             connection.Open();
-            const String sql =
-                $"INSERT INTO `members`( `first_name`,`infix`, `last_name`, `email`, `password`) VALUES (@firstName,@infix,@lastName,@email,@passwordHash)";
+
+            const string sql =
+                $"INSERT INTO `members`( `first_name`,`infix`, `last_name`, `email`, `password`, `level`) VALUES (@firstName,@infix,@lastName,@email,@passwordHash, @level)";
+
 
             using (MySqlCommand command = new MySqlCommand(sql, connection))
             {
@@ -171,9 +227,13 @@ public class MemberRepository : IMemberRepository
 
                 command.Parameters.Add("@passwordHash", MySqlDbType.VarChar);
                 command.Parameters["@passwordHash"].Value = passwordHash;
+
+                command.Parameters.Add("@level", MySqlDbType.Int16);
+                command.Parameters["@level"].Value = level;
+
                 command.ExecuteReader();
                 return new Member((int)command.LastInsertedId, firstName, infix, lastName, email,
-                    GetRoles((int)command.LastInsertedId));
+                    GetRoles((int)command.LastInsertedId), level);
             }
         }
     }
@@ -225,10 +285,11 @@ public class MemberRepository : IMemberRepository
                         }
 
                         var lastName = reader.GetString(3);
-                        var email = reader.GetString(4);
+                        var email = reader.GetString(5);
+                        var level = reader.GetInt32(4);
                         var task = new Task(() =>
                         {
-                            Member memberToAdd = new Member(id, firstName, infix, lastName, email, GetRoles(id));
+                            Member memberToAdd = new Member(id, firstName, infix, lastName, email, GetRoles(id), level);
                             lock (members)
                             {
                                 members.Add(memberToAdd);
