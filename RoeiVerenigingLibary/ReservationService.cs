@@ -30,7 +30,7 @@ public class ReservationService
             {
                 throw new MaxAmountOfReservationExceeded();
             }
-            if (endTime - startTime > maxReservationTime)
+            if (endTime - startTime >= maxReservationTime)
             {
                 string message = "Je kan voor maximaal " + maxReservationTime.Hours + " uur reserveren!";
                 throw new ArgumentOutOfRangeException("startTime", message);
