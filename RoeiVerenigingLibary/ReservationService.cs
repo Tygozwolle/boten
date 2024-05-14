@@ -18,7 +18,7 @@ public class ReservationService
             return true;
         }
 
-        throw new InvalidTimeException("not valid time, start time should be earlier than end time. ");
+        throw new InvalidTimeException();
     }
 
     public Reservation Create(Member member, int boatId, DateTime startTime, DateTime endTime)

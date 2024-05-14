@@ -204,7 +204,6 @@ public class MemberRepository : IMemberRepository
                         });
                         task.Start();
                         tasks.Add(task);
-
                     }
 
                     Task.WaitAll(tasks.ToArray());
