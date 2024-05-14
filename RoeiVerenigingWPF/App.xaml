@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:RoeiVerenigingWPF"
              StartupUri="/Frames/MainWindow.xaml">
     <Application.Resources>
-         
+
     </Application.Resources>
 </Application>

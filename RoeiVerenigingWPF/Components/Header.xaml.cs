@@ -23,7 +23,7 @@ public partial class Header : UserControl
         string selectedContent = (string)selectedItem.Content;
         comboBox.SelectedIndex = 0;
 
-        if (!allowNavigation(selectedContent))
+        if (!AllowNavigation(selectedContent))
         {
             return;
         }
@@ -64,7 +64,7 @@ public partial class Header : UserControl
         }
     }
 
-    private bool allowNavigation(string selectedContent)
+    private bool AllowNavigation(string selectedContent)
     {
         // Check if MainWindow or LoggedInMember is null
         if (MainWindow == null || MainWindow.LoggedInMember == null)
