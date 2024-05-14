@@ -6,7 +6,7 @@ using RoeiVerenigingLibary.Exceptions;
 
 namespace RoeiVerenigingLibary;
 
-public class MemberService(IMemberRepository repository)
+public class MemberService(IMemberRepository memberRepository)
 {
     public Member Login(string email, string password)
     {
@@ -18,7 +18,7 @@ public class MemberService(IMemberRepository repository)
         Member? member;
         try
         {
-            member = repository.Get(email, CreatePasswordHash(password));
+            member = memberRepository.Get(email, CreatePasswordHash(password));
         }
         catch (Exception e)
         {
@@ -55,7 +55,7 @@ public class MemberService(IMemberRepository repository)
         Member? member;
         try
         {
-            member = repository.Create(firstName, infix, lastName, email, CreatePasswordHash(password), level);
+            member = memberRepository.Create(firstName, infix, lastName, email, CreatePasswordHash(password), level);
         }
         catch (Exception)
         {
@@ -89,7 +89,7 @@ public class MemberService(IMemberRepository repository)
 
         try
         {
-            repository.ChangePassword(loggedInMember.Email, CreatePasswordHash(newPassword));
+            memberRepository.ChangePassword(loggedInMember.Email, CreatePasswordHash(newPassword));
         }
         catch (Exception e)
         {
@@ -113,6 +113,6 @@ public class MemberService(IMemberRepository repository)
 
     public List<Member> GetMembers()
     {
-        return repository.GetMembers();
+        return memberRepository.GetMembers();
     }
 }
