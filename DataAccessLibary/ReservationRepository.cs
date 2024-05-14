@@ -22,17 +22,21 @@ public class ReservationRepository : IReservationRepository
                 command.Parameters["@boatId"].Value = boatId;
                 command.Parameters["@userId"].Value = memberId;
                 
-                // using (MySqlDataReader reader = command.ExecuteReader())
-                // {
-                //     DateTime startTime;
-                //     int boatId;
-                //     DateTime endTime;
-                //     
-                //     while (reader.Read())
-                //     {
-                //         
-                //     }
-                // }
+                using (MySqlDataReader reader = command.ExecuteReader())
+                {
+                    DateTime startTime;
+                    int boat;
+                    DateTime endTime;
+                    
+                    while (reader.Read())
+                    {
+                        startTime = reader.GetDateTime(4);
+                        endTime = reader.GetDateTime(5);
+                        boat = reader.GetInt16(1);
+                        return new Reservation(reader.GetInt16(2), reader.GetInt16(1), reader.GetDateTime(4),
+                            reader.GetDateTime(5));
+                    }
+                }
             }
         }
 

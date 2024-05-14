@@ -26,4 +26,12 @@ public class Reservation
         EndTime = endTime;
         BoatID = boatId;
     }
+
+    public Reservation(int memberId, int boatId, DateTime startTime, DateTime endtime)
+    {
+        Id = memberId;
+        BoatID = boatId;
+        StartTime = startTime;
+        EndTime = endtime;
+    }
 }
