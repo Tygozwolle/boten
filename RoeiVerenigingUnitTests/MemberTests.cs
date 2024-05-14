@@ -78,7 +78,7 @@ namespace RoeiVerenigingUnitTests
             var admin = new Member(1, "simon", "van den ", "Berg", "simon@windesheim.nl", new List<string>(), 1);
             var memberRepository = new Mock<IMemberRepository>();
             memberRepository.Setup(x => x.Create(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(),
-                It.IsAny<string>(), It.IsAny<string>(),1)).Returns((Member)null);
+                It.IsAny<string>(), It.IsAny<string>(), 1)).Returns((Member)null);
             var memberService = new MemberService(memberRepository.Object);
             //Act and Assert
             Assert.Throws<IncorrectRightsExeption>(() =>
@@ -127,6 +127,44 @@ namespace RoeiVerenigingUnitTests
             // Act and Assert
             Assert.Throws<PasswordsDontMatchException>(() =>
                 memberService.ChangePassword(member, "OldPassword", "NewPassword", "DifferentNewPassword"));
+        }
+
+        [Test]
+        public void GetAllRoles_Successful()
+        {
+            // Arrange
+            var roles = new List<string> { "role1", "role2", "role3" };
+            var memberRepository = new Mock<IMemberRepository>();
+            memberRepository.Setup(x => x.GetAvailableRoles()).Returns(roles);
+            var memberService = new MemberService(memberRepository.Object);
+
+            // Act
+            var result = memberService.GetAvailableRoles();
+
+            // Assert
+            Assert.That(result, Is.EqualTo(roles));
+        }
+
+        [Test]
+        public void SetRoles_Successful()
+        {
+            // Arrange
+            var memberId = 1;
+            var roles = new List<string> { "role1", "role2", "role3" };
+            var memberRepository = new Mock<IMemberRepository>();
+            memberRepository.Setup(x => x.RemoveRoles(memberId)).Verifiable();
+            memberRepository.Setup(x => x.AddRole(memberId, It.IsAny<string>())).Verifiable();
+            var memberService = new MemberService(memberRepository.Object);
+
+            // Act
+            memberService.SetRoles(memberId, roles);
+
+            // Assert
+            memberRepository.Verify(x => x.RemoveRoles(memberId), Times.Once);
+            foreach (var role in roles)
+            {
+                memberRepository.Verify(x => x.AddRole(memberId, role), Times.Once);
+            }
         }
     }
 }

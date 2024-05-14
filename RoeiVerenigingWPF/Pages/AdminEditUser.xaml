@@ -21,6 +21,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Label Grid.Row="0" Content="Voornaam:" Width="200" FontFamily="Franklin Gothic Medium" FontSize="16"
                    Foreground="#1A517A" />
@@ -42,9 +43,12 @@
             <Label Grid.Row="8" Content="Niveau:" Width="200" FontFamily="Franklin Gothic Medium" FontSize="16"
                    Foreground="#1A517A" />
             <TextBox Grid.Row="9" x:Name="Level" Width="200" BorderBrush="Black" />
+            
+            <StackPanel x:Name="RolesPanel" Grid.Row="10" Orientation="Vertical">
+                   <!-- CheckBoxes will be added here in code-behind -->
+            </StackPanel>
 
-
-            <Button Grid.Row="10" Content="Opslaan" Width="200" Margin="20"
+            <Button Grid.Row="11" Content="Opslaan" Width="200" Margin="20"
                     FontFamily="Franklin Gothic Medium"
                     FontSize="32" Foreground="#1A517A" Background="#88BFEA" Click="Button_Click" />
         </Grid>
