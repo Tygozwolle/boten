@@ -1,6 +1,5 @@
 using RoeiVerenigingWPF.Frames;
 using RoeiVerenigingWPF.Pages;
-using System.Security.Policy;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 
@@ -27,12 +26,11 @@ public partial class Buttons : UserControl
         switch (sender)
         {
             case Button button when button == BotenButton:
-                //MainWindow.MainContent.Navigate(new CreateUser(MainWindow));
-                throw new NotImplementedException("reservering");
+                MainWindow.MainContent.Navigate(new ListBoats(MainWindow));
                 break;
             case Button button when button == DamageButton:
                 //MainWindow.MainContent.Navigate(new );
-                throw new NotImplementedException("damage");
+                throw new NotImplementedException("Schade");
             case Button button when button == EventsButton:
                 MainWindow.MainContent.Navigate(new ViewReservations());
                 break;
