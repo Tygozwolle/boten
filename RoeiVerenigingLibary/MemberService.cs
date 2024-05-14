@@ -95,7 +95,8 @@ public class MemberService(IMemberRepository memberRepository)
     /**
      * This method updates the members data based on the given id. this can only be done if the loggedInMember is an admin
      */
-    public Member Update(Member loggedInMember, int id, string firstName, string infix, string lastName, string email, int level)
+    public Member Update(Member loggedInMember, int id, string firstName, string infix, string lastName, string email,
+        int level)
     {
         if (!loggedInMember.Roles.Contains("beheerder"))
         {
@@ -148,6 +149,20 @@ public class MemberService(IMemberRepository memberRepository)
         }
 
         return member;
+    }
+
+    public void SetRoles(int memberId, List<string> roles)
+    {
+        memberRepository.RemoveRoles(memberId);
+        foreach (string role in roles)
+        {
+            memberRepository.AddRole(memberId, role);
+        }
+    }
+
+    public List<string> GetAvailableRoles()
+    {
+        return memberRepository.GetAvailableRoles();
     }
 
     public void ChangePassword(Member loggedInMember, string currentPassword, string newPassword,

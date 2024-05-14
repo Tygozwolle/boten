@@ -138,7 +138,7 @@ public class MemberRepository : IMemberRepository
             }
         }
     }
-    
+
     public Member Update(int id, string firstName, string infix, string lastName, string email)
     {
         using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
@@ -305,5 +305,60 @@ public class MemberRepository : IMemberRepository
         }
 
         return members.OrderBy(x => x.Id).ToList();
+    }
+
+    public void AddRole(int memberId, string role)
+    {
+        using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
+        {
+            connection.Open();
+            string insertSql = $"INSERT INTO member_roles(member_id, rol) VALUES (@memberId, @role)";
+            using (MySqlCommand insertCommand = new MySqlCommand(insertSql, connection))
+            {
+                insertCommand.Parameters.Add("@memberId", MySqlDbType.Int32);
+                insertCommand.Parameters["@memberId"].Value = memberId;
+                insertCommand.Parameters.Add("@role", MySqlDbType.VarChar);
+                insertCommand.Parameters["@role"].Value = role;
+                insertCommand.ExecuteNonQuery();
+            }
+        }
+    }
+
+    public void RemoveRoles(int memberId)
+    {
+        using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
+        {
+            connection.Open();
+            string deleteSql = $"DELETE FROM member_roles WHERE member_id = @memberId";
+            using (MySqlCommand deleteCommand = new MySqlCommand(deleteSql, connection))
+            {
+                deleteCommand.Parameters.Add("@memberId", MySqlDbType.Int32);
+                deleteCommand.Parameters["@memberId"].Value = memberId;
+                deleteCommand.ExecuteNonQuery();
+            }
+        }
+    }
+
+    public List<string> GetAvailableRoles()
+    {
+        var roles = new List<string>();
+        using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
+        {
+            connection.Open();
+            const string sql = "SELECT DISTINCT rol FROM member_roles";
+
+            using (MySqlCommand command = new MySqlCommand(sql, connection))
+            {
+                using (MySqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        roles.Add(reader.GetString(0));
+                    }
+                }
+            }
+        }
+
+        return roles;
     }
 }
