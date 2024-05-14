@@ -20,7 +20,7 @@
 
         <!-- Image -->
         <Image Grid.Row="0" Name="VerenigingsAfbeelding" VerticalAlignment="Top" />
-        
+
         <!-- Label 1 -->
         <TextBlock Grid.Row="1" Margin="10" VerticalAlignment="Center" Text="Over onze vereniging:"
                    FontFamily="Franklin Gothic Medium" FontSize="32" Foreground="#1A517A" />

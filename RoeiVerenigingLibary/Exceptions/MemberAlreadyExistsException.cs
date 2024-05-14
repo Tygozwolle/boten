@@ -2,5 +2,5 @@
 
 public class MemberAlreadyExistsException : Exception
 {
-    public override string Message => ("Dit email adress wordt al gebruikt");
+    public override string Message => ("Dit email adres wordt al gebruikt!");
 }
