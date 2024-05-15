@@ -13,5 +13,7 @@ namespace RoeiVerenigingLibary
         public Damage Update(int id, bool boatFixed, bool usable, string description);
 
         public Damage GetById(int id);
+
+        public List<Damage> GetRelatedToUser(int memberId);
     }
 }

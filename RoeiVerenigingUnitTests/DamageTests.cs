@@ -67,5 +67,40 @@ namespace RoeiVerenigingUnitTests
             // Assert
             Assert.That(Is.Equals(damage, result));
         }
+
+        [Test]
+        public void GetRelatedToUser_ReturnsDamageReports_WhenItemsAreFound()
+        {
+            // Arrange
+            Member member = new Member(1, "John", "", "Doe", "john.doe@example.com", new List<string>(), 1);
+            var damageReports = new List<Damage>
+            {
+                new Damage(1, member,
+                    new Boat(1, true, 4, 1), "description1", false, true),
+                new Damage(2, member ,new Boat(2, false, 2, 1), "description2", true, false)
+            };
+            _mockDamageRepository.Setup(repo => repo.GetRelatedToUser(member.Id)).Returns(damageReports);
+
+            // Act
+            var result = _damageService.GetRelatedToUser(member);
+
+            // Assert
+            Assert.That(Is.Equals(damageReports, result));
+        }
+
+        [Test]
+        public void GetRelatedToUser_ReturnsEmpty_WhenNoItemsFound()
+        {
+            // Arrange
+            Member member = new Member(1, "John", "", "Doe", "john.doe@example.com", new List<string>(), 1);
+            var damageReports = new List<Damage>();
+            _mockDamageRepository.Setup(repo => repo.GetRelatedToUser(member.Id)).Returns(damageReports);
+
+            // Act
+            var result = _damageService.GetRelatedToUser(member);
+
+            // Assert
+            Assert.That(result.Count == 0);
+        }
     }
 }

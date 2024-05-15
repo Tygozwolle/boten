@@ -75,6 +75,44 @@ namespace DataAccessLibary
             return damageReports;
         }
 
+        public List<Damage> GetRelatedToUser(int memberId)
+        {
+            List<Damage> damageReports = new List<Damage>();
+            MemberRepository memberRepository = new MemberRepository();
+            BoatRepository boatRepository = new BoatRepository();
+            using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
+            {
+                connection.Open();
+
+                const string sql =
+                    "SELECT * FROM `damage_reports` WHERE `member_id` = @memberId ORDER BY `fixed`, `report_time` DESC";
+
+                using (MySqlCommand command = new MySqlCommand(sql, connection))
+                {
+                    command.Parameters.Add("@memberId", MySqlDbType.Int32);
+                    command.Parameters["@memberId"].Value = memberId;
+
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            //get member
+                            Member member = memberRepository.GetById(reader.GetInt32("member_id"));
+                            //get boat
+                            Boat boat = boatRepository.GetBoatById(reader.GetInt32("boat_id"));
+                            Damage damageReport = new Damage(reader.GetInt32("id"), member, boat,
+                                reader.GetString("description"),
+                                reader.GetBoolean("fixed"), reader.GetBoolean("usable"));
+
+                            damageReports.Add(damageReport);
+                        }
+                    }
+                }
+            }
+
+            return damageReports;
+        }
+
         public Damage Update(int id, bool boatFixed, bool usable, string description)
         {
             Damage damage = null;
