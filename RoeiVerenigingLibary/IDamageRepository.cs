@@ -8,6 +8,6 @@ namespace RoeiVerenigingLibary
 {
     public interface IDamageRepository
     { 
-        public Damage Create(int id, Member member, Boat boat, string description);
+        public Damage Create( Member member, Boat boat, string description);
     }
 }

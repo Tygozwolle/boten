@@ -10,7 +10,7 @@ namespace DataAccessLibary
 {
     public class DamageRepository : IDamageRepository
     {
-        public Damage Create(int id, Member member, Boat boat, string description)
+        public Damage Create( Member member, Boat boat, string description)
         {
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
             {
