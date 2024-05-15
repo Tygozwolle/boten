@@ -166,5 +166,63 @@ namespace RoeiVerenigingUnitTests
                 memberRepository.Verify(x => x.AddRole(memberId, role), Times.Once);
             }
         }
+
+        [Test]
+        public void UpdateMember_InvalidEmail_ThrowsException()
+        {
+            // Arrange
+            var admin = new Member(1, "simon", "van den ", "Berg", "simon@windesheim.nl", new List<string>(), 1);
+            admin.Roles.Add("beheerder");
+            var memberRepository = new Mock<IMemberRepository>();
+            var memberService = new MemberService(memberRepository.Object);
+
+            // Act and Assert
+            Assert.Throws<Exception>(() =>
+                memberService.Update(admin, 1, "tygo", "van", "olst", "invalidEmail", 1));
+        }
+
+        [Test]
+        public void UpdateMember_LevelGreaterThan10_ThrowsException()
+        {
+            // Arrange
+            var admin = new Member(1, "simon", "van den ", "Berg", "simon@windesheim.nl", new List<string>(), 1);
+            admin.Roles.Add("beheerder");
+            var memberRepository = new Mock<IMemberRepository>();
+            var memberService = new MemberService(memberRepository.Object);
+
+            // Act and Assert
+            Assert.Throws<Exception>(() =>
+                memberService.Update(admin, 1, "tygo", "van", "olst", "tygo@windesheim.nl", 11));
+        }
+
+        [Test]
+        public void UpdateMember_NotAdmin_ThrowsException()
+        {
+            // Arrange
+            var admin = new Member(1, "simon", "van den ", "Berg", "simon@windesheim.nl", new List<string>(), 1);
+            var memberRepository = new Mock<IMemberRepository>();
+            var memberService = new MemberService(memberRepository.Object);
+
+            // Act and Assert
+            Assert.Throws<IncorrectRightsExeption>(() =>
+                memberService.Update(admin, 1, "tygo", "van", "olst", "tygo@windesheim.nl", 1));
+        }
+
+        [Test]
+        public void UpdateMember_DatabaseAccessError_ThrowsException()
+        {
+            // Arrange
+            var admin = new Member(1, "simon", "van den ", "Berg", "simon@windesheim.nl", new List<string>(), 1);
+            admin.Roles.Add("beheerder");
+            var memberRepository = new Mock<IMemberRepository>();
+            memberRepository.Setup(x => x.Update(It.IsAny<int>(), It.IsAny<string>(), It.IsAny<string>(),
+                It.IsAny<string>(),
+                It.IsAny<string>(), It.IsAny<int>())).Throws<Exception>();
+            var memberService = new MemberService(memberRepository.Object);
+
+            // Act and Assert
+            Assert.Throws<CantAccesDatabaseException>(() =>
+                memberService.Update(admin, 1, "tygo", "van", "olst", "tygo@windesheim.nl", 1));
+        }
     }
 }
