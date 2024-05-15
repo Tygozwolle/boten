@@ -35,17 +35,18 @@ public class ReservationRepository : IReservationRepository
 
         return null;
     }
+    
     public Reservation checkReservations(Member member, int boat)
     {
         return null;
     }
 
-    public Reservation ChangeReservation(Member member, int boatId)
+    public Reservation ChangeReservation(Member member, int boatId,  DateTime startTime, DateTime endTime)
     {
         using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
         {
             connection.Open();
-            string query = $"UPDATE reservations";
+            string query = $"UPDATE reservations WHERE ";
         }
         return null;
     }

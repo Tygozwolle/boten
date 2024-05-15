@@ -16,12 +16,14 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <Button x:Name="EditReserevation" Content="wijzig Reserevering" HorizontalAlignment="Center" FontSize="20"
-                Margin="0,14,0,0" Padding="10,10,10,11" Click="EditReserevation__Click" />
+        <Button x:Name="EditReserevation" Content="Wijzig Reserevering" HorizontalAlignment="Right" FontSize="20"
+                Margin="0,14,10,0" Padding="10,10,10,11" Click="Confirm_Wijzigingen_Click" />
+        <Button  x:Name = "SelectReservationButton" Content="Selecteer Reservering" HorizontalAlignment="Left" FontSize="20"
+                 Margin="10,14,0,0" Padding="10,10,10,11" Click="Reservation_Click"/>
         <ListView x:Name="ReservationList" Margin="0,14,0,0" VerticalAlignment="Top"
                   d:ItemsSource="{d:SampleData ItemCount=5}" HorizontalAlignment="Center" Grid.Row="1"
                   ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible"
-                  MaxHeight="700">
+                  MaxHeight="700" MouseDoubleClick="Reservation_Click">
             <ListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding Id}">

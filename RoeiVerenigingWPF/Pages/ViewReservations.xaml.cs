@@ -134,9 +134,22 @@ namespace RoeiVerenigingWPF.Pages
             return !result.Contains(false);
         }
 
-        private void EditReserevation__Click(object sender, RoutedEventArgs e)
+        private void Reservation_Click(object sender, RoutedEventArgs e)
         {
             Reservation selectedReservation = (Reservation)ReservationList.SelectedItem;
+            IdFilter.Text = selectedReservation.Id.ToString();
+            FullNameFilter.Text = selectedReservation.Member.FullName;
+            BoatIdFilter.Text = selectedReservation.BoatId.ToString();
+            StartTimeFilter.Text = selectedReservation.StartTime.ToString("t");
+            EndTimeFilter.Text = selectedReservation.StartTime.ToString("t");
+            CreationDateFilter.Focusable = false;
+            CreationDateFilter.Text = selectedReservation.CreationDate.ToString("g");
+        }
+
+        private void Confirm_Wijzigingen_Click(object sender, RoutedEventArgs e)
+        {
+            ReservationService service = new ReservationService(new ReservationRepository());
+            service.
         }
     }
 }
