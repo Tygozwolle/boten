@@ -36,7 +36,8 @@ namespace RoeiVerenigingWPF.Pages
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            damage = service.CreateReport(mainWindow.LoggedInMember, boat, ___discription_.Text);
+            this.damage= service.CreateReport(mainWindow.LoggedInMember, boat, ___discription_.Text);
+            mainWindow.MainContent.Navigate(new QRCodePage(damage.Id));
         }
     }
 }
