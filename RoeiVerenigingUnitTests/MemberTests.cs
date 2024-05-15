@@ -17,7 +17,7 @@ namespace RoeiVerenigingUnitTests
         public void InlogSuccesfull()
         {
             //Arrange
-            var member = new Member(1, "simon", "van den", "Berg", "simon@windesheim.nl", new List<string>());
+            var member = new Member(1, "simon", "van den", "Berg", "simon@windesheim.nl", new List<string>(), 1);
             var memberRepository = new Mock<IMemberRepository>();
             memberRepository.Setup(x => x.Get(It.IsAny<string>(), It.IsAny<string>())).Returns(member);
             var memberService = new MemberService(memberRepository.Object);
@@ -43,12 +43,12 @@ namespace RoeiVerenigingUnitTests
         public void CreateMemberSuccesfull()
         {
             //Arrange
-            var member = new Member(1, "tygo", "van", "olst", "tygo@windesheim.nl", new List<string>());
-            var admin = new Member(1, "simon", "van den ", "Berg", "simon@windesheim.nl", new List<string>());
+            var member = new Member(1, "tygo", "van", "olst", "tygo@windesheim.nl", new List<string>(), 1);
+            var admin = new Member(1, "simon", "van den ", "Berg", "simon@windesheim.nl", new List<string>(), 1);
             admin.Roles.Add("beheerder");
             var memberRepository = new Mock<IMemberRepository>();
             memberRepository.Setup(x => x.Create(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(),
-                It.IsAny<string>(), It.IsAny<string>())).Returns(member);
+                It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>())).Returns(member);
             var memberService = new MemberService(memberRepository.Object);
             //Act
             var result = memberService.Create(admin, "tygo", "van", "olst", "tygo@windesheim.nl", "Test1234");
@@ -60,7 +60,7 @@ namespace RoeiVerenigingUnitTests
         public void CreateMemberAlreadyExist()
         {
             //Arrange
-            var admin = new Member(1, "simon", "van den ", "Berg", "simon@windesheim.nl", new List<string>());
+            var admin = new Member(1, "simon", "van den ", "Berg", "simon@windesheim.nl", new List<string>(), 1);
             admin.Roles.Add("beheerder");
             var memberRepository = new Mock<IMemberRepository>();
             memberRepository.Setup(x => x.Create(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(),
@@ -75,7 +75,7 @@ namespace RoeiVerenigingUnitTests
         public void CreateMemberNoAdmin()
         {
             //Arrange
-            var admin = new Member(1, "simon", "van den ", "Berg", "simon@windesheim.nl", new List<string>());
+            var admin = new Member(1, "simon", "van den ", "Berg", "simon@windesheim.nl", new List<string>(), 1);
             var memberRepository = new Mock<IMemberRepository>();
             memberRepository.Setup(x => x.Create(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(),
                 It.IsAny<string>(), It.IsAny<string>())).Returns((Member)null);
@@ -89,7 +89,7 @@ namespace RoeiVerenigingUnitTests
         public void ChangePassword_Successful()
         {
             // Arrange
-            var member = new Member(1, "simon", "van den", "Berg", "simon@windesheim.nl", new List<string>());
+            var member = new Member(1, "simon", "van den", "Berg", "simon@windesheim.nl", new List<string>(), 1);
             var memberRepository = new Mock<IMemberRepository>();
             memberRepository.Setup(x => x.Get(It.IsAny<string>(), It.IsAny<string>())).Returns(member);
             var memberService = new MemberService(memberRepository.Object);
@@ -105,7 +105,7 @@ namespace RoeiVerenigingUnitTests
         public void ChangePassword_Failed_IncorrectCurrentPassword()
         {
             // Arrange
-            var member = new Member(1, "simon", "van den", "Berg", "simon@windesheim.nl", new List<string>());
+            var member = new Member(1, "simon", "van den", "Berg", "simon@windesheim.nl", new List<string>(), 1);
             var memberRepository = new Mock<IMemberRepository>();
             memberRepository.Setup(x => x.Get(It.IsAny<string>(), It.IsAny<string>())).Returns((Member)null);
             var memberService = new MemberService(memberRepository.Object);
@@ -119,7 +119,7 @@ namespace RoeiVerenigingUnitTests
         public void ChangePassword_Failed_PasswordsDontMatch()
         {
             // Arrange
-            var member = new Member(1, "simon", "van den", "Berg", "simon@windesheim.nl", new List<string>());
+            var member = new Member(1, "simon", "van den", "Berg", "simon@windesheim.nl", new List<string>(), 1);
             var memberRepository = new Mock<IMemberRepository>();
             memberRepository.Setup(x => x.Get(It.IsAny<string>(), It.IsAny<string>())).Returns(member);
             var memberService = new MemberService(memberRepository.Object);

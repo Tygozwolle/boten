@@ -8,8 +8,11 @@
              d:DesignHeight="924" d:DesignWidth="350"
              Background="#CCE8FF">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="350"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="200" /> <!-- Image -->
+            <RowDefinition Height="197" /> <!-- Image -->
             <RowDefinition Height="Auto" />  <!-- Titel voor tekst -->
             <RowDefinition Height="Auto" /> <!-- Tekst over vereniging -->
             <RowDefinition Height="*" /> <!-- Boten -->
@@ -19,7 +22,7 @@
         </Grid.RowDefinitions>
 
         <!-- Image -->
-        <Image Name="VerenigingsAfbeelding" Grid.Row="0" VerticalAlignment="Top" />
+        <Image Grid.Row="0" Name="VerenigingsAfbeelding" VerticalAlignment="Top" />
 
         <!-- Label 1 -->
         <TextBlock Grid.Row="1" Margin="10" VerticalAlignment="Center" Text="Over onze vereniging:"
@@ -32,14 +35,31 @@
 
         <!-- Buttons -->
         <Button x:Name="BotenButton" Grid.Row="3" Content="Boten" Margin="20" FontFamily="Franklin Gothic Medium"
-                FontSize="32" Foreground="#1A517A" Background="#88BFEA" Click="Button_Click" />
+                FontSize="32" Foreground="#1A517A" Background="#88BFEA" Click="Button_Click">
+            <Button.BitmapEffect>
+                <DropShadowBitmapEffect Color="Black" Direction="320" Softness="1" ShadowDepth="10" Opacity="0.5" />
+            </Button.BitmapEffect>
+        </Button>
+
         <Button x:Name="DamageButton" Grid.Row="4" Content="Schade" Margin="20" FontFamily="Franklin Gothic Medium"
-                FontSize="32" Foreground="#1A517A" Background="#88BFEA" Click="Button_Click" />
+                FontSize="32" Foreground="#1A517A" Background="#88BFEA" Click="Button_Click">
+            <Button.BitmapEffect>
+                <DropShadowBitmapEffect Color="Black" Direction="320" Softness="1" ShadowDepth="10" Opacity="0.5" />
+            </Button.BitmapEffect>
+        </Button>
         <Button x:Name="EventsButton" Grid.Row="5" Content="Evenementen" Margin="20"
                 FontFamily="Franklin Gothic Medium" FontSize="32" Foreground="#1A517A" Background="#88BFEA"
-                Click="Button_Click" />
+                Click="Button_Click">
+            <Button.BitmapEffect>
+                <DropShadowBitmapEffect Color="Black" Direction="320" Softness="1" ShadowDepth="10" Opacity="0.5" />
+            </Button.BitmapEffect>
+        </Button>
         <Button x:Name="ReserveButton" Grid.Row="6" Content="Reserveringen" Margin="20"
                 FontFamily="Franklin Gothic Medium" FontSize="32" Foreground="#1A517A" Background="#88BFEA"
-                Click="Button_Click" />
+                Click="Button_Click">
+            <Button.BitmapEffect>
+                <DropShadowBitmapEffect Color="Black" Direction="320" Softness="1" ShadowDepth="10" Opacity="0.5" />
+            </Button.BitmapEffect>
+        </Button>
     </Grid>
 </UserControl>

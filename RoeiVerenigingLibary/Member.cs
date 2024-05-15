@@ -9,6 +9,7 @@ public class Member
     public string LastName { get; set; }
 
     public string Email { get; set; }
+    public int Level { get; set; }
     public List<string> Roles { get; }
 
     public string RolesString
@@ -31,7 +32,7 @@ public class Member
         get { return $"{FirstName} {Infix} {LastName}"; }
     }
 
-    public Member(int id, string firstName, string infix, string lastName, string email, List<string> roles)
+    public Member(int id, string firstName, string infix, string lastName, string email, List<string> roles, int level)
     {
         Id = id;
         FirstName = firstName;
@@ -39,5 +40,6 @@ public class Member
         LastName = lastName;
         Email = email;
         Roles = roles;
+        Level = level;
     }
 }
