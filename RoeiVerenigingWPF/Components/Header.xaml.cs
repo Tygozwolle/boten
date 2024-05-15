@@ -41,6 +41,11 @@ public partial class Header : UserControl
                 MainWindow.MainContent.Navigate(new CreateUser(MainWindow));
                 break;
             }
+            case "Gegevens wijzigen":
+            {
+                MainWindow.MainContent.Navigate(new EditUser(MainWindow));
+                break;
+            }
             case "Wachtwoord wijzigen":
             {
                 MainWindow.MainContent.Navigate(new ChangePassword(MainWindow));
@@ -48,7 +53,7 @@ public partial class Header : UserControl
             }
             case "Leden":
             {
-                MainWindow.MainContent.Navigate(new ViewUsers());
+                MainWindow.MainContent.Navigate(new ViewUsers(MainWindow));
                 break;
             }
             default:

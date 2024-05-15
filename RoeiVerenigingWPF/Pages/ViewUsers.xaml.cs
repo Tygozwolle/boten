@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using DataAccessLibary;
 using RoeiVerenigingLibary;
+using RoeiVerenigingWPF.Frames;
 
 namespace RoeiVerenigingWPF.Pages
 {
@@ -14,11 +15,14 @@ namespace RoeiVerenigingWPF.Pages
     public partial class ViewUsers : Page
     {
         private List<Member> _memberList;
+        public Member SelectedMember { get; set; }
+        private MainWindow _mainWindow;
 
-        public ViewUsers()
+        public ViewUsers(MainWindow mainWindow)
         {
             MemberService service = new MemberService(new MemberRepository());
             InitializeComponent();
+            _mainWindow = mainWindow;
             this.DataContext = this;
             _memberList = service.GetMembers();
             ___UserList_.ItemsSource = _memberList;
@@ -122,7 +126,13 @@ namespace RoeiVerenigingWPF.Pages
 
         private void ___EditMember__Click(object sender, RoutedEventArgs e)
         {
-            Member selectedMember = (Member)___UserList_.SelectedItem;
+            if (SelectedMember == null)
+            {
+                MessageBox.Show("Selecteer een lid");
+                return;
+            }
+
+            _mainWindow.MainContent.Navigate(new AdminEditUser(_mainWindow, SelectedMember.Id));
         }
     }
 }
