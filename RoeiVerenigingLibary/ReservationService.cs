@@ -30,6 +30,7 @@ public class ReservationService
             {
                 throw new MaxAmountOfReservationExceeded();
             }
+
             if (endTime - startTime >= maxReservationTime)
             {
                 string message = "Je kan voor maximaal " + maxReservationTime.Hours + " uur reserveren!";
@@ -38,7 +39,7 @@ public class ReservationService
             // TODO bij daglicht
             // TODO bij niveau --> moet deze niet bij de klik op een boot?
         }
-       
+
         return _reservationRepository.CreateReservation(member, boatId, startTime, endTime);
     }
 
@@ -46,17 +47,14 @@ public class ReservationService
     {
         return _reservationRepository.GetReservations();
     }
-  
+
     public List<Reservation> GetReservations(Member member)
     {
         return _reservationRepository.GetReservations(member);
     }
-
-}
-
-    public int AmountOfBoatsCurrentlyRenting(int ID)
+    
+    public int AmountOfBoatsCurrentlyRenting(int id)
     {
-        return _reservationRepository.GetAmountOfBoatsCurrRenting(ID);
+        return _reservationRepository.GetAmountOfBoatsCurrRenting(id);
     }
 }
-

@@ -94,23 +94,15 @@ public class ReservationRepository : IReservationRepository
 
 
     public Boat GetBoatById(int boatId)
-
-    public int GetAmountOfBoatsCurrRenting(int ID)
-
     {
         using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
         {
             connection.Open();
-
             const string sql = $"SELECT * FROM boats WHERE id = @Id ";
-
-            const string sql = $"SELECT COUNT(reservation_id) FROM reservation WHERE member_id = @Id AND start_time > NOW()";
-
 
             using (MySqlCommand command = new MySqlCommand(sql, connection))
             {
                 command.Parameters.Add("@Id", MySqlDbType.Int32);
-
                 command.Parameters["@Id"].Value = boatId;
                 using (MySqlDataReader reader = command.ExecuteReader())
                 {
@@ -123,7 +115,33 @@ public class ReservationRepository : IReservationRepository
         }
         return null;
     }
-    
+
+
+    public int GetAmountOfBoatsCurrRenting(int ID)
+    {
+        using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
+        {
+            connection.Open();
+            const string sql =
+                $"SELECT COUNT(reservation_id) FROM reservation WHERE member_id = @Id AND start_time > NOW()";
+
+            using (MySqlCommand command = new MySqlCommand(sql, connection))
+            {
+                command.Parameters.Add("@Id", MySqlDbType.Int32);
+                command.Parameters["@Id"].Value = ID;
+                using (MySqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        return (reader.GetInt32(0));
+                    }
+                }
+            }
+        }
+
+        return -1;
+    }
+
     public List<Reservation> GetReservations(Member member)
     {
         List<Reservation> reservations = new List<Reservation>();
@@ -137,13 +155,11 @@ public class ReservationRepository : IReservationRepository
             {
                 command.Parameters.Add("@memberId", MySqlDbType.Int32);
                 command.Parameters["@memberId"].Value = member.Id;
-                command.Parameters["@Id"].Value = ID;
 
                 using (MySqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-
                         var id = reader.GetInt32(0);
                         var boatId = reader.GetInt32(1);
                         var memberId = reader.GetInt32(2);
@@ -151,22 +167,13 @@ public class ReservationRepository : IReservationRepository
                         var startTime = reader.GetDateTime(4);
                         var endTime = reader.GetDateTime(5);
 
-                            reservations.Add(new Reservation(member, creationDate,
-                                startTime, endTime, GetBoatById(boatId), id));
+                        reservations.Add(new Reservation(member, creationDate,
+                            startTime, endTime, GetBoatById(boatId), id));
                     }
-
-                    
                 }
             }
         }
 
         return reservations.OrderBy(x => x.Id).ToList();
-
-                        return(reader.GetInt32(0));
-                    }
-                }
-            }
-        }
-        return -1;
     }
 }
