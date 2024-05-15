@@ -26,6 +26,7 @@
 
   <ItemGroup>
     <PackageReference Include="Extended.Wpf.Toolkit" Version="4.6.0" />
+    <PackageReference Include="QRCoder" Version="1.5.1" />
   </ItemGroup>
 
   <ItemGroup>

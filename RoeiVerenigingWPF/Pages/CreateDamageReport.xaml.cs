@@ -1,4 +1,7 @@
-﻿using System;
+﻿using DataAccessLibary;
+using RoeiVerenigingLibary;
+using RoeiVerenigingWPF.Frames;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +23,21 @@ namespace RoeiVerenigingWPF.Pages
     /// </summary>
     public partial class CreateDamageReport : Page
     {
-        public CreateDamageReport()
+        private Damage damage;
+        private DamageService service = new DamageService(new DamageRepository());
+        private MainWindow mainWindow;
+        private Boat boat = new Boat(1, true, 4, 1);
+        public CreateDamageReport(MainWindow mainWindow)
         {
+            this.mainWindow = mainWindow;
             InitializeComponent();
+            
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.damage= service.CreateReport(mainWindow.LoggedInMember, boat, ___discription_.Text);
+            mainWindow.MainContent.Navigate(new QRCodePage(damage.Id));
         }
     }
 }
