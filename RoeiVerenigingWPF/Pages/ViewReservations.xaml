@@ -65,6 +65,12 @@
                                             </TextBlock>
                                             <TextBlock Text="{Binding Boat.Level, StringFormat='Niveau: {0}'}"
                                                        VerticalAlignment="Center" HorizontalAlignment="Right" />
+                                            <TextBlock Text="{Binding StartTime, StringFormat='Starttijd: {0}'}"
+                                                       VerticalAlignment="Center" HorizontalAlignment="Left"
+                                                       FontSize="13" Margin="20,0,0,0" />
+                                            <TextBlock Text="{Binding EndTime, StringFormat='Eindtijd: {0}'}"
+                                                       VerticalAlignment="Center" HorizontalAlignment="Left"
+                                                       FontSize="13" Margin="20,0,0,0" />
                                         </StackPanel>
                                     </Grid>
                                 </Border>
