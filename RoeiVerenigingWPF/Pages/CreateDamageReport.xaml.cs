@@ -29,14 +29,14 @@ namespace RoeiVerenigingWPF.Pages
         private Boat boat = new Boat(1, true, 4, 1);
         public CreateDamageReport(MainWindow mainWindow)
         {
-            this.mainWindow = mainWindow
+            this.mainWindow = mainWindow;
             InitializeComponent();
             
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            damage = service.CreateReport(mainWindow.LoggedInMember, boat, ___discription_.Text)
+            damage = service.CreateReport(mainWindow.LoggedInMember, boat, ___discription_.Text);
         }
     }
 }

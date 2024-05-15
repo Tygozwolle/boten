@@ -9,13 +9,13 @@ namespace RoeiVerenigingLibary
     public class DamageService
     {
         private IDamageRepository _DamageRepository;
-        public DamageServic(IDamageRepository repository)
+        public DamageService(IDamageRepository repository)
         {
             _DamageRepository = repository;
         }
         public Damage CreateReport( Member member, Boat boat, string description)
         {
-            _DamageRepository.Create( member, boat, description);
+          return  _DamageRepository.Create( member, boat, description);
         }
     }
 }
