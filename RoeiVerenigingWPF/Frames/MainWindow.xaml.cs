@@ -21,14 +21,22 @@ namespace RoeiVerenigingWPF.Frames
                     OnPropertyChanged();
                 }
 
+                if (_loggedInMember.Roles.Contains("beheerder"))
+                {
+                    HeaderClass.Users_Button.Visibility = Visibility.Visible;
+                    HeaderClass.UserAdd_Button.Visibility = Visibility.Visible;
+                }
+
                 if (_loggedInMember != null)
                 {
-                    this.HeaderClass.NameComboBoxItem.Content =
-                        value.FirstName + " " + value.Infix + " " + value.LastName;
+                    this.HeaderClass.LoggedInMemberName.Content =
+                        value.FirstName;
                 }
                 else
                 {
-                    HeaderClass.NameComboBoxItem.Content = "Uitgelogd";
+                    HeaderClass.LoggedInMemberName.Content = "Uitgelogd";
+                    HeaderClass.Users_Button.Visibility = Visibility.Hidden;
+                    HeaderClass.UserAdd_Button.Visibility = Visibility.Hidden;
                 }
             }
         }

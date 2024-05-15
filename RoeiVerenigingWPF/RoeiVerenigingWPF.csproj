@@ -36,4 +36,31 @@
     </Page>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Images\Icons\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Images\Icons\settings.png" />
+    <Content Include="Images\Icons\settings.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Remove="Images\Icons\log-out.png" />
+    <Content Include="Images\Icons\log-out.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Remove="Images\Icons\rectangle-ellipsis.png" />
+    <Content Include="Images\Icons\rectangle-ellipsis.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Remove="Images\Icons\user-plus.png" />
+    <Content Include="Images\Icons\user-plus.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Remove="Images\Icons\users.png" />
+    <Content Include="Images\Icons\users.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>
