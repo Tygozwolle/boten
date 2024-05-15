@@ -30,6 +30,8 @@ public partial class Buttons : UserControl
                 break;
             case Button button when button == DamageButton:
                 //MainWindow.MainContent.Navigate(new );
+                MainWindow.MainContent.Navigate(new CreateDamageReport());
+                break;
                 throw new NotImplementedException("Schade");
             case Button button when button == EventsButton:
                 MainWindow.MainContent.Navigate(new ViewReservations());
