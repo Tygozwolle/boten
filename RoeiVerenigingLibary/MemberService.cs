@@ -33,6 +33,28 @@ public class MemberService(IMemberRepository memberRepository)
         return member;
     }
 
+    public Member GetById(int id)
+    {
+        Member? member;
+        try
+        {
+            member = memberRepository.GetById(id);
+        }
+        catch (Exception)
+        {
+            //todo replace with new exception
+            throw new IncorrectEmailOrPasswordException();
+        }
+
+        if (member == null)
+        {
+            //todo replace with new exception
+            throw new IncorrectEmailOrPasswordException();
+        }
+
+        return member;
+    }
+
     public Member Create(Member loggedInMember, string firstName, string infix, string lastName, string email,
         string password)
     {
@@ -68,6 +90,77 @@ public class MemberService(IMemberRepository memberRepository)
         }
 
         return member;
+    }
+
+    /**
+     * This method updates the members data based on the given id. this can only be done if the loggedInMember is an admin
+     */
+    public Member Update(Member loggedInMember, int id, string firstName, string infix, string lastName, string email,
+        int level)
+    {
+        if (!loggedInMember.Roles.Contains("beheerder"))
+        {
+            throw new IncorrectRightsExeption();
+        }
+
+        if (!IsValid(email))
+        {
+            throw new Exception("Dit is geen email adres");
+        }
+
+        if (level > 10)
+        {
+            throw new Exception("Niveau mag maximaal 10 zijn");
+        }
+
+        Member? member;
+        try
+        {
+            member = memberRepository.Update(id, firstName, infix, lastName, email, level);
+        }
+        catch (Exception)
+        {
+            throw new CantAccesDatabaseException();
+        }
+
+        return member;
+    }
+
+    /**
+     * This method updates the members data based on the loggedInMember
+     */
+    public Member Update(Member loggedInMember, string firstName, string infix, string lastName, string email)
+    {
+        if (!IsValid(email))
+        {
+            throw new Exception("Dit is geen email adres");
+        }
+
+        Member? member;
+        try
+        {
+            member = memberRepository.Update(loggedInMember.Id, firstName, infix, lastName, email);
+        }
+        catch (Exception)
+        {
+            throw new CantAccesDatabaseException();
+        }
+
+        return member;
+    }
+
+    public void SetRoles(int memberId, List<string> roles)
+    {
+        memberRepository.RemoveRoles(memberId);
+        foreach (string role in roles)
+        {
+            memberRepository.AddRole(memberId, role);
+        }
+    }
+
+    public List<string> GetAvailableRoles()
+    {
+        return memberRepository.GetAvailableRoles();
     }
 
     public void ChangePassword(Member loggedInMember, string currentPassword, string newPassword,
