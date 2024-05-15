@@ -47,6 +47,12 @@
         <PasswordBox Grid.Row="10" x:Name="Password" Width="200" BorderBrush="Black" />
 
         <Button Grid.Row="11" Content="Account aanmaken" Width="300" Margin="20" FontFamily="Franklin Gothic Medium"
-                FontSize="26" Foreground="#1A517A" Background="#88BFEA" Click="Button_Click" />
+                FontSize="26" Foreground="#1A517A" Background="#88BFEA" Click="Button_Click">
+               <Button.Resources>
+                      <Style TargetType="Border">
+                             <Setter Property="CornerRadius" Value="15"/>
+                      </Style>
+               </Button.Resources>
+        </Button>
     </Grid>
 </Page>

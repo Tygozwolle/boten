@@ -19,9 +19,8 @@
 
         <!-- Header -->
         <Border Grid.Row="0" Grid.Column="0" Background="#1A517A" Height="100">
-            <!-- Your header content goes here -->
             <TextBlock Text="Roeivereniging Rivierstroom" FontFamily="Franklin Gothic Medium" FontSize="40"
-                       VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#CCE8FF" />
+                       VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="#CCE8FF" Margin="10,0,0,0" />
         </Border>
 
         <!-- Dropdown -->
