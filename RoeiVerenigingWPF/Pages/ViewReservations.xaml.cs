@@ -19,9 +19,8 @@ namespace RoeiVerenigingWPF.Pages
 
         public ViewReservations(MainWindow mainWindow)
         {
-            DataContext = this;
             InitializeComponent();
-            
+            DataContext = this;
             ReservationService service = new ReservationService(new ReservationRepository());
             MainWindow = mainWindow;
             ReservationList = service.GetReservations(mainWindow.LoggedInMember);

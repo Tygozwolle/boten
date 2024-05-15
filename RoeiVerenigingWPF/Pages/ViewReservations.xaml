@@ -6,8 +6,7 @@
       xmlns:local="clr-namespace:RoeiVerenigingWPF.Pages"
       mc:Ignorable="d"
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="ViewReservations"
-      DataContext="{Binding ReservationList}">
+      Title="ViewReservations">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*" MaxHeight="100px" />
