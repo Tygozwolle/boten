@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace RoeiVerenigingLibary
 {
     public interface IDamageRepository
-    {
+    { 
+        public Damage Create(int id, Member member, Boat boat, string description);
     }
 }

@@ -10,7 +10,7 @@ namespace DataAccessLibary
 {
     public class DamageRepository : IDamageRepository
     {
-        public void Create(string firstName, string infix, string lastName, string email, string passwordHash, int level)
+        public Damage Create(int id, Member member, Boat boat, string description)
         {
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
             {
@@ -23,17 +23,17 @@ namespace DataAccessLibary
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {
                     command.Parameters.Add("@boat_id", MySqlDbType.Int32);
-                    command.Parameters["@boat_id"].Value = firstName;
+                    command.Parameters["@boat_id"].Value = boat.Id;
 
                     command.Parameters.Add("@description", MySqlDbType.VarChar);
-                    command.Parameters["@description"].Value = infix;
+                    command.Parameters["@description"].Value = description;
 
                     command.Parameters.Add("@member_id", MySqlDbType.Int32);
-                    command.Parameters["@member_id"].Value = lastName;
+                    command.Parameters["@member_id"].Value = member.Id;
 
 
                     command.ExecuteReader();
-                    return ;
+                    return new Damage((int)command.LastInsertedId,member,boat,false,false);
                 }
             }
         }
