@@ -28,15 +28,21 @@ namespace RoeiVerenigingWPF.Pages
         public QRCodePage(int damageID)
         {
             _damageID = damageID;
+   
+            
+            InitializeComponent();
+           
+            QrcodeImage.Source = qrcode(_damageID);
+        }
+        private BitmapSource qrcode(int id)
+        {
             QRCodeGenerator qrGenerator = new QRCodeGenerator();
             QRCodeData qrCodeData = qrGenerator.CreateQrCode(EmailToDb.GetStringForEmail(_damageID), QRCodeGenerator.ECCLevel.H);
             QRCode qrCode = new QRCode(qrCodeData);
             Bitmap qrCodeBitmap = qrCode.GetGraphic(20);
-            
-            InitializeComponent();
             var bitmapdata = qrCodeBitmap.GetHbitmap();
-            var image = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(bitmapdata, IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
-            QrcodeImage.Source = image;
+           var image = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(bitmapdata, IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+            return image;
         }
     }
 }
