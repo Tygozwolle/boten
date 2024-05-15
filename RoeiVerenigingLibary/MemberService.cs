@@ -108,6 +108,11 @@ public class MemberService(IMemberRepository memberRepository)
             throw new Exception("Dit is geen email adres");
         }
 
+        if (level > 10)
+        {
+            throw new Exception("Niveau mag maximaal 10 zijn");
+        }
+
         Member? member;
         try
         {
@@ -115,8 +120,7 @@ public class MemberService(IMemberRepository memberRepository)
         }
         catch (Exception)
         {
-            //todo make other exception
-            throw new MemberAlreadyExistsException();
+            throw new CantAccesDatabaseException();
         }
 
         return member;
@@ -127,11 +131,6 @@ public class MemberService(IMemberRepository memberRepository)
      */
     public Member Update(Member loggedInMember, string firstName, string infix, string lastName, string email)
     {
-        if (!loggedInMember.Roles.Contains("beheerder"))
-        {
-            throw new IncorrectRightsExeption();
-        }
-
         if (!IsValid(email))
         {
             throw new Exception("Dit is geen email adres");
@@ -144,8 +143,7 @@ public class MemberService(IMemberRepository memberRepository)
         }
         catch (Exception)
         {
-            //todo make other exception
-            throw new MemberAlreadyExistsException();
+            throw new CantAccesDatabaseException();
         }
 
         return member;

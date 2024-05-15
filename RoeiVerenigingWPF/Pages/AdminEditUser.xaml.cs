@@ -76,12 +76,15 @@ public partial class AdminEditUser : Page
                 _mainWindow.MainContent.Navigate(new ViewUsers(_mainWindow));
             }
         }
-        catch (MemberAlreadyExistsException ex)
+        catch (CantAccesDatabaseException ex)
         {
             MessageBox.Show(ex.Message);
         }
         catch (IncorrectRightsExeption ex)
         {
+            MessageBox.Show(ex.Message);
+        }
+        catch (Exception ex) {
             MessageBox.Show(ex.Message);
         }
     }

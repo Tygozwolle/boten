@@ -39,12 +39,15 @@ public partial class EditUser : Page
                     $"{updatedMember.FirstName} {updatedMember.Infix} {updatedMember.LastName} is gewijzigd");
             }
         }
-        catch (MemberAlreadyExistsException ex)
+        catch (CantAccesDatabaseException ex)
         {
             MessageBox.Show(ex.Message);
         }
         catch (IncorrectRightsExeption ex)
         {
+            MessageBox.Show(ex.Message);
+        }
+        catch (Exception ex) {
             MessageBox.Show(ex.Message);
         }
     }
