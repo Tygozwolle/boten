@@ -27,7 +27,7 @@ public class ReservationRepository : IReservationRepository
                     
                     while (reader.Read())
                     {
-                        return new Reservation(reader.GetInt16(2), reader.GetInt16(1), reader.GetDateTime(4),
+                        return new Reservation(reader.GetInt16(1), reader.GetInt16(1), reader.GetDateTime(4),
                             reader.GetDateTime(5));
                     }
                 }
