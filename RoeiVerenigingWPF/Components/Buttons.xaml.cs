@@ -1,3 +1,4 @@
+using System.Windows;
 using RoeiVerenigingWPF.Frames;
 using RoeiVerenigingWPF.Pages;
 using System.Windows.Controls;
@@ -23,16 +24,25 @@ public partial class Buttons : UserControl
 
     private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
     {
+        if (MainWindow.LoggedInMember == null)
+        {
+            MessageBox.Show("Log eerst in");
+            return;
+        }
         switch (sender)
         {
             case Button button when button == BotenButton:
                 MainWindow.MainContent.Navigate(new ListBoats(MainWindow));
                 break;
             case Button button when button == DamageButton:
-                //MainWindow.MainContent.Navigate(new );
+                if (MainWindow.LoggedInMember.Roles.Contains("materiaal_commissaris"))
+                {
+                    MainWindow.MainContent.Navigate(new ManageDamageOverview(MainWindow));
+                    break;
+                }
+                //todo: replace with overview for member only
                 MainWindow.MainContent.Navigate(new CreateDamageReport(MainWindow));
                 break;
-                throw new NotImplementedException("Schade");
             case Button button when button == EventsButton:
                 MainWindow.MainContent.Navigate(new ViewReservations());
                 break;

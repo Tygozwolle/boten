@@ -14,6 +14,7 @@ namespace RoeiVerenigingLibary
         public String Description { get; set; }
         public bool BoatFixed { get; set; }
         public bool Usable { get; set; }
+        public List<Stream> Images { get; set; }
 
         public Damage(int id, Member member, Boat boat, string description, bool boatFixed, bool usable)
         {
@@ -24,9 +25,7 @@ namespace RoeiVerenigingLibary
             this.BoatFixed = boatFixed;
             this.Usable = usable;
         }
-
-        public List<Stream> Images { get; set; }
-
+        
         public Damage(int id, Member member, Boat boat, string description, bool boatFixed, bool usable,
             List<Stream> images)
         {
