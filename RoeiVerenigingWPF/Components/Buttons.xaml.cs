@@ -32,12 +32,11 @@ public partial class Buttons : UserControl
                 //MainWindow.MainContent.Navigate(new );
                 throw new NotImplementedException("Schade");
             case Button button when button == EventsButton:
-                MainWindow.MainContent.Navigate(new ViewReservations());
+                // MainWindow.MainContent.Navigate(new ViewReservations());
+                throw new NotImplementedException("Evenementen");
                 break;
             case Button button when button == ReserveButton:
-                MainWindow.MainContent.Navigate(new AddReservation(MainWindow.LoggedInMember, 1));
-                break;
-            default:
+                MainWindow.MainContent.Navigate(new ViewReservations(MainWindow));
                 break;
         }
     }

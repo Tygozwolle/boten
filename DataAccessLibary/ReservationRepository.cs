@@ -74,7 +74,7 @@ public class ReservationRepository : IReservationRepository
                         var task = new Task(() =>
                         {
                             var reservationToAdd = new Reservation(MemberRepository.Get(memberId), creationDate,
-                                startTime, endTime, boatId, id);
+                                startTime, endTime, GetBoatById(boatId), id);
                             lock (reservations)
                             {
                                 reservations.Add(reservationToAdd);
@@ -90,6 +90,29 @@ public class ReservationRepository : IReservationRepository
         }
 
         return reservations.OrderBy(x => x.Id).ToList();
+    }
+
+    public Boat GetBoatById(int boatId)
+    {
+        using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
+        {
+            connection.Open();
+            const string sql = $"SELECT * FROM boats WHERE id = @Id ";
+
+            using (MySqlCommand command = new MySqlCommand(sql, connection))
+            {
+                command.Parameters.Add("@Id", MySqlDbType.Int32);
+                command.Parameters["@Id"].Value = boatId;
+                using (MySqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        return new Boat(reader.GetInt32(0), reader.GetBoolean(1), reader.GetInt32(2), reader.GetInt32(3));
+                    }
+                }
+            }
+        }
+        return null;
     }
     public List<Reservation> GetReservations(Member member)
     {
@@ -107,8 +130,6 @@ public class ReservationRepository : IReservationRepository
 
                 using (MySqlDataReader reader = command.ExecuteReader())
                 {
-                   
-
                     while (reader.Read())
                     {
                         var id = reader.GetInt32(0);
@@ -119,7 +140,7 @@ public class ReservationRepository : IReservationRepository
                         var endTime = reader.GetDateTime(5);
 
                             reservations.Add(new Reservation(member, creationDate,
-                                startTime, endTime, boatId, id));
+                                startTime, endTime, GetBoatById(boatId), id));
                     }
 
                     
