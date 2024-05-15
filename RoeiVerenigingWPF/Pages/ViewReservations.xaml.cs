@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using DataAccessLibary;
 using RoeiVerenigingLibary;
+using RoeiVerenigingWPF.Frames;
 
 namespace RoeiVerenigingWPF.Pages
 {
@@ -14,6 +15,12 @@ namespace RoeiVerenigingWPF.Pages
     public partial class ViewReservations : Page
     {
         private List<Reservation> _reservationList;
+        private MainWindow _mainWindow;
+
+        private Member getMember(MainWindow mainWindow)
+        {
+            return mainWindow.LoggedInMember;
+        }
 
         public ViewReservations()
         {
@@ -149,7 +156,10 @@ namespace RoeiVerenigingWPF.Pages
         private void Confirm_Wijzigingen_Click(object sender, RoutedEventArgs e)
         {
             ReservationService service = new ReservationService(new ReservationRepository());
-            service.
+            service.ChangeReservation(_mainWindow.LoggedInMember, int.Parse(BoatIdFilter.Text),
+                DateTime.Parse(StartTimeFilter.Text), DateTime.Parse(EndTimeFilter.Text));
+            
+
         }
     }
 }

@@ -38,4 +38,10 @@ public class ReservationService
         return _reservationRepository.GetSingleReservation(memberId, boatId);
     }
     
+    
+    public Reservation ChangeReservation(Member member, int boatId, DateTime startTime, DateTime endTime )
+    {
+        return _reservationRepository.ChangeReservation(member, boatId, startTime, endTime);
+    }
+    
 }
