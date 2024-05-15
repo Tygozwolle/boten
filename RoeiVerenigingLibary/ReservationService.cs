@@ -52,6 +52,11 @@ public class ReservationService
     {
         return _reservationRepository.GetReservations(member);
     }
+
+    public Boat GetBoatById(int boatId)
+    {
+        return _reservationRepository.GetBoatById(boatId);
+    }
     
     public int AmountOfBoatsCurrentlyRenting(int id)
     {

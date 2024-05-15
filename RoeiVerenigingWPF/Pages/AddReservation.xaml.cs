@@ -18,14 +18,16 @@ namespace RoeiVerenigingWPF.Pages
 
         private ReservationService _service = new(new ReservationRepository());
         private int _boatId;
+        private Boat Boat { get; set; }
 
         public AddReservation(Member loggedInMember, int boatId)
         {
+
             InitializeComponent();
-            //todo: use boat_id from selected boat, set it in this constructor
+            DataContext = this;
             _boatId = boatId;
             _loggedInMember = loggedInMember;
-            DataContext = this;
+            Boat = _service.GetBoatById(_boatId);
         }
 
         private void TimePicker_TextChanged(object sender, TextChangedEventArgs e)

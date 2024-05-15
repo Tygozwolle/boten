@@ -91,8 +91,6 @@ public class ReservationRepository : IReservationRepository
 
         return reservations.OrderBy(x => x.Id).ToList();
     }
-
-
     public Boat GetBoatById(int boatId)
     {
         using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
@@ -115,7 +113,6 @@ public class ReservationRepository : IReservationRepository
         }
         return null;
     }
-
 
     public int GetAmountOfBoatsCurrRenting(int ID)
     {
@@ -173,7 +170,6 @@ public class ReservationRepository : IReservationRepository
                 }
             }
         }
-
         return reservations.OrderBy(x => x.Id).ToList();
     }
 }
