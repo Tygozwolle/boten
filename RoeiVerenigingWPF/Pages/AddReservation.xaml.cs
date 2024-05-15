@@ -54,12 +54,25 @@ namespace RoeiVerenigingWPF.Pages
 
             try
             {
-                _service.TimeChecker(startTime, endTime); //throws exception if not valid
-                _service.Create(_loggedInMember, _boatId, startDateTime, endDateTime);
+                if (_service.TimeChecker(startTime, endTime))
+                {
+                    _service.Create(_loggedInMember, _boatId, startDateTime, endDateTime);
+                }
             }
-            catch (InvalidTimeException ex)
+            catch (InvalidTimeException invalidTimeException)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(invalidTimeException.Message);
+                return;
+            }
+            catch (MaxAmountOfReservationExceeded maxAmountOfReservationExceededException)
+            {
+                MessageBox.Show(maxAmountOfReservationExceededException.Message);
+                return;
+            }
+            catch (ArgumentOutOfRangeException argumentOutOfRangeException)
+            {
+                MessageBox.Show(argumentOutOfRangeException.Message);
+                return;
             }
 
             MessageBox.Show("Reservering aangemaakt");

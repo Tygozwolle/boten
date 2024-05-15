@@ -32,7 +32,12 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Grid  Margin="50 20 50 0" Width="650" Height="200">
-                            <Button Click="Button_Click" CommandParameter="{Binding Id}">
+                            <Button Click="Button_Click" CommandParameter="{Binding Id}" Background="#88BFEA">
+                                <Button.Resources>
+                                    <Style TargetType="Border">
+                                        <Setter Property="CornerRadius" Value="15"/>
+                                    </Style>
+                                </Button.Resources>
                                 <Border BorderBrush="Black" BorderThickness="1" Width="650" Height="200">
                                     <Grid>
                                         <Image Source="/Images/Image_not_available.png" MaxHeight="100px" MaxWidth="200px" HorizontalAlignment="Left" VerticalAlignment="Center"/>

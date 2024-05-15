@@ -132,7 +132,7 @@ public class ReservationRepository : IReservationRepository
                         var task = new Task(() =>
                         {
                             var reservationToAdd = new Reservation(MemberRepository.Get(memberId), creationDate,
-                                startTime, endTime, boatId, id);
+                                startTime, endTime, GetBoatById(boatId), id);
                             lock (reservations)
                             {
                                 reservations.Add(reservationToAdd);
@@ -143,6 +143,91 @@ public class ReservationRepository : IReservationRepository
                     }
 
                     Task.WaitAll(tasks.ToArray());
+                }
+            }
+        }
+
+        return reservations.OrderBy(x => x.Id).ToList();
+    }
+
+
+    public Boat GetBoatById(int boatId)
+    {
+        using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
+        {
+            connection.Open();
+            const string sql = $"SELECT * FROM boats WHERE id = @Id ";
+
+            using (MySqlCommand command = new MySqlCommand(sql, connection))
+            {
+                command.Parameters.Add("@Id", MySqlDbType.Int32);
+                command.Parameters["@Id"].Value = boatId;
+                using (MySqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        return new Boat(reader.GetInt32(0), reader.GetBoolean(1), reader.GetInt32(2), reader.GetInt32(3));
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+
+    public int GetAmountOfBoatsCurrRenting(int ID)
+    {
+        using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
+        {
+            connection.Open();
+            const string sql =
+                $"SELECT COUNT(reservation_id) FROM reservation WHERE member_id = @Id AND start_time > NOW()";
+
+            using (MySqlCommand command = new MySqlCommand(sql, connection))
+            {
+                command.Parameters.Add("@Id", MySqlDbType.Int32);
+                command.Parameters["@Id"].Value = ID;
+                using (MySqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        return (reader.GetInt32(0));
+                    }
+                }
+            }
+        }
+
+        return -1;
+    }
+
+    public List<Reservation> GetReservations(Member member)
+    {
+        List<Reservation> reservations = new List<Reservation>();
+
+        using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
+        {
+            connection.Open();
+            const string sql = $"SELECT * FROM reservation WHERE `member_id` = @memberId";
+
+            using (MySqlCommand command = new MySqlCommand(sql, connection))
+            {
+                command.Parameters.Add("@memberId", MySqlDbType.Int32);
+                command.Parameters["@memberId"].Value = member.Id;
+
+                using (MySqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var id = reader.GetInt32(0);
+                        var boatId = reader.GetInt32(1);
+                        var memberId = reader.GetInt32(2);
+                        var creationDate = reader.GetDateTime(3);
+                        var startTime = reader.GetDateTime(4);
+                        var endTime = reader.GetDateTime(5);
+
+                        reservations.Add(new Reservation(member, creationDate,
+                            startTime, endTime, GetBoatById(boatId), id));
+                    }
                 }
             }
         }

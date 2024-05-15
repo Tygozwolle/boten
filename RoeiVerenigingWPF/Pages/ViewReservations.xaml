@@ -4,123 +4,82 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:RoeiVerenigingWPF.Pages"
-
       mc:Ignorable="d"
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="ViewUsers">
-    <Page.Resources>
-        <local:PropertyValueStringConverter x:Key="PropertyValueStringConverter" />
-    </Page.Resources>
+      Title="ViewReservations">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="1*" MaxHeight="100px" />
+            <RowDefinition Height="50" MaxHeight="100px" />
+            <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
-        <Button x:Name="EditReserevation" Content="Wijzig Reserevering" HorizontalAlignment="Right" FontSize="20"
-                Margin="0,14,10,0" Padding="10,10,10,11" Click="Confirm_Wijzigingen_Click" />
-        <Button  x:Name = "SelectReservationButton" Content="Selecteer Reservering" HorizontalAlignment="Left" FontSize="20"
-                 Margin="10,14,0,0" Padding="10,10,10,11" Click="Reservation_Click"/>
-        <ListView x:Name="ReservationList" Margin="0,14,0,0" VerticalAlignment="Top"
-                  d:ItemsSource="{d:SampleData ItemCount=5}" HorizontalAlignment="Center" Grid.Row="1"
-                  ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible"
-                  MaxHeight="700" MouseDoubleClick="Reservation_Click">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn DisplayMemberBinding="{Binding Id}">
-                        <GridViewColumnHeader>
-                            <StackPanel>
-                                <TextBlock Text="Id" MinWidth="60" />
-                                <TextBox Name="IdFilter" TextChanged="UpdateFilter"></TextBox>
-                            </StackPanel>
-                            <GridViewColumnHeader.ContextMenu>
-                                <ContextMenu MenuItem.Click="SortReservation" Name="Id">
-                                    <MenuItem Header="Ascending" />
-                                    <MenuItem Header="Descending" />
-                                </ContextMenu>
-                            </GridViewColumnHeader.ContextMenu>
-                        </GridViewColumnHeader>
-                    </GridViewColumn>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
 
-                    <GridViewColumn DisplayMemberBinding="{Binding Member.FullName}">
-                        <GridViewColumnHeader>
-                            <StackPanel>
-                                <TextBlock Text="naam" MinWidth="60" />
-                                <TextBox Name="FullNameFilter" TextChanged="UpdateFilter"></TextBox>
-                            </StackPanel>
-                            <GridViewColumnHeader.ContextMenu>
-                                <ContextMenu MenuItem.Click="SortReservation" Name="FullName">
-                                    <MenuItem Header="Ascending" />
-                                    <MenuItem Header="Descending" />
-                                </ContextMenu>
-                            </GridViewColumnHeader.ContextMenu>
-                        </GridViewColumnHeader>
-                    </GridViewColumn>
+        <!-- Titel -->
+        <Label Content="Reserveringen" FontSize="30" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" />
 
-                    <GridViewColumn DisplayMemberBinding="{Binding BoatId}">
-                        <GridViewColumnHeader>
-                            <StackPanel>
-                                <TextBlock Text="BootId" MinWidth="60" />
-                                <TextBox Name="BoatIdFilter" TextChanged="UpdateFilter"></TextBox>
-                            </StackPanel>
-                            <GridViewColumnHeader.ContextMenu>
-                                <ContextMenu MenuItem.Click="SortReservation" Name="BoatId">
-                                    <MenuItem Header="Ascending" />
-                                    <MenuItem Header="Descending" />
-                                </ContextMenu>
-                            </GridViewColumnHeader.ContextMenu>
-                        </GridViewColumnHeader>
-                    </GridViewColumn>
+        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="4" MaxHeight="750px">
+            <ListView ItemsSource="{Binding ReservationList}" Grid.IsSharedSizeScope="True"
+                      d:ItemsSource="{d:SampleData ItemCount=8}" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="2" />
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="50 20 50 0" Width="650" Height="200">
+                            <Button Click="Button_Click" CommandParameter="{Binding Id}">
+                                <Border BorderBrush="Black" BorderThickness="1" Width="650" Height="200">
+                                    <Grid>
+                                        <Image Source="/Images/Image_not_available.png" MaxHeight="100px"
+                                               MaxWidth="200px" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                                        <StackPanel Margin="110 0 5 0">
+                                            <TextBlock Text="{Binding Boat.Id, StringFormat='Boot: {0}'}"
+                                                       VerticalAlignment="Center" HorizontalAlignment="Left"
+                                                       FontSize="25" />
+                                            <TextBlock Text="{Binding Boat.Seats, StringFormat='Aantal man: {0}'}"
+                                                       VerticalAlignment="Center" HorizontalAlignment="Right" />
+                                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right">
+                                                <TextBlock.Style>
+                                                    <Style TargetType="TextBlock">
+                                                        <Setter Property="Text"
+                                                                Value="{Binding Boat.CaptainSeat, StringFormat='Stuurman {0}'}" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding Boat.CaptainSeat}"
+                                                                         Value="True">
+                                                                <Setter Property="Text" Value="Stuurman aanwezig" />
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding Boat.CaptainSeat}"
+                                                                         Value="False">
+                                                                <Setter Property="Text" Value="Stuurman niet aanwezig" />
+                                                            </DataTrigger>
+                                                            <!-- Add more DataTriggers for other conditions if needed -->
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                            <TextBlock Text="{Binding Boat.Level, StringFormat='Niveau: {0}'}"
+                                                       VerticalAlignment="Center" HorizontalAlignment="Right" />
+                                            <TextBlock Text="{Binding StartTime, StringFormat='Starttijd: {0}'}"
+                                                       VerticalAlignment="Center" HorizontalAlignment="Left"
+                                                       FontSize="13" Margin="20,0,0,0" />
+                                            <TextBlock Text="{Binding EndTime, StringFormat='Eindtijd: {0}'}"
+                                                       VerticalAlignment="Center" HorizontalAlignment="Left"
+                                                       FontSize="13" Margin="20,0,0,0" />
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
 
-
-                    <GridViewColumn
-                        DisplayMemberBinding="{Binding StartTime, Converter={StaticResource PropertyValueStringConverter}}">
-                        <GridViewColumnHeader>
-                            <StackPanel>
-                                <TextBlock Text="Start tijd" MinWidth="60" />
-                                <TextBox Name="StartTimeFilter" TextChanged="UpdateFilter"></TextBox>
-                            </StackPanel>
-                            <GridViewColumnHeader.ContextMenu>
-                                <ContextMenu MenuItem.Click="SortReservation" Name="StartTime">
-                                    <MenuItem Header="Ascending" />
-                                    <MenuItem Header="Descending" />
-                                </ContextMenu>
-                            </GridViewColumnHeader.ContextMenu>
-                        </GridViewColumnHeader>
-                    </GridViewColumn>
-
-                    <GridViewColumn
-                        DisplayMemberBinding="{Binding EndTime, Converter={StaticResource PropertyValueStringConverter}}">
-                        <GridViewColumnHeader>
-                            <StackPanel>
-                                <TextBlock Text="Eind tijd" MinWidth="60" />
-                                <TextBox Name="EndTimeFilter" TextChanged="UpdateFilter"></TextBox>
-                            </StackPanel>
-                            <GridViewColumnHeader.ContextMenu>
-                                <ContextMenu MenuItem.Click="SortReservation" Name="EndTime">
-                                    <MenuItem Header="Ascending" />
-                                    <MenuItem Header="Descending" />
-                                </ContextMenu>
-                            </GridViewColumnHeader.ContextMenu>
-                        </GridViewColumnHeader>
-                    </GridViewColumn>
-
-                    <GridViewColumn
-                        DisplayMemberBinding="{Binding CreationDate, Converter={StaticResource PropertyValueStringConverter}}">
-                        <GridViewColumnHeader>
-                            <StackPanel>
-                                <TextBlock Text="Aanmaak Datum" MinWidth="60" />
-                                <TextBox Name="CreationDateFilter" TextChanged="UpdateFilter"></TextBox>
-                            </StackPanel>
-                            <GridViewColumnHeader.ContextMenu>
-                                <ContextMenu MenuItem.Click="SortReservation" Name="CreationDate">
-                                    <MenuItem Header="Ascending" />
-                                    <MenuItem Header="Descending" />
-                                </ContextMenu>
-                            </GridViewColumnHeader.ContextMenu>
-                        </GridViewColumnHeader>
-                    </GridViewColumn>
-                </GridView>
-            </ListView.View>
-        </ListView>
+                            </Button>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
     </Grid>
 </Page>

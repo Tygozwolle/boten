@@ -19,9 +19,8 @@
 
         <!-- Header -->
         <Border Grid.Row="0" Grid.Column="0" Background="#1A517A" Height="100">
-            <!-- Your header content goes here -->
             <TextBlock Text="Roeivereniging Rivierstroom" FontFamily="Franklin Gothic Medium" FontSize="40"
-                       VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#CCE8FF" />
+                       VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="#CCE8FF" Margin="10,0,0,0" />
         </Border>
 
         <!-- Dropdown -->
@@ -31,6 +30,7 @@
                       SelectionChanged="MemberFunctions_SelectionChanged">
                 <ComboBoxItem x:Name="NameComboBoxItem" Height="50" Content="Uitgelogd" Visibility="Collapsed"
                               IsSelected="True" Background="#88BFEA" />
+                <ComboBoxItem Height="50" Content="Gegevens wijzigen" />
                 <ComboBoxItem Height="50" Content="Wachtwoord wijzigen" />
                 <ComboBoxItem Height="50" Content="Leden" />
                 <ComboBoxItem Height="50" Content="Nieuw Lid" />
