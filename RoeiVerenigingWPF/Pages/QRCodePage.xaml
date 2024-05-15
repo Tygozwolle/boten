@@ -9,7 +9,7 @@
       Title="QRCodePage">
 
     <Grid>
-        <Image HorizontalAlignment="Left"x:Name="Qrcode" Height="362" Margin="66,25,0,0" VerticalAlignment="Top" Width="405" Source="/Images/Image_not_available.png"/>
+        <Image HorizontalAlignment="Left" x:Name="QrcodeImage" Height="362" Margin="66,25,0,0" VerticalAlignment="Top" Width="405" Source="/Images/Image_not_available.png"/>
 
     </Grid>
 </Page>
