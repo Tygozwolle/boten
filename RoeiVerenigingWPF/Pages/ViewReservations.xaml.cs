@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Input;
 using DataAccessLibary;
 using RoeiVerenigingLibary;
 using RoeiVerenigingWPF.Frames;
@@ -25,10 +26,32 @@ namespace RoeiVerenigingWPF.Pages
             MainWindow = mainWindow;
             ReservationList = service.GetReservations(mainWindow.LoggedInMember);
         }
+        public ViewReservations()
+        {
+            InitializeComponent();
+            DataContext = this;
+            ReservationService service = new ReservationService(new ReservationRepository());
+            ReservationList = service.GetReservations();
+        }
 
         public void Button_Click(object sender, RoutedEventArgs e)
         {
             
+        }
+
+        // public void ReservationClick(object sender, RoutedEventArgs e)
+        // {
+        //     Reservation selectedReservation = (Reservation)ReservationList.SelectedItem;
+        //     IdFilter.Text = selectedReservation.Id.ToString();
+        //     FullNameFilter.Text = selectedReservation.Member.FullName;
+        //     BoatIdFilter.Text = selectedReservation.BoatId.ToString();
+        //     StartTimeFilter.Text = selectedReservation.StartTime.ToString("t");
+        //     EndTimeFilter.Text = selectedReservation.StartTime.ToString("t");
+        //     CreationDateFilter.Focusable = false;
+        //     CreationDateFilter.Text = selectedReservation.CreationDate.ToString("g");
+        // }
+        private void Control_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
         }
     }
 }
