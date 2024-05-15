@@ -24,19 +24,45 @@ public class MemberRepository : IMemberRepository
                 command.Parameters["@email"].Value = email;
                 command.Parameters.Add("@passwordHash", MySqlDbType.VarChar);
                 command.Parameters["@passwordHash"].Value = passwordHash;
-           
+
                 using (MySqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-     string? infix = null;
-                if (!reader.IsDBNull(2))
-                {
-                    infix = reader.GetString(2);
-                }
+                        string? infix = null;
+                        if (!reader.IsDBNull(2))
+                        {
+                            infix = reader.GetString(2);
+                        }
 
                         return new Member(reader.GetInt32(0), reader.GetString(1), infix,
                             reader.GetString(3),
+                            reader.GetString(5), GetRoles(reader.GetInt32(0)), reader.GetInt32(4));
+                    }
+                }
+            }
+        }
+
+        return null;
+    }
+
+    public Member GetById(int id)
+    {
+        using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
+        {
+            connection.Open();
+            const string sql = $"SELECT * FROM members WHERE member_id = @id";
+
+            using (MySqlCommand command = new MySqlCommand(sql, connection))
+            {
+                command.Parameters.Add("@id", MySqlDbType.Int32);
+                command.Parameters["@id"].Value = id;
+                using (MySqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        string? infix = reader.IsDBNull(2) ? "" : reader.GetString(2);
+                        return new Member(reader.GetInt32(0), reader.GetString(1), infix, reader.GetString(3),
                             reader.GetString(5), GetRoles(reader.GetInt32(0)), reader.GetInt32(4));
                     }
                 }
@@ -76,6 +102,73 @@ public class MemberRepository : IMemberRepository
         }
 
         return null;
+    }
+
+    public Member Update(int id, string firstName, string infix, string lastName, string email, int level)
+    {
+        using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
+        {
+            connection.Open();
+            const String sql =
+                $"UPDATE `members` SET `first_name` = @firstName, `infix` = @infix, `last_name` = @lastName, `email` = @email, `level` = @level WHERE `member_id` = @id";
+
+            using (MySqlCommand command = new MySqlCommand(sql, connection))
+            {
+                command.Parameters.Add("@id", MySqlDbType.Int32);
+                command.Parameters["@id"].Value = id;
+
+                command.Parameters.Add("@firstName", MySqlDbType.VarChar);
+                command.Parameters["@firstName"].Value = firstName;
+
+                command.Parameters.Add("@infix", MySqlDbType.VarChar);
+                command.Parameters["@infix"].Value = infix;
+
+                command.Parameters.Add("@lastName", MySqlDbType.VarChar);
+                command.Parameters["@lastName"].Value = lastName;
+
+                command.Parameters.Add("@email", MySqlDbType.VarChar);
+                command.Parameters["@email"].Value = email;
+
+                command.Parameters.Add("@level", MySqlDbType.Int32);
+                command.Parameters["@level"].Value = level;
+
+                command.ExecuteNonQuery();
+                //todo: add level
+                return new Member(id, firstName, infix, lastName, email, GetRoles(id), 1);
+            }
+        }
+    }
+
+    public Member Update(int id, string firstName, string infix, string lastName, string email)
+    {
+        using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
+        {
+            connection.Open();
+            const String sql =
+                $"UPDATE `members` SET `first_name` = @firstName, `infix` = @infix, `last_name` = @lastName, `email` = @email WHERE `member_id` = @id";
+
+            using (MySqlCommand command = new MySqlCommand(sql, connection))
+            {
+                command.Parameters.Add("@id", MySqlDbType.Int32);
+                command.Parameters["@id"].Value = id;
+
+                command.Parameters.Add("@firstName", MySqlDbType.VarChar);
+                command.Parameters["@firstName"].Value = firstName;
+
+                command.Parameters.Add("@infix", MySqlDbType.VarChar);
+                command.Parameters["@infix"].Value = infix;
+
+                command.Parameters.Add("@lastName", MySqlDbType.VarChar);
+                command.Parameters["@lastName"].Value = lastName;
+
+                command.Parameters.Add("@email", MySqlDbType.VarChar);
+                command.Parameters["@email"].Value = email;
+
+                command.ExecuteNonQuery();
+                //todo: add level
+                return new Member(id, firstName, infix, lastName, email, GetRoles(id), 1);
+            }
+        }
     }
 
     private static List<string> GetRoles(int id)
@@ -212,5 +305,60 @@ public class MemberRepository : IMemberRepository
         }
 
         return members.OrderBy(x => x.Id).ToList();
+    }
+
+    public void AddRole(int memberId, string role)
+    {
+        using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
+        {
+            connection.Open();
+            string insertSql = $"INSERT INTO member_roles(member_id, rol) VALUES (@memberId, @role)";
+            using (MySqlCommand insertCommand = new MySqlCommand(insertSql, connection))
+            {
+                insertCommand.Parameters.Add("@memberId", MySqlDbType.Int32);
+                insertCommand.Parameters["@memberId"].Value = memberId;
+                insertCommand.Parameters.Add("@role", MySqlDbType.VarChar);
+                insertCommand.Parameters["@role"].Value = role;
+                insertCommand.ExecuteNonQuery();
+            }
+        }
+    }
+
+    public void RemoveRoles(int memberId)
+    {
+        using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
+        {
+            connection.Open();
+            string deleteSql = $"DELETE FROM member_roles WHERE member_id = @memberId";
+            using (MySqlCommand deleteCommand = new MySqlCommand(deleteSql, connection))
+            {
+                deleteCommand.Parameters.Add("@memberId", MySqlDbType.Int32);
+                deleteCommand.Parameters["@memberId"].Value = memberId;
+                deleteCommand.ExecuteNonQuery();
+            }
+        }
+    }
+
+    public List<string> GetAvailableRoles()
+    {
+        var roles = new List<string>();
+        using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
+        {
+            connection.Open();
+            const string sql = "SELECT DISTINCT rol FROM member_roles";
+
+            using (MySqlCommand command = new MySqlCommand(sql, connection))
+            {
+                using (MySqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        roles.Add(reader.GetString(0));
+                    }
+                }
+            }
+        }
+
+        return roles;
     }
 }
