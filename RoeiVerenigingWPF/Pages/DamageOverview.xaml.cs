@@ -10,15 +10,23 @@ public partial class DamageOverview : Page
     public MainWindow MainWindow { set; get; }
     private DamageService _service = new DamageService(new DamageRepository()); 
     public List<Damage> Damages { set; get; }
-    
+    private ImageRepository _imageRepository = new ImageRepository();
     public DamageOverview(MainWindow mw)
     {
         InitializeComponent();
         DataContext = this;
         MainWindow = mw;
         Damages = _service.GetRelatedToUser(MainWindow.LoggedInMember);
+        GetImagesFromMail();
     }
-
+    private void GetImagesFromMail()
+    {
+        Task task = new Task(() =>
+        {
+            EmailToDb.GetImagesFromEmail(_imageRepository);
+        });
+        task.Start();
+    }
     private void CreateNewDamageReport(object sender, System.Windows.RoutedEventArgs e)
     {
         MainWindow.MainContent.Navigate(new CreateDamageReport(MainWindow));

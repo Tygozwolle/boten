@@ -38,6 +38,11 @@ namespace RoeiVerenigingWPF.helpers
         }
         public static List<ImageSource> ConvertList(List<Stream> streams)
         {
+            if (streams == null)
+            {
+                return new List<ImageSource>();
+            }
+
             List<ImageSource> ImageSources = new List<ImageSource>(streams.Count);
 
             foreach (var stream in streams)
@@ -48,4 +53,6 @@ namespace RoeiVerenigingWPF.helpers
         }
 
     }
+
 }
+

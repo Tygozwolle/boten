@@ -19,6 +19,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <TextBlock Text="{Binding Damage.Boat.Id, StringFormat='Schade melding boot: {0}'}" FontSize="30" Grid.Row="0"
                 Grid.Column="0" Grid.ColumnSpan="2" />
@@ -61,6 +62,11 @@
         </StackPanel>
         <TextBlock Text="Beschrijving" FontSize="24" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" />
         <TextBlock Name="Description" MinHeight="200" Margin="10" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" TextWrapping="Wrap"></TextBlock>
-       
+        <StackPanel Grid.Row="0" Grid.Column="2" Grid.RowSpan="5">
+            <Image x:Name="qrCodeImage" ></Image>
+            <TextBlock Text="Scan de qr-code om foto's toe te voegen."/>
+            <TextBlock Text="Voeg de fotos als bijlage aan de mail en verander het onderwerp niet."/>
+            <TextBlock Text="Het kan even duren voordat u foto is verwerkt."/>
+        </StackPanel>
     </Grid>
 </Page>
