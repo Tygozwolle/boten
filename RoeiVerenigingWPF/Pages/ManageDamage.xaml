@@ -20,8 +20,24 @@
         </Grid.ColumnDefinitions>
         <TextBlock Text="{Binding Damage.Boat.Id, StringFormat='Schade melding boot: {0}'}" FontSize="30" Grid.Row="0"
                    Grid.Column="0" Grid.ColumnSpan="2" />
-        <Image x:Name="DamageImage" Grid.Row="1" Grid.Column="0" Margin="10" Source="/Images/Image_not_available.png" MaxHeight="200px"
-               MaxWidth="200px" HorizontalAlignment="Left" VerticalAlignment="Center" />
+        <StackPanel Grid.Row="1" Grid.Column="0">
+            <Image x:Name="DamageImage" Grid.Row="1" Grid.Column="0" Margin="10"
+                   Source="/Images/Image_not_available.png" MaxHeight="200px"
+                   MaxWidth="200px" HorizontalAlignment="Left" VerticalAlignment="Center" />
+            <Grid HorizontalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+                <Button Margin="0,0,5,0" Grid.Column="0" Click="PrevImage">Vorige</Button>
+                <Button Margin="5,0,0,0" Grid.Column="1" Click="NextImage">Volgende</Button>
+            </Grid>
+
+        </StackPanel>
+
         <StackPanel Grid.Row="1" Grid.Column="1" Margin="10">
             <TextBlock Text="{Binding Damage.Boat.Seats, StringFormat='Aantal plaatsen: {0}'}"></TextBlock>
             <TextBlock>
