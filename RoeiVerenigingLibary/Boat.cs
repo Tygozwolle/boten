@@ -17,5 +17,12 @@
             Level = level;
             this.Description = description;
         }
+        public Boat(int id, Boolean captainSeat, int Seats, int level)
+        {
+            this.Id = id;
+            CaptainSeat = captainSeat;
+            this.Seats = Seats;
+            Level = level;
+        }
     }
 }
