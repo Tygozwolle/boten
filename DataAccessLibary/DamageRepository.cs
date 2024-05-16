@@ -169,12 +169,13 @@ namespace DataAccessLibary
                         if (reader.Read())
                         {
                             //get member
+                            var imageRepository = new ImageRepository();
                             Member member = memberRepository.GetById(reader.GetInt32("member_id"));
                             //get boat
                             Boat boat = boatRepository.GetBoatById(reader.GetInt32("boat_id"));
                             damage = new Damage(reader.GetInt32("id"), member, boat,
                                 reader.GetString("description"),
-                                reader.GetBoolean("fixed"), reader.GetBoolean("usable"));
+                                reader.GetBoolean("fixed"), reader.GetBoolean("usable"), imageRepository.get(reader.GetInt32("id")));
                         }
                     }
                 }
