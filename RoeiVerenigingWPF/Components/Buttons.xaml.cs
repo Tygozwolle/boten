@@ -40,8 +40,7 @@ public partial class Buttons : UserControl
                     MainWindow.MainContent.Navigate(new ManageDamageOverview(MainWindow));
                     break;
                 }
-                //todo: replace with overview for member only
-                MainWindow.MainContent.Navigate(new CreateDamageReport(MainWindow));
+                MainWindow.MainContent.Navigate(new DamageOverview(MainWindow));
                 break;
             case Button button when button == EventsButton:
                 MainWindow.MainContent.Navigate(new ViewReservations());
