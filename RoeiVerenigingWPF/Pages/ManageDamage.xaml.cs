@@ -16,6 +16,28 @@ public partial class ManageDamage : Page
 
     private DamageService _service = new DamageService(new DamageRepository());
     private List<ImageSource> _images;
+    private int _imageIndex;
+
+    private int imageIndex
+    {
+        get { return _imageIndex; }
+        set
+        {
+            if (value < 0)
+            {
+                _imageIndex = _images.Count - 1;
+            }
+            else if (value > _images.Count - 1)
+            {
+                _imageIndex = 0;
+            }
+            else
+            {
+                _imageIndex = value;
+            }
+        }
+    }
+
     public ManageDamage(MainWindow mw, Damage damage)
     {
         InitializeComponent();
@@ -32,6 +54,18 @@ public partial class ManageDamage : Page
         }
     }
 
+    private void NextImage(object sender, RoutedEventArgs e)
+    {
+        imageIndex++;
+        DamageImage.Source = _images[imageIndex];
+    }
+
+    private void PrevImage(object sender, RoutedEventArgs e)
+    {
+        imageIndex--;
+        DamageImage.Source = _images[imageIndex];
+    }
+
     private void Button_Click(object sender, RoutedEventArgs e)
     {
         bool _fixed = false;
@@ -43,5 +77,4 @@ public partial class ManageDamage : Page
         _service.Update(Damage.Id, _fixed, _usable, Description.Text);
         _mainWindow.MainContent.Navigate(new ManageDamageOverview(_mainWindow));
     }
- 
 }
