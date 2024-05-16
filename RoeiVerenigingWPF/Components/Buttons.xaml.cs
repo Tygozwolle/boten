@@ -48,47 +48,49 @@ public partial class Buttons : UserControl
 
     private void ChangeColorOfRectangle(Border rectangle)
     {
+        Color reservationColor = Color.FromArgb(255, 122, 178, 178); // This represents the color #0e5172
+
         switch (rectangle)
         {
             case Border border when rectangle == BoatRectangle:
-                BoatRectangle.Background = new SolidColorBrush(Colors.White);
-                BoatRectangle.BorderBrush = new SolidColorBrush(Colors.White);
-                DamageRectangle.Background = new SolidColorBrush(Colors.Black);
-                DamageRectangle.BorderBrush = new SolidColorBrush(Colors.Black);
-                EventsRectangle.Background = new SolidColorBrush(Colors.Black);
-                EventsRectangle.BorderBrush = new SolidColorBrush(Colors.Black);
-                ReservationRectangle.Background = new SolidColorBrush(Colors.Black);
-                ReservationRectangle.BorderBrush = new SolidColorBrush(Colors.Black);
+                BoatRectangle.Background = new SolidColorBrush(reservationColor);
+                BoatRectangle.BorderBrush = new SolidColorBrush(reservationColor);
+                DamageRectangle.Background = new SolidColorBrush(Colors.Transparent);
+                DamageRectangle.BorderBrush = new SolidColorBrush(Colors.Transparent);
+                EventsRectangle.Background = new SolidColorBrush(Colors.Transparent);
+                EventsRectangle.BorderBrush = new SolidColorBrush(Colors.Transparent);
+                ReservationRectangle.Background = new SolidColorBrush(Colors.Transparent);
+                ReservationRectangle.BorderBrush = new SolidColorBrush(Colors.Transparent);
                 break;
             case Border border when rectangle == DamageRectangle:
-                BoatRectangle.Background = new SolidColorBrush(Colors.Black);
-                BoatRectangle.BorderBrush = new SolidColorBrush(Colors.Black);
-                DamageRectangle.Background = new SolidColorBrush(Colors.White);
-                DamageRectangle.BorderBrush = new SolidColorBrush(Colors.White);
-                EventsRectangle.Background = new SolidColorBrush(Colors.Black);
-                EventsRectangle.BorderBrush = new SolidColorBrush(Colors.Black);
-                ReservationRectangle.Background = new SolidColorBrush(Colors.Black);
-                ReservationRectangle.BorderBrush = new SolidColorBrush(Colors.Black);
+                BoatRectangle.Background = new SolidColorBrush(Colors.Transparent);
+                BoatRectangle.BorderBrush = new SolidColorBrush(Colors.Transparent);
+                DamageRectangle.Background = new SolidColorBrush(reservationColor);
+                DamageRectangle.BorderBrush = new SolidColorBrush(reservationColor);
+                EventsRectangle.Background = new SolidColorBrush(Colors.Transparent);
+                EventsRectangle.BorderBrush = new SolidColorBrush(Colors.Transparent);
+                ReservationRectangle.Background = new SolidColorBrush(Colors.Transparent);
+                ReservationRectangle.BorderBrush = new SolidColorBrush(Colors.Transparent);
                 break;
             case Border border when rectangle == EventsRectangle:
-                BoatRectangle.Background = new SolidColorBrush(Colors.Black);
-                BoatRectangle.BorderBrush = new SolidColorBrush(Colors.Black);
-                DamageRectangle.Background = new SolidColorBrush(Colors.Black);
-                DamageRectangle.BorderBrush = new SolidColorBrush(Colors.Black);
-                EventsRectangle.Background = new SolidColorBrush(Colors.White);
-                EventsRectangle.BorderBrush = new SolidColorBrush(Colors.White);
-                ReservationRectangle.Background = new SolidColorBrush(Colors.Black);
-                ReservationRectangle.BorderBrush = new SolidColorBrush(Colors.Black);
+                BoatRectangle.Background = new SolidColorBrush(Colors.Transparent);
+                BoatRectangle.BorderBrush = new SolidColorBrush(Colors.Transparent);
+                DamageRectangle.Background = new SolidColorBrush(Colors.Transparent);
+                DamageRectangle.BorderBrush = new SolidColorBrush(Colors.Transparent);
+                EventsRectangle.Background = new SolidColorBrush(reservationColor);
+                EventsRectangle.BorderBrush = new SolidColorBrush(reservationColor);
+                ReservationRectangle.Background = new SolidColorBrush(Colors.Transparent);
+                ReservationRectangle.BorderBrush = new SolidColorBrush(Colors.Transparent);
                 break;
             case Border border when rectangle == ReservationRectangle:
-                BoatRectangle.Background = new SolidColorBrush(Colors.Black);
-                BoatRectangle.BorderBrush = new SolidColorBrush(Colors.Black);
-                DamageRectangle.Background = new SolidColorBrush(Colors.Black);
-                DamageRectangle.BorderBrush = new SolidColorBrush(Colors.Black);
-                EventsRectangle.Background = new SolidColorBrush(Colors.Black);
-                EventsRectangle.BorderBrush = new SolidColorBrush(Colors.Black);
-                ReservationRectangle.Background = new SolidColorBrush(Colors.White);
-                ReservationRectangle.BorderBrush = new SolidColorBrush(Colors.White);
+                BoatRectangle.Background = new SolidColorBrush(Colors.Transparent);
+                BoatRectangle.BorderBrush = new SolidColorBrush(Colors.Transparent);
+                DamageRectangle.Background = new SolidColorBrush(Colors.Transparent);
+                DamageRectangle.BorderBrush = new SolidColorBrush(Colors.Transparent);
+                EventsRectangle.Background = new SolidColorBrush(Colors.Transparent);
+                EventsRectangle.BorderBrush = new SolidColorBrush(Colors.Transparent);
+                ReservationRectangle.Background = new SolidColorBrush(reservationColor);
+                ReservationRectangle.BorderBrush = new SolidColorBrush(reservationColor);
                 break;
         }
     }
