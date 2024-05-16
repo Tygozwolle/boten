@@ -3,6 +3,7 @@ using RoeiVerenigingLibary;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Printing;
 using System.Text;
@@ -32,17 +33,8 @@ namespace RoeiVerenigingWPF.Pages
             
             InitializeComponent();
            
-            QrcodeImage.Source = qrcode(_damageID);
+            QrcodeImage.Source = QrcodeMaker.qrcode(_damageID);
         }
-        private BitmapSource qrcode(int id)
-        {
-            QRCodeGenerator qrGenerator = new QRCodeGenerator();
-            QRCodeData qrCodeData = qrGenerator.CreateQrCode(EmailToDb.GetStringForEmail(_damageID), QRCodeGenerator.ECCLevel.H);
-            QRCode qrCode = new QRCode(qrCodeData);
-            Bitmap qrCodeBitmap = qrCode.GetGraphic(20);
-            var bitmapdata = qrCodeBitmap.GetHbitmap();
-           var image = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(bitmapdata, IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
-            return image;
-        }
+        
     }
 }
