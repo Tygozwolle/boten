@@ -9,7 +9,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Media;
 using DataAccessLibary;
 
-namespace RoeiVerenigingWPF
+namespace RoeiVerenigingWPF.helpers
 {
     public abstract class ImageConverter
     {
@@ -46,6 +46,6 @@ namespace RoeiVerenigingWPF
             }
             return ImageSources;
         }
-       
+
     }
 }

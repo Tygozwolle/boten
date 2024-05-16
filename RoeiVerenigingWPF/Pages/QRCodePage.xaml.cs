@@ -1,5 +1,6 @@
 ﻿using QRCoder;
 using RoeiVerenigingLibary;
+using RoeiVerenigingWPF.helpers;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
