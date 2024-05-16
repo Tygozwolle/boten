@@ -13,11 +13,13 @@ namespace RoeiVerenigingWPF.Pages
     {
         private Damage damage;
         private DamageService service = new DamageService(new DamageRepository());
+        private BoatService _serviceBoat = new BoatService(new BoatRepository());
+        private Boat boat;
         private MainWindow mainWindow;
-        private Boat boat = new Boat(1, true, 4, 1);
-        public CreateDamageReport(MainWindow mainWindow, Member loggedInMember, int boatId)
+        public CreateDamageReport(MainWindow mainWindow, int boatId)
         {
             this.mainWindow = mainWindow;
+            boat = _serviceBoat.Getboat(boatId);
             InitializeComponent();
 
         }

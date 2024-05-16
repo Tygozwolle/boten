@@ -29,7 +29,7 @@ namespace RoeiVerenigingWPF.Pages
                 object command = casted.CommandParameter;
                 int id = Int32.Parse(command.ToString());
 
-                MainWindow.MainContent.Navigate(new CreateDamageReport(MainWindow, MainWindow.LoggedInMember, id));
+                MainWindow.MainContent.Navigate(new CreateDamageReport(MainWindow, id));
             }
         }
     }
