@@ -19,20 +19,22 @@ namespace TestConsoleApp
             //var res = reservation.GetReservations();
             //  C: \Users\Gebruiker\Downloads\imageDB
 
-            // ImageRepository imageRepository = new ImageRepository();
-            //  EmailToDb.GetImagesFromEmail(imageRepository);
+            ImageRepository imageRepository = new ImageRepository();
+     //       EmailToDb.GetImagesFromEmail(imageRepository);
             //     var imaList = imageRepository.get(1);
             //     
+          var test =  imageRepository.get(1);
+            Console.WriteLine();
+            test.ToArray();
+            //var stream = imaList[0];
+            //var fileStream = File.Create($"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}/imageDb.png");
+            //stream.Seek(0, SeekOrigin.Begin);
+            //stream.CopyTo(fileStream);
+            //fileStream.Close();
 
-            // var stream = imaList[0];
-            //  var fileStream = File.Create($"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}/imageDb.png");
-            // stream.Seek(0, SeekOrigin.Begin);
-            //  stream.CopyTo(fileStream);
-            //   fileStream.Close();
 
-
-            DamageService service = new DamageService(new DamageRepository());
-            service.Update(1, true, true, "boot heel");
+            //DamageService service = new DamageService(new DamageRepository());
+            //service.Update(1, true, true, "boot heel");
             // service.GetAllDamageReports();
         }
     }
