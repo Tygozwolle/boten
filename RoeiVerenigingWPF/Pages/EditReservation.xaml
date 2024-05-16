@@ -1,0 +1,84 @@
+<Page x:Class="RoeiVerenigingWPF.Pages.EditReservation"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:local="clr-namespace:RoeiVerenigingWPF.Frames"
+      xmlns:views="clr-namespace:RoeiVerenigingWPF.Components"
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+      mc:Ignorable="d"
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Reservering wijzigen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100" />
+            <!-- Header Column -->
+            <RowDefinition Height="50" />
+            <!-- Title Column -->
+
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="1*" />
+
+
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
+
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Titel -->
+        <Label Content="Reservering wijzigen" FontSize="30" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" />
+
+        <!-- calender -->
+        <Viewbox
+            Grid.Row="2"
+            Grid.Column="1"
+            StretchDirection="Both">
+            <Calendar x:Name="calendar" SelectionMode="SingleDate" />
+        </Viewbox>
+
+        <!-- Photo -->
+        <Button Grid.Column="2" Grid.Row="2" Height="100" Width="200" Click="ClickImageController">
+            <Button.Template>
+                <ControlTemplate>
+                    <Image Source="/Images/Image_not_available.png"/>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+
+        <!-- Tekst Label -->
+        <Label Content="Tekst over Boten" Grid.Row="2" Grid.Column="3" />
+
+        <Button Grid.Column="3" Grid.Row="4" MaxHeight="50" Content="Wijzigingen opslaan" Click="ConfirmButton" FontSize="20" Background="#88BFEA">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="15"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+
+        <Grid Grid.Row="3" Grid.Column="1" Grid.RowSpan="2" Margin="50 0 0 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition Height="50" />
+            </Grid.RowDefinitions>
+
+            <Label Content="Begintijd:" Grid.Row="0" Grid.Column="0" FontSize="30" Margin="0,0,20,0" />
+            <xctk:TimePicker x:Name="BeginTimePicker" TextBoxBase.TextChanged="TimePicker_TextChanged" Height="30"
+                             Width="100" Grid.Column="1" Grid.Row="0" Value="{Binding currentDateTime}" />
+
+            <Label Content="Eindtijd:" TextBoxBase.TextChanged="TimePicker_TextChanged" Grid.Row="1" Grid.Column="0" Margin="0,0,20,0"
+                   FontSize="30" />
+            <xctk:TimePicker x:Name="EndTimePicker" Height="30" Width="100" Grid.Column="1" Grid.Row="1"
+                             Value="{Binding currentDateTime}" />
+        </Grid>
+    </Grid>
+</Page>

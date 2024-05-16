@@ -1,8 +1,5 @@
-﻿using System.ComponentModel;
-using System.Diagnostics;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Input;
 using DataAccessLibary;
 using RoeiVerenigingLibary;
@@ -15,8 +12,15 @@ namespace RoeiVerenigingWPF.Pages
     /// </summary>
     public partial class ViewReservations : Page
     {
+        public Boat Boat { get; set; }
+        public Member Member { get; set; }
+        public DateTime StartTime { get; set; }
+        public DateTime EndTime { get; set; }
+        
         public List<Reservation> ReservationList { get; set; }
         public MainWindow MainWindow { set; get; }
+        
+        public ViewReservations(){}
 
         public ViewReservations(MainWindow mainWindow)
         {
@@ -26,32 +30,21 @@ namespace RoeiVerenigingWPF.Pages
             MainWindow = mainWindow;
             ReservationList = service.GetReservations(mainWindow.LoggedInMember);
         }
-        public ViewReservations()
-        {
-            InitializeComponent();
-            DataContext = this;
-            ReservationService service = new ReservationService(new ReservationRepository());
-            ReservationList = service.GetReservations();
-        }
 
         public void Button_Click(object sender, RoutedEventArgs e)
         {
             
         }
 
-        // public void ReservationClick(object sender, RoutedEventArgs e)
-        // {
-        //     Reservation selectedReservation = (Reservation)ReservationList.SelectedItem;
-        //     IdFilter.Text = selectedReservation.Id.ToString();
-        //     FullNameFilter.Text = selectedReservation.Member.FullName;
-        //     BoatIdFilter.Text = selectedReservation.BoatId.ToString();
-        //     StartTimeFilter.Text = selectedReservation.StartTime.ToString("t");
-        //     EndTimeFilter.Text = selectedReservation.StartTime.ToString("t");
-        //     CreationDateFilter.Focusable = false;
-        //     CreationDateFilter.Text = selectedReservation.CreationDate.ToString("g");
-        // }
-        private void Control_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
+        public void Control_OnMouseDoubleClick(object sender, RoutedEventArgs e)
         {
+            Reservation selectedItem = (Reservation)ReservationListFinder.SelectedItem;
+            StartTime = selectedItem.StartTime;
+            EndTime = selectedItem.EndTime;
+            Boat = selectedItem.Boat;
+            Member = selectedItem.Member;
+            MainWindow.MainContent.Source = new Uri("./EditReservation.xaml");
+
         }
     }
 }
