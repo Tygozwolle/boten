@@ -9,6 +9,7 @@ public partial class ManageDamageOverview : Page
 {
     public MainWindow MainWindow { set; get; }
     private DamageService _service = new DamageService(new DamageRepository()); 
+    private ImageRepository _imageRepository = new ImageRepository();
     public List<Damage> Damages { set; get; }
 
     public ManageDamageOverview(MainWindow mw)
@@ -17,8 +18,17 @@ public partial class ManageDamageOverview : Page
         DataContext = this;
         MainWindow = mw;
         Damages = _service.GetAll();
+        GetImagesFromMail();
     }
 
+    private void GetImagesFromMail()
+    {
+        Task task = new Task(() =>
+        {
+            EmailToDb.GetImagesFromEmail(_imageRepository);
+        });
+        task.Start();
+    }
     private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
     {
         if (sender is Button)

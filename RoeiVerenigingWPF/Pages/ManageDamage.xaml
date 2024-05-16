@@ -20,7 +20,7 @@
         </Grid.ColumnDefinitions>
         <TextBlock Text="{Binding Damage.Boat.Id, StringFormat='Schade melding boot: {0}'}" FontSize="30" Grid.Row="0"
                    Grid.Column="0" Grid.ColumnSpan="2" />
-        <Image Grid.Row="1" Grid.Column="0" Margin="10" Source="/Images/Image_not_available.png" MaxHeight="200px"
+        <Image x:Name="DamageImage" Grid.Row="1" Grid.Column="0" Margin="10" Source="/Images/Image_not_available.png" MaxHeight="200px"
                MaxWidth="200px" HorizontalAlignment="Left" VerticalAlignment="Center" />
         <StackPanel Grid.Row="1" Grid.Column="1" Margin="10">
             <TextBlock Text="{Binding Damage.Boat.Seats, StringFormat='Aantal plaatsen: {0}'}"></TextBlock>
