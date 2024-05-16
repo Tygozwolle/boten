@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:RoeiVerenigingWPF.Pages"
       mc:Ignorable="d"
       Title="ManageDamage" d:DesignHeight="450" d:DesignWidth="800">
-    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+    <Grid Margin="150">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
@@ -20,11 +20,30 @@
         </Grid.ColumnDefinitions>
         <TextBlock Text="{Binding Damage.Boat.Id, StringFormat='Schade melding boot: {0}'}" FontSize="30" Grid.Row="0"
                    Grid.Column="0" Grid.ColumnSpan="2" />
-        <Image Grid.Row="1" Grid.Column="0"></Image>
-        <TextBlock Grid.Row="1" Grid.Column="1"></TextBlock>
+        <Image Grid.Row="1" Grid.Column="0" Margin="10" Source="/Images/Image_not_available.png" MaxHeight="200px"
+               MaxWidth="200px" HorizontalAlignment="Left" VerticalAlignment="Center" />
+        <StackPanel Grid.Row="1" Grid.Column="1" Margin="10">
+            <TextBlock Text="{Binding Damage.Boat.Seats, StringFormat='Aantal plaatsen: {0}'}"></TextBlock>
+            <TextBlock>
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Text" Value="{Binding Damage.Boat.CaptainSeat, StringFormat='Stuurman {0}'}" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Damage.Boat.CaptainSeat}" Value="True">
+                                <Setter Property="Text" Value="Stuurman positie aanwezig" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Damage.Boat.CaptainSeat}" Value="False">
+                                <Setter Property="Text" Value="Stuurman positie niet aanwezig" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+            <TextBlock Text="{Binding Damage.Boat.Level, StringFormat='Benodiged niveau: {0}'}"></TextBlock>
+        </StackPanel>
         <TextBlock Text="Beschrijving" FontSize="24" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" />
-        <TextBox Name="Description" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"></TextBox>
-        <Grid Grid.Row="4" Grid.Column="0">
+        <TextBox Name="Description" MinHeight="200" Margin="10" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"></TextBox>
+        <Grid Margin="10" Grid.Row="4" Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
@@ -32,10 +51,10 @@
                 <ColumnDefinition Width="auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <CheckBox Name="Usable" Grid.Column="0">Bruikbaar</CheckBox>
-            <CheckBox Name="Fixed" Grid.Column="1">Gerepareerd</CheckBox>
+            <CheckBox Name="Usable" Margin="10" Grid.Column="0">Bruikbaar</CheckBox>
+            <CheckBox Name="Fixed" Margin="10" Grid.Column="1">Gerepareerd</CheckBox>
         </Grid>
 
-        <Button Content="Opslaan" Click="Button_Click" Grid.Row="4" Grid.Column="1"></Button>
+        <Button Margin="10" Content="Opslaan" Click="Button_Click" Grid.Row="4" Grid.Column="1"></Button>
     </Grid>
 </Page>

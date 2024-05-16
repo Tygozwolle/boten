@@ -42,7 +42,8 @@
                                                        VerticalAlignment="Center" HorizontalAlignment="Left"
                                                        FontSize="25" />
                                             <TextBlock Text="{Binding Description, StringFormat=' {0}'}"
-                                                       VerticalAlignment="Center" HorizontalAlignment="Left" />
+                                                       VerticalAlignment="Center" HorizontalAlignment="Left"
+                                                       TextWrapping="Wrap" />
                                             <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right">
                                                 <TextBlock.Style>
                                                     <Style TargetType="TextBlock">
