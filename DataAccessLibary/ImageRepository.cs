@@ -85,7 +85,7 @@ namespace DataAccessLibary
                 }
             }
         }
-        private Stream GetImage(int id)
+        private  Stream GetImage(int id)
         {
 
 
@@ -113,7 +113,7 @@ namespace DataAccessLibary
         }
     
 
-        public List<Stream> get(int id)
+        public  List<Stream> get(int id)
         {
 
 
@@ -154,9 +154,9 @@ namespace DataAccessLibary
                 });
                 task.Start();
                 tasks.Add(task);
-                
+            //   await task.Wait();
             }
-            Task.WaitAll(tasks.ToArray());
+             Task.WaitAll(tasks.ToArray());
             return list;
         }
 

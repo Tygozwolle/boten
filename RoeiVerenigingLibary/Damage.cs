@@ -24,6 +24,7 @@ namespace RoeiVerenigingLibary
             this.Description = description;
             this.BoatFixed = boatFixed;
             this.Usable = usable;
+
         }
         
         public Damage(int id, Member member, Boat boat, string description, bool boatFixed, bool usable,

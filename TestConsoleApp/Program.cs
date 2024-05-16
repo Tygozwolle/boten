@@ -1,6 +1,7 @@
 using DataAccessLibary;
 using MySqlConnector;
 using RoeiVerenigingLibary;
+using System.Diagnostics;
 
 
 namespace TestConsoleApp
@@ -19,13 +20,18 @@ namespace TestConsoleApp
             //var res = reservation.GetReservations();
             //  C: \Users\Gebruiker\Downloads\imageDB
 
-            ImageRepository imageRepository = new ImageRepository();
-     //       EmailToDb.GetImagesFromEmail(imageRepository);
+            //   ImageRepository imageRepository = new ImageRepository();
+            //       EmailToDb.GetImagesFromEmail(imageRepository);
             //     var imaList = imageRepository.get(1);
             //     
-          var test =  imageRepository.get(1);
-            Console.WriteLine();
-            test.ToArray();
+            //   var test =  imageRepository.get(1);
+            DamageRepository damageRepository = new DamageRepository();
+            var st = new Stopwatch();
+            st.Start();
+           var test = damageRepository.GetById(1);
+            st.Stop();
+            Console.WriteLine(st);
+            test.ToString();
             //var stream = imaList[0];
             //var fileStream = File.Create($"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}/imageDb.png");
             //stream.Seek(0, SeekOrigin.Begin);
