@@ -23,7 +23,7 @@
         <Image Grid.Row="1" Grid.Column="0"></Image>
         <TextBlock Grid.Row="1" Grid.Column="1"></TextBlock>
         <TextBlock Text="Beschrijving" FontSize="24" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" />
-        <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"></TextBox>
+        <TextBox Name="Description" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"></TextBox>
         <Grid Grid.Row="4" Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
@@ -32,10 +32,10 @@
                 <ColumnDefinition Width="auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <CheckBox Grid.Column="0">Bruikbaar</CheckBox>
-            <CheckBox Grid.Column="1">Gerepareerd</CheckBox>
+            <CheckBox Name="Usable" Grid.Column="0">Bruikbaar</CheckBox>
+            <CheckBox Name="Fixed" Grid.Column="1">Gerepareerd</CheckBox>
         </Grid>
 
-        <Button Content="Opslaan" Grid.Row="4" Grid.Column="1"></Button>
+        <Button Content="Opslaan" Click="Button_Click" Grid.Row="4" Grid.Column="1"></Button>
     </Grid>
 </Page>
