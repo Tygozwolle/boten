@@ -43,7 +43,7 @@ public partial class Header : UserControl
                     MainWindow.MainContent.Navigate(new ViewUsers(MainWindow));
                     break;
                 case "Settings_Button":
-                    // Add navigation logic for Settings button
+                    MainWindow.MainContent.Navigate(new EditUser(MainWindow));
                     break;
                 case "PasswordChange_Button":
                     MainWindow.MainContent.Navigate(new ChangePassword(MainWindow));

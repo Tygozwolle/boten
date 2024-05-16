@@ -14,9 +14,10 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Frame NavigationUIVisibility="Hidden" x:Name="LoginContent" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <Frame NavigationUIVisibility="Hidden" x:Name="LoginContent" Grid.Row="0" Grid.Column="0"
+                   HorizontalAlignment="Center" VerticalAlignment="Center" />
         </Grid>
-        <Grid Name="MainScreenGrid">
+        <Grid Name="MainScreenGrid" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="100" />
                 <RowDefinition Height="*" />
@@ -30,7 +31,8 @@
             <Components:Header x:Name="HeaderClass" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
                                Visibility="Hidden" />
             <Components:Buttons x:Name="ButtonClass" Grid.Row="1" Grid.Column="0" Visibility="Hidden" />
-            <Frame NavigationUIVisibility="Hidden" x:Name="MainContent" Grid.Row="1" Grid.Column="1" Visibility="Hidden" />
+            <Frame NavigationUIVisibility="Hidden" x:Name="MainContent" Grid.Row="1" Grid.Column="1"
+                   Visibility="Hidden" />
         </Grid>
     </Grid>
 </Window>
