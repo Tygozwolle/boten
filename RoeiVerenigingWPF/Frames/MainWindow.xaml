@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" WindowState="Maximized">
     <Grid>
-        <Grid Name="LoginScreenGrid">
+        <Grid Name="LoginScreenGrid" Background="#e8f6fc">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
