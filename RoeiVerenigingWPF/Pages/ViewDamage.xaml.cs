@@ -64,6 +64,12 @@ namespace RoeiVerenigingWPF.Pages
             if (_images.Count != 0)
             {
                 DamageImage.Source = _images[0];
+                
+            }
+            else
+            {
+                ___Next_.IsEnabled = false;
+                ___Prev_.IsEnabled = false;
             }
         }
 
