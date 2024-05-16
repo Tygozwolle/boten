@@ -31,7 +31,7 @@ public partial class DamageOverview : Page
             object command = casted.CommandParameter;
             int id = Int32.Parse(command.ToString());
             //todo send user to view page(the one with the qr code)
-            // MainWindow.MainContent.Navigate(new ManageDamage(MainWindow, _service.GetById(id)));
+             MainWindow.MainContent.Navigate(new ViewDamage(MainWindow, _service.GetById(id)));
         }
     }
 }
