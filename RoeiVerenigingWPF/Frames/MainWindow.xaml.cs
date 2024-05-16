@@ -6,7 +6,7 @@ using RoeiVerenigingWPF.Pages;
 
 namespace RoeiVerenigingWPF.Frames
 {
-    public partial class MainWindow : Window, INotifyPropertyChanged
+    public partial class MainWindow : INotifyPropertyChanged
     {
         private Member? _loggedInMember;
 
@@ -29,14 +29,14 @@ namespace RoeiVerenigingWPF.Frames
 
                 if (_loggedInMember != null)
                 {
-                    this.HeaderClass.LoggedInMemberName.Content =
+                    HeaderClass.LoggedInMemberName.Content =
                         value.FirstName;
+                    HeaderClass.Visibility = Visibility.Visible;
+                    ButtonClass.Visibility = Visibility.Visible;
                 }
                 else
                 {
                     HeaderClass.LoggedInMemberName.Content = "Uitgelogd";
-                    HeaderClass.Users_Button.Visibility = Visibility.Hidden;
-                    HeaderClass.UserAdd_Button.Visibility = Visibility.Hidden;
                 }
             }
         }
@@ -45,10 +45,11 @@ namespace RoeiVerenigingWPF.Frames
         {
             InitializeComponent();
             SetupExceptionHandling();
-            MainContent.Navigate(new Login(this));
+
             DataContext = this;
             ButtonClass.MainWindow = this;
             HeaderClass.MainWindow = this;
+            LoginContent.Navigate(new Login(this));
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -73,6 +74,15 @@ namespace RoeiVerenigingWPF.Frames
             catch
             {
             }
+        }
+
+        public void LogOutMember()
+        {
+            HeaderClass.Visibility = Visibility.Hidden;
+            ButtonClass.Visibility = Visibility.Hidden;
+            MainContent.Visibility = Visibility.Hidden;
+            LoginContent.Visibility = Visibility.Visible;
+            _loggedInMember = null;
         }
     }
 }

@@ -14,6 +14,27 @@
     <Content Include="Images\twee-mensen-in-polyester-roeiboot.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Remove="Images\Icons\calendar.svg" />
+    <None Remove="Images\Icons\calendar.png" />
+    <Content Include="Images\Icons\calendar.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Remove="Images\Icons\brokenbone.png" />
+    <Content Include="Images\Icons\brokenbone.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Remove="Images\Icons\sailboat.png" />
+    <Content Include="Images\Icons\sailboat.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Remove="Images\Icons\heart-crack.png" />
+    <Content Include="Images\Icons\heart-crack.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Remove="Images\Icons\calendar-clock.png" />
+    <Content Include="Images\Icons\calendar-clock.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>

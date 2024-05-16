@@ -7,19 +7,30 @@
         mc:Ignorable="d"
         Title="MainWindow" WindowState="Maximized">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="100" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="350" />
-            <ColumnDefinition Width="*" />
+        <Grid Name="LoginScreenGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Frame NavigationUIVisibility="Hidden" x:Name="LoginContent" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </Grid>
+        <Grid Name="MainScreenGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="350" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
-        </Grid.ColumnDefinitions>
-
-        <!-- All the reusable components-->
-        <Components:Header x:Name="HeaderClass" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"  />
-        <Components:Buttons x:Name="ButtonClass" Grid.Row="1" Grid.Column="0" />
-        <Frame x:Name="MainContent" Grid.Row="1" Grid.Column="1" />        <!-- Other components -->
+            <!-- All the reusable components-->
+            <Components:Header x:Name="HeaderClass" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                               Visibility="Hidden" />
+            <Components:Buttons x:Name="ButtonClass" Grid.Row="1" Grid.Column="0" Visibility="Hidden" />
+            <Frame NavigationUIVisibility="Hidden" x:Name="MainContent" Grid.Row="1" Grid.Column="1" Visibility="Hidden" />
+        </Grid>
     </Grid>
 </Window>

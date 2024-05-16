@@ -30,11 +30,16 @@ public partial class Login : Page
         catch (IncorrectEmailOrPasswordException e)
         {
             MessageBox.Show(e.Message);
+            return;
         }
         catch (InvalidEmailException e)
         {
             MessageBox.Show(e.Message);
+            return;
         }
-        //todo: send to main page
+
+        _mainWindow.MainContent.Visibility = Visibility.Visible;
+        _mainWindow.LoginContent.Visibility = Visibility.Hidden;
+        _mainWindow.MainContent.Navigate(new MainPage(_mainWindow));
     }
 }
