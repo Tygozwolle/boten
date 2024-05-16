@@ -138,26 +138,26 @@ namespace DataAccessLibary
                 }
             }
             List<Task> tasks = new List<Task>();
-            Stream[] streamsarray = new Stream[ids.Count+1];
-            int i = 0;
+           
+            
             foreach (var imageId in ids)
             {
                 var task = new Task(() =>
                 {
-                    int place = i;
+                    
                     Stream streamToAdd = GetImage(imageId);
-                    streamsarray[place] = streamToAdd;
-                    //lock (list)
-                    //{
-                    //    list.Add(streamToAdd);
-                    //}
+
+                    lock (list)
+                    {
+                        list.Add(streamToAdd);
+                    }
                 });
                 task.Start();
                 tasks.Add(task);
-                i++;
+                
             }
             Task.WaitAll(tasks.ToArray());
-            return streamsarray.ToList();
+            return list;
         }
 
         //var i = new BitmapImage();
