@@ -24,8 +24,9 @@ namespace DataAccessLibary
                             var captainSeat = reader.GetBoolean(1);
                             var Seats = reader.GetInt32(2);
                             var Level = reader.GetInt32(3);
+                            var description = reader.GetString(4);
 
-                            boat.Add(new Boat(id, captainSeat, Seats, Level));
+                            boat.Add(new Boat(id, captainSeat, Seats, Level, description));
                         }
                     }
                 }
@@ -57,8 +58,9 @@ namespace DataAccessLibary
                             var captainSeat = reader.GetBoolean(1);
                             var seats = reader.GetInt32(2);
                             var level = reader.GetInt32(3);
+                            var description = reader.GetString(4);
 
-                            boat = new Boat(id, captainSeat, seats, level);
+                            boat = new Boat(id, captainSeat, seats, level, description);
                         }
                     }
                 }

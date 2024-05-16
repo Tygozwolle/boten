@@ -56,6 +56,7 @@
                                                 </TextBlock.Style>
                                             </TextBlock>
                                             <TextBlock Text="{Binding Level, StringFormat='Niveau: {0}'}" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                                            <TextBlock Text="{Binding Description, StringFormat=' {0}'}" HorizontalAlignment="Right" Height="108" Width="510"/>
                                         </StackPanel>
                                     </Grid>
                                 </Border>
