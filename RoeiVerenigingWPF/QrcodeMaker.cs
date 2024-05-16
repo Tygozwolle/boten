@@ -12,7 +12,7 @@ using System.Windows.Media;
 
 namespace RoeiVerenigingWPF
 {
-    public class QrcodeMaker
+    public abstract class QrcodeMaker
     {
         public static ImageSource qrcode(int id)
         {
@@ -24,24 +24,10 @@ namespace RoeiVerenigingWPF
                     {
                         using (Bitmap qrCodeBitmap = qrCode.GetGraphic(20))
                         {
-                            return BitmapToImage(qrCodeBitmap);
+                            return ImageConverter.Convert(qrCodeBitmap);
                         }
                     }
                 }
-            }
-        }
-        private static ImageSource BitmapToImage(Bitmap bitmap)
-        {
-            using (MemoryStream memory = new MemoryStream())
-            {
-                bitmap.Save(memory, System.Drawing.Imaging.ImageFormat.Bmp);
-                memory.Position = 0;
-                BitmapImage bitmapImage = new BitmapImage();
-                bitmapImage.BeginInit();
-                bitmapImage.StreamSource = memory;
-                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                bitmapImage.EndInit();
-                return bitmapImage;
             }
         }
     }
