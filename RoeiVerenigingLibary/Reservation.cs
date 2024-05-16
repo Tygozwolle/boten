@@ -47,6 +47,10 @@ public class Reservation
         BoatId = boatId;
     }
 
+    public Reservation()
+    {
+    }
+
     public void AddBoatObject(int boatId)
     {
         

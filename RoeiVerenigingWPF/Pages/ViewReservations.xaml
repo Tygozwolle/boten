@@ -24,7 +24,7 @@
 
         <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="4" MaxHeight="750px">
             <ListView Name="ReservationListFinder" ItemsSource="{Binding ReservationList}" Grid.IsSharedSizeScope="True"
-                      d:ItemsSource="{d:SampleData ItemCount=8}" ScrollViewer.VerticalScrollBarVisibility="Auto" MouseDoubleClick="Control_OnMouseDoubleClick">
+                      d:ItemsSource="{d:SampleData ItemCount=8}" ScrollViewer.VerticalScrollBarVisibility="Auto">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <UniformGrid Columns="2" />
@@ -33,7 +33,7 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="50 20 50 0" Width="650" Height="200">
-                            <Button Click="Button_Click" CommandParameter="{Binding Id}">
+                            <Button Click="Control_OnMouseDoubleClick" CommandParameter="{Binding Id}">
                                 <Border BorderBrush="Black" BorderThickness="1" Width="650" Height="200">
                                     <Grid>
                                         <Image Source="/Images/Image_not_available.png" MaxHeight="100px"

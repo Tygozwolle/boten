@@ -38,13 +38,12 @@ namespace RoeiVerenigingWPF.Pages
 
         public void Control_OnMouseDoubleClick(object sender, RoutedEventArgs e)
         {
-            Reservation selectedItem = (Reservation)ReservationListFinder.SelectedItem;
-            StartTime = selectedItem.StartTime;
-            EndTime = selectedItem.EndTime;
-            Boat = selectedItem.Boat;
-            Member = selectedItem.Member;
-            MainWindow.MainContent.Source = new Uri("./EditReservation.xaml");
-
+            
+            // StartTime = ReservationListFinder.SelectedItem.
+            // EndTime = service.EndTime;
+            // Boat = service.Boat;
+            // Member = service.Member;
+            MainWindow.MainContent.Navigate(new EditReservation(MainWindow));
         }
     }
 }
