@@ -42,8 +42,6 @@
 
         <TextBox x:Name="___discription_" Grid.Row="3" Grid.Column="0" Margin="5 0 0 0"></TextBox>
 
-        <Image Source="/Images/Image_not_available.png" Grid.Column="3" Grid.Row="3" />
-
         <Button x:Name="___submit_" Grid.Column="3" Grid.Row="4" MaxHeight="50" Content="Melden" FontSize="20" Click="Button_Click"></Button>
     </Grid>
 </Page>
