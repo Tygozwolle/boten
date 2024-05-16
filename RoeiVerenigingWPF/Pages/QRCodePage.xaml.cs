@@ -3,6 +3,7 @@ using RoeiVerenigingLibary;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Printing;
 using System.Text;
@@ -34,15 +35,38 @@ namespace RoeiVerenigingWPF.Pages
            
             QrcodeImage.Source = qrcode(_damageID);
         }
-        private BitmapSource qrcode(int id)
+        private ImageSource qrcode(int id)
         {
-            QRCodeGenerator qrGenerator = new QRCodeGenerator();
-            QRCodeData qrCodeData = qrGenerator.CreateQrCode(EmailToDb.GetStringForEmail(_damageID), QRCodeGenerator.ECCLevel.H);
-            QRCode qrCode = new QRCode(qrCodeData);
-            Bitmap qrCodeBitmap = qrCode.GetGraphic(20);
-            var bitmapdata = qrCodeBitmap.GetHbitmap();
-           var image = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(bitmapdata, IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
-            return image;
+            using (QRCodeGenerator qrGenerator = new QRCodeGenerator())
+            {
+                using (QRCodeData qrCodeData = qrGenerator.CreateQrCode(EmailToDb.GetStringForEmail(_damageID), QRCodeGenerator.ECCLevel.H))
+                {
+                    using (QRCode qrCode = new QRCode(qrCodeData))
+                    {
+                        using (Bitmap qrCodeBitmap = qrCode.GetGraphic(20))
+                        {
+                            //  var bitmapdata = qrCodeBitmap.GetHbitmap();
+
+                            //var image = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(bitmapdata, IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+                            return BitmapToImage(qrCodeBitmap);
+                        }
+                    }
+                }
+            }
+        }
+        private ImageSource BitmapToImage(Bitmap bitmap)
+        {
+            using(MemoryStream memory = new MemoryStream())
+            {
+                bitmap.Save(memory, System.Drawing.Imaging.ImageFormat.Bmp);
+                memory.Position = 0;
+                BitmapImage bitmapImage = new BitmapImage();
+                bitmapImage.BeginInit();
+                bitmapImage.StreamSource = memory;
+                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                bitmapImage.EndInit();
+                return bitmapImage;
+            }
         }
     }
 }
