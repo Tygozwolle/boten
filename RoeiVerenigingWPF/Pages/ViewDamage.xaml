@@ -35,8 +35,12 @@
                     <ColumnDefinition Width="auto" />
                     <ColumnDefinition Width="auto" />
                 </Grid.ColumnDefinitions>
-                <Button x:Name="___Prev_" Margin="0,0,5,0" Grid.Column="0" Click="PrevImage">Vorige</Button>
-                <Button x:Name="___Next_" Margin="5,0,0,0" Grid.Column="1" Click="NextImage">Volgende</Button>
+                <Button x:Name="___Prev_" Margin="0,0,5,0" Grid.Column="0" Click="PrevImage">
+                    <Image Source="/Images/prev.png" Height="30"></Image>
+                </Button>
+                <Button x:Name="___Next_" Margin="5,0,0,0" Grid.Column="1" Click="NextImage">
+                    <Image Source="/Images/next.png" Height="30"></Image>
+                </Button>
             </Grid>
 
         </StackPanel>
