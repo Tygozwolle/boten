@@ -1,0 +1,69 @@
+﻿<Page x:Class="RoeiVerenigingWPF.Pages.AdminEditUser"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:RoeiVerenigingWPF.Pages"
+      mc:Ignorable="d"
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="AdminEditUser">
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Content="Voornaam:" Width="200" FontFamily="Franklin Gothic Medium" FontSize="16"
+                   Foreground="#1A517A" />
+            <TextBox Grid.Row="1" x:Name="FirstName" Width="200" BorderBrush="Black" />
+
+            <Label Grid.Row="2" Content="Tussenvoegsel:" Width="200" FontFamily="Franklin Gothic Medium" FontSize="16"
+                   Foreground="#1A517A" />
+            <TextBox Grid.Row="3" x:Name="Infix" Width="200" BorderBrush="Black" />
+
+            <Label Grid.Row="4" Content="Achternaam:" Width="200" FontFamily="Franklin Gothic Medium" FontSize="16"
+                   Foreground="#1A517A" />
+            <TextBox Grid.Row="5" x:Name="LastName" Width="200" BorderBrush="Black" />
+
+            <Label Grid.Row="6" Content="Email:" Width="200" FontFamily="Franklin Gothic Medium" FontSize="16"
+                   Foreground="#1A517A" />
+            <TextBox Grid.Row="7" x:Name="Email" Width="200" BorderBrush="Black" />
+
+
+            <Label Grid.Row="8" Content="Niveau:" Width="200" FontFamily="Franklin Gothic Medium" FontSize="16"
+                   Foreground="#1A517A" />
+            <TextBox Grid.Row="9" x:Name="Level" Width="200" BorderBrush="Black" />
+        </Grid>
+
+        <StackPanel Margin="20,10,0,0" x:Name="RolesPanel" Grid.Column="1" Orientation="Vertical"></StackPanel>
+
+        <Button Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Content="Opslaan" Width="200" Margin="20"
+                FontFamily="Franklin Gothic Medium"
+                FontSize="32" Foreground="#1A517A" Background="#88BFEA" Click="Button_Click" >
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="15"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+    </Grid>
+</Page>
