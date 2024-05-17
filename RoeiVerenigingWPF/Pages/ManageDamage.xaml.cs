@@ -52,6 +52,11 @@ public partial class ManageDamage : Page
         {
             DamageImage.Source = _images[0];
         }
+        else
+        {
+            ___Next_.IsEnabled = false;
+            ___Prev_.IsEnabled = false;
+        }
     }
 
     private void NextImage(object sender, RoutedEventArgs e)
