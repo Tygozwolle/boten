@@ -17,8 +17,14 @@ public partial class Login : Page
         InitializeComponent();
         _mainWindow = mainWindow;
 #if INGELOGD
-IConfigurationRoot config = new ConfigurationBuilder().AddUserSecrets<ConnectionString>().Build();
-        Email.Text= 
+IConfigurationRoot config = new ConfigurationBuilder().AddUserSecrets<Login>().Build();
+Email.Text = config["USER:username"];
+Password.Password = config["USER:password"];
+#endif
+#if INGELOGTBEHEER
+        IConfigurationRoot config = new ConfigurationBuilder().AddUserSecrets<Login>().Build();
+        Email.Text = config["ADMIN:username"];
+        Password.Password = config["ADMIN:password"];
 #endif
     }
 
