@@ -11,32 +11,54 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccessLibary", "DataAcc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RoeiVerenigingWPF", "RoeiVerenigingWPF\RoeiVerenigingWPF.csproj", "{14E9FAAA-ABC5-4E8B-BBE7-3E0728D94088}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestConsoleApp", "TestConsoleApp\TestConsoleApp.csproj", "{CEBB323B-9378-4746-9731-9C92ABB621BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestConsoleApp", "TestConsoleApp\TestConsoleApp.csproj", "{CEBB323B-9378-4746-9731-9C92ABB621BE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Ingelogd|Any CPU = Ingelogd|Any CPU
+		IngelogtBeheer|Any CPU = IngelogtBeheer|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{8B7380DF-4CBD-4737-8C80-262D3DE57CBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8B7380DF-4CBD-4737-8C80-262D3DE57CBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B7380DF-4CBD-4737-8C80-262D3DE57CBF}.Ingelogd|Any CPU.ActiveCfg = Ingelogd|Any CPU
+		{8B7380DF-4CBD-4737-8C80-262D3DE57CBF}.Ingelogd|Any CPU.Build.0 = Ingelogd|Any CPU
+		{8B7380DF-4CBD-4737-8C80-262D3DE57CBF}.IngelogtBeheer|Any CPU.ActiveCfg = IngelogtBeheer|Any CPU
+		{8B7380DF-4CBD-4737-8C80-262D3DE57CBF}.IngelogtBeheer|Any CPU.Build.0 = IngelogtBeheer|Any CPU
 		{8B7380DF-4CBD-4737-8C80-262D3DE57CBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B7380DF-4CBD-4737-8C80-262D3DE57CBF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{377335C6-7E66-46C5-917F-7DB22C6C5052}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{377335C6-7E66-46C5-917F-7DB22C6C5052}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{377335C6-7E66-46C5-917F-7DB22C6C5052}.Ingelogd|Any CPU.ActiveCfg = Ingelogd|Any CPU
+		{377335C6-7E66-46C5-917F-7DB22C6C5052}.Ingelogd|Any CPU.Build.0 = Ingelogd|Any CPU
+		{377335C6-7E66-46C5-917F-7DB22C6C5052}.IngelogtBeheer|Any CPU.ActiveCfg = IngelogtBeheer|Any CPU
+		{377335C6-7E66-46C5-917F-7DB22C6C5052}.IngelogtBeheer|Any CPU.Build.0 = IngelogtBeheer|Any CPU
 		{377335C6-7E66-46C5-917F-7DB22C6C5052}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{377335C6-7E66-46C5-917F-7DB22C6C5052}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BE543AD8-4958-4A1E-B85C-BEC124E7C682}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BE543AD8-4958-4A1E-B85C-BEC124E7C682}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE543AD8-4958-4A1E-B85C-BEC124E7C682}.Ingelogd|Any CPU.ActiveCfg = Ingelogd|Any CPU
+		{BE543AD8-4958-4A1E-B85C-BEC124E7C682}.Ingelogd|Any CPU.Build.0 = Ingelogd|Any CPU
+		{BE543AD8-4958-4A1E-B85C-BEC124E7C682}.IngelogtBeheer|Any CPU.ActiveCfg = IngelogtBeheer|Any CPU
+		{BE543AD8-4958-4A1E-B85C-BEC124E7C682}.IngelogtBeheer|Any CPU.Build.0 = IngelogtBeheer|Any CPU
 		{BE543AD8-4958-4A1E-B85C-BEC124E7C682}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BE543AD8-4958-4A1E-B85C-BEC124E7C682}.Release|Any CPU.Build.0 = Release|Any CPU
 		{14E9FAAA-ABC5-4E8B-BBE7-3E0728D94088}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{14E9FAAA-ABC5-4E8B-BBE7-3E0728D94088}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14E9FAAA-ABC5-4E8B-BBE7-3E0728D94088}.Ingelogd|Any CPU.ActiveCfg = Ingelogd|Any CPU
+		{14E9FAAA-ABC5-4E8B-BBE7-3E0728D94088}.Ingelogd|Any CPU.Build.0 = Ingelogd|Any CPU
+		{14E9FAAA-ABC5-4E8B-BBE7-3E0728D94088}.IngelogtBeheer|Any CPU.ActiveCfg = IngelogtBeheer|Any CPU
+		{14E9FAAA-ABC5-4E8B-BBE7-3E0728D94088}.IngelogtBeheer|Any CPU.Build.0 = IngelogtBeheer|Any CPU
 		{14E9FAAA-ABC5-4E8B-BBE7-3E0728D94088}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{14E9FAAA-ABC5-4E8B-BBE7-3E0728D94088}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CEBB323B-9378-4746-9731-9C92ABB621BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CEBB323B-9378-4746-9731-9C92ABB621BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEBB323B-9378-4746-9731-9C92ABB621BE}.Ingelogd|Any CPU.ActiveCfg = Ingelogd|Any CPU
+		{CEBB323B-9378-4746-9731-9C92ABB621BE}.Ingelogd|Any CPU.Build.0 = Ingelogd|Any CPU
+		{CEBB323B-9378-4746-9731-9C92ABB621BE}.IngelogtBeheer|Any CPU.ActiveCfg = IngelogtBeheer|Any CPU
+		{CEBB323B-9378-4746-9731-9C92ABB621BE}.IngelogtBeheer|Any CPU.Build.0 = IngelogtBeheer|Any CPU
 		{CEBB323B-9378-4746-9731-9C92ABB621BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CEBB323B-9378-4746-9731-9C92ABB621BE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection

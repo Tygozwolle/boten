@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using DataAccessLibary;
+using Microsoft.Extensions.Configuration;
 using RoeiVerenigingLibary;
 using RoeiVerenigingLibary.Exceptions;
 using RoeiVerenigingWPF.Frames;
@@ -15,6 +16,10 @@ public partial class Login : Page
     {
         InitializeComponent();
         _mainWindow = mainWindow;
+#if INGELOGD
+IConfigurationRoot config = new ConfigurationBuilder().AddUserSecrets<ConnectionString>().Build();
+        Email.Text= 
+#endif
     }
 
     public void LoginMember(object sender, RoutedEventArgs routedEventArgs)
