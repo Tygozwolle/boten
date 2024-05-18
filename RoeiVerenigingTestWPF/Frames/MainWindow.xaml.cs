@@ -53,7 +53,7 @@ namespace RoeiVerenigingTestWPF.Frames
             DataContext = this;
             ButtonClass.MainWindow = this;
             HeaderClass.MainWindow = this;
-            MainContent.Navigate(new MainPage(this));
+            MainContent.Navigate(new AddReservation(LoggedInMember, 1));
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
