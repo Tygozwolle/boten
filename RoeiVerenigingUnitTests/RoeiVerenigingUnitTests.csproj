@@ -7,7 +7,7 @@
 
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
-    <Configurations>Debug;Release;Ingelogd;IngelogtBeheer</Configurations>
+    <Configurations>Debug;Release;Ingelogd;IngelogtBeheer;IngelogtMateriaal;IngelogtEvent</Configurations>
   </PropertyGroup>
 
   <ItemGroup>
