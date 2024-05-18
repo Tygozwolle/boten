@@ -16,7 +16,10 @@ public partial class Login : Page
     {
         InitializeComponent();
         _mainWindow = mainWindow;
+#if !RELEASE
         DebugInlog();
+#endif
+        
 
     }
 
