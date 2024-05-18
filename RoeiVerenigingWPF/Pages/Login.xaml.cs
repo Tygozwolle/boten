@@ -49,6 +49,8 @@ public partial class Login : Page
         _mainWindow.MainContent.Navigate(new MainPage(_mainWindow));
     }
 
+
+#if !RELEASE
     private void DebugInlog()
     {
 #if INGELOGD
@@ -72,4 +74,5 @@ public partial class Login : Page
         Password.Password = config["EVENT:password"];
 #endif
     }
+#endif
 }
