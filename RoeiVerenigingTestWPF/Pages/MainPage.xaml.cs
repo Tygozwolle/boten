@@ -1,7 +1,7 @@
 using System.Windows.Controls;
-using RoeiVerenigingWPF.Frames;
+using RoeiVerenigingTestWPF.Frames;
 
-namespace RoeiVerenigingWPF.Pages;
+namespace RoeiVerenigingTestWPF.Pages;
 
 public partial class MainPage : Page
 {

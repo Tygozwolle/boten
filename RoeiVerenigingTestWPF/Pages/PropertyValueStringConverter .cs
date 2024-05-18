@@ -1,6 +1,6 @@
 ﻿using System.Windows.Data;
 
-namespace RoeiVerenigingWPF.Pages
+namespace RoeiVerenigingTestWPF.Pages
 {
     [ValueConversion(typeof(DateTime), typeof(String))]
     public class PropertyValueStringConverter : IValueConverter

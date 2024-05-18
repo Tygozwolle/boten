@@ -1,10 +1,10 @@
-using RoeiVerenigingWPF.Frames;
-using RoeiVerenigingWPF.Pages;
+using RoeiVerenigingTestWPF.Frames;
+using RoeiVerenigingTestWPF.Pages;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-namespace RoeiVerenigingWPF.Components;
+namespace RoeiVerenigingTestWPF.Components;
 
 public partial class Buttons : UserControl
 {

@@ -5,9 +5,9 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using DataAccessLibary;
 using RoeiVerenigingLibary;
-using RoeiVerenigingWPF.Frames;
+using RoeiVerenigingTestWPF.Frames;
 
-namespace RoeiVerenigingWPF.Pages
+namespace RoeiVerenigingTestWPF.Pages
 {
     /// <summary>
     /// Interaction logic for ViewUsers.xaml

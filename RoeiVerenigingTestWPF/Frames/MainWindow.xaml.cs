@@ -2,9 +2,9 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using RoeiVerenigingLibary;
-using RoeiVerenigingWPF.Pages;
+using RoeiVerenigingTestWPF.Pages;
 
-namespace RoeiVerenigingWPF.Frames
+namespace RoeiVerenigingTestWPF.Frames
 {
     public partial class MainWindow : INotifyPropertyChanged
     {
@@ -12,7 +12,11 @@ namespace RoeiVerenigingWPF.Frames
 
         public Member? LoggedInMember
         {
-            get { return _loggedInMember; }
+            get
+            {
+                return new Member(12, "Test", "van", "Test", "test@windesheim.nl",
+                    new List<string>() { new string("beheerder") }, 0);
+            }
             set
             {
                 if (_loggedInMember != value)
@@ -49,7 +53,7 @@ namespace RoeiVerenigingWPF.Frames
             DataContext = this;
             ButtonClass.MainWindow = this;
             HeaderClass.MainWindow = this;
-            LoginContent.Navigate(new Login(this));
+            MainContent.Navigate(new MainPage(this));
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -81,7 +85,7 @@ namespace RoeiVerenigingWPF.Frames
             HeaderClass.Visibility = Visibility.Hidden;
             ButtonClass.Visibility = Visibility.Hidden;
             MainContent.Visibility = Visibility.Hidden;
-            LoginContent.Visibility = Visibility.Visible;
+            // LoginContent.Visibility = Visibility.Visible;
             _loggedInMember = null;
         }
     }

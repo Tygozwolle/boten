@@ -1,14 +1,14 @@
-<UserControl x:Class="RoeiVerenigingWPF.Components.Header"
+<UserControl x:Class="RoeiVerenigingTestWPF.Components.Header"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:RoeiVerenigingWPF.Components"
+             xmlns:local="clr-namespace:RoeiVerenigingTestWPF.Components"
              mc:Ignorable="d"
              d:DesignHeight="100" d:DesignWidth="1920">
     <Grid Height="80" Width="1900">
-        <Border CornerRadius="15" BorderThickness="2" BorderBrush="#7AB2B2">
-            <Border CornerRadius="10" BorderThickness="8" BorderBrush="#1A517A">
+        <Border CornerRadius="15" BorderThickness="5" BorderBrush="#1892cd">
+            <Border CornerRadius="8" BorderThickness="8" BorderBrush="#1A517A">
                 <Grid>
                     <Border Grid.Row="0" Grid.Column="0" Background="#1A517A">
                         <Grid>
@@ -37,7 +37,7 @@
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="50" />
                                 </Grid.RowDefinitions>
-                                <Button Grid.Column="0" Name="UserAdd_Button" Background="Transparent" Visibility="Hidden"
+                                <Button Grid.Column="0" Name="UserAdd_Button" Background="Transparent" 
                                         BorderBrush="Transparent"
                                         Click="Button_OnClick" Padding="10,0">
                                     <Image HorizontalAlignment="Left" Name="UserAdd_Icon" Height="40" Width="40" />
@@ -47,7 +47,7 @@
                                         </Style>
                                     </Button.Resources>
                                 </Button>
-                                <Button Grid.Column="1" Name="Users_Button" Background="Transparent" Visibility="Hidden"
+                                <Button Grid.Column="1" Name="Users_Button" Background="Transparent" 
                                         BorderBrush="Transparent"
                                         Click="Button_OnClick" Padding="10,0">
                                     <Image HorizontalAlignment="Left" Name="Users_Icon" Height="40" Width="40" />

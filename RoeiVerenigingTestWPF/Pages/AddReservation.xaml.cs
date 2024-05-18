@@ -4,9 +4,9 @@ using System.Windows.Input;
 using DataAccessLibary;
 using RoeiVerenigingLibary;
 using RoeiVerenigingLibary.Exceptions;
-using RoeiVerenigingWPF.Frames;
+using RoeiVerenigingTestWPF.Frames;
 
-namespace RoeiVerenigingWPF.Pages
+namespace RoeiVerenigingTestWPF.Pages
 {
     /// <summary>
     /// Interaction logic for AddReservation.xaml

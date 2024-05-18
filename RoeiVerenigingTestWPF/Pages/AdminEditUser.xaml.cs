@@ -3,9 +3,9 @@ using System.Windows.Controls;
 using DataAccessLibary;
 using RoeiVerenigingLibary;
 using RoeiVerenigingLibary.Exceptions;
-using RoeiVerenigingWPF.Frames;
+using RoeiVerenigingTestWPF.Frames;
 
-namespace RoeiVerenigingWPF.Pages;
+namespace RoeiVerenigingTestWPF.Pages;
 
 public partial class AdminEditUser : Page
 {

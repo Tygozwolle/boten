@@ -1,11 +1,11 @@
 ﻿using DataAccessLibary;
 using RoeiVerenigingLibary.Exceptions;
 using RoeiVerenigingLibary;
-using RoeiVerenigingWPF.Frames;
+using RoeiVerenigingTestWPF.Frames;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace RoeiVerenigingWPF.Pages
+namespace RoeiVerenigingTestWPF.Pages
 {
     /// <summary>
     /// Interaction logic for CreateUser.xaml

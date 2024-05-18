@@ -1,9 +1,9 @@
 ﻿using DataAccessLibary;
 using RoeiVerenigingLibary;
-using RoeiVerenigingWPF.Frames;
+using RoeiVerenigingTestWPF.Frames;
 using System.Windows.Controls;
 
-namespace RoeiVerenigingWPF.Pages
+namespace RoeiVerenigingTestWPF.Pages
 {
     /// <summary>
     /// Interaction logic for ListBoats.xaml

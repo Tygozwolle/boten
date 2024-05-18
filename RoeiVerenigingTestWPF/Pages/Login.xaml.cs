@@ -3,9 +3,9 @@ using System.Windows.Controls;
 using DataAccessLibary;
 using RoeiVerenigingLibary;
 using RoeiVerenigingLibary.Exceptions;
-using RoeiVerenigingWPF.Frames;
+using RoeiVerenigingTestWPF.Frames;
 
-namespace RoeiVerenigingWPF.Pages;
+namespace RoeiVerenigingTestWPF.Pages;
 
 public partial class Login : Page
 {
@@ -39,7 +39,7 @@ public partial class Login : Page
         }
 
         _mainWindow.MainContent.Visibility = Visibility.Visible;
-        _mainWindow.LoginContent.Visibility = Visibility.Hidden;
+        // _mainWindow.LoginContent.Visibility = Visibility.Hidden;
         _mainWindow.MainContent.Navigate(new MainPage(_mainWindow));
     }
 }

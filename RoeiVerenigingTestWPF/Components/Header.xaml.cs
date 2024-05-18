@@ -1,12 +1,12 @@
 using System.Windows;
-using RoeiVerenigingWPF.Frames;
+using RoeiVerenigingTestWPF.Frames;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
-using RoeiVerenigingWPF.Pages;
+using RoeiVerenigingTestWPF.Pages;
 
-namespace RoeiVerenigingWPF.Components;
+namespace RoeiVerenigingTestWPF.Components;
 
 public partial class Header : UserControl
 {
@@ -50,7 +50,7 @@ public partial class Header : UserControl
                     break;
                 case "LogOut_Button":
                     MainWindow.LogOutMember();
-                    MainWindow.LoginContent.Navigate(new Login(MainWindow));
+                    MainWindow.MainContent.Navigate(new Login(MainWindow));
                     break;
                 default:
                     // Handle any other button clicks here
