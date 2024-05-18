@@ -66,7 +66,7 @@
             </Grid.RowDefinitions>
 
             <Label Content="Begintijd:" Grid.Row="0" Grid.Column="0" FontSize="30" />
-            <xctk:DateTimePicker x:Name="BeginTimePicker" TextBoxBase.TextChanged="TimePicker_TextChanged" Height="30"
+            <xctk:TimePicker x:Name="BeginTimePicker" TextBoxBase.TextChanged="TimePicker_TextChanged" Height="30"
                              Width="100" Grid.Column="1" Grid.Row="0" Value="{Binding currentDateTime}" />
 
             <Label Content="Eindtijd:" TextBoxBase.TextChanged="TimePicker_TextChanged" Grid.Row="1" Grid.Column="0"
