@@ -5,14 +5,13 @@
         public int Id { get; set; }
         public Boolean CaptainSeat { get; set; }
         public int Seats { get; set; }
-
         public int Level { get; set; }
 
-        public Boat(int id, Boolean captainSeat, int Seats, int level)
+        public Boat(int id, Boolean captainSeat, int seats, int level)
         {
-            this.Id = id;
+            Id = id;
             CaptainSeat = captainSeat;
-            this.Seats = Seats;
+            Seats = seats;
             Level = level;
         }
     }

@@ -26,13 +26,11 @@ namespace DataAccessLibary
 
                             boat.Add(new Boat(id, captainSeat, Seats, Level));
                         }
-
                     }
                 }
             }
 
             return boat;
-
         }
 
         public Boat Getboat(int idBoat)
