@@ -8,7 +8,7 @@
              d:DesignHeight="924" d:DesignWidth="350"
              Background="Transparent">
     <Grid Height="904" Width="340" Margin="10,0,0,0">
-        <Border CornerRadius="15" BorderThickness="2" BorderBrush="#7AB2B2">
+        <Border CornerRadius="15" BorderThickness="5" BorderBrush="#1892cd">
             <Border CornerRadius="10" BorderThickness="8" BorderBrush="#EEF7FF">
                 <Grid Height="894" Width="330" Background="#EEF7FF" HorizontalAlignment="Center"
                       VerticalAlignment="Center">
