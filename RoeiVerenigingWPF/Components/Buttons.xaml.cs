@@ -25,6 +25,12 @@ public partial class Buttons : UserControl
 
     private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
     {
+        if (MainWindow.LoggedInMember == null)
+        {
+            MessageBox.Show("Log eerst in");
+            return;
+        }
+
         switch (sender)
         {
             case Button button when button == BotenButton:
@@ -33,8 +39,15 @@ public partial class Buttons : UserControl
                 break;
             case Button button when button == DamageButton:
                 ChangeColorOfRectangle(DamageRectangle);
-                //MainWindow.MainContent.Navigate(new );
+
+                if (MainWindow.LoggedInMember.Roles.Contains("materiaal_commissaris"))
+                {
+                    MainWindow.MainContent.Navigate(new ManageDamageOverview(MainWindow));
+                    break;
+                }
+                MainWindow.MainContent.Navigate(new DamageOverview(MainWindow));
                 break;
+                
             case Button button when button == EventsButton:
                 ChangeColorOfRectangle(EventsRectangle);
                 // MainWindow.MainContent.Navigate(new ViewReservations());
