@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using DataAccessLibary;
 using RoeiVerenigingLibary;
 using RoeiVerenigingWPF.Frames;
@@ -31,19 +32,49 @@ namespace RoeiVerenigingWPF.Pages
             ReservationList = service.GetReservations(mainWindow.LoggedInMember);
         }
 
-        public void Button_Click(object sender, RoutedEventArgs e)
+        // public void Button_Click(object sender, RoutedEventArgs e)
+        // {
+        //     List<string> textBlockValues = GetTextblockvaluesAsString(MainGrid);
+        //     foreach (string value in textBlockValues)
+        //     {
+        //         MessageBox.Show(value);
+        //     }
+        // }
+
+        private List<string> GetTextblockvaluesAsString(DependencyObject parent)
         {
-            
+            List<string> values = new List<string> ();
+            GetAllValues(parent, values);
+        
+            return values;
+        }
+        
+        private List<string> GetAllValues(DependencyObject parent, List<string> list)
+        {
+            int count = VisualTreeHelper.GetChildrenCount(parent);
+            for (int i = 0; i < count; i++)
+            {
+                var childValue = VisualTreeHelper.GetChild(parent, i);
+                
+                if (childValue is TextBlock textblock)
+                {
+                    list.Add(textblock.Text);
+                }
+                
+                GetAllValues(childValue, list);
+            }
+        
+            return list;
         }
 
-        public void Control_OnMouseDoubleClick(object sender, RoutedEventArgs e)
+        public void SelectReservation(object sender, RoutedEventArgs e)
         {
-            
-            // StartTime = ReservationListFinder.SelectedItem.
-            // EndTime = service.EndTime;
-            // Boat = service.Boat;
-            // Member = service.Member;
-            MainWindow.MainContent.Navigate(new EditReservation(MainWindow));
+            Reservation selectedItem = (Reservation)ReservationListFinder.SelectedItem;
+            StartTime = selectedItem.StartTime;
+            EndTime = selectedItem.EndTime;
+            Boat = selectedItem.Boat;
+            Member = selectedItem.Member;
+            MainWindow.MainContent.Navigate(new EditReservation(MainWindow, this));
         }
     }
 }

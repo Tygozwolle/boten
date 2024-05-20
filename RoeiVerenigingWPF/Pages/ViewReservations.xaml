@@ -27,15 +27,15 @@
                       d:ItemsSource="{d:SampleData ItemCount=8}" ScrollViewer.VerticalScrollBarVisibility="Auto">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <UniformGrid Columns="2" />
+                        <UniformGrid Columns="2"/>
                     </ItemsPanelTemplate>
                 </ListView.ItemsPanel>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Grid Margin="50 20 50 0" Width="650" Height="200">
-                            <Button Click="Control_OnMouseDoubleClick" CommandParameter="{Binding Id}">
+                        <Grid Name="Grid" Margin="50 20 50 0" Width="650" Height="200">
+                            <Button CommandParameter="{Binding Id}" MouseLeftButtonDown="SelectReservation">
                                 <Border BorderBrush="Black" BorderThickness="1" Width="650" Height="200">
-                                    <Grid>
+                                    <Grid Name="GridList">
                                         <Image Source="/Images/Image_not_available.png" MaxHeight="100px"
                                                MaxWidth="200px" HorizontalAlignment="Left" VerticalAlignment="Center" />
                                         <StackPanel Margin="110 0 5 0">
@@ -74,7 +74,6 @@
                                         </StackPanel>
                                     </Grid>
                                 </Border>
-
                             </Button>
                         </Grid>
                     </DataTemplate>

@@ -2,6 +2,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Navigation;
+using Aspose.Email.Mime;
 using DataAccessLibary;
 using RoeiVerenigingLibary;
 using RoeiVerenigingWPF.Frames;
@@ -10,29 +11,28 @@ namespace RoeiVerenigingWPF.Pages;
 
 public partial class EditReservation : Page
 {
-    public Boat Boat { get; set; }
+    public Boat SelectedBoat { get; set; }
     public MainWindow Main { get; set; }
-    public DateTime StartingTime { get; set; } = DateTime.Today;
-    public DateTime EndTime { get; set; } = DateTime.Today;
+    public DateTime StartingTime { get; set; }
+    public DateTime EndTime { get; set; }
     
+    public Member member { get; set; }
 
     
-    public EditReservation(MainWindow main)
+    public EditReservation(MainWindow main,ViewReservations reservation)
     {
         Main = main;
-        ViewReservations reservation = new ViewReservations();
-        // Boat = reservation.Boat;
-        // member = reservation.Member;
+        SelectedBoat = reservation.Boat;
+        member = reservation.Member;
         StartingTime = reservation.StartTime;
         EndTime = reservation.EndTime;
-        //
-        // BeginTimePicker.Value = startTime;
-        // EndTimePicker.Value = endTime;
-        // BoatPicker.Content = Boat.Id;
+        
+        BeginTimePicker.Value = StartingTime;
+        EndTimePicker.Value = EndTime;
         InitializeComponent();
         ReservationService service = new ReservationService(new ReservationRepository());
         DataContext = this;
-        
+
 
 
     }
