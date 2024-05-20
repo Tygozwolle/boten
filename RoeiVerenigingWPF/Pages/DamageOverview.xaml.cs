@@ -29,7 +29,7 @@ public partial class DamageOverview : Page
     }
     private void CreateNewDamageReport(object sender, System.Windows.RoutedEventArgs e)
     {
-        MainWindow.MainContent.Navigate(new CreateDamageReport(MainWindow));
+        MainWindow.MainContent.Navigate(new ListDamageRoport(MainWindow));
     }
     private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
     {

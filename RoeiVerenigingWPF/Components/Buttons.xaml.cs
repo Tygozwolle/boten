@@ -30,6 +30,7 @@ public partial class Buttons : UserControl
             MessageBox.Show("Log eerst in");
             return;
         }
+
         switch (sender)
         {
             case Button button when button == BotenButton:
