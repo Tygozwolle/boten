@@ -1,4 +1,6 @@
-﻿using System.Windows.Controls;
+﻿using System.IO;
+using System.Windows.Controls;
+using Aspose.Email.Clients.Exchange.WebService.Schema_2016;
 using DataAccessLibary;
 using RoeiVerenigingLibary;
 using RoeiVerenigingWPF.Frames;
@@ -19,6 +21,7 @@ public partial class ManageDamageOverview : Page
         MainWindow = mw;
         Damages = _service.GetAll();
         GetImagesFromMail();
+     //   SetImagesAsync();
     }
 
     private void GetImagesFromMail()
@@ -39,5 +42,24 @@ public partial class ManageDamageOverview : Page
             
             MainWindow.MainContent.Navigate(new ManageDamage(MainWindow, _service.GetById(id)));
         }
+    }
+
+    private void SetImagesAsync()
+    {
+        List<Task> tasks = new List<Task>();
+        foreach ( Damage damage in Damages)
+        {
+            Task task = new Task(() =>
+            {
+                Damage damageSave = damage;
+                damageSave.Images = [_imageRepository.GetFirstImage(damageSave.Id)];
+
+            });
+            tasks.Add(task);
+            task.Start();
+
+        }
+       // Task.WaitAll(tasks.ToArray());
+        
     }
 }
