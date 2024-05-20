@@ -90,7 +90,7 @@
                                 <Grid Grid.Column="5">
                                     <Label Name="LoggedInMemberName" Content="Uitgelogd"
                                            VerticalAlignment="Center" FontFamily="Franklin Gothic Medium" FontSize="24"
-                                           Foreground="#e8f6fc" />
+                                           Foreground="#000000" />
                                 </Grid>
                             </Grid>
                         </Grid>

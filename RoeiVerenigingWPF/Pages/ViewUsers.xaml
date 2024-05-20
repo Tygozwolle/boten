@@ -6,9 +6,9 @@
       xmlns:local="clr-namespace:RoeiVerenigingWPF.Pages"
       xmlns:sys="clr-namespace:System;assembly=System.Runtime"
       mc:Ignorable="d"
-      d:DesignHeight="800" d:DesignWidth="1000"
+      d:DesignHeight="900" d:DesignWidth="1200"
       Title="ViewUsers">
-    <Grid Height="800" Width="1000" HorizontalAlignment="Center" VerticalAlignment="Center">
+    <Grid Height="900" Width="1200" HorizontalAlignment="Center" VerticalAlignment="Center">
         <Grid.Effect>
             <DropShadowEffect Color="Black" Direction="320" ShadowDepth="10" Opacity="0.3" />
         </Grid.Effect>
@@ -25,14 +25,14 @@
                            Content="Accounts"
                            FontFamily="Franklin Gothic Medium" FontSize="36"
                            Foreground="#0e5172" />
-                    <Grid Grid.Row="1" Width="800">
+                    <Grid Grid.Row="1" Width="1050">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="50" /> <!-- ID -->
-                            <ColumnDefinition Width="100" /> <!-- Voornaam -->
-                            <ColumnDefinition Width="100" /> <!-- Tussenvoegsel -->
-                            <ColumnDefinition Width="150" /> <!-- Achternaam -->
-                            <ColumnDefinition Width="200" /> <!-- Email -->
-                            <ColumnDefinition Width="200" /> <!-- Rollen -->
+                            <ColumnDefinition Width="150" /> <!-- Voornaam -->
+                            <ColumnDefinition Width="150" /> <!-- Tussenvoegsel -->
+                            <ColumnDefinition Width="200" /> <!-- Achternaam -->
+                            <ColumnDefinition Width="250" /> <!-- Email -->
+                            <ColumnDefinition Width="250" /> <!-- Rollen -->
                         </Grid.ColumnDefinitions>
                         <Button Grid.Column="0" Content="Id" Foreground="#0e5172" Background="#bbe3f7"
                                 BorderBrush="#1892cd" FontFamily="Franklin Gothic Medium" FontSize="18" />
@@ -47,7 +47,7 @@
                         <Button Grid.Column="5" Content="Rollen" Foreground="#0e5172" Background="#bbe3f7"
                                 BorderBrush="#1892cd" FontFamily="Franklin Gothic Medium" FontSize="18" />
                     </Grid>
-                    <ScrollViewer Grid.Row="2" Width="800" VerticalScrollBarVisibility="Auto" >
+                    <ScrollViewer Grid.Row="2" Width="1050" VerticalScrollBarVisibility="Auto" >
                         <StackPanel  x:Name="UserStackPanel" Grid.Row="1" CanVerticallyScroll="True"
                                     ScrollViewer.VerticalScrollBarVisibility="Visible">
 
