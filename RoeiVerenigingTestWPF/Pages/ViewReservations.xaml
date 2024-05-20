@@ -1,12 +1,12 @@
-﻿<Page x:Class="RoeiVerenigingWPF.Pages.ListBoats"
+﻿<Page x:Class="RoeiVerenigingTestWPF.Pages.ViewReservations"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:local="clr-namespace:RoeiVerenigingWPF.Pages"
+      xmlns:local="clr-namespace:RoeiVerenigingTestWPF.Pages"
       mc:Ignorable="d"
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="ListBoats">
+      Title="ViewReservations">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*" MaxHeight="100px" />
@@ -20,10 +20,10 @@
         </Grid.ColumnDefinitions>
 
         <!-- Titel -->
-        <Label Content="Boten" FontSize="30" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" />
+        <Label Content="Reserveringen" FontSize="30" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" />
 
         <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="4" MaxHeight="750px">
-            <ListView ItemsSource="{Binding boats}" Grid.IsSharedSizeScope="True"
+            <ListView ItemsSource="{Binding ReservationList}" Grid.IsSharedSizeScope="True"
                       d:ItemsSource="{d:SampleData ItemCount=8}" ScrollViewer.VerticalScrollBarVisibility="Auto">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -33,32 +33,29 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="50 20 50 0" Width="650" Height="200">
-                            <Button Click="Button_Click" CommandParameter="{Binding Id}" Background="#88BFEA">
-                                <Button.Resources>
-                                    <Style TargetType="Border">
-                                        <Setter Property="CornerRadius" Value="15" />
-                                    </Style>
-                                </Button.Resources>
+                            <Button Click="Button_Click" CommandParameter="{Binding Id}">
                                 <Border BorderBrush="Black" BorderThickness="1" Width="650" Height="200">
                                     <Grid>
                                         <Image Source="/Images/Image_not_available.png" MaxHeight="100px"
                                                MaxWidth="200px" HorizontalAlignment="Left" VerticalAlignment="Center" />
                                         <StackPanel Margin="110 0 5 0">
-                                            <TextBlock Text="{Binding Id, StringFormat='Boot: {0}'}"
+                                            <TextBlock Text="{Binding Boat.Id, StringFormat='Boot: {0}'}"
                                                        VerticalAlignment="Center" HorizontalAlignment="Left"
                                                        FontSize="25" />
-                                            <TextBlock Text="{Binding Seats, StringFormat='Aantal man: {0}'}"
+                                            <TextBlock Text="{Binding Boat.Seats, StringFormat='Aantal man: {0}'}"
                                                        VerticalAlignment="Center" HorizontalAlignment="Right" />
                                             <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right">
                                                 <TextBlock.Style>
                                                     <Style TargetType="TextBlock">
                                                         <Setter Property="Text"
-                                                                Value="{Binding CaptainSeat, StringFormat='Stuurman {0}'}" />
+                                                                Value="{Binding Boat.CaptainSeat, StringFormat='Stuurman {0}'}" />
                                                         <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding CaptainSeat}" Value="True">
+                                                            <DataTrigger Binding="{Binding Boat.CaptainSeat}"
+                                                                         Value="True">
                                                                 <Setter Property="Text" Value="Stuurman aanwezig" />
                                                             </DataTrigger>
-                                                            <DataTrigger Binding="{Binding CaptainSeat}" Value="False">
+                                                            <DataTrigger Binding="{Binding Boat.CaptainSeat}"
+                                                                         Value="False">
                                                                 <Setter Property="Text" Value="Stuurman niet aanwezig" />
                                                             </DataTrigger>
                                                             <!-- Add more DataTriggers for other conditions if needed -->
@@ -66,8 +63,14 @@
                                                     </Style>
                                                 </TextBlock.Style>
                                             </TextBlock>
-                                            <TextBlock Text="{Binding Level, StringFormat='Niveau: {0}'}"
+                                            <TextBlock Text="{Binding Boat.Level, StringFormat='Niveau: {0}'}"
                                                        VerticalAlignment="Center" HorizontalAlignment="Right" />
+                                            <TextBlock Text="{Binding StartTime, StringFormat='Starttijd: {0}'}"
+                                                       VerticalAlignment="Center" HorizontalAlignment="Left"
+                                                       FontSize="13" Margin="20,0,0,0" />
+                                            <TextBlock Text="{Binding EndTime, StringFormat='Eindtijd: {0}'}"
+                                                       VerticalAlignment="Center" HorizontalAlignment="Left"
+                                                       FontSize="13" Margin="20,0,0,0" />
                                         </StackPanel>
                                     </Grid>
                                 </Border>
