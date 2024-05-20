@@ -1,10 +1,9 @@
-﻿using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using DataAccessLibary;
+﻿using DataAccessLibary;
 using RoeiVerenigingLibary;
 using RoeiVerenigingLibary.Exceptions;
-using RoeiVerenigingWPF.Frames;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace RoeiVerenigingWPF.Pages
 {
@@ -17,6 +16,8 @@ namespace RoeiVerenigingWPF.Pages
         private Member _loggedInMember;
 
         private ReservationService _service = new(new ReservationRepository());
+        BoatService boatService = new BoatService(new BoatRepository());
+        public Boat boat { get; set; }
         private int _boatId;
 
         public AddReservation(Member loggedInMember, int boatId)
@@ -25,6 +26,7 @@ namespace RoeiVerenigingWPF.Pages
             //todo: use boat_id from selected boat, set it in this constructor
             _boatId = boatId;
             _loggedInMember = loggedInMember;
+            boat = new Boat(1, true, 1, 2);
             DataContext = this;
         }
 
