@@ -6,20 +6,18 @@ using System.Windows.Controls;
 namespace RoeiVerenigingWPF.Pages
 {
     /// <summary>
-    /// Interaction logic for ListBoats.xaml
+    /// Interaction logic for ListDamageRoport.xaml
     /// </summary>
-    /// 
-
-    public partial class ListBoats : Page
+    public partial class ListDamageRoport : Page
     {
         public List<Boat> boats { get; set; }
         public MainWindow MainWindow { set; get; }
 
-        public ListBoats(MainWindow mw)
+        public ListDamageRoport(MainWindow mw)
         {
             InitializeComponent();
             BoatService service = new BoatService(new BoatRepository());
-            DataContext = this;
+            this.DataContext = this;
             MainWindow = mw;
             boats = service.Getboats();
         }
@@ -30,8 +28,8 @@ namespace RoeiVerenigingWPF.Pages
                 Button casted = sender as Button;
                 object command = casted.CommandParameter;
                 int id = Int32.Parse(command.ToString());
-                
-                MainWindow.MainContent.Navigate(new AddReservation(MainWindow.LoggedInMember, id));
+
+                MainWindow.MainContent.Navigate(new CreateDamageReport(MainWindow, id));
             }
         }
     }

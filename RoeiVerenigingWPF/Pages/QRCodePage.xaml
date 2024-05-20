@@ -1,0 +1,15 @@
+﻿<Page x:Class="RoeiVerenigingWPF.Pages.QRCodePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:RoeiVerenigingWPF.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="QRCodePage">
+
+    <Grid>
+        <Image HorizontalAlignment="Left" x:Name="QrcodeImage" Height="362" Margin="66,25,0,0" VerticalAlignment="Top" Width="405" Source="/Images/Image_not_available.png"/>
+
+    </Grid>
+</Page>
