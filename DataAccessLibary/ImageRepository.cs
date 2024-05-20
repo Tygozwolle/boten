@@ -119,7 +119,7 @@ namespace DataAccessLibary
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
             {
                 connection.Open();
-                const String sql = $"SELECT * FROM damage_report_fotos WHERE Id = @id  LIMIT 1";
+                const String sql = $"SELECT * FROM damage_report_fotos WHERE damage_report_id = @id  LIMIT 1";
 
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {

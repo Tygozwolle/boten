@@ -4,6 +4,7 @@ using Aspose.Email.Clients.Exchange.WebService.Schema_2016;
 using DataAccessLibary;
 using RoeiVerenigingLibary;
 using RoeiVerenigingWPF.Frames;
+using Xceed.Wpf.Toolkit.Core;
 
 namespace RoeiVerenigingWPF.Pages;
 
@@ -21,7 +22,7 @@ public partial class ManageDamageOverview : Page
         MainWindow = mw;
         Damages = _service.GetAll();
         GetImagesFromMail();
-     //   SetImagesAsync();
+        SetImagesAsync();
     }
 
     private void GetImagesFromMail()
@@ -53,6 +54,10 @@ public partial class ManageDamageOverview : Page
             {
                 Damage damageSave = damage;
                 damageSave.Images = [_imageRepository.GetFirstImage(damageSave.Id)];
+                this.Dispatcher.Invoke(() =>
+                {
+                    ListView.ItemsSource = Damages;
+                });
 
             });
             tasks.Add(task);
