@@ -88,10 +88,9 @@
                                     </Button.Resources>
                                 </Button>
                                 <Grid Grid.Column="5">
-                                    <Border CornerRadius="15" BorderBrush="#88BFEA" BorderThickness="2"
-                                            Background="#88BFEA" />
-                                    <Label Name="LoggedInMemberName" Content="Uitgelogd" FontSize="20"
-                                           VerticalAlignment="Center" />
+                                    <Label Name="LoggedInMemberName" Content="Uitgelogd"
+                                           VerticalAlignment="Center" FontFamily="Franklin Gothic Medium" FontSize="24"
+                                           Foreground="#e8f6fc" />
                                 </Grid>
                             </Grid>
                         </Grid>
