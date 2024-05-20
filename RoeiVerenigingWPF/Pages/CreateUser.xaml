@@ -5,48 +5,82 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:RoeiVerenigingWPF.Pages"
       mc:Ignorable="d"
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="900" d:DesignWidth="700" Background="Transparent"
       Title="CreateUser">
 
-    <Grid Margin="0,100,0,0">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        <Label Grid.Row="0" HorizontalContentAlignment="Center" VerticalAlignment="Top" Content="Account aanmaken"
-               Width="400" FontFamily="Franklin Gothic Medium" FontSize="32"
-               Foreground="#1A517A" />
-        <Label Grid.Row="1" Content="Voornaam:" Width="200" FontFamily="Franklin Gothic Medium" FontSize="16"
-               Foreground="#1A517A" />
-        <TextBox Grid.Row="2" x:Name="FirstName" Width="200" BorderBrush="Black" />
+    <Grid Height="900" Width="1000" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Grid.Effect>
+            <DropShadowEffect Color="Black" Direction="320" ShadowDepth="10" Opacity="0.3" />
+        </Grid.Effect>
+        <Border CornerRadius="30" BorderThickness="2" BorderBrush="White">
+            <Border CornerRadius="24" BorderThickness="8" BorderBrush="White">
+                <Grid Margin="0,0,0,0" Background="#FFFFFF" Height="880" Width="1000">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" HorizontalContentAlignment="Center" VerticalAlignment="Top" Margin="0,100,0,0"
+                           Content="Account aanmaken"
+                           FontFamily="Franklin Gothic Medium" FontSize="36"
+                           Foreground="#1A517A" />
+                    <TextBlock Grid.Row="1" Width="580" TextWrapping="Wrap" HorizontalAlignment="Center"
+                               TextAlignment="Center"
+                               Text="Maak een account aan voor een nieuw lid, zodat zij ook boten kunnen reserveren!"
+                               FontSize="24" />
+                    <Label Grid.Row="2" Content="*Voornaam:" Width="200" FontFamily="Franklin Gothic Medium"
+                           Margin="0,20,0,0"
+                           FontSize="24" HorizontalContentAlignment="Center"
+                           Foreground="#1A517A" />
+                    <TextBox Grid.Row="3" x:Name="FirstName" Width="367" Background="#bbe3f7" Height="40"
+                             BorderBrush="Black" />
 
-        <Label Grid.Row="3" Content="Tussenvoegsel:" Width="200" FontFamily="Franklin Gothic Medium" FontSize="16"
-               Foreground="#1A517A" />
-        <TextBox Grid.Row="4" x:Name="Infix" Width="200" BorderBrush="Black" />
+                    <Label Grid.Row="4" Content="Tussenvoegsel:" Width="367" FontFamily="Franklin Gothic Medium"
+                           FontSize="24" HorizontalContentAlignment="Center"
+                           Foreground="#1A517A" />
+                    <TextBox Grid.Row="5" x:Name="Infix" Background="#bbe3f7" Width="367" Height="40"
+                             BorderBrush="Black" />
 
-        <Label Grid.Row="5" Content="Achternaam:" Width="200" FontFamily="Franklin Gothic Medium" FontSize="16"
-               Foreground="#1A517A" />
-        <TextBox Grid.Row="6" x:Name="LastName" Width="200" BorderBrush="Black" />
+                    <Label Grid.Row="6" Content="*Achternaam:" Width="200" FontFamily="Franklin Gothic Medium"
+                           FontSize="24" HorizontalContentAlignment="Center"
+                           Foreground="#1A517A" />
+                    <TextBox Grid.Row="7" x:Name="LastName" Background="#bbe3f7" Width="367" Height="40"
+                             BorderBrush="Black" />
 
-        <Label Grid.Row="7" Content="Email:" Width="200" FontFamily="Franklin Gothic Medium" FontSize="16"
-               Foreground="#1A517A" />
-        <TextBox Grid.Row="8" x:Name="Email" Width="200" BorderBrush="Black" />
-        
-        <Label Grid.Row="9" Content="Wachtwoord:" Width="200" FontFamily="Franklin Gothic Medium" FontSize="16"
-               Foreground="#1A517A" />
-        <PasswordBox Grid.Row="10" x:Name="Password" Width="200" BorderBrush="Black" />
+                    <Label Grid.Row="8" Content="*Email:" Width="200" FontFamily="Franklin Gothic Medium" FontSize="24"
+                           HorizontalContentAlignment="Center"
+                           Foreground="#1A517A" />
+                    <TextBox Grid.Row="9" x:Name="Email" Background="#bbe3f7" Width="367" Height="40"
+                             BorderBrush="Black" />
 
-        <Button Grid.Row="11" Content="Account aanmaken" Width="300" Margin="20" FontFamily="Franklin Gothic Medium"
-                FontSize="26" Foreground="#1A517A" Background="#88BFEA" Click="Button_Click" />
+                    <Label Grid.Row="10" Content="*Wachtwoord:" Width="200" FontFamily="Franklin Gothic Medium"
+                           FontSize="24" HorizontalContentAlignment="Center"
+                           Foreground="#1A517A" />
+                    <PasswordBox Grid.Row="11" x:Name="Password" Background="#bbe3f7" Width="367" Height="40"
+                                 BorderBrush="Black" />
+
+                    <Button Grid.Row="12" Content="Account aanmaken" Width="295" Height="70"
+                            Margin="20,40,20,20"
+                            FontFamily="Franklin Gothic Medium" FontSize="32" Foreground="#1372a0" Background="#bbe3f7"
+                            Click="Button_Click">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="15" />
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                </Grid>
+            </Border>
+        </Border>
     </Grid>
 </Page>

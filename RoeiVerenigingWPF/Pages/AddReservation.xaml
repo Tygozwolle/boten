@@ -47,7 +47,13 @@
         <!-- Tekst Label -->
         <Label Content="Tekst over Boten" Grid.Row="2" Grid.Column="3" />
 
-        <Button Grid.Column="3" Grid.Row="4" MaxHeight="50" Content="Reserveren" Click="ConfirmButton" FontSize="20"></Button>
+        <Button Grid.Column="3" Grid.Row="4" MaxHeight="50" Content="Reserveren" Click="ConfirmButton" FontSize="20" Background="#88BFEA">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="15"/>
+                </Style>
+            </Button.Resources>
+        </Button>
 
         <Grid Grid.Row="3" Grid.Column="1" Grid.RowSpan="2" Margin="50 0 0 0">
             <Grid.ColumnDefinitions>

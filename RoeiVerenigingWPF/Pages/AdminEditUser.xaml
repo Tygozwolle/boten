@@ -58,6 +58,12 @@
 
         <Button Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Content="Opslaan" Width="200" Margin="20"
                 FontFamily="Franklin Gothic Medium"
-                FontSize="32" Foreground="#1A517A" Background="#88BFEA" Click="Button_Click" />
+                FontSize="32" Foreground="#1A517A" Background="#88BFEA" Click="Button_Click" >
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="15"/>
+                </Style>
+            </Button.Resources>
+        </Button>
     </Grid>
 </Page>

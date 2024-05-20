@@ -8,14 +8,14 @@ namespace RoeiVerenigingLibary
         public int Id { get; set; }
         public Boolean CaptainSeat { get; set; }
         public int Seats { get; set; }
-
         public int Level { get; set; }
         private string _Description;
+
         public string Description
         {
             get
             {
-
+                //convert enters stored in database
                 string input = _Description;
                 if (input.Length > 60)
                 {
@@ -24,7 +24,7 @@ namespace RoeiVerenigingLibary
                     int currLength = 0;
                     foreach (string word in words)
                     {
-                        if (currLength + word.Length + 1 < 60) // +1 accounts for adding a space
+                        if (currLength + word.Length + 1 < 60)
                         {
                             sb.AppendFormat(" {0}", word);
                             currLength = (sb.Length % 60);
@@ -37,20 +37,15 @@ namespace RoeiVerenigingLibary
                     }
 
                     return sb.ToString();
-
                 }
                 else
                 {
                     return input;
                 }
-
             }
-            set
-            {
-                _Description = value;
-            }
+            set { _Description = value; }
         }
-        
+
 
         public Boat(int id, Boolean captainSeat, int Seats, int level, string description)
         {
@@ -60,11 +55,12 @@ namespace RoeiVerenigingLibary
             Level = level;
             this.Description = description;
         }
-        public Boat(int id, Boolean captainSeat, int Seats, int level)
+
+        public Boat(int id, Boolean captainSeat, int seats, int level)
         {
-            this.Id = id;
+            Id = id;
             CaptainSeat = captainSeat;
-            this.Seats = Seats;
+            Seats = seats;
             Level = level;
         }
     }
