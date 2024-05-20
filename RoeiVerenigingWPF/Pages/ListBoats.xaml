@@ -26,45 +26,25 @@
             <ListView ItemsSource="{Binding boats}" Grid.IsSharedSizeScope="True" d:ItemsSource="{d:SampleData ItemCount=8}" ScrollViewer.VerticalScrollBarVisibility="Auto">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <UniformGrid Columns="2"/>
+                        <UniformGrid Background="#EEF7FF"/>
                     </ItemsPanelTemplate>
                 </ListView.ItemsPanel>
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Grid  Margin="50 20 50 0" Width="650" Height="200">
-                            <Button Click="Button_Click" CommandParameter="{Binding Id}" Background="#88BFEA">
+                            <Button Click="Button_Click" CommandParameter="{Binding Id}" BorderBrush="#1892cd" BorderThickness="5" Background="#e8f6fc">
                                 <Button.Resources>
                                     <Style TargetType="Border">
                                         <Setter Property="CornerRadius" Value="15"/>
                                     </Style>
                                 </Button.Resources>
-                                <Border BorderBrush="Black" BorderThickness="1" Width="650" Height="200">
-                                    <Grid>
-                                        <Image Source="/Images/Image_not_available.png" MaxHeight="100px" MaxWidth="200px" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                                        <StackPanel Margin="110 0 5 0">
-                                            <TextBlock Text="{Binding Id, StringFormat='Boot: {0}'}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="25"/>
-                                            <TextBlock Text="{Binding Seats, StringFormat='Aantal man: {0}'}" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right">
-                                                <TextBlock.Style>
-                                                    <Style TargetType="TextBlock">
-                                                        <Setter Property="Text" Value="{Binding CaptainSeat, StringFormat='Stuurman {0}'}"/>
-                                                        <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding CaptainSeat}" Value="True">
-                                                                <Setter Property="Text" Value="Stuurman aanwezig"/>
-                                                            </DataTrigger>
-                                                            <DataTrigger Binding="{Binding CaptainSeat}" Value="False">
-                                                                <Setter Property="Text" Value="Stuurman niet aanwezig"/>
-                                                            </DataTrigger>
-                                                            <!-- Add more DataTriggers for other conditions if needed -->
-                                                        </Style.Triggers>
-                                                    </Style>
-                                                </TextBlock.Style>
-                                            </TextBlock>
-                                            <TextBlock Text="{Binding Level, StringFormat='Niveau: {0}'}" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                                        </StackPanel>
-                                    </Grid>
-                                </Border>
-
+                                <Grid>
+                                    <Image Source="/Images/Image_not_available.png" MaxHeight="120px" MaxWidth="300px" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                                    <StackPanel Margin="0,120,5,0">
+                                        <TextBlock Text="{Binding Id, StringFormat='Boot: {0}'}" VerticalAlignment="Center" HorizontalAlignment="center" FontSize="25"/>
+                                        <TextBlock Text="{Binding Level, StringFormat='Niveau: {0}'}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </StackPanel>
+                                </Grid>
                             </Button>
                         </Grid>
                     </DataTemplate>
