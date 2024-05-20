@@ -30,13 +30,13 @@ namespace RoeiVerenigingWPF
             var list = (List<Stream>)value;
             if (list.Count == 0)
             {
-                return new BitmapImage(new Uri("/Images/Image_not_available.png.png", UriKind.Relative));
+                return new BitmapImage(new Uri("/Images/Image_not_available.png", UriKind.Relative));
             }
             else
             {
                 if (list[0] == null)
                 {
-                    return new BitmapImage(new Uri("/Images/Image_not_available.png.png", UriKind.Relative));
+                    return new BitmapImage(new Uri("/Images/Image_not_available.png", UriKind.Relative));
                 }
                 else
                 {
