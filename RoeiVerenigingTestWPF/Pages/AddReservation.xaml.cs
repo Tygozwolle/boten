@@ -39,43 +39,44 @@ namespace RoeiVerenigingTestWPF.Pages
         public void ConfirmButton(Object sender, RoutedEventArgs e)
         {
             //check if all fields are valid
-            DateTime? startTime = BeginTimePicker.Value;
-            DateTime? endTime = EndTimePicker.Value;
-            DateTime? selectedDate = calendar.SelectedDate;
-            if (!startTime.HasValue || !endTime.HasValue || !selectedDate.HasValue)
-            {
-                MessageBox.Show("Selecteer een datum en begin en eindtijd!");
-                return;
-            }
-
-            //add date and time together
-            DateTime startDateTime = selectedDate.Value.Date.Add(startTime.Value.TimeOfDay);
-            DateTime endDateTime = selectedDate.Value.Date.Add(endTime.Value.TimeOfDay);
-
-            try
-            {
-                if (_service.TimeChecker(startTime, endTime))
-                {
-                    _service.Create(_loggedInMember, _boatId, startDateTime, endDateTime);
-                }
-            }
-            catch (InvalidTimeException invalidTimeException)
-            {
-                MessageBox.Show(invalidTimeException.Message);
-                return;
-            }
-            catch (MaxAmountOfReservationExceeded maxAmountOfReservationExceededException)
-            {
-                MessageBox.Show(maxAmountOfReservationExceededException.Message);
-                return;
-            }
-            catch (ArgumentOutOfRangeException argumentOutOfRangeException)
-            {
-                MessageBox.Show(argumentOutOfRangeException.Message);
-                return;
-            }
-
-            MessageBox.Show("Reservering aangemaakt");
+            return;
+            // DateTime? startTime = BeginTimePicker.Value;
+            // DateTime? endTime = EndTimePicker.Value;
+            // DateTime? selectedDate = calendar.SelectedDate;
+            // if (!startTime.HasValue || !endTime.HasValue || !selectedDate.HasValue)
+            // {
+            //     MessageBox.Show("Selecteer een datum en begin en eindtijd!");
+            //     return;
+            // }
+            //
+            // //add date and time together
+            // DateTime startDateTime = selectedDate.Value.Date.Add(startTime.Value.TimeOfDay);
+            // DateTime endDateTime = selectedDate.Value.Date.Add(endTime.Value.TimeOfDay);
+            //
+            // try
+            // {
+            //     if (_service.TimeChecker(startTime, endTime))
+            //     {
+            //         _service.Create(_loggedInMember, _boatId, startDateTime, endDateTime);
+            //     }
+            // }
+            // catch (InvalidTimeException invalidTimeException)
+            // {
+            //     MessageBox.Show(invalidTimeException.Message);
+            //     return;
+            // }
+            // catch (MaxAmountOfReservationExceeded maxAmountOfReservationExceededException)
+            // {
+            //     MessageBox.Show(maxAmountOfReservationExceededException.Message);
+            //     return;
+            // }
+            // catch (ArgumentOutOfRangeException argumentOutOfRangeException)
+            // {
+            //     MessageBox.Show(argumentOutOfRangeException.Message);
+            //     return;
+            // }
+            //
+            // MessageBox.Show("Reservering aangemaakt");
             //todo: send to reservation overview
         }
     }
