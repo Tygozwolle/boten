@@ -185,14 +185,12 @@ namespace DataAccessLibary
 
         public  List<Stream> get(int id)
         {
-
-
             var list = new List<Stream>();
             var ids = new List<int>();
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
             {
                 connection.Open();
-                const String sql = $"SELECT * FROM damage_report_fotos WHERE Id = @id";
+                const String sql = $"SELECT * FROM damage_report_fotos WHERE damage_report_id = @id";
 
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {
