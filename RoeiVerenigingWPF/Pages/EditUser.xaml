@@ -41,32 +41,32 @@
                            Margin="0,20,0,0"
                            FontSize="24" HorizontalContentAlignment="Center"
                            Foreground="#1372a0" />
-                    <TextBox Grid.Row="3" x:Name="FirstName" Width="367" Height="40" Foreground="#1372a0"
-                             Background="#bbe3f7"
+                    <TextBox Grid.Row="3" x:Name="FirstName" Width="367" Height="40" Foreground="#031017"
+                             Background="#e8f6fc"
                              BorderBrush="#1892cd" FontSize="24" FontFamily="Franklin Gothic Medium" />
 
                     <Label Grid.Row="4" Content="Tussenvoegsel:" Width="200" FontFamily="Franklin Gothic Medium"
                            Margin="0,20,0,0"
                            FontSize="24" HorizontalContentAlignment="Center"
                            Foreground="#1372a0" />
-                    <TextBox Grid.Row="5" x:Name="Infix" Width="367" Height="40" Foreground="#1372a0"
-                             Background="#bbe3f7"
+                    <TextBox Grid.Row="5" x:Name="Infix" Width="367" Height="40" Foreground="#031017"
+                             Background="#e8f6fc"
                              BorderBrush="#1892cd" FontSize="24" FontFamily="Franklin Gothic Medium" />
 
                     <Label Grid.Row="6" Content="Achternaam:" Width="200" FontFamily="Franklin Gothic Medium"
                            Margin="0,20,0,0"
                            FontSize="24" HorizontalContentAlignment="Center"
                            Foreground="#1372a0" />
-                    <TextBox Grid.Row="7" x:Name="LastName" Width="367" Height="40" Foreground="#1372a0"
-                             Background="#bbe3f7"
+                    <TextBox Grid.Row="7" x:Name="LastName" Width="367" Height="40" Foreground="#031017"
+                             Background="#e8f6fc"
                              BorderBrush="#1892cd" FontSize="24" FontFamily="Franklin Gothic Medium" />
 
                     <Label Grid.Row="8" Content="Email:" Width="200" FontFamily="Franklin Gothic Medium"
                            Margin="0,20,0,0"
                            FontSize="24" HorizontalContentAlignment="Center"
                            Foreground="#1372a0" />
-                    <TextBox Grid.Row="9" x:Name="Email" Width="367" Height="40" Foreground="#1372a0"
-                             Background="#bbe3f7"
+                    <TextBox Grid.Row="9" x:Name="Email" Width="367" Height="40" Foreground="#031017"
+                             Background="#e8f6fc"
                              BorderBrush="#1892cd" FontSize="24" FontFamily="Franklin Gothic Medium" />
 
                     <Button Grid.Row="10" Content="Opslaan" Width="295" Height="70"

@@ -33,14 +33,14 @@
                     <Label Grid.Row="2" Content="Email:" HorizontalAlignment="Center"
                            FontFamily="Franklin Gothic Medium" FontSize="24" Margin="0,40,0,0"
                            Foreground="#1372a0" />
-                    <TextBox Grid.Row="3" x:Name="Email" Width="367" Height="40" BorderBrush="#1892cd"
+                    <TextBox Grid.Row="3" x:Name="Email" Width="367" Height="40" Foreground="#031017" BorderBrush="#1892cd"
                              Background="#e8f6fc" FontSize="24">
                     </TextBox>
 
                     <Label Grid.Row="4" Content="Wachtwoord:" FontFamily="Franklin Gothic Medium" Margin="0,20,0,0"
                            FontSize="24"
                            Foreground="#1372a0" HorizontalAlignment="Center" />
-                    <PasswordBox Grid.Row="5" x:Name="Password" Width="367" Height="40" BorderBrush="#1892cd"
+                    <PasswordBox Grid.Row="5" x:Name="Password" Width="367" Height="40" BorderBrush="#1892cd" Foreground="#031017"
                                  Background="#e8f6fc" FontSize="24">
                         <PasswordBox.Resources>
                             <Style TargetType="{x:Type Border}">

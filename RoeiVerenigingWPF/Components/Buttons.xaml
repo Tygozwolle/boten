@@ -42,8 +42,9 @@
                                Text="Langs de kalme oevers van de rivier, gewiegd door het zachte ruisen van het water, ontstond de roeivereniging Rivier Stroom. Een groepje vrienden, betoverd door de serene schoonheid van de omgeving, besloot hun passie voor roeien te delen. Met zelfgemaakte boten en een ontembare geest van avontuur begonnen ze samen te trainen. Hun enthousiasme verspreidde zich als een golf door de gemeenschap, en al snel sloten anderen zich aan. Gedreven door hun liefde voor de sport en de natuur, groeide Rivier Stroom uit tot een bloeiende vereniging, waar vriendschap en passie samenvloeiden op het kabbelende water." />
 
                     <!-- Buttons -->
-                    <Grid Grid.Row="3" Grid.Column="0" Height="60" Width="15" Margin="5,0,0,0">
-                        <Border Name="BoatRectangle" CornerRadius="5" BorderThickness="2" />
+                    <Grid Name="BoatRectangle" Grid.Row="3" Grid.Column="0" Height="60" Width="15" Margin="5,0,0,0"
+                          Visibility="Hidden">
+                        <Border CornerRadius="5" BorderThickness="2" Background="#1892cd" />
                     </Grid>
                     <Button Grid.Column="1" x:Name="BotenButton" Grid.Row="3" Margin="20,20,20,20"
                             HorizontalContentAlignment="Left"
@@ -67,14 +68,15 @@
                         </Button.Resources>
                     </Button>
 
-                    <Grid Grid.Row="4" Grid.Column="0" Height="60" Width="15" Margin="5,0,0,0">
-                        <Border Name="DamageRectangle" CornerRadius="5" BorderThickness="2" />
+                    <Grid Grid.Row="4" Grid.Column="0" Name="DamageRectangle" Height="60" Width="15" Margin="5,0,0,0"
+                          Visibility="Hidden">
+                        <Border CornerRadius="5" BorderThickness="2" Background="#1892cd" />
                     </Grid>
 
                     <Button Grid.Column="1" x:Name="DamageButton" Grid.Row="4" Margin="20,20,20,20"
                             HorizontalContentAlignment="Left"
                             HorizontalAlignment="Left" Width="270"
-                            FontFamily="Franklin Gothic Medium"
+                            FontFamily="Franklin Gothic Medium" BorderBrush="Transparent"
                             FontSize="32" Foreground="#1A517A" Background="#88BFEA" Click="Button_Click">
                         <Grid HorizontalAlignment="Left">
                             <Image Source="../Images/Icons/heart-crack.png" Height="50" Width="50" Margin="10,0"
@@ -92,14 +94,15 @@
                             </Style>
                         </Button.Resources>
                     </Button>
-                    
-                    <Grid Grid.Row="5" Grid.Column="0" Height="60" Width="15" Margin="5,0,0,0">
-                        <Border Name="EventsRectangle" CornerRadius="5" BorderThickness="2"  />
+
+                    <Grid Grid.Row="5" Grid.Column="0" Name="EventsRectangle" Height="60" Width="15" Margin="5,0,0,0"
+                          Visibility="Hidden">
+                        <Border CornerRadius="5" BorderThickness="2" Background="#1892cd" />
                     </Grid>
-                    
+
                     <Button Grid.Column="1" x:Name="EventsButton" Grid.Row="5" Margin="20,20,20,20"
                             HorizontalContentAlignment="Left"
-                            HorizontalAlignment="Left" Width="270"
+                            HorizontalAlignment="Left" Width="270" BorderBrush="Transparent"
                             FontFamily="Franklin Gothic Medium" FontSize="32" Foreground="#1A517A" Background="#88BFEA"
                             Click="Button_Click">
                         <Grid HorizontalAlignment="Left">
@@ -118,14 +121,15 @@
                             </Style>
                         </Button.Resources>
                     </Button>
-                    
-                    <Grid Grid.Row="6" Grid.Column="0" Height="60" Width="15" Margin="5,0,0,0">
-                        <Border Name="ReservationRectangle" CornerRadius="5" BorderThickness="2" />
+
+                    <Grid Grid.Row="6" Grid.Column="0" Name="ReservationRectangle" Height="60" Width="15"
+                          Margin="5,0,0,0" Visibility="Hidden">
+                        <Border CornerRadius="5" BorderThickness="2" Background="#1892cd" />
                     </Grid>
-                    
+
                     <Button Grid.Column="1" x:Name="ReserveButton" Grid.Row="6" Margin="20,20,20,20"
                             HorizontalContentAlignment="Left"
-                            HorizontalAlignment="Left"
+                            HorizontalAlignment="Left" BorderBrush="Transparent"
                             FontFamily="Franklin Gothic Medium" FontSize="32" Foreground="#1A517A" Background="#88BFEA"
                             Click="Button_Click" Width="270">
                         <Grid HorizontalAlignment="Left">

@@ -43,7 +43,7 @@
                            Margin="0,20,0,0"
                            FontSize="24" HorizontalContentAlignment="Center"
                            Foreground="#1372a0" />
-                    <TextBox Grid.Row="3" x:Name="FirstName" Width="367" Height="40" Foreground="#1372a0"
+                    <TextBox Grid.Row="3" x:Name="FirstName" Width="367" Height="40" Foreground="#031017"
                              Background="#e8f6fc"
                              BorderBrush="#1892cd" />
 
@@ -51,7 +51,7 @@
                            Margin="0,20,0,0"
                            FontSize="24" HorizontalContentAlignment="Center"
                            Foreground="#1372a0" />
-                    <TextBox Grid.Row="5" x:Name="Infix" Width="367" Height="40" Foreground="#1372a0"
+                    <TextBox Grid.Row="5" x:Name="Infix" Width="367" Height="40" Foreground="#031017"
                              Background="#e8f6fc"
                              BorderBrush="#1892cd" />
 
@@ -59,7 +59,7 @@
                            Margin="0,20,0,0"
                            FontSize="24" HorizontalContentAlignment="Center"
                            Foreground="#1372a0" />
-                    <TextBox Grid.Row="7" x:Name="LastName" Width="367" Height="40" Foreground="#1372a0"
+                    <TextBox Grid.Row="7" x:Name="LastName" Width="367" Height="40" Foreground="#031017"
                              Background="#e8f6fc"
                              BorderBrush="#1892cd" />
 
@@ -67,7 +67,7 @@
                            Margin="0,20,0,0"
                            FontSize="24" HorizontalContentAlignment="Center"
                            Foreground="#1372a0" />
-                    <TextBox Grid.Row="9" x:Name="Email" Width="367" Height="40" Foreground="#1372a0"
+                    <TextBox Grid.Row="9" x:Name="Email" Width="367" Height="40" Foreground="#031017"
                              Background="#e8f6fc"
                              BorderBrush="#1892cd" />
 
@@ -76,7 +76,7 @@
                            Margin="0,20,0,0"
                            FontSize="24" HorizontalContentAlignment="Center"
                            Foreground="#1372a0" />
-                    <TextBox Grid.Row="11" x:Name="Level" Width="367" Height="40" Foreground="#1372a0"
+                    <TextBox Grid.Row="11" x:Name="Level" Width="367" Height="40" Foreground="#031017"
                              Background="#e8f6fc"
                              BorderBrush="#1892cd" />
 

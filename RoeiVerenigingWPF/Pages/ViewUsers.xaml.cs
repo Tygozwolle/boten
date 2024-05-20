@@ -23,10 +23,10 @@ namespace RoeiVerenigingWPF.Pages
             MemberService service = new MemberService(new MemberRepository());
             InitializeComponent();
             _mainWindow = mainWindow;
-            this.DataContext = this;
+            DataContext = this;
             _memberList = service.GetMembers();
-            ___UserList_.ItemsSource = _memberList;
-            ___UserList_.Items.Filter = Filter;
+            UserList.ItemsSource = _memberList;
+            // UserList.Items.Filter = Filter;
         }
 
         public void SortMember(object sender, RoutedEventArgs routedEventArgs)
@@ -40,14 +40,14 @@ namespace RoeiVerenigingWPF.Pages
                     MenuItem routedEventArgsCast = (MenuItem)routedEventArgs.Source;
                     if (routedEventArgsCast.Header.ToString() == "Ascending")
                     {
-                        ___UserList_.Items.SortDescriptions.Clear();
-                        ___UserList_.Items.SortDescriptions.Add(new SortDescription(sendercast.Name,
+                        UserList.Items.SortDescriptions.Clear();
+                        UserList.Items.SortDescriptions.Add(new SortDescription(sendercast.Name,
                             ListSortDirection.Ascending));
                     }
                     else
                     {
-                        ___UserList_.Items.SortDescriptions.Clear();
-                        ___UserList_.Items.SortDescriptions.Add(new SortDescription(sendercast.Name,
+                        UserList.Items.SortDescriptions.Clear();
+                        UserList.Items.SortDescriptions.Add(new SortDescription(sendercast.Name,
                             ListSortDirection.Descending));
                     }
                 }
@@ -60,69 +60,69 @@ namespace RoeiVerenigingWPF.Pages
 
         public void UpdateFilter(object sender, RoutedEventArgs routedEventArgs)
         {
-            CollectionViewSource.GetDefaultView(___UserList_.ItemsSource).Refresh();
+            CollectionViewSource.GetDefaultView(UserList.ItemsSource).Refresh();
         }
 
-        private bool Filter(object item)
-        {
-            List<bool> result = new List<bool>();
-            // filter ID
-            if (String.IsNullOrEmpty(IdFilter.Text))
-            {
-                result.Add(true);
-            }
-            else
-            {
-                result.Add(((item as Member).Id.ToString()
-                    .IndexOf($"{IdFilter.Text}", StringComparison.OrdinalIgnoreCase) >= 0));
-            }
-
-            //Filter FirstName
-            if (String.IsNullOrEmpty(FirstNameFilter.Text))
-            {
-                result.Add(true);
-            }
-            else
-            {
-                result.Add(((item as Member).FirstName.IndexOf($"{FirstNameFilter.Text}",
-                    StringComparison.OrdinalIgnoreCase) >= 0));
-            }
-
-            //Filter LastName
-            if (String.IsNullOrEmpty(LastNameFilter.Text))
-            {
-                result.Add(true);
-            }
-            else
-            {
-                result.Add(((item as Member).LastName.IndexOf($"{LastNameFilter.Text}",
-                    StringComparison.OrdinalIgnoreCase) >= 0));
-            }
-
-            //Filter Email
-            if (String.IsNullOrEmpty(EmailFilter.Text))
-            {
-                result.Add(true);
-            }
-            else
-            {
-                result.Add(((item as Member).Email.IndexOf($"{EmailFilter.Text}", StringComparison.OrdinalIgnoreCase) >=
-                            0));
-            }
-
-            //Filter Roles
-            if (String.IsNullOrEmpty(RolesFilter.Text))
-            {
-                result.Add(true);
-            }
-            else
-            {
-                result.Add(((item as Member).RolesString.IndexOf($"{RolesFilter.Text}",
-                    StringComparison.OrdinalIgnoreCase) >= 0));
-            }
-
-            return !result.Contains(false);
-        }
+        // private bool Filter(object item)
+        // {
+        //     List<bool> result = new List<bool>();
+        //     // filter ID
+        //     if (String.IsNullOrEmpty(IdFilter.Text))
+        //     {
+        //         result.Add(true);
+        //     }
+        //     else
+        //     {
+        //         result.Add(((item as Member).Id.ToString()
+        //             .IndexOf($"{IdFilter.Text}", StringComparison.OrdinalIgnoreCase) >= 0));
+        //     }
+        //
+        //     //Filter FirstName
+        //     if (String.IsNullOrEmpty(FirstNameFilter.Text))
+        //     {
+        //         result.Add(true);
+        //     }
+        //     else
+        //     {
+        //         result.Add(((item as Member).FirstName.IndexOf($"{FirstNameFilter.Text}",
+        //             StringComparison.OrdinalIgnoreCase) >= 0));
+        //     }
+        //
+        //     //Filter LastName
+        //     if (String.IsNullOrEmpty(LastNameFilter.Text))
+        //     {
+        //         result.Add(true);
+        //     }
+        //     else
+        //     {
+        //         result.Add(((item as Member).LastName.IndexOf($"{LastNameFilter.Text}",
+        //             StringComparison.OrdinalIgnoreCase) >= 0));
+        //     }
+        //
+        //     //Filter Email
+        //     if (String.IsNullOrEmpty(EmailFilter.Text))
+        //     {
+        //         result.Add(true);
+        //     }
+        //     else
+        //     {
+        //         result.Add(((item as Member).Email.IndexOf($"{EmailFilter.Text}", StringComparison.OrdinalIgnoreCase) >=
+        //                     0));
+        //     }
+        //
+        //     //Filter Roles
+        //     if (String.IsNullOrEmpty(RolesFilter.Text))
+        //     {
+        //         result.Add(true);
+        //     }
+        //     else
+        //     {
+        //         result.Add(((item as Member).RolesString.IndexOf($"{RolesFilter.Text}",
+        //             StringComparison.OrdinalIgnoreCase) >= 0));
+        //     }
+        //
+        //     return !result.Contains(false);
+        // }
 
         private void ___EditMember__Click(object sender, RoutedEventArgs e)
         {
