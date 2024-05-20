@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Windows;
 using System.Windows.Controls;
 using Aspose.Email.Clients.Exchange.WebService.Schema_2016;
 using DataAccessLibary;
@@ -11,7 +12,7 @@ namespace RoeiVerenigingWPF.Pages;
 public partial class ManageDamageOverview : Page
 {
     public MainWindow MainWindow { set; get; }
-    private DamageService _service = new DamageService(new DamageRepository()); 
+    private DamageService _service = new DamageService(new DamageRepository());
     private ImageRepository _imageRepository = new ImageRepository();
     public List<Damage> Damages { set; get; }
 
@@ -19,20 +20,19 @@ public partial class ManageDamageOverview : Page
     {
         InitializeComponent();
         DataContext = this;
+        Loaded += loadedEvent;
         MainWindow = mw;
         Damages = _service.GetAll();
         GetImagesFromMail();
-        SetImagesAsync();
+        SetImages();
     }
 
     private void GetImagesFromMail()
     {
-        Task task = new Task(() =>
-        {
-            EmailToDb.GetImagesFromEmail(_imageRepository);
-        });
+        Task task = new Task(() => { EmailToDb.GetImagesFromEmail(_imageRepository); });
         task.Start();
     }
+
     private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
     {
         if (sender is Button)
@@ -40,31 +40,47 @@ public partial class ManageDamageOverview : Page
             Button casted = sender as Button;
             object command = casted.CommandParameter;
             int id = Int32.Parse(command.ToString());
-            
+
             MainWindow.MainContent.Navigate(new ManageDamage(MainWindow, _service.GetById(id)));
         }
+
+        Damages.Count();
     }
 
     private void SetImagesAsync()
     {
-        List<Task> tasks = new List<Task>();
-        foreach ( Damage damage in Damages)
+        //  List<Task> tasks = new List<Task>();
+       var thread = new Thread(() =>
         {
-            Task task = new Task(() =>
+          SetImages();
+
+        });
+       thread.Start();
+       //thread.Join();
+       // Task.WaitAll(tasks.ToArray());
+
+    }
+
+    private void SetImages()
+    {
+        foreach (Damage damage in Damages)
+        {
+
+            Damage damageSave = damage;
+            //   Thread.Sleep(100);
+            damage.Images = [_imageRepository.GetFirstImage(damageSave.Id)];
+            this.Dispatcher.Invoke(() =>
             {
-                Damage damageSave = damage;
-                damageSave.Images = [_imageRepository.GetFirstImage(damageSave.Id)];
-                this.Dispatcher.Invoke(() =>
-                {
-                    ListView.ItemsSource = Damages;
-                });
+                ListView.Items.Refresh();
+                // ListView.ItemsSource = Damages;
 
             });
-            tasks.Add(task);
-            task.Start();
 
         }
-       // Task.WaitAll(tasks.ToArray());
-        
+    }
+
+    private void loadedEvent(object sender, RoutedEventArgs args)
+    {
+     //   SetImagesAsync();
     }
 }
