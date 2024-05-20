@@ -6,13 +6,23 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <Configurations>Debug;Release;Ingelogd;IngelogtBeheer;IngelogtMateriaal;IngelogtEvent</Configurations>
+    <UserSecretsId>0c1c39b7-c172-4762-81cf-8f88b3061f85</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="img\Image_not_available.png" />
     <None Remove="img\twee-mensen-in-polyester-roeiboot.png" />
+    <None Remove="img\next.png" />
+    <None Remove="img\prev.png" />
     <Content Include="Images\twee-mensen-in-polyester-roeiboot.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\next.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\prev.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Remove="Images\Icons\calendar.svg" />
     <None Remove="Images\Icons\calendar.png" />
@@ -51,6 +61,8 @@
 
   <ItemGroup>
     <PackageReference Include="Extended.Wpf.Toolkit" Version="4.6.0" />
+    <PackageReference Include="QRCoder" Version="1.5.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="8.0.0" />
   </ItemGroup>
 
   <ItemGroup>

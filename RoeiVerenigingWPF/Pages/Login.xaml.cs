@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using DataAccessLibary;
+using Microsoft.Extensions.Configuration;
 using RoeiVerenigingLibary;
 using RoeiVerenigingLibary.Exceptions;
 using RoeiVerenigingWPF.Frames;
@@ -15,6 +16,11 @@ public partial class Login : Page
     {
         InitializeComponent();
         _mainWindow = mainWindow;
+#if !RELEASE
+        DebugInlog();
+#endif
+        
+
     }
 
     public void LoginMember(object sender, RoutedEventArgs routedEventArgs)
@@ -42,4 +48,31 @@ public partial class Login : Page
         _mainWindow.LoginContent.Visibility = Visibility.Hidden;
         _mainWindow.MainContent.Navigate(new MainPage(_mainWindow));
     }
+
+
+#if !RELEASE
+    private void DebugInlog()
+    {
+#if INGELOGD
+        IConfigurationRoot config = new ConfigurationBuilder().AddUserSecrets<Login>().Build();
+        Email.Text = config["USER:username"];
+        Password.Password = config["USER:password"];
+#endif
+#if INGELOGTBEHEER
+        IConfigurationRoot config = new ConfigurationBuilder().AddUserSecrets<Login>().Build();
+        Email.Text = config["ADMIN:username"];
+        Password.Password = config["ADMIN:password"];
+#endif
+#if INGELOGTMATERIAAL
+        IConfigurationRoot config = new ConfigurationBuilder().AddUserSecrets<Login>().Build();
+        Email.Text = config["MATERIAAL:username"];
+        Password.Password = config["MATERIAAL:password"];
+#endif
+#if INGELOGTEVENT
+        IConfigurationRoot config = new ConfigurationBuilder().AddUserSecrets<Login>().Build();
+        Email.Text = config["EVENT:username"];
+        Password.Password = config["EVENT:password"];
+#endif
+    }
+#endif
 }
