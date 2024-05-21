@@ -1,4 +1,5 @@
 ﻿using Castle.Components.DictionaryAdapter;
+using DataAccessLibary;
 using Microsoft.Extensions.Configuration;
 using Moq;
 using RoeiVerenigingLibary;
@@ -103,7 +104,27 @@ namespace RoeiVerenigingUnitTests
             Assert.Throws<ExceededAmountOfReservationsException>(() =>
                 reservationService.Create(member, 2, start, end));
         }
-        
-        
+
+
+        [Test]
+        public void EditReservationWorks()
+        {
+            //assign
+            Member member = new Member(123, "jannis", "van", "jansen", "jansen@gmail.nl", new List<string>(), 2);
+            ReservationService service = new ReservationService(new ReservationRepository());
+            var startTime = new DateTime(2024, 5, 06, 4, 00, 00);
+            var endTime = new DateTime(2024, 5, 06, 6, 00, 00);
+            var startTime2 = new DateTime(2024, 5, 06, 5, 00, 00);
+            
+            //act
+            service.Create(member, 3, startTime, endTime);
+            service.ChangeReservation(member, 3, startTime2, endTime);
+            var actual = service.GetReservations(member);
+            var expected = new Reservation(member, 3, startTime2, endTime);
+            
+            //assert
+            Assert.Equals(expected, actual);
+        }
+
     }
 }

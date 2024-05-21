@@ -57,4 +57,9 @@ public class ReservationService
     {
         return _reservationRepository.GetAmountOfBoatsCurrRenting(id);
     }
+
+    public Reservation ChangeReservation(Member member, int boatId, DateTime start, DateTime end)
+    {
+        return _reservationRepository.ChangeReservation(member, boatId, start, end);
+    }
 }
