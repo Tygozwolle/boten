@@ -28,18 +28,22 @@ public partial class AdminEditUser : Page
         Level.Text = selectedMember.Level.ToString();
 
         List<string> availableRoles = _service.GetAvailableRoles();
-        foreach (string role in availableRoles)
-        {
-            CheckBox checkBox = new CheckBox { Content = role };
-            _roleCheckBoxes[role] = checkBox;
-            RolesPanel.Children.Add(checkBox);
-        }
 
         foreach (string role in selectedMember.Roles)
         {
-            if (_roleCheckBoxes.ContainsKey(role))
+            if (selectedMember.Roles.Contains("beheerder"))
             {
-                _roleCheckBoxes[role].IsChecked = true;
+                admin.IsChecked = true;
+            }
+
+            if (selectedMember.Roles.Contains("materiaal_commissaris"))
+            {
+                material_comm.IsChecked = true;
+            }
+
+            if (selectedMember.Roles.Contains("evenementen_commissaris"))
+            {
+                event_comm.IsChecked = true;
             }
         }
     }
@@ -58,11 +62,25 @@ public partial class AdminEditUser : Page
                 MessageBox.Show("Het niveau moet een nummer zijn");
                 return;
             }
-            
-            List<string> selectedRoles = _roleCheckBoxes
-                .Where(pair => pair.Value.IsChecked == true)
-                .Select(pair => pair.Key)
-                .ToList();
+
+            List<string> selectedRoles = new List<string>();
+
+            if (admin.IsChecked == true)
+            {
+                selectedRoles.Add("beheerder");
+            }
+
+            if (material_comm.IsChecked == true)
+            {
+                selectedRoles.Add("materiaal_commissaris");
+            }
+
+            if (event_comm.IsChecked == true)
+            {
+                selectedRoles.Add("evenementen_commissaris");
+            }
+
+
             //run the update methods from the service
             Member updatedMember = _service.Update(_mainWindow.LoggedInMember, _memberId, firstName, infix, lastName,
                 email, level
@@ -84,7 +102,8 @@ public partial class AdminEditUser : Page
         {
             MessageBox.Show(ex.Message);
         }
-        catch (Exception ex) {
+        catch (Exception ex)
+        {
             MessageBox.Show(ex.Message);
         }
     }

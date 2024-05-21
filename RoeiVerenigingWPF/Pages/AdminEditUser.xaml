@@ -5,65 +5,133 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:RoeiVerenigingWPF.Pages"
       mc:Ignorable="d"
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="900" d:DesignWidth="1000"
       Title="AdminEditUser">
-    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
+    <Grid Height="900" Width="1000" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Grid.Effect>
+            <DropShadowEffect Color="Black" Direction="320" ShadowDepth="10" Opacity="0.3" />
+        </Grid.Effect>
+        <Border CornerRadius="30" BorderThickness="5" BorderBrush="#1892cd">
+            <Border CornerRadius="24" BorderThickness="8" BorderBrush="White" Background="White">
+                <Grid Height="880" Width="1000">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
 
-        <Grid Grid.Column="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <Label Grid.Row="0" Content="Voornaam:" Width="200" FontFamily="Franklin Gothic Medium" FontSize="16"
-                   Foreground="#1A517A" />
-            <TextBox Grid.Row="1" x:Name="FirstName" Width="200" BorderBrush="Black" />
+                    <Label Grid.Row="0"
+                           Content="Account aanpassen" HorizontalContentAlignment="Center" VerticalAlignment="Top"
+                           Margin="0,30,0,0"
+                           FontFamily="Franklin Gothic Medium" FontSize="36"
+                           Foreground="#0e5172" />
+                    <TextBlock Grid.Row="1" Width="580" TextWrapping="Wrap" HorizontalAlignment="Center"
+                               TextAlignment="Center"
+                               Text="Maak een account aan voor een nieuw lid, zodat zij ook boten kunnen reserveren!"
+                               FontSize="24" Foreground="#1372a0" />
+                    <Label Grid.Row="2" Content="Voornaam:" Width="200" FontFamily="Franklin Gothic Medium"
+                           Margin="0,10,0,0"
+                           FontSize="24" HorizontalContentAlignment="Center"
+                           Foreground="#1372a0" />
+                    <TextBox Grid.Row="3" x:Name="FirstName" Width="367" Height="40" Foreground="#043049"
+                             Background="#e8f6fc"
+                             BorderBrush="#1892cd" FontSize="24" FontFamily="Franklin Gothic Medium" />
 
-            <Label Grid.Row="2" Content="Tussenvoegsel:" Width="200" FontFamily="Franklin Gothic Medium" FontSize="16"
-                   Foreground="#1A517A" />
-            <TextBox Grid.Row="3" x:Name="Infix" Width="200" BorderBrush="Black" />
+                    <Label Grid.Row="4" Content="Tussenvoegsel:" Width="200" FontFamily="Franklin Gothic Medium"
+                           Margin="0,10,0,0"
+                           FontSize="24" HorizontalContentAlignment="Center"
+                           Foreground="#1372a0" />
+                    <TextBox Grid.Row="5" x:Name="Infix" Width="367" Height="40" Foreground="#043049"
+                             Background="#e8f6fc"
+                             BorderBrush="#1892cd" FontSize="24" FontFamily="Franklin Gothic Medium" />
 
-            <Label Grid.Row="4" Content="Achternaam:" Width="200" FontFamily="Franklin Gothic Medium" FontSize="16"
-                   Foreground="#1A517A" />
-            <TextBox Grid.Row="5" x:Name="LastName" Width="200" BorderBrush="Black" />
+                    <Label Grid.Row="6" Content="Achternaam:" Width="200" FontFamily="Franklin Gothic Medium"
+                           Margin="0,10,0,0"
+                           FontSize="24" HorizontalContentAlignment="Center"
+                           Foreground="#1372a0" />
+                    <TextBox Grid.Row="7" x:Name="LastName" Width="367" Height="40" Foreground="#043049"
+                             Background="#e8f6fc"
+                             BorderBrush="#1892cd" FontSize="24" FontFamily="Franklin Gothic Medium" />
 
-            <Label Grid.Row="6" Content="Email:" Width="200" FontFamily="Franklin Gothic Medium" FontSize="16"
-                   Foreground="#1A517A" />
-            <TextBox Grid.Row="7" x:Name="Email" Width="200" BorderBrush="Black" />
+                    <Label Grid.Row="8" Content="Email:" Width="200" FontFamily="Franklin Gothic Medium"
+                           Margin="0,10,0,0"
+                           FontSize="24" HorizontalContentAlignment="Center"
+                           Foreground="#1372a0" />
+                    <TextBox Grid.Row="9" x:Name="Email" Width="367" Height="40" Foreground="#043049"
+                             Background="#e8f6fc"
+                             BorderBrush="#1892cd" FontSize="24" FontFamily="Franklin Gothic Medium" />
 
 
-            <Label Grid.Row="8" Content="Niveau:" Width="200" FontFamily="Franklin Gothic Medium" FontSize="16"
-                   Foreground="#1A517A" />
-            <TextBox Grid.Row="9" x:Name="Level" Width="200" BorderBrush="Black" />
-        </Grid>
+                    <Label Grid.Row="10" Content="Niveau:" Width="200" FontFamily="Franklin Gothic Medium"
+                           Margin="0,10,0,0"
+                           FontSize="24" HorizontalContentAlignment="Center"
+                           Foreground="#1372a0" />
+                    <TextBox Grid.Row="11" x:Name="Level" Width="367" Height="40" Foreground="#043049"
+                             Background="#e8f6fc"
+                             BorderBrush="#1892cd" FontSize="24" FontFamily="Franklin Gothic Medium" />
+                    <Label Grid.Row="12" Content="Rollen:" FontFamily="Franklin Gothic Medium"
+                           Margin="0,10,0,0"
+                           FontSize="24" HorizontalContentAlignment="Center"
+                           Foreground="#1372a0">
+                    </Label>
+                    <StackPanel Grid.Row="13" Margin="0,10,0,0" x:Name="RolesPanel" VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                Orientation="Vertical">
+                        <Border CornerRadius="10" Background="#e8f6fc" BorderBrush="#1892cd" BorderThickness="1"
+                                Padding="10">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <CheckBox Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Name="admin"
+                                          BorderBrush="#1892cd" />
+                                <Label Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Content="Beheerder"
+                                       FontSize="14" Foreground="#0e5172" FontFamily="Franklin Gothic Medium" />
+                                <CheckBox Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Name="material_comm"
+                                          BorderBrush="#1892cd" />
+                                <Label Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" FontSize="14"
+                                       Foreground="#0e5172" FontFamily="Franklin Gothic Medium"
+                                       Content="Materiaal commissaris" />
+                                <CheckBox Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Name="event_comm"
+                                          BorderBrush="#1892cd" />
+                                <Label Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" FontSize="14"
+                                       Foreground="#0e5172" FontFamily="Franklin Gothic Medium"
+                                       Content="Evenementen commissaris" />
+                            </Grid>
+                        </Border>
+                    </StackPanel>
 
-        <StackPanel Margin="20,10,0,0" x:Name="RolesPanel" Grid.Column="1" Orientation="Vertical"></StackPanel>
-
-        <Button Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Content="Opslaan" Width="200" Margin="20"
-                FontFamily="Franklin Gothic Medium"
-                FontSize="32" Foreground="#1A517A" Background="#88BFEA" Click="Button_Click" >
-            <Button.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="15"/>
-                </Style>
-            </Button.Resources>
-        </Button>
+                    <Button Grid.Row="14" Content="Opslaan" Width="295" Height="70"
+                            Margin="20,30,20,20"
+                            FontFamily="Franklin Gothic Medium" FontSize="32" Foreground="#0e5172" Background="#bbe3f7"
+                            BorderBrush="#1892cd" Click="Button_Click">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="15" />
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                </Grid>
+            </Border>
+        </Border>
     </Grid>
 </Page>
