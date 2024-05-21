@@ -10,7 +10,7 @@ namespace RoeiVerenigingLibary
         public int Seats { get; set; }
         public int Level { get; set; }
         private string _Description;
-
+        public string Name { get; set; }
         public string Description
         {
             get
@@ -46,22 +46,23 @@ namespace RoeiVerenigingLibary
             set { _Description = value; }
         }
 
-
-        public Boat(int id, Boolean captainSeat, int Seats, int level, string description)
+        public Boat(int id, Boolean captainSeat, int Seats, int level, string description, string name)
         {
             this.Id = id;
             CaptainSeat = captainSeat;
             this.Seats = Seats;
             Level = level;
             this.Description = description;
+            Name = name;
         }
 
-        public Boat(int id, Boolean captainSeat, int seats, int level)
+        public Boat(int id, Boolean captainSeat, int seats, int level, string name)
         {
             Id = id;
             CaptainSeat = captainSeat;
             Seats = seats;
             Level = level;
+            Name = name;
         }
     }
 }
