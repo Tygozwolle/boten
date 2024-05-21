@@ -56,6 +56,7 @@
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="30"/>
+                <RowDefinition Height="100"/>
             </Grid.RowDefinitions>
             <Label Content="Informatie over de boot" Grid.Row="0" FontSize="20"/>
             <Label Grid.Row="1">
@@ -92,6 +93,8 @@
                         </Style>
                     </TextBlock.Style>
                 </TextBlock>
+            </Label>
+            <Label Grid.Row="4" Content="{Binding boat.Description}">
             </Label>
         </Grid>
         

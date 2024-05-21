@@ -26,7 +26,7 @@ namespace RoeiVerenigingWPF.Pages
             //todo: use boat_id from selected boat, set it in this constructor
             _boatId = boatId;
             _loggedInMember = loggedInMember;
-            boat = new Boat(1, true, 1, 2);
+            boat = boatService.GetBoatById(boatId);
             DataContext = this;
         }
 
