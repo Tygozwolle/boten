@@ -1,3 +1,4 @@
+using System.Windows;
 using RoeiVerenigingWPF.Frames;
 using RoeiVerenigingWPF.Pages;
 using System.Windows.Controls;
@@ -24,6 +25,12 @@ public partial class Buttons : UserControl
 
     private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
     {
+        if (MainWindow.LoggedInMember == null)
+        {
+            MessageBox.Show("Log eerst in");
+            return;
+        }
+
         switch (sender)
         {
             case Button button when button == BotenButton:
@@ -32,13 +39,20 @@ public partial class Buttons : UserControl
                 break;
             case Button button when button == DamageButton:
                 ChangeColorOfRectangle(DamageRectangle);
-                //MainWindow.MainContent.Navigate(new );
-                throw new NotImplementedException("Schade");
+
+                if (MainWindow.LoggedInMember.Roles.Contains("materiaal_commissaris"))
+                {
+                    MainWindow.MainContent.Navigate(new ManageDamageOverview(MainWindow));
+                    break;
+                }
+                MainWindow.MainContent.Navigate(new DamageOverview(MainWindow));
+                break;
+                
             case Button button when button == EventsButton:
                 ChangeColorOfRectangle(EventsRectangle);
                 // MainWindow.MainContent.Navigate(new ViewReservations());
-                throw new NotImplementedException("Evenementen");
                 break;
+
             case Button button when button == ReserveButton:
                 ChangeColorOfRectangle(ReservationRectangle);
                 MainWindow.MainContent.Navigate(new ViewReservations(MainWindow));
@@ -46,51 +60,35 @@ public partial class Buttons : UserControl
         }
     }
 
-    private void ChangeColorOfRectangle(Border rectangle)
+    private void ChangeColorOfRectangle(Grid rectangle)
     {
         Color reservationColor = Color.FromArgb(255, 122, 178, 178); // This represents the color #0e5172
 
         switch (rectangle)
         {
-            case Border border when rectangle == BoatRectangle:
-                BoatRectangle.Background = new SolidColorBrush(reservationColor);
-                BoatRectangle.BorderBrush = new SolidColorBrush(reservationColor);
-                DamageRectangle.Background = new SolidColorBrush(Colors.Transparent);
-                DamageRectangle.BorderBrush = new SolidColorBrush(Colors.Transparent);
-                EventsRectangle.Background = new SolidColorBrush(Colors.Transparent);
-                EventsRectangle.BorderBrush = new SolidColorBrush(Colors.Transparent);
-                ReservationRectangle.Background = new SolidColorBrush(Colors.Transparent);
-                ReservationRectangle.BorderBrush = new SolidColorBrush(Colors.Transparent);
+            case Grid border when rectangle == BoatRectangle:
+                BoatRectangle.Visibility = Visibility.Visible;
+                DamageRectangle.Visibility = Visibility.Hidden;
+                EventsRectangle.Visibility = Visibility.Hidden;
+                ReservationRectangle.Visibility = Visibility.Hidden;
                 break;
-            case Border border when rectangle == DamageRectangle:
-                BoatRectangle.Background = new SolidColorBrush(Colors.Transparent);
-                BoatRectangle.BorderBrush = new SolidColorBrush(Colors.Transparent);
-                DamageRectangle.Background = new SolidColorBrush(reservationColor);
-                DamageRectangle.BorderBrush = new SolidColorBrush(reservationColor);
-                EventsRectangle.Background = new SolidColorBrush(Colors.Transparent);
-                EventsRectangle.BorderBrush = new SolidColorBrush(Colors.Transparent);
-                ReservationRectangle.Background = new SolidColorBrush(Colors.Transparent);
-                ReservationRectangle.BorderBrush = new SolidColorBrush(Colors.Transparent);
+            case Grid border when rectangle == DamageRectangle:
+                BoatRectangle.Visibility = Visibility.Hidden;
+                DamageRectangle.Visibility = Visibility.Visible;
+                EventsRectangle.Visibility = Visibility.Hidden;
+                ReservationRectangle.Visibility = Visibility.Hidden;
                 break;
-            case Border border when rectangle == EventsRectangle:
-                BoatRectangle.Background = new SolidColorBrush(Colors.Transparent);
-                BoatRectangle.BorderBrush = new SolidColorBrush(Colors.Transparent);
-                DamageRectangle.Background = new SolidColorBrush(Colors.Transparent);
-                DamageRectangle.BorderBrush = new SolidColorBrush(Colors.Transparent);
-                EventsRectangle.Background = new SolidColorBrush(reservationColor);
-                EventsRectangle.BorderBrush = new SolidColorBrush(reservationColor);
-                ReservationRectangle.Background = new SolidColorBrush(Colors.Transparent);
-                ReservationRectangle.BorderBrush = new SolidColorBrush(Colors.Transparent);
+            case Grid grid when rectangle == EventsRectangle:
+                BoatRectangle.Visibility = Visibility.Hidden;
+                DamageRectangle.Visibility = Visibility.Hidden;
+                EventsRectangle.Visibility = Visibility.Visible;
+                ReservationRectangle.Visibility = Visibility.Hidden;
                 break;
-            case Border border when rectangle == ReservationRectangle:
-                BoatRectangle.Background = new SolidColorBrush(Colors.Transparent);
-                BoatRectangle.BorderBrush = new SolidColorBrush(Colors.Transparent);
-                DamageRectangle.Background = new SolidColorBrush(Colors.Transparent);
-                DamageRectangle.BorderBrush = new SolidColorBrush(Colors.Transparent);
-                EventsRectangle.Background = new SolidColorBrush(Colors.Transparent);
-                EventsRectangle.BorderBrush = new SolidColorBrush(Colors.Transparent);
-                ReservationRectangle.Background = new SolidColorBrush(reservationColor);
-                ReservationRectangle.BorderBrush = new SolidColorBrush(reservationColor);
+            case Grid grid when rectangle == ReservationRectangle:
+                BoatRectangle.Visibility = Visibility.Hidden;
+                DamageRectangle.Visibility = Visibility.Hidden;
+                EventsRectangle.Visibility = Visibility.Hidden;
+                ReservationRectangle.Visibility = Visibility.Visible;
                 break;
         }
     }

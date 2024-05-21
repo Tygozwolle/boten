@@ -16,5 +16,14 @@
 
             return boat;
         }
+
+        public Boat Getboat(int id)
+        {
+            Boat boat;
+
+            boat = _boatRepository.Getboat(id);
+
+            return boat;
+        }
     }
 }

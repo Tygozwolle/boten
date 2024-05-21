@@ -12,7 +12,7 @@
         <Grid.Effect>
             <DropShadowEffect Color="Black" Direction="320" ShadowDepth="10" Opacity="0.3" />
         </Grid.Effect>
-        <Border CornerRadius="30" BorderThickness="2" BorderBrush="White">
+        <Border CornerRadius="30" BorderThickness="5" BorderBrush="#1892cd">
             <Border CornerRadius="24" BorderThickness="8" BorderBrush="White">
                 <Grid Margin="0,0,0,0" Background="#FFFFFF" Height="780" Width="500">
                     <Grid.RowDefinitions>
@@ -29,19 +29,19 @@
                     <Label Grid.Row="1" HorizontalContentAlignment="Center" VerticalAlignment="Top"
                            Content="Welkom terug!"
                            FontFamily="Franklin Gothic Medium" FontSize="48"
-                           Foreground="#1372a0" Margin="0,20,0,0" />
+                           Foreground="#0e5172" Margin="0,20,0,0" />
                     <Label Grid.Row="2" Content="Email:" HorizontalAlignment="Center"
                            FontFamily="Franklin Gothic Medium" FontSize="24" Margin="0,40,0,0"
                            Foreground="#1372a0" />
-                    <TextBox Grid.Row="3" x:Name="Email" Width="367" Height="40" BorderBrush="#1892cd"
-                             Background="#bbe3f7" FontSize="24">
+                    <TextBox Grid.Row="3" x:Name="Email" Width="367" Height="40" Foreground="#043049" BorderBrush="#1892cd"
+                             Background="#e8f6fc" FontSize="24">
                     </TextBox>
 
                     <Label Grid.Row="4" Content="Wachtwoord:" FontFamily="Franklin Gothic Medium" Margin="0,20,0,0"
                            FontSize="24"
                            Foreground="#1372a0" HorizontalAlignment="Center" />
-                    <PasswordBox Grid.Row="5" x:Name="Password" Width="367" Height="40" BorderBrush="#1892cd"
-                                 Background="#bbe3f7" FontSize="24">
+                    <PasswordBox Grid.Row="5" x:Name="Password" Width="367" Height="40" BorderBrush="#1892cd" Foreground="#043049"
+                                 Background="#e8f6fc" FontSize="24">
                         <PasswordBox.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="3" />
@@ -51,7 +51,8 @@
 
                     <Button Grid.Row="6" Content="Login" Click="LoginMember" Width="275" Height="70"
                             Margin="20,40,20,20"
-                            FontFamily="Franklin Gothic Medium" FontSize="36" Foreground="#1372a0" Background="#bbe3f7">
+                            FontFamily="Franklin Gothic Medium" FontSize="36" Foreground="#0e5172" Background="#bbe3f7"
+                            BorderBrush="#1892cd">
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="15" />

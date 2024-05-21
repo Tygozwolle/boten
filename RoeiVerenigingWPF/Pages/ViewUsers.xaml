@@ -4,103 +4,57 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:RoeiVerenigingWPF.Pages"
+      xmlns:sys="clr-namespace:System;assembly=System.Runtime"
       mc:Ignorable="d"
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="900" d:DesignWidth="1200"
       Title="ViewUsers">
+    <Grid Height="900" Width="1200" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Grid.Effect>
+            <DropShadowEffect Color="Black" Direction="320" ShadowDepth="10" Opacity="0.3" />
+        </Grid.Effect>
+        <Border CornerRadius="30" BorderThickness="5" BorderBrush="#1892cd">
+            <Border CornerRadius="26" BorderThickness="3" BorderBrush="White" Background="White">
+                <Grid HorizontalAlignment="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" /> <!-- Header -->
+                        <RowDefinition Height="40" /> <!-- Stackpanel -->
+                        <RowDefinition Height="*" /> <!-- Stackpanel -->
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" HorizontalContentAlignment="Center" VerticalAlignment="Top"
+                           Margin="0,30"
+                           Content="Accounts"
+                           FontFamily="Franklin Gothic Medium" FontSize="36"
+                           Foreground="#0e5172" />
+                    <Grid Grid.Row="1" Width="1050">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50" /> <!-- ID -->
+                            <ColumnDefinition Width="150" /> <!-- Voornaam -->
+                            <ColumnDefinition Width="150" /> <!-- Tussenvoegsel -->
+                            <ColumnDefinition Width="200" /> <!-- Achternaam -->
+                            <ColumnDefinition Width="250" /> <!-- Email -->
+                            <ColumnDefinition Width="250" /> <!-- Rollen -->
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" Content="Id" Foreground="#0e5172" Background="#bbe3f7"
+                                BorderBrush="#1892cd" FontFamily="Franklin Gothic Medium" FontSize="18" />
+                        <Button Grid.Column="1" Content="Voornaam" Foreground="#0e5172" Background="#bbe3f7"
+                                BorderBrush="#1892cd" FontFamily="Franklin Gothic Medium" FontSize="18" />
+                        <Button Grid.Column="2" Content="Tussenv." Foreground="#0e5172" Background="#bbe3f7"
+                                BorderBrush="#1892cd" FontFamily="Franklin Gothic Medium" FontSize="18" />
+                        <Button Grid.Column="3" Content="Achternaam" Foreground="#0e5172" Background="#bbe3f7"
+                                BorderBrush="#1892cd" FontFamily="Franklin Gothic Medium" FontSize="18" />
+                        <Button Grid.Column="4" Content="Email" Foreground="#0e5172" Background="#bbe3f7"
+                                BorderBrush="#1892cd" FontFamily="Franklin Gothic Medium" FontSize="18" />
+                        <Button Grid.Column="5" Content="Rollen" Foreground="#0e5172" Background="#bbe3f7"
+                                BorderBrush="#1892cd" FontFamily="Franklin Gothic Medium" FontSize="18" />
+                    </Grid>
+                    <ScrollViewer Grid.Row="2" Width="1050" VerticalScrollBarVisibility="Auto" >
+                        <StackPanel  x:Name="UserStackPanel" Grid.Row="1" CanVerticallyScroll="True"
+                                    ScrollViewer.VerticalScrollBarVisibility="Visible">
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        <Button x:Name="___EditMember_" Content="Bewerk lid" HorizontalAlignment="Center" FontSize="20"
-                Margin="0,14,0,0" Padding="10,10,10,11" Click="___EditMember__Click" />
-        <ListView x:Name="___UserList_" Margin="0,14,0,0" VerticalAlignment="Top"
-                  d:ItemsSource="{d:SampleData ItemCount=5}" HorizontalAlignment="Center" Grid.Row="1"
-                  ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible"
-                  MaxHeight="700" SelectedItem="{Binding SelectedMember}">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn DisplayMemberBinding="{Binding Id}">
-                        <GridViewColumnHeader>
-                            <StackPanel>
-                                <TextBlock Text="Id" MinWidth="60" />
-                                <TextBox Name="IdFilter" TextChanged="UpdateFilter"></TextBox>
-                            </StackPanel>
-                            <GridViewColumnHeader.ContextMenu>
-                                <ContextMenu MenuItem.Click="SortMember" Name="Id">
-                                    <MenuItem Header="Ascending" />
-                                    <MenuItem Header="Descending" />
-                                </ContextMenu>
-                            </GridViewColumnHeader.ContextMenu>
-                        </GridViewColumnHeader>
-                    </GridViewColumn>
-
-                    <GridViewColumn DisplayMemberBinding="{Binding FirstName}">
-                        <GridViewColumnHeader>
-                            <StackPanel>
-                                <TextBlock Text="FirstName" MinWidth="60" />
-                                <TextBox Name="FirstNameFilter" TextChanged="UpdateFilter"></TextBox>
-                            </StackPanel>
-                            <GridViewColumnHeader.ContextMenu>
-                                <ContextMenu MenuItem.Click="SortMember" Name="FirstName">
-                                    <MenuItem Header="Ascending" />
-                                    <MenuItem Header="Descending" />
-                                </ContextMenu>
-                            </GridViewColumnHeader.ContextMenu>
-                        </GridViewColumnHeader>
-                    </GridViewColumn>
-
-                    <GridViewColumn Header="Infix" DisplayMemberBinding="{Binding  Infix}" />
-
-                    <GridViewColumn DisplayMemberBinding="{Binding LastName}">
-                        <GridViewColumnHeader>
-                            <StackPanel>
-                                <TextBlock Text="LastName" MinWidth="60" />
-                                <TextBox Name="LastNameFilter" TextChanged="UpdateFilter"></TextBox>
-                            </StackPanel>
-                            <GridViewColumnHeader.ContextMenu>
-                                <ContextMenu MenuItem.Click="SortMember" Name="LastName">
-                                    <MenuItem Header="Ascending" />
-                                    <MenuItem Header="Descending" />
-                                </ContextMenu>
-                            </GridViewColumnHeader.ContextMenu>
-                        </GridViewColumnHeader>
-                    </GridViewColumn>
-
-                    <GridViewColumn DisplayMemberBinding="{Binding Email}">
-                        <GridViewColumnHeader>
-                            <StackPanel>
-                                <TextBlock Text="Email" MinWidth="60" />
-                                <TextBox Name="EmailFilter" TextChanged="UpdateFilter"></TextBox>
-                            </StackPanel>
-                            <GridViewColumnHeader.ContextMenu>
-                                <ContextMenu MenuItem.Click="SortMember" Name="Email">
-                                    <MenuItem Header="Ascending" />
-                                    <MenuItem Header="Descending" />
-                                </ContextMenu>
-                            </GridViewColumnHeader.ContextMenu>
-                        </GridViewColumnHeader>
-                    </GridViewColumn>
-
-                    <GridViewColumn DisplayMemberBinding="{Binding RolesString}">
-                        <GridViewColumnHeader>
-                            <StackPanel>
-                                <TextBlock Text="Roles" MinWidth="60" />
-                                <TextBox Name="RolesFilter" TextChanged="UpdateFilter"></TextBox>
-                            </StackPanel>
-                            <GridViewColumnHeader.ContextMenu>
-                                <ContextMenu MenuItem.Click="SortMember" Name="Roles">
-                                    <MenuItem Header="Ascending" />
-                                    <MenuItem Header="Descending" />
-                                </ContextMenu>
-                            </GridViewColumnHeader.ContextMenu>
-                        </GridViewColumnHeader>
-                    </GridViewColumn>
-
-                </GridView>
-            </ListView.View>
-        </ListView>
-
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+            </Border>
+        </Border>
     </Grid>
 </Page>
