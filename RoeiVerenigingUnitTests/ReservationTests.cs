@@ -57,18 +57,20 @@ namespace RoeiVerenigingUnitTests
             Assert.Throws<InvalidTimeException>(() => checker.TimeChecker(start, end));
         }
 
+        [Test]
         [TestCase(14, 18)]
         [TestCase(10, 14)]
         [TestCase(2, 5)]
-        public void ReservationMaxTwoHours(int startTime, int endTime)
+        public void ReservationMaxTwoHours(int startHour, int endHour)
         {
-            //Arrange
-            var start = new DateTime(2024, 5, 7, startTime, 0, 0);
-            var end = new DateTime(2024, 5, 7, endTime, 0, 0);
-            var checker = new ReservationService(new Mock<IReservationRepository>().Object);
-            
-            //Assert
-            Assert.Throws<InvalidTimeException>(() => checker.TimeChecker(start, end));
+            // Arrange
+            var start = new DateTime(2024, 5, 7, startHour, 0, 0);
+            var end = new DateTime(2024, 5, 7, endHour, 0, 0);
+            var member = new Member(1, "simon", "van den", "Berg", "simon@windesheim.nl", new List<string>(), 1);
+            var reservationService = new ReservationService(new Mock<IReservationRepository>().Object);
+
+            // Act & Assert
+            var ex = Assert.Throws<InvalidTimeException>(() => reservationService.Create(member, 4, start, end));
         }
 
         public void OnlyTwoBoatsPerMember()
@@ -79,19 +81,18 @@ namespace RoeiVerenigingUnitTests
 
             var member = new Member(10, "Tygo", "van den", "Berg", "Tygo@zwolle.be", new List<string>(), 1);
             var reservationService = new ReservationService(new Mock<IReservationRepository>().Object);
-            
+
             //Act
             reservationService.Create(member, 3, start, end);
             reservationService.Create(member, 4, start, end);
-            
+
             //Assert
             Assert.Throws<ExceededAmountOfReservationsException>(() =>
-                reservationService.Create(member,6, start, end));
+                reservationService.Create(member, 6, start, end));
         }
 
         public void BoatCannotBeReservedTwice()
         {
-            
             //assign
             var start = new DateTime(2024, 5, 06, 3, 00, 00);
             var end = new DateTime(2024, 5, 06, 4, 00, 00);
@@ -109,22 +110,65 @@ namespace RoeiVerenigingUnitTests
         [Test]
         public void EditReservationWorks()
         {
-            //assign
-            Member member = new Member(123, "jannis", "van", "jansen", "jansen@gmail.nl", new List<string>(), 2);
-            ReservationService service = new ReservationService(new ReservationRepository());
-            var startTime = new DateTime(2024, 5, 06, 4, 00, 00);
-            var endTime = new DateTime(2024, 5, 06, 6, 00, 00);
-            var startTime2 = new DateTime(2024, 5, 06, 5, 00, 00);
-            
-            //act
-            service.Create(member, 3, startTime, endTime);
-            service.ChangeReservation(member, 3, startTime2, endTime);
-            var actual = service.GetReservations(member);
-            var expected = new Reservation(member, 3, startTime2, endTime);
-            
-            //assert
-            Assert.Equals(expected, actual);
+            // Arrange
+            var member = new Member(1, "simon", "van den", "Berg", "simon@windesheim.nl", new List<string>(), 1);
+            var originalReservation = new Reservation(member, 4, new DateTime(2024, 5, 7, 14, 0, 0),
+                new DateTime(2024, 5, 7, 15, 0, 0));
+            var updatedReservation = new Reservation(member, 4, new DateTime(2024, 5, 7, 15, 0, 0),
+                new DateTime(2024, 5, 7, 16, 0, 0));
+
+            var reservationRepository = new Mock<IReservationRepository>();
+            reservationRepository.Setup(x => x.ChangeReservation(member, 4, It.IsAny<DateTime>(), It.IsAny<DateTime>()))
+                .Returns(updatedReservation);
+            var reservationService = new ReservationService(reservationRepository.Object);
+
+            // Act
+            var result = reservationService.ChangeReservation(member, 4, new DateTime(2024, 5, 7, 15, 0, 0),
+                new DateTime(2024, 5, 7, 16, 0, 0));
+
+            // Assert
+            Assert.That(Is.Equals(updatedReservation.StartTime, result.StartTime));
+            Assert.That(Is.Equals(updatedReservation.EndTime, result.EndTime));
         }
 
+        [Test]
+        public void CreateReservationSuccesfull()
+        {
+            var startTime = new DateTime(2024, 04, 02, 3, 00, 00);
+            var endTime = new DateTime(2024, 04, 02, 4, 00, 00);
+            var loggedInMember = new Member(1, "Rick", "", "Hesp", "123@windesheim.be", new List<string>(), 1);
+            var reservation = new Reservation(loggedInMember, 3, startTime, endTime);
+            var reservationRepository = new Mock<IReservationRepository>();
+            reservationRepository.Setup(x => x.CreateReservation(loggedInMember, 3, startTime, endTime))
+                .Returns(reservation);
+            var reservationService = new ReservationService(reservationRepository.Object);
+            var result = reservationService.Create(loggedInMember, 3, startTime, endTime);
+
+            Assert.That(Is.Equals(result, reservation));
+        }
+
+        // [TestCase(new DateTime(2024, 04, 02, 2, 00, 00), new DateTime(2024, 04, 02, 2, 00, 00))]
+        // [TestCase(new DateTime(2022, 04, 02, 2, 00, 00), new DateTime(2024, 04, 02, 2, 00, 00))]
+
+        [Test]
+        public void TrowsInvalidTimeException()
+        {
+            var startTime = new DateTime(2024, 04, 02, 2, 00, 00);
+            var endTime = new DateTime(2024, 04, 02, 2, 00, 00);
+
+            var service = new ReservationService(new ReservationRepository());
+            // var error = service.TimeChecker(startTime, endTime);
+            Assert.Throws<InvalidTimeException>(() => service.TimeChecker(startTime, endTime));
+        }
+
+        [Test]
+        public void reservationOnlyLastsTwoHours()
+        {
+        }
+
+        [Test]
+        public void OnlyTwoReservationsPerMember()
+        {
+        }
     }
 }
