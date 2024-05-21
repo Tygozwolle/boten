@@ -1,7 +1,9 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Windows.Navigation;
 using RoeiVerenigingLibary;
+using RoeiVerenigingWPF.helpers;
 using RoeiVerenigingWPF.Pages;
 
 namespace RoeiVerenigingWPF.Frames
@@ -50,6 +52,27 @@ namespace RoeiVerenigingWPF.Frames
             ButtonClass.MainWindow = this;
             HeaderClass.MainWindow = this;
             LoginContent.Navigate(new Login(this));
+            this.MainContent.ContentRendered += MainContent_ContentRendered;
+        }
+
+        private void MainContent_ContentRendered(object? sender, EventArgs e)
+        {
+            ClearHistory();
+        }
+
+        private void ClearHistory()
+        {
+            if (this.MainContent.NavigationService.CanGoBack)
+            { 
+                var entry = this.MainContent.NavigationService.RemoveBackEntry();
+                RemoveAllHandlers.RemoveAllhandlersFromOpject(entry);
+                while (entry != null)
+                {
+                    entry = this.MainContent.RemoveBackEntry();
+                    RemoveAllHandlers.RemoveAllhandlersFromOpject(entry);
+                }
+
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

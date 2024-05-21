@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Aspose.Email.Mime;
 using Microsoft.VisualBasic;
+using System.Reflection.Emit;
 
 namespace DataAccessLibary
 {
@@ -84,12 +85,40 @@ namespace DataAccessLibary
                 }
             }
         }
+        private  Stream GetImage(int id)
+        {
 
-        public List<Stream> get(int id)
+
+            //var list = new List<Stream>();
+            using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
+            {
+                connection.Open();
+                const String sql = $"SELECT * FROM damage_report_fotos WHERE Id = @id";
+
+                using (MySqlCommand command = new MySqlCommand(sql, connection))
+                {
+                    command.Parameters.Add("@id", MySqlDbType.Int32);
+                    command.Parameters["@id"].Value = id;
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                           return reader.GetStream(2);
+                        }
+                    }
+                }
+            }
+
+           return null;
+        }
+    
+
+        public  List<Stream> get(int id)
         {
 
 
             var list = new List<Stream>();
+            var ids = new List<int>();
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
             {
                 connection.Open();
@@ -103,12 +132,31 @@ namespace DataAccessLibary
                     {
                         while (reader.Read())
                         {
-                            list.Add(reader.GetStream(2));
+                            ids.Add(reader.GetInt32("Id"));
                         }
                     }
                 }
             }
+            List<Task> tasks = new List<Task>();
+           
+            
+            foreach (var imageId in ids)
+            {
+                var task = new Task(() =>
+                {
+                    
+                    Stream streamToAdd = GetImage(imageId);
 
+                    lock (list)
+                    {
+                        list.Add(streamToAdd);
+                    }
+                });
+                task.Start();
+                tasks.Add(task);
+            //   await task.Wait();
+            }
+             Task.WaitAll(tasks.ToArray());
             return list;
         }
 
