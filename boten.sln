@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RoeiVerenigingWPF", "RoeiVe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestConsoleApp", "TestConsoleApp\TestConsoleApp.csproj", "{CEBB323B-9378-4746-9731-9C92ABB621BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoeiVerenigingTestWPF", "RoeiVerenigingTestWPF\RoeiVerenigingTestWPF.csproj", "{2731D120-507A-4983-9643-8ABDA3F29591}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RoeiVerenigingTestWPF", "RoeiVerenigingTestWPF\RoeiVerenigingTestWPF.csproj", "{2731D120-507A-4983-9643-8ABDA3F29591}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -87,6 +87,14 @@ Global
 		{CEBB323B-9378-4746-9731-9C92ABB621BE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2731D120-507A-4983-9643-8ABDA3F29591}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2731D120-507A-4983-9643-8ABDA3F29591}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2731D120-507A-4983-9643-8ABDA3F29591}.Ingelogd|Any CPU.ActiveCfg = Release|Any CPU
+		{2731D120-507A-4983-9643-8ABDA3F29591}.Ingelogd|Any CPU.Build.0 = Release|Any CPU
+		{2731D120-507A-4983-9643-8ABDA3F29591}.IngelogtBeheer|Any CPU.ActiveCfg = Release|Any CPU
+		{2731D120-507A-4983-9643-8ABDA3F29591}.IngelogtBeheer|Any CPU.Build.0 = Release|Any CPU
+		{2731D120-507A-4983-9643-8ABDA3F29591}.IngelogtEvent|Any CPU.ActiveCfg = Release|Any CPU
+		{2731D120-507A-4983-9643-8ABDA3F29591}.IngelogtEvent|Any CPU.Build.0 = Release|Any CPU
+		{2731D120-507A-4983-9643-8ABDA3F29591}.IngelogtMateriaal|Any CPU.ActiveCfg = Release|Any CPU
+		{2731D120-507A-4983-9643-8ABDA3F29591}.IngelogtMateriaal|Any CPU.Build.0 = Release|Any CPU
 		{2731D120-507A-4983-9643-8ABDA3F29591}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2731D120-507A-4983-9643-8ABDA3F29591}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
