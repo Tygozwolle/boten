@@ -63,9 +63,7 @@ namespace RoeiVerenigingWPF.Frames
         private void ClearHistory()
         {
             if (this.MainContent.NavigationService.CanGoBack)
-            {
-                var test = this.MainContent.NavigationService.Content;
-                var nav = this.MainContent.NavigationService;
+            { 
                 var entry = this.MainContent.NavigationService.RemoveBackEntry();
                 RemoveAllHandlers.RemoveAllhandlersFromOpject(entry);
                 while (entry != null)
