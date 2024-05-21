@@ -122,7 +122,7 @@ namespace RoeiVerenigingUnitTests
             var actual = service.GetReservations(member);
             var expected = new Reservation(member, 3, startTime2, endTime);
             
-            //assert
+            //Assert
             Assert.Equals(expected, actual);
         }
 
