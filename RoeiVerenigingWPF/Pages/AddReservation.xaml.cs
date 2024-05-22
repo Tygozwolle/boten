@@ -16,15 +16,12 @@ namespace RoeiVerenigingWPF.Pages
         private Member _loggedInMember;
 
         private ReservationService _service = new(new ReservationRepository());
-        BoatService boatService = new BoatService(new BoatRepository());
+        private BoatService boatService = new BoatService(new BoatRepository());
         public Boat boat { get; set; }
-        private int _boatId;
 
         public AddReservation(Member loggedInMember, int boatId)
         {
             InitializeComponent();
-            //todo: use boat_id from selected boat, set it in this constructor
-            _boatId = boatId;
             _loggedInMember = loggedInMember;
             boat = boatService.GetBoatById(boatId);
             DataContext = this;
@@ -58,7 +55,7 @@ namespace RoeiVerenigingWPF.Pages
             {
                 if (_service.TimeChecker(startTime, endTime))
                 {
-                    _service.Create(_loggedInMember, _boatId, startDateTime, endDateTime);
+                    _service.Create(_loggedInMember, boat.Id, startDateTime, endDateTime);
                 }
             }
             catch (InvalidTimeException invalidTimeException)
