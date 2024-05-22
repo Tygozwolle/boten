@@ -162,13 +162,20 @@ namespace RoeiVerenigingUnitTests
         }
 
         [Test]
-        public void reservationOnlyLastsTwoHours()
-        {
-        }
-
-        [Test]
         public void OnlyTwoReservationsPerMember()
         {
+            // Arrange
+            var start = new DateTime(2028, 5, 7, 14, 0, 0);
+            var end = new DateTime(2028, 5, 7, 16, 0, 0);
+            var member = new Member(1, "simon", "van den", "Berg", "simon@windesheim.nl", new List<string>(), 1);
+            var mockRepository = new Mock<IReservationRepository>();
+            mockRepository.Setup(r => r.GetAmountOfBoatsCurrRenting(member.Id)).Returns(2);
+            var reservationService = new ReservationService(mockRepository.Object);
+
+            // Act & Assert
+            var ex = Assert.Throws<MaxAmountOfReservationExceeded>(() =>
+                reservationService.Create(member, 3, start, end));
+            Assert.That(ex, Is.TypeOf<MaxAmountOfReservationExceeded>());
         }
     }
 }
