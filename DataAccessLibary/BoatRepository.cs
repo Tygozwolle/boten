@@ -7,7 +7,7 @@ namespace DataAccessLibary
     public class BoatRepository : IBoatRepository
     {
 
-        public string getPicture(Boat boat)
+        public Stream getPicture(Boat boat)
         {
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
             {
