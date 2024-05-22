@@ -74,8 +74,6 @@ public partial class ManageDamageOverview : Page
             this.Dispatcher.Invoke(() =>
                                         {
                                             ListView.Items.Refresh();
-                                            // ListView.ItemsSource = Damages;
-
                                         });
         }).Start();
     }
