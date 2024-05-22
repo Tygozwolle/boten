@@ -72,6 +72,7 @@ namespace RoeiVerenigingWPF.Pages
             catch (ReservationNotInDaylightException ex)
             {
                 MessageBox.Show(ex.Message);
+                return;
             }
             catch (Exception ex)
             {
