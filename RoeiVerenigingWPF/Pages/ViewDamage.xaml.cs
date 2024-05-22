@@ -64,7 +64,7 @@ namespace RoeiVerenigingWPF.Pages
             if (_images.Count != 0)
             {
                 DamageImage.Source = _images[0];
-                
+
             }
             else
             {
@@ -83,6 +83,22 @@ namespace RoeiVerenigingWPF.Pages
         {
             imageIndex--;
             DamageImage.Source = _images[imageIndex];
+        }
+
+        private void update_images_Click(object sender, RoutedEventArgs e)
+        {
+            update_images.IsEnabled = false;
+            Mouse.OverrideCursor = Cursors.Wait;
+            new Thread(() =>
+            {
+                EmailToDb.GetImagesFromEmail(_imageRepository);
+                var UpdatedDamage = _service.GetById(Damage.Id);
+                this.Dispatcher.Invoke(() =>
+                {
+                    Mouse.OverrideCursor = null;
+                    _mainWindow.MainContent.Navigate(new ViewDamage(_mainWindow, UpdatedDamage));
+                });
+            }).Start();
         }
     }
 }

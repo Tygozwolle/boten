@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using DataAccessLibary;
 using RoeiVerenigingLibary;
@@ -47,6 +48,7 @@ public partial class ManageDamage : Page
         Usable.IsChecked = damage.Usable;
         Fixed.IsChecked = damage.BoatFixed;
         Description.Text = damage.Description;
+        qrCodeImage.Source = QrcodeMaker.qrcode(damage.Id);
         _images = ImageConverter.ConvertList(Damage.Images);
         if (_images.Count != 0)
         {
@@ -81,5 +83,21 @@ public partial class ManageDamage : Page
             _usable = true;
         _service.Update(Damage.Id, _fixed, _usable, Description.Text);
         _mainWindow.MainContent.Navigate(new ManageDamageOverview(_mainWindow));
+    }
+
+    private void update_images_Click(object sender, RoutedEventArgs e)
+    {
+        update_images.IsEnabled = false;
+        Mouse.OverrideCursor = Cursors.Wait;
+        new Thread(() =>
+        {
+            EmailToDb.GetImagesFromEmail(_imageRepository);
+            var UpdatedDamage = _service.GetById(Damage.Id);
+            this.Dispatcher.Invoke(() =>
+            {
+                Mouse.OverrideCursor = null;
+                _mainWindow.MainContent.Navigate(new ManageDamage(_mainWindow, UpdatedDamage));
+            });
+        }).Start();
     }
 }

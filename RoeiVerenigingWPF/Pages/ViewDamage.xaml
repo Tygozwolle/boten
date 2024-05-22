@@ -25,8 +25,8 @@
                 Grid.Column="0" Grid.ColumnSpan="2" />
         <StackPanel Grid.Row="1" Grid.Column="0">
             <Image x:Name="DamageImage" Grid.Row="1" Grid.Column="0" Margin="10"
-                Source="/Images/Image_not_available.png" MaxHeight="500px"
-                MaxWidth="500px" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                Source="/Images/Image_not_available.png" Height="500px"
+                Width="500px" HorizontalAlignment="Center" VerticalAlignment="Center" />
             <Grid HorizontalAlignment="Center">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
@@ -71,6 +71,7 @@
             <TextBlock Text="Scan de qr-code om foto's toe te voegen."/>
             <TextBlock Text="Voeg de fotos als bijlage aan de mail en verander het onderwerp niet."/>
             <TextBlock Text="Het kan even duren voordat u foto is verwerkt."/>
+            <Button x:Name="update_images" Content="refresh afbeeldingen" Click="update_images_Click" ></Button>
         </StackPanel>
     </Grid>
 </Page>

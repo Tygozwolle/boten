@@ -4,8 +4,12 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:RoeiVerenigingWPF.Pages"
+      xmlns:roeiVerenigingWpf="clr-namespace:RoeiVerenigingWPF"
       mc:Ignorable="d"
       Title="DamageOverview" d:DesignHeight="450" d:DesignWidth="800">
+    <Page.Resources>
+        <roeiVerenigingWpf:ImageSourceConverter x:Key="ImageSourceConverter"/>
+    </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*" MaxHeight="100px" />
@@ -22,7 +26,7 @@
         <Label Content="Schade meldingen" FontSize="30" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" />
         <Button Grid.Column="2" Click="CreateNewDamageReport">Melding maken</Button>
         <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="4" MaxHeight="750px">
-            <ListView ItemsSource="{Binding Damages}" Grid.IsSharedSizeScope="True"
+            <ListView x:Name="ListView" ItemsSource="{Binding Damages}" Grid.IsSharedSizeScope="True"
                       d:ItemsSource="{d:SampleData ItemCount=8}" ScrollViewer.VerticalScrollBarVisibility="Auto">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -35,7 +39,7 @@
                             <Button Click="Button_Click" CommandParameter="{Binding Id}">
                                 <Border BorderBrush="Black" BorderThickness="1" Width="650" Height="200">
                                     <Grid>
-                                        <Image Source="/Images/Image_not_available.png" MaxHeight="100px"
+                                        <Image Source="{Binding Images, Converter={StaticResource ImageSourceConverter}}" MaxHeight="100px"
                                                MaxWidth="200px" HorizontalAlignment="Left" VerticalAlignment="Center" />
                                         <StackPanel Margin="110 0 5 0">
                                             <TextBlock Text="{Binding Boat.Id, StringFormat='Boot: {0}'}"
