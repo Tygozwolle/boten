@@ -23,7 +23,7 @@ namespace RoeiVerenigingWPF.helpers
                 {
                     using (QRCode qrCode = new QRCode(qrCodeData))
                     {
-                        using (Bitmap qrCodeBitmap = qrCode.GetGraphic(20, Color.Black, Color.White,  new Bitmap("Images/logo.png"), 25,0,true,null))
+                        using (Bitmap qrCodeBitmap = qrCode.GetGraphic(20, Color.Black,  Color.FromArgb(232, 246,252),  new Bitmap("Images/logo.png"), 25,0,true,null))
                         { //"#e8f6fc"
                             return ImageConverter.Convert(qrCodeBitmap);
                         }
