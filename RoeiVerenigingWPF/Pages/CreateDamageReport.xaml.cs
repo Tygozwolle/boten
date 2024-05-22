@@ -19,14 +19,14 @@ namespace RoeiVerenigingWPF.Pages
         public CreateDamageReport(MainWindow mainWindow, int boatId)
         {
             this.mainWindow = mainWindow;
-            boat = _serviceBoat.Getboat(boatId);
+            boat = _serviceBoat.GetBoatById(boatId);
             InitializeComponent();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            this.damage= service.CreateReport(mainWindow.LoggedInMember, boat, ___discription_.Text);
-            mainWindow.MainContent.Navigate(new ViewDamage(mainWindow , damage));
+            this.damage = service.CreateReport(mainWindow.LoggedInMember, boat, ___discription_.Text);
+            mainWindow.MainContent.Navigate(new ViewDamage(mainWindow, damage));
         }
     }
 }

@@ -17,11 +17,11 @@
             return boat;
         }
 
-        public Boat Getboat(int id)
+        public Boat GetBoatById(int id)
         {
             Boat boat;
 
-            boat = _boatRepository.Getboat(id);
+            boat = _boatRepository.GetBoatById(id);
 
             return boat;
         }
