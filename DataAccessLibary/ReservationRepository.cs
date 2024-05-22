@@ -165,11 +165,13 @@ public class ReservationRepository : IReservationRepository
                 {
                     while (reader.Read())
                     {
-                        return new Boat(reader.GetInt32(0), reader.GetBoolean(1), reader.GetInt32(2), reader.GetInt32(3), reader.GetString(5));
+                        return new Boat(reader.GetInt32(0), reader.GetBoolean(1), reader.GetInt32(2),
+                            reader.GetInt32(3), reader.GetString(5));
                     }
                 }
             }
         }
+
         return null;
     }
 
@@ -197,6 +199,30 @@ public class ReservationRepository : IReservationRepository
         }
 
         return -1;
+    }
+
+    public bool BoatAlreadyReserved(int boatId, DateTime startTime, DateTime endTime)
+    {
+        using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
+        {
+            connection.Open();
+            string sql =
+                $"SELECT COUNT(*) FROM reservation WHERE boat_id = @BoatId AND ((start_time < @EndTime AND end_time > @StartTime))";
+
+            using (MySqlCommand command = new MySqlCommand(sql, connection))
+            {
+                command.Parameters.Add("@BoatId", MySqlDbType.Int32);
+                command.Parameters.Add("@StartTime", MySqlDbType.DateTime);
+                command.Parameters.Add("@EndTime", MySqlDbType.DateTime);
+
+                command.Parameters["@BoatId"].Value = boatId;
+                command.Parameters["@StartTime"].Value = startTime;
+                command.Parameters["@EndTime"].Value = endTime;
+
+                int count = Convert.ToInt32(command.ExecuteScalar());
+                return count > 0;
+            }
+        }
     }
 
     public List<Reservation> GetReservations(Member member)

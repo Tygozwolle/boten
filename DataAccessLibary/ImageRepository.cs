@@ -93,7 +93,7 @@ namespace DataAccessLibary
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
             {
                 connection.Open();
-                const String sql = $"SELECT * FROM damage_report_fotos WHERE Id = @id";
+                const String sql = $"SELECT * FROM damage_report_fotos WHERE damage_report_id = @id";
 
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {
@@ -111,12 +111,35 @@ namespace DataAccessLibary
 
            return null;
         }
-    
-
-        public  List<Stream> get(int id)
+        public Stream GetFirstImage(int id)
         {
 
 
+            //var list = new List<Stream>();
+            using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
+            {
+                connection.Open();
+                const String sql = $"SELECT * FROM damage_report_fotos WHERE damage_report_id = @id  LIMIT 1";
+
+                using (MySqlCommand command = new MySqlCommand(sql, connection))
+                {
+                    command.Parameters.Add("@id", MySqlDbType.Int32);
+                    command.Parameters["@id"].Value = id;
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            return reader.GetStream(2);
+                        }
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        public List<Stream> getAsync(int id)
+        {
             var list = new List<Stream>();
             var ids = new List<int>();
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
@@ -138,13 +161,13 @@ namespace DataAccessLibary
                 }
             }
             List<Task> tasks = new List<Task>();
-           
-            
+
+
             foreach (var imageId in ids)
             {
                 var task = new Task(() =>
                 {
-                    
+
                     Stream streamToAdd = GetImage(imageId);
 
                     lock (list)
@@ -154,9 +177,34 @@ namespace DataAccessLibary
                 });
                 task.Start();
                 tasks.Add(task);
-            //   await task.Wait();
+                //  task.Wait();
             }
-             Task.WaitAll(tasks.ToArray());
+            Task.WaitAll(tasks.ToArray());
+            return list;
+        }
+
+        public  List<Stream> get(int id)
+        {
+            var list = new List<Stream>();
+            var ids = new List<int>();
+            using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
+            {
+                connection.Open();
+                const String sql = $"SELECT * FROM damage_report_fotos WHERE damage_report_id = @id";
+
+                using (MySqlCommand command = new MySqlCommand(sql, connection))
+                {
+                    command.Parameters.Add("@id", MySqlDbType.Int32);
+                    command.Parameters["@id"].Value = id;
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            list.Add(reader.GetStream(2));
+                        }
+                    }
+                }
+            }
             return list;
         }
 
