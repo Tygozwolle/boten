@@ -28,6 +28,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_519BC3B18ACF4B63A0F31D48B7E68AB2"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_544A35A7C0254077A4DE5EE89139B3CA"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -71,6 +77,12 @@
         "Entry"
         {
         "MsmKey" = "8:_CEBA8CCB7CEF49988F12739A89700CBB"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_D5F032F22BC54DA48A2A977806E888C9"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -128,6 +140,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
         "Release"
         {
@@ -144,6 +164,22 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                }
+            }
         }
     }
     "Deployable"
@@ -201,6 +237,26 @@
             "TargetName" = "8:rectangle-ellipsis.png"
             "Tag" = "8:"
             "Folder" = "8:_4F547C56F1754CD4B1C9A462E64CC469"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_519BC3B18ACF4B63A0F31D48B7E68AB2"
+            {
+            "SourcePath" = "8:..\\RoeiVerenigingWPF\\Images\\logo.ico"
+            "TargetName" = "8:logo.ico"
+            "Tag" = "8:"
+            "Folder" = "8:_7049D57D2ABF41119894039AD045A648"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -339,6 +395,26 @@
             {
             "SourcePath" = "8:..\\RoeiVerenigingWPF\\Images\\Icons\\heart-crack.png"
             "TargetName" = "8:heart-crack.png"
+            "Tag" = "8:"
+            "Folder" = "8:_4F547C56F1754CD4B1C9A462E64CC469"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D5F032F22BC54DA48A2A977806E888C9"
+            {
+            "SourcePath" = "8:..\\RoeiVerenigingWPF\\Images\\logo.ico"
+            "TargetName" = "8:logo.ico"
             "Tag" = "8:"
             "Folder" = "8:_4F547C56F1754CD4B1C9A462E64CC469"
             "Condition" = "8:"
@@ -552,9 +628,9 @@
         "Product"
         {
         "Name" = "8:Microsoft Visual Studio"
-        "ProductName" = "8:RoeiverenigingInstaller"
+        "ProductName" = "8:Roeivereniging"
         "ProductCode" = "8:{D97929E4-2527-42A2-AAB9-91F8845C0033}"
-        "PackageCode" = "8:{6904F6FF-B3FB-4EF5-849E-F5BE24AF6587}"
+        "PackageCode" = "8:{6DC620D8-796F-487E-BBA1-0B9268A3697F}"
         "UpgradeCode" = "8:{467758A9-9718-4C68-A001-9622005262B6}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -571,7 +647,7 @@
         "Keywords" = "8:"
         "ARPCOMMENTS" = "8:"
         "ARPURLINFOABOUT" = "8:"
-        "ARPPRODUCTICON" = "8:"
+        "ARPPRODUCTICON" = "8:_519BC3B18ACF4B63A0F31D48B7E68AB2"
         "ARPIconIndex" = "3:0"
         "SearchPath" = "8:"
         "UseSystemSearchPath" = "11:TRUE"
@@ -674,6 +750,20 @@
         }
         "Shortcut"
         {
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_A8A7106766BF4285B5DC793C421710E7"
+            {
+            "Name" = "8:roeivereniging"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_6AD594559F02413EA6DE2CC12E4DF494"
+            "Folder" = "8:_C7C7D6ECA969493D868A4E4E9F7D9C54"
+            "WorkingFolder" = "8:_7049D57D2ABF41119894039AD045A648"
+            "Icon" = "8:_519BC3B18ACF4B63A0F31D48B7E68AB2"
+            "Feature" = "8:"
+            }
         }
         "UserInterface"
         {
