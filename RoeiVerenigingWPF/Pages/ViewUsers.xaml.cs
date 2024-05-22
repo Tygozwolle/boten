@@ -41,7 +41,6 @@ namespace RoeiVerenigingWPF.Pages
             DataContext = this;
             _memberList = service.GetMembers();
             PopulateUserList(_memberList);
-            
         }
 
         public void PopulateUserList(List<Member> memberList)
@@ -156,7 +155,7 @@ namespace RoeiVerenigingWPF.Pages
         }
 
 
-        private void FilterUsers(object sender, RoutedEventArgs e)
+        private void ButtonFilterUsers(object sender, RoutedEventArgs e)
         {
             Button clickedButton = sender as Button;
             List<Member> selectedMemberList = new List<Member>();
@@ -185,13 +184,75 @@ namespace RoeiVerenigingWPF.Pages
                         selectedMemberList = _memberList.OrderBy(member => member.RolesString).ToList();
                         break;
                 }
+
                 PopulateUserList(selectedMemberList);
+            }
+        }
+
+        public void TextFilterUsers(object sender, RoutedEventArgs e)
+        {
+            TextBox selectedTextbox = sender as TextBox;
+            List<Member> selectedMemberList = new List<Member>();
+
+            if (selectedTextbox != null)
+            {
+                try
+                {
+                    switch (selectedTextbox.Name)
+                    {
+                        case "SearchId":
+                            selectedMemberList = _memberList
+                                .Where(member => member.Id.ToString().Contains(selectedTextbox.Text))
+                                .ToList();
+                            break;
+                        case "SearchFirstName":
+                            selectedMemberList = _memberList
+                                .Where(member => member.FirstName.ToString().Contains(selectedTextbox.Text))
+                                .ToList();
+                            break;
+                        case "SearchInfix":
+                            selectedMemberList = _memberList
+                                .Where(member => member.Infix.ToString().Contains(selectedTextbox.Text))
+                                .ToList();
+                            break;
+                        case "SearchLastName":
+                            selectedMemberList = _memberList
+                                .Where(member => member.LastName.ToString().Contains(selectedTextbox.Text))
+                                .ToList();
+                            break;
+                        case "SearchEmail":
+                            selectedMemberList = _memberList
+                                .Where(member => member.Email.ToString().Contains(selectedTextbox.Text))
+                                .ToList();
+                            break;
+                        case "SearchRoles":
+                            selectedMemberList = _memberList
+                                .Where(member => member.RolesString.ToString().Contains(selectedTextbox.Text))
+                                .ToList();
+                            break;
+                    }
+
+                    PopulateUserList(selectedMemberList);
+                }
+
+
+                catch (NullReferenceException exception)
+                {
+                    PopulateUserList(new List<Member>());
+                }
             }
         }
 
         private void Search_Button_OnClick(object sender, RoutedEventArgs e)
         {
-            SearchBar.Visibility = Visibility.Visible;
+            if (SearchBar.Visibility == Visibility.Visible)
+            {
+                SearchBar.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                SearchBar.Visibility = Visibility.Visible;
+            }
         }
     }
 }
