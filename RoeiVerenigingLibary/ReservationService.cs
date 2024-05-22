@@ -38,6 +38,12 @@ public class ReservationService
                 string message = "Je mag niet meer dan 2 weken van te voren reserveren!";
                 throw new Exception(message);
             }
+            
+            if (startTime.Date < DateTime.Now)
+            {
+                string message = "Je mag geen reservering in het verleden maken!";
+                throw new Exception(message);
+            }
 
             if (!IsReservationInDaylight(startTime, endTime))
             {
