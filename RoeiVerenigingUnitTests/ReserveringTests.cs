@@ -20,7 +20,7 @@ namespace RoeiVerenigingUnitTests
                     It.IsAny<DateTime>())).Returns(reservation);
             var ReservationService = new ReservationService(ReservationRepository.Object);
             //Act
-            var result = ReservationService.Create(member, 4, new DateTime(3), new DateTime(4));
+            var result = ReservationService.Create(member, 4, DateTime.Now, DateTime.Now.AddHours(1));
             //Assert
             Assert.That(Is.Equals(result, reservation));
         }

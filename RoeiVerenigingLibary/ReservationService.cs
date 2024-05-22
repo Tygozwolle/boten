@@ -38,7 +38,7 @@ public class ReservationService
                 string message = "Je mag niet meer dan 2 weken van te voren reserveren!";
                 throw new Exception(message);
             }
-            
+
             if (!IsReservationInDaylight(startTime, endTime))
             {
                 throw new ReservationNotInDaylightException();
@@ -48,22 +48,16 @@ public class ReservationService
             {
                 throw new MaxAmountOfReservationExceeded();
             }
-
-            if (BoatAlreadyReserved(boatId, startTime, endTime))
-            {
-            }
-
+            
             // TODO bij niveau --> moet deze niet bij de klik op een boot?
         }
 
+        if (_reservationRepository.BoatAlreadyReserved(boatId, startTime, endTime))
+        {
+            throw new BoatAlreadyReservedException();
+        }
+
         return _reservationRepository.CreateReservation(member, boatId, startTime, endTime);
-    }
-
-    public bool BoatAlreadyReserved(int boatId, DateTime startTime, DateTime endTime)
-    {
-        //check the database if the boat is already reserved
-
-        return false;
     }
 
     public bool IsReservationInDaylight(DateTime startTime, DateTime endTime)
