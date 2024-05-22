@@ -23,9 +23,9 @@ namespace RoeiVerenigingUnitTests
             var damageReports = new List<Damage>
             {
                 new Damage(1, new Member(1, "John", "", "Doe", "john.doe@example.com", new List<string>(), 1),
-                    new Boat(1, true, 4, 1), "description1", false, true),
+                    new Boat(1, true, 4, 1,"Anna"), "description1", false, true),
                 new Damage(2, new Member(2, "Jane", "", "Doe", "jane.doe@example.com", new List<string>(), 1),
-                    new Boat(2, false, 2, 1), "description2", true, false)
+                    new Boat(2, false, 2, 1,"Titanic"), "description2", true, false)
             };
             _mockDamageRepository.Setup(repo => repo.GetAllDamageReports()).Returns(damageReports);
 
@@ -42,7 +42,7 @@ namespace RoeiVerenigingUnitTests
             // Arrange
             var updatedDamage = new Damage(1,
                 new Member(1, "John", "", "Doe", "john.doe@example.com", new List<string>(), 1),
-                new Boat(1, true, 4, 1), "updated description", true, true);
+                new Boat(1, true, 4, 1,"Anna"), "updated description", true, true);
             _mockDamageRepository.Setup(repo => repo.Update(1, true, true, "updated description"))
                 .Returns(updatedDamage);
 
@@ -58,7 +58,7 @@ namespace RoeiVerenigingUnitTests
         {
             // Arrange
             var damage = new Damage(1, new Member(1, "John", "", "Doe", "john.doe@example.com", new List<string>(), 1),
-                new Boat(1, true, 4, 1), "description", false, true);
+                new Boat(1, true, 4, 1, "Anna"), "description", false, true);
             _mockDamageRepository.Setup(repo => repo.GetById(1)).Returns(damage);
 
             // Act
@@ -76,8 +76,8 @@ namespace RoeiVerenigingUnitTests
             var damageReports = new List<Damage>
             {
                 new Damage(1, member,
-                    new Boat(1, true, 4, 1), "description1", false, true),
-                new Damage(2, member ,new Boat(2, false, 2, 1), "description2", true, false)
+                    new Boat(1, true, 4, 1, "Anna"), "description1", false, true),
+                new Damage(2, member ,new Boat(2, false, 2, 1, "Anna"), "description2", true, false)
             };
             _mockDamageRepository.Setup(repo => repo.GetRelatedToUser(member.Id)).Returns(damageReports);
 

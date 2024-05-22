@@ -62,7 +62,7 @@
             <TextBlock Text="{Binding Damage.Boat.Level, StringFormat='Benodiged niveau: {0}'}"></TextBlock>
         </StackPanel>
         <TextBlock Text="Beschrijving" FontSize="24" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" />
-        <TextBox Name="Description" MinHeight="200" Margin="10" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"></TextBox>
+        <TextBox Name="Description" MinHeight="100" Margin="10" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"></TextBox>
         <Grid Margin="10" Grid.Row="4" Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
