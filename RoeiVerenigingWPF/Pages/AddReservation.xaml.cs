@@ -69,9 +69,13 @@ namespace RoeiVerenigingWPF.Pages
                 MessageBox.Show(maxAmountOfReservationExceededException.Message);
                 return;
             }
-            catch (ArgumentOutOfRangeException argumentOutOfRangeException)
+            catch (ReservationNotInDaylightException ex)
             {
-                MessageBox.Show(argumentOutOfRangeException.Message);
+                MessageBox.Show(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
                 return;
             }
 
