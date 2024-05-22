@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestConsoleApp", "TestConso
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RoeiVerenigingTestWPF", "RoeiVerenigingTestWPF\RoeiVerenigingTestWPF.csproj", "{2731D120-507A-4983-9643-8ABDA3F29591}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "RoeiverenigingInstaller", "RoeiverenigingInstaller\RoeiverenigingInstaller.vdproj", "{2ED4826E-2D65-4417-BB04-20C8FE980E84}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -97,6 +99,12 @@ Global
 		{2731D120-507A-4983-9643-8ABDA3F29591}.IngelogtMateriaal|Any CPU.Build.0 = Release|Any CPU
 		{2731D120-507A-4983-9643-8ABDA3F29591}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2731D120-507A-4983-9643-8ABDA3F29591}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2ED4826E-2D65-4417-BB04-20C8FE980E84}.Debug|Any CPU.ActiveCfg = Debug
+		{2ED4826E-2D65-4417-BB04-20C8FE980E84}.Ingelogd|Any CPU.ActiveCfg = Debug
+		{2ED4826E-2D65-4417-BB04-20C8FE980E84}.IngelogtBeheer|Any CPU.ActiveCfg = Debug
+		{2ED4826E-2D65-4417-BB04-20C8FE980E84}.IngelogtEvent|Any CPU.ActiveCfg = Debug
+		{2ED4826E-2D65-4417-BB04-20C8FE980E84}.IngelogtMateriaal|Any CPU.ActiveCfg = Debug
+		{2ED4826E-2D65-4417-BB04-20C8FE980E84}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
