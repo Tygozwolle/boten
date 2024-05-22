@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using DataAccessLibary;
 using RoeiVerenigingLibary;
 using RoeiVerenigingWPF.Frames;
+using Color = System.Windows.Media.Color;
+using Image = System.Windows.Controls.Image;
 
 namespace RoeiVerenigingWPF.Pages
 {
@@ -33,9 +37,11 @@ namespace RoeiVerenigingWPF.Pages
             MemberService service = new MemberService(new MemberRepository());
             InitializeComponent();
             _mainWindow = mainWindow;
+            Search_Icon.Source = new BitmapImage(new Uri("/Images/Icons/search.png", UriKind.Relative));
             DataContext = this;
             _memberList = service.GetMembers();
             PopulateUserList(_memberList);
+            
         }
 
         public void PopulateUserList(List<Member> memberList)
