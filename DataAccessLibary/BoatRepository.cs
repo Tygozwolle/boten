@@ -1,10 +1,29 @@
-﻿using MySqlConnector;
+﻿using System.Data;
+using MySqlConnector;
 using RoeiVerenigingLibary;
 
 namespace DataAccessLibary
 {
     public class BoatRepository : IBoatRepository
     {
+
+        public string getPicture(Boat boat)
+        {
+            using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
+            {
+                connection.Open();
+                string query = $"SELECT * FROM boat_images " +
+                               $"WHERE id= @boatid";
+                Console.WriteLine(query);
+                using (MySqlCommand command = new MySqlCommand(query, connection))
+                {
+                    command.Parameters.Add("@boatId" , MySqlDbType.Int16);
+
+                    command.Parameters["@boatId"].Value = boat.Id;
+                }
+            }
+            return null;
+        }
         public List<Boat> Getboats()
         {
             List<Boat> boat = new List<Boat>();

@@ -41,7 +41,7 @@
                                 </Button.Resources>
                                 <Border BorderBrush="Black" BorderThickness="1" Width="650" Height="200">
                                     <Grid>
-                                        <Image Source="/Images/Image_not_available.png" MaxHeight="100px" MaxWidth="200px" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                        <Image Source="{Binding BoatPhoto}" MaxHeight="100px" MaxWidth="200px" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                                         <StackPanel Margin="110 0 5 0">
                                             <TextBlock Text="{Binding Boat.Id, StringFormat='Boot: {0}'}"
                                                        VerticalAlignment="Center" HorizontalAlignment="Left"

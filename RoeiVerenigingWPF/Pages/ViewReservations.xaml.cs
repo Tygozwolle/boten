@@ -14,6 +14,7 @@ namespace RoeiVerenigingWPF.Pages
     /// </summary>
     public partial class ViewReservations : Page
     {
+        public string BoatFoto { get; set; }
         public List<Reservation> ReservationList { get; set; }
         public MainWindow MainWindow { set; get; }
 
