@@ -145,4 +145,4 @@ create index member_id
 INSERT INTO `members`(`member_id`, `first_name`, `infix`, `last_name`, `level`, `email`, `password`) 
     VALUES (1,'Admin',' ',' ',1,'admin','ChangeMe');
 
-INSERT INTO `member_roles`(`member_id`, `rol`) VALUES (1,'beheerder');
+INSERT INTO `member_roles`(`member_id`, `role`) VALUES (1,'beheerder');
