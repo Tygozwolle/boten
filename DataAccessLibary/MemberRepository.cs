@@ -312,7 +312,7 @@ public class MemberRepository : IMemberRepository
         using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
         {
             connection.Open();
-            string insertSql = $"INSERT INTO member_roles(member_id, rol) VALUES (@memberId, @role)";
+            string insertSql = $"INSERT INTO member_roles(member_id, role) VALUES (@memberId, @role)";
             using (MySqlCommand insertCommand = new MySqlCommand(insertSql, connection))
             {
                 insertCommand.Parameters.Add("@memberId", MySqlDbType.Int32);
@@ -345,7 +345,7 @@ public class MemberRepository : IMemberRepository
         using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
         {
             connection.Open();
-            const string sql = "SELECT DISTINCT rol FROM member_roles";
+            const string sql = "SELECT DISTINCT role FROM member_roles";
 
             using (MySqlCommand command = new MySqlCommand(sql, connection))
             {
