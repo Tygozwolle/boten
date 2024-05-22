@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using System.Windows.Media;
+using Color = System.Drawing.Color;
 
 namespace RoeiVerenigingWPF.helpers
 {
@@ -22,8 +23,8 @@ namespace RoeiVerenigingWPF.helpers
                 {
                     using (QRCode qrCode = new QRCode(qrCodeData))
                     {
-                        using (Bitmap qrCodeBitmap = qrCode.GetGraphic(20))
-                        {
+                        using (Bitmap qrCodeBitmap = qrCode.GetGraphic(20,"#FF000000", "#e8f6fc", true))
+                        { 
                             return ImageConverter.Convert(qrCodeBitmap);
                         }
                     }
