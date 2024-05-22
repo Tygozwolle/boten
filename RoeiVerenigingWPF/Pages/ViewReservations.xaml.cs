@@ -34,9 +34,9 @@ namespace RoeiVerenigingWPF.Pages
             {
                 Button casted = sender as Button;
                 object command = casted.CommandParameter;
-                int idboat = Int32.Parse(command.ToString());
+                int idReservation = Int32.Parse(command.ToString());
 
-                MainWindow.MainContent.Navigate(new EditReservation(MainWindow, idboat));
+                MainWindow.MainContent.Navigate(new EditReservation(MainWindow, idReservation));
             }
             //MainWindow.MainContent.Navigate(new EditReservation(MainWindow, this, selectedItem.BoatId));
         }
