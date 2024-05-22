@@ -49,16 +49,11 @@ public partial class ManageDamageOverview : Page
 
     private void SetImagesAsync()
     {
-        //  List<Task> tasks = new List<Task>();
        var thread = new Thread(() =>
         {
           SetImages();
-
         });
        thread.Start();
-       //thread.Join();
-       // Task.WaitAll(tasks.ToArray());
-
     }
 
     private void SetImages()
