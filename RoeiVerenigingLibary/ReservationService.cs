@@ -38,12 +38,6 @@ public class ReservationService
                 string message = "Je mag niet meer dan 2 weken van te voren reserveren!";
                 throw new Exception(message);
             }
-            
-            if (startTime.Date < DateTime.Now)
-            {
-                string message = "Je mag geen reservering in het verleden maken!";
-                throw new Exception(message);
-            }
 
             if (!IsReservationInDaylight(startTime, endTime))
             {
@@ -54,8 +48,14 @@ public class ReservationService
             {
                 throw new MaxAmountOfReservationExceeded();
             }
-            
+
             // TODO bij niveau --> moet deze niet bij de klik op een boot?
+        }
+
+        if (startTime.Date < DateTime.Now)
+        {
+            string message = "Je mag geen reservering in het verleden maken!";
+            throw new Exception(message);
         }
 
         if (_reservationRepository.BoatAlreadyReserved(boatId, startTime, endTime))
