@@ -71,6 +71,7 @@
             <TextBlock Text="Scan de qr-code om foto's toe te voegen."/>
             <TextBlock Text="Voeg de fotos als bijlage aan de mail en verander het onderwerp niet."/>
             <TextBlock Text="Het kan even duren voordat u foto is verwerkt."/>
+            <Button x:Name="update_images" Content="refresh afbeeldingen" Click="update_images_Click" ></Button>
         </StackPanel>
     </Grid>
 </Page>

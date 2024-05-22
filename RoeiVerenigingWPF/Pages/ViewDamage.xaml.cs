@@ -84,5 +84,19 @@ namespace RoeiVerenigingWPF.Pages
             imageIndex--;
             DamageImage.Source = _images[imageIndex];
         }
+
+        private void update_images_Click(object sender, RoutedEventArgs e)
+        {
+            update_images.IsEnabled = false;
+            new Thread(() =>
+            {
+                EmailToDb.GetImagesFromEmail(_imageRepository);
+                var UpdatedDamage = _service.GetById(Damage.Id);
+                this.Dispatcher.Invoke(() =>
+                {
+                    _mainWindow.MainContent.Navigate(new ViewDamage(_mainWindow, UpdatedDamage));
+                });
+            }).Start();
+        }
     }
 }
