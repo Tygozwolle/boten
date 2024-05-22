@@ -25,6 +25,17 @@ public class ReservationService
 
     public Reservation Create(Member member, int boatId, DateTime startTime, DateTime endTime)
     {
+        if (startTime.Date < DateTime.Now.Date)
+        {
+            string message = "Je mag geen reservering in het verleden maken!";
+            throw new Exception(message);
+        }
+
+        if (_reservationRepository.BoatAlreadyReserved(boatId, startTime, endTime))
+        {
+            throw new BoatAlreadyReservedException();
+        }
+
         if (!member.Roles.Contains("beheerder"))
         {
             if (endTime - startTime >= maxReservationTime)
@@ -50,17 +61,6 @@ public class ReservationService
             }
 
             // TODO bij niveau --> moet deze niet bij de klik op een boot?
-        }
-
-        if (startTime.Date < DateTime.Now)
-        {
-            string message = "Je mag geen reservering in het verleden maken!";
-            throw new Exception(message);
-        }
-
-        if (_reservationRepository.BoatAlreadyReserved(boatId, startTime, endTime))
-        {
-            throw new BoatAlreadyReservedException();
         }
 
         return _reservationRepository.CreateReservation(member, boatId, startTime, endTime);
