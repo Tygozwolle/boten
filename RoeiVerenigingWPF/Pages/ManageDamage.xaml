@@ -22,8 +22,8 @@
                    Grid.Column="0" Grid.ColumnSpan="2" />
         <StackPanel Grid.Row="1" Grid.Column="0">
             <Image x:Name="DamageImage" Grid.Row="1" Grid.Column="0" Margin="10"
-                   Source="/Images/Image_not_available.png" Height="500px"
-                   Width="500px" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                   Source="/Images/Image_not_available.png" Height="400px"
+                   Width="400px" HorizontalAlignment="Center" VerticalAlignment="Center" />
             <Grid HorizontalAlignment="Center">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
