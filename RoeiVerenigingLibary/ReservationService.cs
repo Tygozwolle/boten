@@ -52,7 +52,7 @@ public class ReservationService
     {
         return _reservationRepository.GetReservations(member);
     }
-    
+
     public int AmountOfBoatsCurrentlyRenting(int id)
     {
         return _reservationRepository.GetAmountOfBoatsCurrRenting(id);
@@ -61,5 +61,10 @@ public class ReservationService
     public Reservation ChangeReservation(Member member, int boatId, DateTime start, DateTime end)
     {
         return _reservationRepository.ChangeReservation(member, boatId, start, end);
+    }
+
+    public Reservation GetReservation(int reservationid)
+    {
+        return _reservationRepository.GetReservation(reservationid);
     }
 }

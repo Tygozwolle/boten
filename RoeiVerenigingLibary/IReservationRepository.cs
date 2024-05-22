@@ -8,4 +8,5 @@ public interface IReservationRepository
     public List<Reservation> GetReservations(Member member);
     public int GetAmountOfBoatsCurrRenting(int ID);
     public Reservation ChangeReservation(Member member, int boatId, DateTime startTime, DateTime endTime);
+    public Reservation GetReservation(int reservationid);
 }

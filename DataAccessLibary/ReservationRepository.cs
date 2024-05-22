@@ -1,7 +1,6 @@
-using System.Data;
-using System.Runtime.CompilerServices;
 using MySqlConnector;
 using RoeiVerenigingLibary;
+using System.Data;
 
 namespace DataAccessLibary;
 
@@ -17,14 +16,14 @@ public class ReservationRepository : IReservationRepository
             {
                 command.Parameters.Add("@userId", DbType.Int32);
                 command.Parameters.Add("@boatId", DbType.Int32);
-                
+
                 command.Parameters["@boatId"].Value = boatId;
                 command.Parameters["@userId"].Value = memberId;
-                
+
                 using (MySqlDataReader reader = command.ExecuteReader())
                 {
-                  
-                    
+
+
                     while (reader.Read())
                     {
                         return new Reservation(reader.GetInt16(1), reader.GetInt16(1), reader.GetDateTime(4),
@@ -36,13 +35,13 @@ public class ReservationRepository : IReservationRepository
 
         return null;
     }
-    
+
     public Reservation checkReservations(Member member, int boat)
     {
         return null;
     }
 
-    public Reservation ChangeReservation(Member member, int boatId,  DateTime startTime, DateTime endTime)
+    public Reservation ChangeReservation(Member member, int boatId, DateTime startTime, DateTime endTime)
     {
         using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
         {
@@ -55,7 +54,7 @@ public class ReservationRepository : IReservationRepository
                 command.Parameters.Add("@boatId", MySqlDbType.Int16);
                 command.Parameters.Add("@startTime", MySqlDbType.DateTime);
                 command.Parameters.Add("@endtTime", MySqlDbType.DateTime);
-                
+
                 command.Parameters["@boatId"].Value = boatId;
                 command.Parameters["@memberId"].Value = member.Id;
                 command.Parameters["@startTime"].Value = startTime;
@@ -233,5 +232,37 @@ public class ReservationRepository : IReservationRepository
         }
 
         return reservations.OrderBy(x => x.Id).ToList();
+    }
+
+    public Reservation GetReservation(int reservationid)
+    {
+        Reservation reservations;
+        using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
+        {
+            connection.Open();
+            const string sql = $"SELECT * FROM reservation WHERE `reservation_id` = @reservation_id";
+
+            using (MySqlCommand command = new MySqlCommand(sql, connection))
+            {
+                command.Parameters.Add("@reservation_id", MySqlDbType.Int32);
+                command.Parameters["@reservation_id"].Value = reservationid;
+
+                using (MySqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var id = reader.GetInt32(0);
+                        var boatId = reader.GetInt32(1);
+                        var memberId = reader.GetInt32(2);
+                        var creationDate = reader.GetDateTime(3);
+                        var startTime = reader.GetDateTime(4);
+                        var endTime = reader.GetDateTime(5);
+
+                        return reservations = new Reservation(memberId, boatId, startTime, endTime);
+                    }
+                }
+            }
+        }
+        return null;
     }
 }

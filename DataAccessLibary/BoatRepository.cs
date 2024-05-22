@@ -91,8 +91,9 @@ namespace DataAccessLibary
                             var captainSeat = reader.GetBoolean(1);
                             var Seats = reader.GetInt32(2);
                             var Level = reader.GetInt32(3);
+                            var description = reader.GetString(4);
                             var name = reader.GetString(5);
-                            return new Boat(id, captainSeat, Seats, Level, name);
+                            return new Boat(id, captainSeat, Seats, Level, description, name);
                         }
 
                     }

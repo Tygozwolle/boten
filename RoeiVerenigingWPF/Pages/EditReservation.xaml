@@ -12,7 +12,6 @@
       Title="Reservering wijzigen">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="100" />
             <!-- Header Column -->
             <RowDefinition Height="50" />
             <!-- Title Column -->
@@ -26,24 +25,31 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="1*" />
-            <ColumnDefinition Width="1*" />
 
             <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
 
         <!-- Titel -->
-        <Label Content="Reservering wijzigen" FontSize="30" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" />
+        <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+            <TextBlock FontSize="30">
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="Boot {0} Reserveren">
+                        <Binding Path="boat.Name" />
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+        </Label>
 
         <!-- calender -->
         <Viewbox
-            Grid.Row="2"
-            Grid.Column="1"
+            Grid.Row="1"
+            Grid.Column="0"
             StretchDirection="Both">
             <Calendar x:Name="calendar" SelectionMode="SingleDate" />
         </Viewbox>
 
         <!-- Photo -->
-        <Button Grid.Column="2" Grid.Row="2" Height="100" Width="200" Click="ClickImageController">
+        <Button Grid.Column="1" Grid.Row="1" Height="100" Width="200" Click="ClickImageController">
             <Button.Template>
                 <ControlTemplate>
                     <Image Source="/Images/Image_not_available.png"/>
@@ -52,7 +58,53 @@
         </Button>
 
         <!-- Tekst Label -->
-        <Label Content="Tekst over Boten" Grid.Row="2" Grid.Column="3" />
+        <Grid  Grid.Row="1" Grid.Column="3" >
+            <Grid.RowDefinitions>
+                <RowDefinition  Height="50"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="100"/>
+            </Grid.RowDefinitions>
+            <Label Content="Informatie over de boot" Grid.Row="0" FontSize="20"/>
+            <Label Grid.Row="1">
+                <TextBlock>
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="De boot heeft: {0} zitplekken">
+                            <Binding Path="boat.Seats" />
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+            </Label>
+            <Label Grid.Row="2">
+                <TextBlock>
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="Het niveau {0} van de boot">
+                            <Binding Path="boat.Level" />
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+            </Label>
+            <Label Grid.Row="3">
+                <TextBlock>
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Text" Value="{Binding boat.CaptainSeat, StringFormat='Stuurman {0}'}"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding boat.CaptainSeat}" Value="True">
+                                    <Setter Property="Text" Value="Stuurman aanwezig"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding boat.CaptainSeat}" Value="False">
+                                    <Setter Property="Text" Value="Stuurman niet aanwezig"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Label>
+            <Label Grid.Row="4" Content="{Binding boat.Description}">
+            </Label>
+        </Grid>
 
         <Button Grid.Column="3" Grid.Row="4" MaxHeight="50" Content="Wijzigingen opslaan" Click="ConfirmButton" FontSize="20" Background="#88BFEA">
             <Button.Resources>
@@ -62,7 +114,7 @@
             </Button.Resources>
         </Button>
 
-        <Grid Grid.Row="3" Grid.Column="1" Grid.RowSpan="2" Margin="50 0 0 0">
+        <Grid Grid.Row="3" Grid.Column="0" Grid.RowSpan="2" Margin="50 0 0 0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="1*" />

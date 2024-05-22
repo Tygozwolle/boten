@@ -33,7 +33,7 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Grid Name="Grid" Margin="50 20 50 0" Width="650" Height="200">
-                            <Button CommandParameter="{Binding Id}" MouseLeftButtonDown="SelectReservation">
+                            <Button CommandParameter="{Binding Id}" Click="SelectReservation">
                                 <Border BorderBrush="Black" BorderThickness="1" Width="650" Height="200">
                                     <Grid Name="GridList">
                                         <Image Source="/Images/Image_not_available.png" MaxHeight="100px"

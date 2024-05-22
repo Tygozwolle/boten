@@ -1,36 +1,28 @@
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Navigation;
-using Aspose.Email.Mime;
 using DataAccessLibary;
 using RoeiVerenigingLibary;
 using RoeiVerenigingWPF.Frames;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace RoeiVerenigingWPF.Pages;
 
 public partial class EditReservation : Page
 {
-    public Boat SelectedBoat { get; set; }
     public MainWindow Main { get; set; }
-    public DateTime StartingTime { get; set; }
-    public DateTime EndTime { get; set; }
-    
     public Member member { get; set; }
+    public Reservation reservation { get; set; }
+    BoatService boatService = new BoatService(new BoatRepository());
+    public Boat boat { get; set; }
 
-    
-    public EditReservation(MainWindow main,ViewReservations reservation)
+
+    public EditReservation(MainWindow main, int reservationId)
     {
         Main = main;
-        SelectedBoat = reservation.Boat;
-        member = reservation.Member;
-        StartingTime = reservation.StartTime;
-        EndTime = reservation.EndTime;
-        
-        BeginTimePicker.Value = StartingTime;
-        EndTimePicker.Value = EndTime;
         InitializeComponent();
         ReservationService service = new ReservationService(new ReservationRepository());
+        reservation = service.GetReservation(reservationId);
+        boat = boatService.Getboat(reservation.BoatId);
         DataContext = this;
 
 
@@ -45,7 +37,7 @@ public partial class EditReservation : Page
     {
         MessageBox.Show("changed reservation");
     }
-    
+
     private void TimePicker_TextChanged(object sender, TextChangedEventArgs e)
     {
         var textBox = FocusManager.GetFocusedElement(this) as TextBox;
