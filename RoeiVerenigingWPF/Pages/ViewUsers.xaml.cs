@@ -169,24 +169,29 @@ namespace RoeiVerenigingWPF.Pages
                     case "Id":
                         selectedMemberList = _memberList.OrderBy(member => member.Id).ToList();
                         break;
-                    case "Voornaam":
+                    case "FirstName":
                         selectedMemberList = _memberList.OrderBy(member => member.FirstName).ToList();
                         break;
-                    case "Tussenv":
+                    case "Infix":
                         selectedMemberList = _memberList.OrderBy(member => member.Infix).ToList();
                         break;
-                    case "Achternaam":
+                    case "LastName":
                         selectedMemberList = _memberList.OrderBy(member => member.LastName).ToList();
                         break;
                     case "Email":
                         selectedMemberList = _memberList.OrderBy(member => member.Email).ToList();
                         break;
-                    case "Rollen":
+                    case "Roles":
                         selectedMemberList = _memberList.OrderBy(member => member.RolesString).ToList();
                         break;
                 }
                 PopulateUserList(selectedMemberList);
             }
+        }
+
+        private void Search_Button_OnClick(object sender, RoutedEventArgs e)
+        {
+            SearchBar.Visibility = Visibility.Visible;
         }
     }
 }
