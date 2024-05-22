@@ -40,6 +40,7 @@ namespace RoeiVerenigingWPF.Pages
 
         public void PopulateUserList(List<Member> memberList)
         {
+            UserStackPanel.Children.Clear();
             for (int i = 0; i < memberList.Count; i++)
             {
                 var member = memberList[i];
@@ -48,11 +49,11 @@ namespace RoeiVerenigingWPF.Pages
                 grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(10) });
 
                 grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(50) });
-                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(100) });
-                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(100) });
-                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(100) });
+                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(150) });
+                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(150) });
                 grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(200) });
-                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(200) });
+                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(250) });
+                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(250) });
 
                 grid.Children.Add(new TextBlock
                 {
@@ -106,12 +107,12 @@ namespace RoeiVerenigingWPF.Pages
                     Child = grid,
                     Background = i % 2 == 0 ? _evenRowColor : _oddRowColor // Alternate row background color
                 };
-                
+
                 border.MouseLeftButtonUp += (sender, e) =>
                 {
                     // Select the user here
                 };
-                
+
                 // Track last click time and clicked border
                 DateTime lastClickTime = DateTime.MinValue;
                 Border lastClickedBorder = null;
@@ -123,7 +124,7 @@ namespace RoeiVerenigingWPF.Pages
                     if (lastClickedBorder == sender && (DateTime.Now - lastClickTime).TotalMilliseconds < 500)
                     {
                         var clickedUser = _memberList[UserStackPanel.Children.IndexOf((UIElement)sender)];
-        
+
                         // Open a new page with the selected user information
                         AdminEditUser userDetailsPage = new AdminEditUser(_mainWindow, clickedUser.Id);
                         NavigationService.Navigate(userDetailsPage);
@@ -146,6 +147,40 @@ namespace RoeiVerenigingWPF.Pages
             }
 
             _mainWindow.MainContent.Navigate(new AdminEditUser(_mainWindow, SelectedMember.Id));
+        }
+
+
+        private void FilterUsers(object sender, RoutedEventArgs e)
+        {
+            Button clickedButton = sender as Button;
+            List<Member> selectedMemberList = new List<Member>();
+
+            if (clickedButton != null)
+            {
+                // Use the Name property to identify which button was clicked
+                switch (clickedButton.Name)
+                {
+                    case "Id":
+                        selectedMemberList = _memberList.OrderBy(member => member.Id).ToList();
+                        break;
+                    case "Voornaam":
+                        selectedMemberList = _memberList.OrderBy(member => member.FirstName).ToList();
+                        break;
+                    case "Tussenv":
+                        selectedMemberList = _memberList.OrderBy(member => member.Infix).ToList();
+                        break;
+                    case "Achternaam":
+                        selectedMemberList = _memberList.OrderBy(member => member.LastName).ToList();
+                        break;
+                    case "Email":
+                        selectedMemberList = _memberList.OrderBy(member => member.Email).ToList();
+                        break;
+                    case "Rollen":
+                        selectedMemberList = _memberList.OrderBy(member => member.RolesString).ToList();
+                        break;
+                }
+                PopulateUserList(selectedMemberList);
+            }
         }
     }
 }

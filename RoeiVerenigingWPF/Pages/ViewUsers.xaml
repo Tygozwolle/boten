@@ -34,21 +34,27 @@
                             <ColumnDefinition Width="250" /> <!-- Email -->
                             <ColumnDefinition Width="250" /> <!-- Rollen -->
                         </Grid.ColumnDefinitions>
-                        <Button Grid.Column="0" Content="Id" Foreground="#0e5172" Background="#bbe3f7"
-                                BorderBrush="#1892cd" FontFamily="Franklin Gothic Medium" FontSize="18" />
-                        <Button Grid.Column="1" Content="Voornaam" Foreground="#0e5172" Background="#bbe3f7"
-                                BorderBrush="#1892cd" FontFamily="Franklin Gothic Medium" FontSize="18" />
-                        <Button Grid.Column="2" Content="Tussenv." Foreground="#0e5172" Background="#bbe3f7"
-                                BorderBrush="#1892cd" FontFamily="Franklin Gothic Medium" FontSize="18" />
-                        <Button Grid.Column="3" Content="Achternaam" Foreground="#0e5172" Background="#bbe3f7"
-                                BorderBrush="#1892cd" FontFamily="Franklin Gothic Medium" FontSize="18" />
-                        <Button Grid.Column="4" Content="Email" Foreground="#0e5172" Background="#bbe3f7"
-                                BorderBrush="#1892cd" FontFamily="Franklin Gothic Medium" FontSize="18" />
-                        <Button Grid.Column="5" Content="Rollen" Foreground="#0e5172" Background="#bbe3f7"
-                                BorderBrush="#1892cd" FontFamily="Franklin Gothic Medium" FontSize="18" />
+                        <Button Grid.Column="0" Name="Id" Content="Id" Foreground="#0e5172" Background="#bbe3f7"
+                                BorderBrush="#1892cd" FontFamily="Franklin Gothic Medium" FontSize="18"
+                                Click="FilterUsers" />
+                        <Button Grid.Column="1" Name="Voornaam" Content="Voornaam" Foreground="#0e5172" Background="#bbe3f7"
+                                BorderBrush="#1892cd" FontFamily="Franklin Gothic Medium" FontSize="18"
+                                Click="FilterUsers" />
+                        <Button Grid.Column="2" Name="Tussenv" Content="Tussenv." Foreground="#0e5172" Background="#bbe3f7"
+                                BorderBrush="#1892cd" FontFamily="Franklin Gothic Medium" FontSize="18"
+                                Click="FilterUsers" />
+                        <Button Grid.Column="3" Name="Achternaam" Content="Achternaam" Foreground="#0e5172" Background="#bbe3f7"
+                                BorderBrush="#1892cd" FontFamily="Franklin Gothic Medium" FontSize="18"
+                                Click="FilterUsers" />
+                        <Button Grid.Column="4" Name="Email" Content="Email" Foreground="#0e5172" Background="#bbe3f7"
+                                BorderBrush="#1892cd" FontFamily="Franklin Gothic Medium" FontSize="18"
+                                Click="FilterUsers" />
+                        <Button Grid.Column="5" Name="Rollen" Content="Rollen" Foreground="#0e5172" Background="#bbe3f7"
+                                BorderBrush="#1892cd" FontFamily="Franklin Gothic Medium" FontSize="18"
+                                Click="FilterUsers" />
                     </Grid>
-                    <ScrollViewer Grid.Row="2" Width="1050" VerticalScrollBarVisibility="Auto" >
-                        <StackPanel  x:Name="UserStackPanel" Grid.Row="1" CanVerticallyScroll="True"
+                    <ScrollViewer Grid.Row="2" Width="1050" VerticalScrollBarVisibility="Auto">
+                        <StackPanel x:Name="UserStackPanel" Grid.Row="1" CanVerticallyScroll="True"
                                     ScrollViewer.VerticalScrollBarVisibility="Visible">
 
                         </StackPanel>

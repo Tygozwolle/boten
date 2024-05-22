@@ -34,7 +34,7 @@
                            FontFamily="Franklin Gothic Medium" FontSize="24" Margin="0,40,0,0"
                            Foreground="#1372a0" />
                     <TextBox Grid.Row="3" x:Name="Email" Width="367" Height="40" Foreground="#043049" BorderBrush="#1892cd"
-                             Background="#e8f6fc" FontSize="24">
+                             Background="#e8f6fc" FontSize="24" Text="tygo@windesheim.nl">
                     </TextBox>
 
                     <Label Grid.Row="4" Content="Wachtwoord:" FontFamily="Franklin Gothic Medium" Margin="0,20,0,0"
