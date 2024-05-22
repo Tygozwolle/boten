@@ -2,11 +2,11 @@ create table boats
 (
     id                    int auto_increment
         primary key,
-    captain_seat_avalible tinyint(1)                     not null,
+    captain_seat_available tinyint(1)                     not null,
     seats                 int                            not null,
     level                 tinyint                        not null,
     description           varchar(600) default ' '       not null,
-    naam                  varchar(25)  default 'Titanic' not null
+    name                  varchar(25)  default 'Titanic' not null
 );
 
 create table boat_images
@@ -112,8 +112,8 @@ create index member_id
 create table member_roles
 (
     member_id int                                                                        not null,
-    rol       enum ('materiaal_commissaris', 'evenementen_commissaris', 'beheerder', '') not null,
-    primary key (member_id, rol),
+    role       enum ('materiaal_commissaris', 'evenementen_commissaris', 'beheerder', '') not null,
+    primary key (member_id, role),
     constraint member_roles_ibfk_1
         foreign key (member_id) references members (member_id)
             on delete cascade
