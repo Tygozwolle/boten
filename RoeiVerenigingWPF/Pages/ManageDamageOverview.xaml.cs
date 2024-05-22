@@ -63,20 +63,21 @@ public partial class ManageDamageOverview : Page
 
     private void SetImages()
     {
-        foreach (Damage damage in Damages)
+        new Thread(() =>
         {
-
-            Damage damageSave = damage;
-            //   Thread.Sleep(100);
-            damage.Images = [_imageRepository.GetFirstImage(damageSave.Id)];
-            this.Dispatcher.Invoke(() =>
+            foreach (Damage damage in Damages)
             {
-                ListView.Items.Refresh();
-                // ListView.ItemsSource = Damages;
+                Damage damageSave = damage;
+                
+                damage.Images = [_imageRepository.GetFirstImage(damageSave.Id)];
+            }
+            this.Dispatcher.Invoke(() =>
+                                        {
+                                            ListView.Items.Refresh();
+                                            // ListView.ItemsSource = Damages;
 
-            });
-
-        }
+                                        });
+        }).Start();
     }
 
     private void loadedEvent(object sender, RoutedEventArgs args)
