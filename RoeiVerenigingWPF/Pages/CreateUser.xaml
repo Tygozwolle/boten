@@ -3,7 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:local="clr-namespace:RoeiVerenigingWPF.Pages"
+      xmlns:local="clr-namespace:RoeiVerenigingWPF.helpers"
       mc:Ignorable="d"
       d:DesignHeight="800" d:DesignWidth="900" Background="Transparent"
       Title="CreateUser">
@@ -12,9 +12,9 @@
         <Grid.Effect>
             <DropShadowEffect Color="Black" Direction="320" ShadowDepth="10" Opacity="0.3" />
         </Grid.Effect>
-        <Border CornerRadius="30" BorderThickness="5" BorderBrush="#1892cd">
-            <Border CornerRadius="24" BorderThickness="8" BorderBrush="White">
-                <Grid Margin="0,0,0,0" Background="#FFFFFF" Height="780" Width="900">
+        <Border CornerRadius="30" BorderThickness="5" BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}">
+            <Border CornerRadius="24" BorderThickness="8" BorderBrush="{x:Static local:CustomColors.MainBackgroundColor}">
+                <Grid Margin="0,0,0,0" Background="{x:Static local:CustomColors.MainBackgroundColor}" Height="780" Width="900">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
@@ -34,51 +34,51 @@
                     <Label Grid.Row="0" HorizontalContentAlignment="Center" VerticalAlignment="Top" Margin="0,60,0,0"
                            Content="Account aanmaken"
                            FontFamily="Franklin Gothic Medium" FontSize="36"
-                           Foreground="#0e5172" />
+                           Foreground="{x:Static local:CustomColors.HeaderColor}" />
                     <TextBlock Grid.Row="1" Width="580" TextWrapping="Wrap" HorizontalAlignment="Center"
                                TextAlignment="Center"
                                Text="Maak een account aan voor een nieuw lid, zodat zij ook boten kunnen reserveren!"
-                               FontSize="24" Foreground="#1372a0" />
+                               FontSize="24" Foreground="{x:Static local:CustomColors.SubHeaderColor}" />
                     <Label Grid.Row="2" Content="*Voornaam:" Width="200" FontFamily="Franklin Gothic Medium"
                            Margin="0,20,0,0"
                            FontSize="24" HorizontalContentAlignment="Center"
-                           Foreground="#1372a0" />
-                    <TextBox Grid.Row="3" x:Name="FirstName" Width="367" Height="40" Foreground="#043049"
-                             Background="#e8f6fc"
-                             BorderBrush="#1892cd" FontSize="24" FontFamily="Franklin Gothic Medium" />
+                           Foreground="{x:Static local:CustomColors.SubHeaderColor}" />
+                    <TextBox Grid.Row="3" x:Name="FirstName" Width="367" Height="40" Foreground="{x:Static local:CustomColors.SubHeaderColor}"
+                             Background="{x:Static local:CustomColors.TextBoxBackgroundColor}"
+                             BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}" FontSize="24" FontFamily="Franklin Gothic Medium" />
 
                     <Label Grid.Row="4" Content="Tussenvoegsel:" Width="367" FontFamily="Franklin Gothic Medium"
                            FontSize="24" HorizontalContentAlignment="Center"
-                           Foreground="#1372a0" />
-                    <TextBox Grid.Row="5" x:Name="Infix" Width="367" Height="40" Foreground="#043049"
-                             Background="#e8f6fc"
-                             BorderBrush="#1892cd" FontSize="24" FontFamily="Franklin Gothic Medium" />
+                           Foreground="{x:Static local:CustomColors.SubHeaderColor}" />
+                    <TextBox Grid.Row="5" x:Name="Infix" Width="367" Height="40" Foreground="{x:Static local:CustomColors.SubHeaderColor}"
+                             Background="{x:Static local:CustomColors.TextBoxBackgroundColor}"
+                             BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}" FontSize="24" FontFamily="Franklin Gothic Medium" />
 
                     <Label Grid.Row="6" Content="*Achternaam:" Width="200" FontFamily="Franklin Gothic Medium"
                            FontSize="24" HorizontalContentAlignment="Center"
-                           Foreground="#1372a0" />
-                    <TextBox Grid.Row="7" x:Name="LastName" Width="367" Height="40" Foreground="#043049"
-                             Background="#e8f6fc"
-                             BorderBrush="#1892cd" FontSize="24" FontFamily="Franklin Gothic Medium" />
+                           Foreground="{x:Static local:CustomColors.SubHeaderColor}" />
+                    <TextBox Grid.Row="7" x:Name="LastName" Width="367" Height="40" Foreground="{x:Static local:CustomColors.SubHeaderColor}"
+                             Background="{x:Static local:CustomColors.TextBoxBackgroundColor}"
+                             BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}" FontSize="24" FontFamily="Franklin Gothic Medium" />
 
                     <Label Grid.Row="8" Content="*Email:" Width="200" FontFamily="Franklin Gothic Medium" FontSize="24"
                            HorizontalContentAlignment="Center"
-                           Foreground="#1372a0" />
-                    <TextBox Grid.Row="9" x:Name="Email" Width="367" Height="40" Foreground="#043049"
-                             Background="#e8f6fc"
-                             BorderBrush="#1892cd" FontSize="24" FontFamily="Franklin Gothic Medium" />
+                           Foreground="{x:Static local:CustomColors.SubHeaderColor}" />
+                    <TextBox Grid.Row="9" x:Name="Email" Width="367" Height="40" Foreground="{x:Static local:CustomColors.SubHeaderColor}"
+                             Background="{x:Static local:CustomColors.TextBoxBackgroundColor}"
+                             BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}" FontSize="24" FontFamily="Franklin Gothic Medium" />
 
                     <Label Grid.Row="10" Content="*Wachtwoord:" Width="200" FontFamily="Franklin Gothic Medium"
                            FontSize="24" HorizontalContentAlignment="Center"
-                           Foreground="#1372a0" />
-                    <PasswordBox Grid.Row="11" x:Name="Password" Width="367" Height="40" Foreground="#043049"
-                                 Background="#e8f6fc"
-                                 BorderBrush="#1892cd" FontSize="24" FontFamily="Franklin Gothic Medium" />
+                           Foreground="{x:Static local:CustomColors.SubHeaderColor}" />
+                    <PasswordBox Grid.Row="11" x:Name="Password" Width="367" Height="40" Foreground="{x:Static local:CustomColors.SubHeaderColor}"
+                                 Background="{x:Static local:CustomColors.TextBoxBackgroundColor}"
+                                 BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}" FontSize="24" FontFamily="Franklin Gothic Medium" />
 
                     <Button Grid.Row="12" Content="Account aanmaken" Width="295" Height="70"
                             Margin="20,40,20,20"
-                            FontFamily="Franklin Gothic Medium" FontSize="32" Foreground="#0e5172" Background="#bbe3f7"
-                            BorderBrush="#1892cd"
+                            FontFamily="Franklin Gothic Medium" FontSize="32" Foreground="{x:Static local:CustomColors.HeaderColor}" Background="{x:Static local:CustomColors.ButtonBackgroundColor}"
+                            BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}"
                             Click="Button_Click">
                         <Button.Resources>
                             <Style TargetType="Border">
