@@ -38,7 +38,7 @@ public class ReservationService
 
         if (!member.Roles.Contains("beheerder"))
         {
-            if (endTime - startTime >= maxReservationTime)
+            if (endTime - startTime > maxReservationTime)
             {
                 string message = "Je kan voor maximaal " + maxReservationTime.Hours + " uur reserveren!";
                 throw new Exception(message);
