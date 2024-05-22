@@ -32,7 +32,7 @@
             <TextBlock FontSize="30">
                 <TextBlock.Text>
                     <MultiBinding StringFormat="Boot {0} Reserveren">
-                        <Binding Path="boat.Id" />
+                        <Binding Path="boat.Name" />
                     </MultiBinding>
                 </TextBlock.Text>
             </TextBlock>
