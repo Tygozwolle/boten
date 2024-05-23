@@ -8,13 +8,13 @@ namespace TestConsoleApp
     {
         private static void Main(string[] args)
         {
-            Config.SetDBAdress("adres");
-            Config.SetDBPassword("secret");
-            Config.SetDBUsername("username");
-            Config.SetDBPort("22");
-            Config.SetControlUsername("admin");
-            Config.SetControlPassword("password");
-            Console.WriteLine(Config.GetDBAdress());
+            //Config.DBAdress = "adress";
+            //Config.SetDBPassword("secret");
+            //Config.SetDBUsername("username");
+            //Config.SetDBPort("22");
+            //Config.SetControlUsername("admin");
+            //Config.SetControlPassword("password");
+            //Console.WriteLine(Config.GetDBAdress());
             //Console.WriteLine("Hello, World!");
             //MemberService memberService = new MemberService(new MemberRepository());
             //Member tygo = memberService.Login("tygo@windesheim.be", "Test123$");
