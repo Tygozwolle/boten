@@ -39,7 +39,7 @@
                                 </Grid.RowDefinitions>
                                 <Button Grid.Column="0" Name="UserAdd_Button" Background="Transparent"
                                         BorderBrush="Transparent"
-                                        Click="Button_OnClick" Padding="10,0">
+                                        Click="Button_OnClick" Padding="10,0" Visibility="Hidden">
                                     <Image HorizontalAlignment="Left" Name="UserAdd_Icon" Height="40" Width="40" />
                                     <Button.Resources>
                                         <Style TargetType="Border">
@@ -49,7 +49,7 @@
                                 </Button>
                                 <Button Grid.Column="1" Name="Users_Button" Background="Transparent"
                                         BorderBrush="Transparent"
-                                        Click="Button_OnClick" Padding="10,0">
+                                        Click="Button_OnClick" Padding="10,0" Visibility="Hidden">
                                     <Image HorizontalAlignment="Left" Name="Users_Icon" Height="40" Width="40" />
                                     <Button.Resources>
                                         <Style TargetType="Border">
