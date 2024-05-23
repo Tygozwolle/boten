@@ -69,8 +69,7 @@ namespace RoeiVerenigingUnitTests
 
             // Act & Assert
             var ex = Assert.Throws<Exception>(() => reservationService.Create(member, 4, start, end));
-            Assert.That(ex.Message, Is.EqualTo("Actual exception message"));
-            Assert.Throws<SystemException>(() => reservationService.Create(member, 4, start, end));
+            Assert.That(ex.Message, Is.EqualTo("Je kan voor maximaal 2 uur reserveren!"));
         }
 
         public void OnlyTwoBoatsPerMember()
@@ -112,18 +111,16 @@ namespace RoeiVerenigingUnitTests
         {
             // Arrange
             var member = new Member(1, "simon", "van den", "Berg", "simon@windesheim.nl", new List<string>(), 1);
-            var originalReservation = new Reservation(member, 4, new DateTime(2024, 5, 7, 14, 0, 0),
-                new DateTime(2024, 5, 7, 15, 0, 0));
             var updatedReservation = new Reservation(member, 4, new DateTime(2024, 5, 7, 15, 0, 0),
                 new DateTime(2024, 5, 7, 16, 0, 0));
 
             var reservationRepository = new Mock<IReservationRepository>();
-            reservationRepository.Setup(x => x.ChangeReservation(member, 4, It.IsAny<DateTime>(), It.IsAny<DateTime>()))
+            reservationRepository.Setup(x => x.ChangeReservation(1, member, 4, It.IsAny<DateTime>(), It.IsAny<DateTime>()))
                 .Returns(updatedReservation);
             var reservationService = new ReservationService(reservationRepository.Object);
 
             // Act
-            var result = reservationService.ChangeReservation(member, 4, new DateTime(2024, 5, 7, 15, 0, 0),
+            var result = reservationService.ChangeReservation(1, member, 4, new DateTime(2024, 5, 7, 15, 0, 0),
                 new DateTime(2024, 5, 7, 16, 0, 0));
 
             // Assert

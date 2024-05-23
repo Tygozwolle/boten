@@ -232,7 +232,6 @@ public class ReservationRepository : IReservationRepository
 
     public Reservation GetReservation(int reservationid)
     {
-        Reservation reservations;
         using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
         {
             connection.Open();
@@ -252,7 +251,7 @@ public class ReservationRepository : IReservationRepository
                         var startTime = reader.GetDateTime(4);
                         var endTime = reader.GetDateTime(5);
 
-                        return reservations = new Reservation(MemberRepository.Get(memberId), boatId, startTime, endTime);
+                        return new Reservation(MemberRepository.Get(memberId), boatId, startTime, endTime);
                     }
                 }
             }

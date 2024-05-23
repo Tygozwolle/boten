@@ -92,9 +92,9 @@ public class ReservationService
         return _reservationRepository.GetAmountOfBoatsCurrRenting(id);
     }
 
-    public Reservation ChangeReservation(Member member, int boatId, DateTime start, DateTime end)
+    public Reservation ChangeReservation(int reservationdId, Member member, int boatId, DateTime start, DateTime end)
     {
-        return _reservationRepository.ChangeReservation(member, boatId, start, end);
+        return _reservationRepository.ChangeReservation(reservationdId, member, boatId, start, end);
     }
 
     public Reservation GetReservation(int reservationid)
