@@ -14,10 +14,10 @@ namespace RoeiVerenigingLibary
         public String Description { get; set; }
         public bool BoatFixed { get; set; }
         public bool Usable { get; set; }
+        public DateTime ReportTime { get; set; }
         public List<Stream> Images { get; set; }
 
-        public Damage(int id, Member member, Boat boat, string description, bool boatFixed, bool usable)
-        {
+        public Damage(int id, Member member, Boat boat, string description, bool boatFixed, bool usable)      {
             this.Id = id;
             this.Member = member;
             this.Boat = boat;
@@ -37,6 +37,17 @@ namespace RoeiVerenigingLibary
             this.Description = description;
             this.BoatFixed = boatFixed;
             this.Usable = usable;
+        }
+        public Damage(int id, Member member, Boat boat, string description, bool boatFixed, bool usable, DateTime reportTime)
+        {
+            this.Id = id;
+            this.Member = member;
+            this.Boat = boat;
+            this.Description = description;
+            this.BoatFixed = boatFixed;
+            this.Usable = usable;
+            this.ReportTime = reportTime;
+
         }
     }
 }
