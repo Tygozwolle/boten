@@ -154,7 +154,6 @@ namespace RoeiVerenigingUnitTests
             var endTime = new DateTime(2024, 04, 02, 2, 00, 00);
 
             var service = new ReservationService(new ReservationRepository());
-            // var error = service.TimeChecker(startTime, endTime);
             Assert.Throws<InvalidTimeException>(() => service.TimeChecker(startTime, endTime));
         }
 
