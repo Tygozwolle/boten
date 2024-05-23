@@ -118,14 +118,18 @@ namespace RoeiVerenigingWPF.Frames
                 Login login = (Login)LoginContent.Content;
                 if (Config.ControlPassword == null || Config.ControlUsername == null)
                 {
-                    LoginContent.Navigate(new ManageApp());
+                    LoginContent.Navigate(new ManageApp(this));
+                    ManageApp.IsEnabled = false;
+                    ManageApp.Visibility = Visibility.Hidden;
                     return;
                 }
                 var email = login.Email.Text;
                 var password = login.Password.Password;
                 if (password == Config.ControlPassword && email == Config.ControlUsername)
                 {
-                    LoginContent.Navigate(new ManageApp());
+                    LoginContent.Navigate(new ManageApp(this));
+                    ManageApp.IsEnabled = false;
+                    ManageApp.Visibility = Visibility.Hidden;
                 }
             }
             catch

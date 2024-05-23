@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using RoeiVerenigingWPF.Frames;
 
 namespace RoeiVerenigingWPF.Pages.Admin
 {
@@ -20,8 +21,10 @@ namespace RoeiVerenigingWPF.Pages.Admin
     /// </summary>
     public partial class ManageApp : Page
     {
-        public ManageApp()
+        private MainWindow _MainWindow;
+        public ManageApp(MainWindow mw)
         {
+            _MainWindow = mw;
             InitializeComponent();
         }
 
