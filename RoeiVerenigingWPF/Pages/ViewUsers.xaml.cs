@@ -147,8 +147,6 @@ namespace RoeiVerenigingWPF.Pages
 
             _mainWindow.MainContent.Navigate(new AdminEditUser(_mainWindow, SelectedMember.Id));
         }
-        
-        
     }
 }
 
