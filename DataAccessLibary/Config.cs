@@ -51,6 +51,7 @@ namespace DataAccessLibary
         {
             DBAdress = dbAdress;
         }
+
         public static string DBUsername
         {
             get
@@ -85,10 +86,12 @@ namespace DataAccessLibary
                 ConfigurationManager.RefreshSection(configManager.AppSettings.SectionInformation.Name);
             }
         }
+
         public static void SetDBUsername(string dbUsername)
         {
             DBUsername = dbUsername;
         }
+
         public static string DBPassword
         {
             get
@@ -128,6 +131,7 @@ namespace DataAccessLibary
         {
             DBPassword = password;
         }
+
         public static string DBPort
         {
             get
@@ -207,6 +211,7 @@ namespace DataAccessLibary
         {
             ControlUsername = username;
         }
+
         public static string ControlPassword
         {
             get
