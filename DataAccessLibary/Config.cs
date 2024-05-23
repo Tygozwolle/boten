@@ -27,7 +27,7 @@ namespace DataAccessLibary
                     return null;
                 }
             }
-            set
+            protected set
             {
                 Configuration configManager = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
                 KeyValueConfigurationCollection confCollection = configManager.AppSettings.Settings;
@@ -63,7 +63,7 @@ namespace DataAccessLibary
                     return null;
                 }
             }
-            set
+            protected set
             {
                 Configuration configManager = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
                 KeyValueConfigurationCollection confCollection = configManager.AppSettings.Settings;
@@ -98,7 +98,7 @@ namespace DataAccessLibary
                     return null;
                 }
             }
-             set
+            protected set
             {
                 Configuration configManager = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
                 KeyValueConfigurationCollection confCollection = configManager.AppSettings.Settings;
@@ -133,7 +133,7 @@ namespace DataAccessLibary
                     return null;
                 }
             }
-            set
+            protected set
             {
                 Configuration configManager = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
                 KeyValueConfigurationCollection confCollection = configManager.AppSettings.Settings;
@@ -168,7 +168,7 @@ namespace DataAccessLibary
                     return null;
                 }
             }
-            set
+            protected set
             {
                 Configuration configManager = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
                 KeyValueConfigurationCollection confCollection = configManager.AppSettings.Settings;
@@ -203,7 +203,7 @@ namespace DataAccessLibary
                     return null;
                 }
             }
-            set
+            protected set
             {
                 Configuration configManager = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
                 KeyValueConfigurationCollection confCollection = configManager.AppSettings.Settings;
