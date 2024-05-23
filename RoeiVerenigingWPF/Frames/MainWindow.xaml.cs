@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Navigation;
 using DataAccessLibary;
 using QRCoder;
+using RoeiVerenigingWPF.Pages.Admin;
 
 namespace RoeiVerenigingWPF.Frames
 {
@@ -117,14 +118,14 @@ namespace RoeiVerenigingWPF.Frames
                 Login login = (Login)LoginContent.Content;
                 if (Config.ControlPassword == null || Config.ControlUsername == null)
                 {
-                    LoginContent.Navigate(new MainPage(this));
+                    LoginContent.Navigate(new ManageApp());
                     return;
                 }
                 var email = login.Email.Text;
                 var password = login.Password.Password;
                 if (password == Config.ControlPassword && email == Config.ControlUsername)
                 {
-                    LoginContent.Navigate(new MainPage(this));
+                    LoginContent.Navigate(new ManageApp());
                 }
             }
             catch
