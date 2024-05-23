@@ -212,7 +212,7 @@ namespace RoeiVerenigingWPF.Pages
                             break;
                         case "SearchInfix":
                             selectedMemberList = _memberList
-                                .Where(member => member.Infix.ToString().Contains(selectedTextbox.Text))
+                                .Where(member => member.Infix !=null && member.Infix.ToString().Contains(selectedTextbox.Text))
                                 .ToList();
                             break;
                         case "SearchLastName":
