@@ -9,7 +9,7 @@ using ConfigurationManager = System.Configuration.ConfigurationManager;
 
 namespace DataAccessLibary
 {
-    public class Config
+    public abstract class Config
     {
         public static string DBAdress
         {
@@ -27,7 +27,7 @@ namespace DataAccessLibary
                     return null;
                 }
             }
-            protected set
+            private set
             {
                 Configuration configManager = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
                 KeyValueConfigurationCollection confCollection = configManager.AppSettings.Settings;
@@ -47,6 +47,10 @@ namespace DataAccessLibary
             }
         }
 
+        public static void SetDBAdress(string dbAdress)
+        {
+            DBAdress = dbAdress;
+        }
         public static string DBUsername
         {
             get
@@ -63,7 +67,7 @@ namespace DataAccessLibary
                     return null;
                 }
             }
-            protected set
+            private set
             {
                 Configuration configManager = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
                 KeyValueConfigurationCollection confCollection = configManager.AppSettings.Settings;
@@ -81,7 +85,10 @@ namespace DataAccessLibary
                 ConfigurationManager.RefreshSection(configManager.AppSettings.SectionInformation.Name);
             }
         }
-
+        public static void SetDBUsername(string dbUsername)
+        {
+            DBUsername = dbUsername;
+        }
         public static string DBPassword
         {
             get
@@ -98,7 +105,7 @@ namespace DataAccessLibary
                     return null;
                 }
             }
-            protected set
+            private set
             {
                 Configuration configManager = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
                 KeyValueConfigurationCollection confCollection = configManager.AppSettings.Settings;
@@ -117,6 +124,10 @@ namespace DataAccessLibary
             }
         }
 
+        public static void SetDBPassword(string password)
+        {
+            DBPassword = password;
+        }
         public static string DBPort
         {
             get
@@ -133,7 +144,7 @@ namespace DataAccessLibary
                     return null;
                 }
             }
-            protected set
+            private set
             {
                 Configuration configManager = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
                 KeyValueConfigurationCollection confCollection = configManager.AppSettings.Settings;
@@ -152,6 +163,11 @@ namespace DataAccessLibary
             }
         }
 
+        public static void SetDBPort(string port)
+        {
+            DBPort = port;
+        }
+
         public static string ControlUsername
         {
             get
@@ -168,7 +184,7 @@ namespace DataAccessLibary
                     return null;
                 }
             }
-            protected set
+            private set
             {
                 Configuration configManager = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
                 KeyValueConfigurationCollection confCollection = configManager.AppSettings.Settings;
@@ -187,6 +203,10 @@ namespace DataAccessLibary
             }
         }
 
+        public static void SetControlUsername(string username)
+        {
+            ControlUsername = username;
+        }
         public static string ControlPassword
         {
             get
@@ -203,7 +223,7 @@ namespace DataAccessLibary
                     return null;
                 }
             }
-            protected set
+            private set
             {
                 Configuration configManager = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
                 KeyValueConfigurationCollection confCollection = configManager.AppSettings.Settings;
@@ -220,6 +240,11 @@ namespace DataAccessLibary
                 configManager.Save(ConfigurationSaveMode.Modified);
                 ConfigurationManager.RefreshSection(configManager.AppSettings.SectionInformation.Name);
             }
+        }
+
+        public static void SetControlPassword(string password)
+        {
+            ControlPassword = password;
         }
     }
 }
