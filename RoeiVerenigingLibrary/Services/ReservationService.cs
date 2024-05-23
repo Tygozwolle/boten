@@ -5,8 +5,8 @@ namespace RoeiVerenigingLibary;
 
 public class ReservationService
 {
-    private IReservationRepository _reservationRepository;
-    private readonly TimeSpan maxReservationTime = new TimeSpan(2, 0, 0);
+    private readonly TimeSpan maxReservationTime = new(2, 0, 0);
+    private readonly IReservationRepository _reservationRepository;
 
     public ReservationService(IReservationRepository reservationRepository)
     {
@@ -15,10 +15,7 @@ public class ReservationService
 
     public bool TimeChecker(DateTime? start, DateTime? end)
     {
-        if (start < end)
-        {
-            return true;
-        }
+        if (start < end) return true;
 
         throw new InvalidTimeException();
     }
@@ -27,38 +24,30 @@ public class ReservationService
     {
         if (startTime.Date < DateTime.Now.Date)
         {
-            string message = "Je mag geen reservering in het verleden maken!";
+            var message = "Je mag geen reservering in het verleden maken!";
             throw new Exception(message);
         }
 
         if (_reservationRepository.BoatAlreadyReserved(boatId, startTime, endTime))
-        {
             throw new BoatAlreadyReservedException();
-        }
 
         if (!member.Roles.Contains("beheerder"))
         {
             if (endTime - startTime > maxReservationTime)
             {
-                string message = "Je kan voor maximaal " + maxReservationTime.Hours + " uur reserveren!";
+                var message = "Je kan voor maximaal " + maxReservationTime.Hours + " uur reserveren!";
                 throw new Exception(message);
             }
 
             if (endTime.Date > DateTime.Now.AddDays(14))
             {
-                string message = "Je mag niet meer dan 2 weken van te voren reserveren!";
+                var message = "Je mag niet meer dan 2 weken van te voren reserveren!";
                 throw new Exception(message);
             }
 
-            if (!IsReservationInDaylight(startTime, endTime))
-            {
-                throw new ReservationNotInDaylightException();
-            }
+            if (!IsReservationInDaylight(startTime, endTime)) throw new ReservationNotInDaylightException();
 
-            if (AmountOfBoatsCurrentlyRenting(member.Id) >= 2)
-            {
-                throw new MaxAmountOfReservationExceeded();
-            }
+            if (AmountOfBoatsCurrentlyRenting(member.Id) >= 2) throw new MaxAmountOfReservationExceeded();
 
             // TODO bij niveau --> moet deze niet bij de klik op een boot?
         }
@@ -69,10 +58,10 @@ public class ReservationService
     public bool IsReservationInDaylight(DateTime startTime, DateTime endTime)
     {
         //todo set lat/long and timezone in config
-        TimeZoneInfo cet = TimeZoneInfo.FindSystemTimeZoneById("W. Europe Standard Time");
-        SolarTimes solarTimes = new SolarTimes(startTime.Date, 52.5125, 6.09444);
-        DateTime sunrise = TimeZoneInfo.ConvertTimeFromUtc(solarTimes.Sunrise.ToUniversalTime(), cet);
-        DateTime sunset = TimeZoneInfo.ConvertTimeFromUtc(solarTimes.Sunset.ToUniversalTime(), cet);
+        var cet = TimeZoneInfo.FindSystemTimeZoneById("W. Europe Standard Time");
+        var solarTimes = new SolarTimes(startTime.Date, 52.5125, 6.09444);
+        var sunrise = TimeZoneInfo.ConvertTimeFromUtc(solarTimes.Sunrise.ToUniversalTime(), cet);
+        var sunset = TimeZoneInfo.ConvertTimeFromUtc(solarTimes.Sunset.ToUniversalTime(), cet);
 
         return startTime >= sunrise && endTime <= sunset;
     }

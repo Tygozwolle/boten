@@ -4,89 +4,86 @@ using System.Windows;
 using RoeiVerenigingLibary;
 using RoeiVerenigingTestWPF.Pages;
 
-namespace RoeiVerenigingTestWPF.Frames
+namespace RoeiVerenigingTestWPF.Frames;
+
+public partial class MainWindow : INotifyPropertyChanged
 {
-    public partial class MainWindow : INotifyPropertyChanged
+    private Member? _loggedInMember;
+
+    public MainWindow()
     {
-        private Member? _loggedInMember;
+        InitializeComponent();
+        SetupExceptionHandling();
 
-        public Member? LoggedInMember
+        DataContext = this;
+        ButtonClass.MainWindow = this;
+        HeaderClass.MainWindow = this;
+        MainContent.Navigate(new AddReservation(LoggedInMember, 1));
+    }
+
+    public Member? LoggedInMember
+    {
+        get =>
+            new(12, "Test", "van", "Test", "test@windesheim.nl",
+                new List<string> { new("beheerder") }, 0);
+        set
         {
-            get
+            if (_loggedInMember != value)
             {
-                return new Member(12, "Test", "van", "Test", "test@windesheim.nl",
-                    new List<string>() { new string("beheerder") }, 0);
+                _loggedInMember = value;
+                OnPropertyChanged();
             }
-            set
+
+            if (_loggedInMember.Roles.Contains("beheerder"))
             {
-                if (_loggedInMember != value)
-                {
-                    _loggedInMember = value;
-                    OnPropertyChanged();
-                }
-
-                if (_loggedInMember.Roles.Contains("beheerder"))
-                {
-                    HeaderClass.Users_Button.Visibility = Visibility.Visible;
-                    HeaderClass.UserAdd_Button.Visibility = Visibility.Visible;
-                }
-
-                if (_loggedInMember != null)
-                {
-                    HeaderClass.LoggedInMemberName.Content =
-                        value.FirstName;
-                    HeaderClass.Visibility = Visibility.Visible;
-                    ButtonClass.Visibility = Visibility.Visible;
-                }
-                else
-                {
-                    HeaderClass.LoggedInMemberName.Content = "Uitgelogd";
-                }
+                HeaderClass.Users_Button.Visibility = Visibility.Visible;
+                HeaderClass.UserAdd_Button.Visibility = Visibility.Visible;
             }
-        }
 
-        public MainWindow()
-        {
-            InitializeComponent();
-            SetupExceptionHandling();
-
-            DataContext = this;
-            ButtonClass.MainWindow = this;
-            HeaderClass.MainWindow = this;
-            MainContent.Navigate(new AddReservation(LoggedInMember, 1));
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        private void SetupExceptionHandling()
-        {
-            AppDomain.CurrentDomain.UnhandledException += LogUnhandledException;
-        }
-
-        private void LogUnhandledException(object sender, UnhandledExceptionEventArgs args)
-        {
-            try
+            if (_loggedInMember != null)
             {
-                Exception e = (Exception)args.ExceptionObject;
-                MessageBox.Show(e.Message);
+                HeaderClass.LoggedInMemberName.Content =
+                    value.FirstName;
+                HeaderClass.Visibility = Visibility.Visible;
+                ButtonClass.Visibility = Visibility.Visible;
             }
-            catch
+            else
             {
+                HeaderClass.LoggedInMemberName.Content = "Uitgelogd";
             }
         }
+    }
 
-        public void LogOutMember()
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
+    private void SetupExceptionHandling()
+    {
+        AppDomain.CurrentDomain.UnhandledException += LogUnhandledException;
+    }
+
+    private void LogUnhandledException(object sender, UnhandledExceptionEventArgs args)
+    {
+        try
         {
-            HeaderClass.Visibility = Visibility.Hidden;
-            ButtonClass.Visibility = Visibility.Hidden;
-            MainContent.Visibility = Visibility.Hidden;
-            // LoginContent.Visibility = Visibility.Visible;
-            _loggedInMember = null;
+            var e = (Exception)args.ExceptionObject;
+            MessageBox.Show(e.Message);
         }
+        catch
+        {
+        }
+    }
+
+    public void LogOutMember()
+    {
+        HeaderClass.Visibility = Visibility.Hidden;
+        ButtonClass.Visibility = Visibility.Hidden;
+        MainContent.Visibility = Visibility.Hidden;
+        // LoginContent.Visibility = Visibility.Visible;
+        _loggedInMember = null;
     }
 }

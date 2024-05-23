@@ -1,14 +1,20 @@
 using System.Windows;
-using RoeiVerenigingWPF.Frames;
-using RoeiVerenigingWPF.Pages;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using RoeiVerenigingWPF.Frames;
+using RoeiVerenigingWPF.Pages;
 
 namespace RoeiVerenigingWPF.Components;
 
 public partial class Buttons : UserControl
 {
+    public Buttons()
+    {
+        InitializeComponent();
+        ButtonsMenu_Loaded();
+    }
+
     public MainWindow MainWindow { set; get; }
 
     public void ButtonsMenu_Loaded()
@@ -17,13 +23,7 @@ public partial class Buttons : UserControl
             new BitmapImage(new Uri("/Images/twee-mensen-in-polyester-roeiboot.png", UriKind.Relative));
     }
 
-    public Buttons()
-    {
-        InitializeComponent();
-        ButtonsMenu_Loaded();
-    }
-
-    private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
+    private void Button_Click(object sender, RoutedEventArgs e)
     {
         if (MainWindow.LoggedInMember == null)
         {
@@ -45,9 +45,10 @@ public partial class Buttons : UserControl
                     MainWindow.MainContent.Navigate(new ManageDamageOverview(MainWindow));
                     break;
                 }
+
                 MainWindow.MainContent.Navigate(new DamageOverview(MainWindow));
                 break;
-                
+
             case Button button when button == EventsButton:
                 ChangeColorOfRectangle(EventsRectangle);
                 // MainWindow.MainContent.Navigate(new ViewReservations());
@@ -62,7 +63,7 @@ public partial class Buttons : UserControl
 
     private void ChangeColorOfRectangle(Grid rectangle)
     {
-        Color reservationColor = Color.FromArgb(255, 122, 178, 178); // This represents the color #0e5172
+        var reservationColor = Color.FromArgb(255, 122, 178, 178); // This represents the color #0e5172
 
         switch (rectangle)
         {

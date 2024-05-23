@@ -9,7 +9,7 @@ namespace RoeiVerenigingWPF.Pages;
 
 public partial class EditUser : Page
 {
-    private MainWindow _mainWindow;
+    private readonly MainWindow _mainWindow;
 
     public EditUser(MainWindow mainWindow)
     {
@@ -23,14 +23,14 @@ public partial class EditUser : Page
 
     private void Button_Click(object sender, RoutedEventArgs e)
     {
-        MemberService service = new MemberService(new MemberRepository());
+        var service = new MemberService(new MemberRepository());
         try
         {
-            string firstName = FirstName.Text;
-            string infix = Infix.Text;
-            string lastName = LastName.Text;
-            string email = Email.Text;
-            Member updatedMember = service.Update(_mainWindow.LoggedInMember, firstName, infix, lastName, email
+            var firstName = FirstName.Text;
+            var infix = Infix.Text;
+            var lastName = LastName.Text;
+            var email = Email.Text;
+            var updatedMember = service.Update(_mainWindow.LoggedInMember, firstName, infix, lastName, email
             );
             if (updatedMember != null)
             {
@@ -47,7 +47,8 @@ public partial class EditUser : Page
         {
             MessageBox.Show(ex.Message);
         }
-        catch (Exception ex) {
+        catch (Exception ex)
+        {
             MessageBox.Show(ex.Message);
         }
     }

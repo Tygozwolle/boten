@@ -1,23 +1,21 @@
 using System.Windows;
-using RoeiVerenigingWPF.Frames;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Interop;
 using System.Windows.Media.Imaging;
+using RoeiVerenigingWPF.Frames;
 using RoeiVerenigingWPF.Pages;
 
 namespace RoeiVerenigingWPF.Components;
 
 public partial class Header : UserControl
 {
-    public MainWindow MainWindow { set; get; }
-
     public Header()
     {
         InitializeComponent();
         DataContext = this;
         LoadButtonIcons();
     }
+
+    public MainWindow MainWindow { set; get; }
 
     private void LoadButtonIcons()
     {
@@ -27,12 +25,12 @@ public partial class Header : UserControl
         PasswordChange_Icon.Source = new BitmapImage(new Uri("/Images/Icons/rectangle-ellipsis.png", UriKind.Relative));
         LogOut_Icon.Source = new BitmapImage(new Uri("/Images/Icons/log-out.png", UriKind.Relative));
     }
-    
+
     private void Button_OnClick(object sender, RoutedEventArgs e)
     {
         if (sender is Button clickedButton)
         {
-            string buttonName = clickedButton.Name;
+            var buttonName = clickedButton.Name;
 
             switch (buttonName)
             {
@@ -51,9 +49,6 @@ public partial class Header : UserControl
                 case "LogOut_Button":
                     MainWindow.LogOutMember();
                     MainWindow.LoginContent.Navigate(new Login(MainWindow));
-                    break;
-                default:
-                    // Handle any other button clicks here
                     break;
             }
         }

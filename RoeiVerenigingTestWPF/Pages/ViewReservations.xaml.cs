@@ -1,34 +1,29 @@
-﻿using System.ComponentModel;
-using System.Diagnostics;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using DataAccessLibary;
 using RoeiVerenigingLibary;
 using RoeiVerenigingTestWPF.Frames;
 
-namespace RoeiVerenigingTestWPF.Pages
+namespace RoeiVerenigingTestWPF.Pages;
+
+/// <summary>
+///     Interaction logic for ViewUsers.xaml
+/// </summary>
+public partial class ViewReservations : Page
 {
-    /// <summary>
-    /// Interaction logic for ViewUsers.xaml
-    /// </summary>
-    public partial class ViewReservations : Page
+    public ViewReservations(MainWindow mainWindow)
     {
-        public List<Reservation> ReservationList { get; set; }
-        public MainWindow MainWindow { set; get; }
+        InitializeComponent();
+        DataContext = this;
+        var service = new ReservationService(new ReservationRepository());
+        MainWindow = mainWindow;
+        ReservationList = service.GetReservations(mainWindow.LoggedInMember);
+    }
 
-        public ViewReservations(MainWindow mainWindow)
-        {
-            InitializeComponent();
-            DataContext = this;
-            ReservationService service = new ReservationService(new ReservationRepository());
-            MainWindow = mainWindow;
-            ReservationList = service.GetReservations(mainWindow.LoggedInMember);
-        }
+    public List<Reservation> ReservationList { get; set; }
+    public MainWindow MainWindow { set; get; }
 
-        public void Button_Click(object sender, RoutedEventArgs e)
-        {
-            
-        }
+    public void Button_Click(object sender, RoutedEventArgs e)
+    {
     }
 }

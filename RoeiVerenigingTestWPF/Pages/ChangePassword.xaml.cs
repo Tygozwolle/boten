@@ -8,7 +8,7 @@ namespace RoeiVerenigingTestWPF.Pages;
 
 public partial class ChangePassword : Page
 {
-    private MainWindow _mainWindow;
+    private readonly MainWindow _mainWindow;
 
     public ChangePassword(MainWindow mainWindow)
     {
@@ -18,12 +18,12 @@ public partial class ChangePassword : Page
 
     private void Button_Click(object sender, RoutedEventArgs e)
     {
-        MemberService service = new MemberService(new MemberRepository());
+        var service = new MemberService(new MemberRepository());
         try
         {
-            string password = CurrentPassword.Password;
-            string newPassword = NewPassword.Password;
-            string newPasswordConfirm = NewPasswordConfirm.Password;
+            var password = CurrentPassword.Password;
+            var newPassword = NewPassword.Password;
+            var newPasswordConfirm = NewPasswordConfirm.Password;
             service.ChangePassword(_mainWindow.LoggedInMember, password, newPassword, newPasswordConfirm);
         }
         catch (Exception ex)

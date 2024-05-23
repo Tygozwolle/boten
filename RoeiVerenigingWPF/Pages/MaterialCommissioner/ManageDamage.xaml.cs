@@ -12,33 +12,11 @@ namespace RoeiVerenigingWPF.Pages;
 
 public partial class ManageDamage : Page
 {
-    private MainWindow _mainWindow { set; get; }
-    public Damage Damage { set; get; }
-    private ImageRepository _imageRepository = new ImageRepository();
-
-    private DamageService _service = new DamageService(new DamageRepository());
-    private List<ImageSource> _images;
     private int _imageIndex;
+    private readonly ImageRepository _imageRepository = new();
+    private readonly List<ImageSource> _images;
 
-    private int imageIndex
-    {
-        get { return _imageIndex; }
-        set
-        {
-            if (value < 0)
-            {
-                _imageIndex = _images.Count - 1;
-            }
-            else if (value > _images.Count - 1)
-            {
-                _imageIndex = 0;
-            }
-            else
-            {
-                _imageIndex = value;
-            }
-        }
-    }
+    private readonly DamageService _service = new(new DamageRepository());
 
     public ManageDamage(MainWindow mw, Damage damage)
     {
@@ -62,6 +40,23 @@ public partial class ManageDamage : Page
         }
     }
 
+    private MainWindow _mainWindow { get; }
+    public Damage Damage { set; get; }
+
+    private int imageIndex
+    {
+        get => _imageIndex;
+        set
+        {
+            if (value < 0)
+                _imageIndex = _images.Count - 1;
+            else if (value > _images.Count - 1)
+                _imageIndex = 0;
+            else
+                _imageIndex = value;
+        }
+    }
+
     private void NextImage(object sender, RoutedEventArgs e)
     {
         imageIndex++;
@@ -76,8 +71,8 @@ public partial class ManageDamage : Page
 
     private void Button_Click(object sender, RoutedEventArgs e)
     {
-        bool _fixed = false;
-        bool _usable = false;
+        var _fixed = false;
+        var _usable = false;
         if (Fixed.IsChecked == true)
             _fixed = true;
         if (Usable.IsChecked == true)
@@ -94,7 +89,7 @@ public partial class ManageDamage : Page
         {
             EmailToDb.GetImagesFromEmail(_imageRepository);
             var UpdatedDamage = _service.GetById(Damage.Id);
-            this.Dispatcher.Invoke(() =>
+            Dispatcher.Invoke(() =>
             {
                 Mouse.OverrideCursor = null;
                 _mainWindow.MainContent.Navigate(new ManageDamage(_mainWindow, UpdatedDamage));

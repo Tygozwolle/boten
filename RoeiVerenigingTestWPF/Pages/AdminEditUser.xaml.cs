@@ -9,10 +9,10 @@ namespace RoeiVerenigingTestWPF.Pages;
 
 public partial class AdminEditUser : Page
 {
-    private MainWindow _mainWindow;
-    private int _memberId;
-    private MemberService _service = new MemberService(new MemberRepository());
-    private Dictionary<string, CheckBox> _roleCheckBoxes = new Dictionary<string, CheckBox>();
+    private readonly MainWindow _mainWindow;
+    private readonly int _memberId;
+    private readonly Dictionary<string, CheckBox> _roleCheckBoxes = new();
+    private readonly MemberService _service = new(new MemberRepository());
 
     public AdminEditUser(MainWindow mainWindow, int memberId)
     {
@@ -20,28 +20,24 @@ public partial class AdminEditUser : Page
         _mainWindow = mainWindow;
         _memberId = memberId;
 
-        Member selectedMember = _service.GetById(memberId);
+        var selectedMember = _service.GetById(memberId);
         FirstName.Text = selectedMember.FirstName;
         Infix.Text = selectedMember.Infix;
         LastName.Text = selectedMember.LastName;
         Email.Text = selectedMember.Email;
         Level.Text = selectedMember.Level.ToString();
 
-        List<string> availableRoles = _service.GetAvailableRoles();
-        foreach (string role in availableRoles)
+        var availableRoles = _service.GetAvailableRoles();
+        foreach (var role in availableRoles)
         {
-            CheckBox checkBox = new CheckBox { Content = role };
+            var checkBox = new CheckBox { Content = role };
             _roleCheckBoxes[role] = checkBox;
             RolesPanel.Children.Add(checkBox);
         }
 
-        foreach (string role in selectedMember.Roles)
-        {
+        foreach (var role in selectedMember.Roles)
             if (_roleCheckBoxes.ContainsKey(role))
-            {
                 _roleCheckBoxes[role].IsChecked = true;
-            }
-        }
     }
 
     private void Button_Click(object sender, RoutedEventArgs e)
@@ -49,22 +45,22 @@ public partial class AdminEditUser : Page
         try
         {
             //get all data
-            string firstName = FirstName.Text;
-            string infix = Infix.Text;
-            string lastName = LastName.Text;
-            string email = Email.Text;
-            if (!int.TryParse(Level.Text, out int level))
+            var firstName = FirstName.Text;
+            var infix = Infix.Text;
+            var lastName = LastName.Text;
+            var email = Email.Text;
+            if (!int.TryParse(Level.Text, out var level))
             {
                 MessageBox.Show("Het niveau moet een nummer zijn");
                 return;
             }
-            
-            List<string> selectedRoles = _roleCheckBoxes
+
+            var selectedRoles = _roleCheckBoxes
                 .Where(pair => pair.Value.IsChecked == true)
                 .Select(pair => pair.Key)
                 .ToList();
             //run the update methods from the service
-            Member updatedMember = _service.Update(_mainWindow.LoggedInMember, _memberId, firstName, infix, lastName,
+            var updatedMember = _service.Update(_mainWindow.LoggedInMember, _memberId, firstName, infix, lastName,
                 email, level
             );
             _service.SetRoles(_memberId, selectedRoles);
@@ -84,7 +80,8 @@ public partial class AdminEditUser : Page
         {
             MessageBox.Show(ex.Message);
         }
-        catch (Exception ex) {
+        catch (Exception ex)
+        {
             MessageBox.Show(ex.Message);
         }
     }

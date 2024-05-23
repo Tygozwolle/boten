@@ -9,7 +9,7 @@ namespace RoeiVerenigingTestWPF.Pages;
 
 public partial class Login : Page
 {
-    private MainWindow _mainWindow;
+    private readonly MainWindow _mainWindow;
 
     public Login(MainWindow mainWindow)
     {
@@ -19,10 +19,10 @@ public partial class Login : Page
 
     public void LoginMember(object sender, RoutedEventArgs routedEventArgs)
     {
-        string email = Email.Text;
-        string password = Password.Password;
+        var email = Email.Text;
+        var password = Password.Password;
 
-        MemberService service = new MemberService(new MemberRepository());
+        var service = new MemberService(new MemberRepository());
         try
         {
             _mainWindow.LoggedInMember = service.Login(email, password);

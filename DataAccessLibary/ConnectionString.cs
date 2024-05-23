@@ -1,25 +1,24 @@
 ﻿using Microsoft.Extensions.Configuration;
 using MySqlConnector;
 
-namespace DataAccessLibary
+namespace DataAccessLibary;
+
+public abstract class ConnectionString
 {
-    public abstract class ConnectionString
+    public static string GetString()
     {
-        public static string GetString()
-        {
-            IConfigurationRoot config = new ConfigurationBuilder().AddUserSecrets<ConnectionString>().Build();
-            MySqlConnectionStringBuilder builder = new MySqlConnectionStringBuilder();
+        var config = new ConfigurationBuilder().AddUserSecrets<ConnectionString>().Build();
+        var builder = new MySqlConnectionStringBuilder();
 
-            builder.UserID = config["DB:username"];
-            builder.Password = config["DB:password"];
-            builder.Port = 22;
-            builder.Server = config["DB:adress"];
-            builder.Database = "boten_reservering";
-            builder.SslMode = MySqlSslMode.VerifyFull;
-            builder.DnsCheckInterval = 10;
-            builder.ConnectionProtocol = MySqlConnectionProtocol.Tcp;
+        builder.UserID = config["DB:username"];
+        builder.Password = config["DB:password"];
+        builder.Port = 22;
+        builder.Server = config["DB:adress"];
+        builder.Database = "boten_reservering";
+        builder.SslMode = MySqlSslMode.VerifyFull;
+        builder.DnsCheckInterval = 10;
+        builder.ConnectionProtocol = MySqlConnectionProtocol.Tcp;
 
-            return builder.ConnectionString;
-        }
+        return builder.ConnectionString;
     }
 }

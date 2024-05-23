@@ -1,29 +1,29 @@
-﻿namespace RoeiVerenigingLibary
+﻿namespace RoeiVerenigingLibary;
+
+public class BoatService : IBoatRepository
 {
-    public class BoatService : IBoatRepository
+    private readonly IBoatRepository _boatRepository;
+
+    public BoatService(IBoatRepository repository)
     {
-        private readonly IBoatRepository _boatRepository;
+        _boatRepository = repository;
+    }
 
-        public BoatService(IBoatRepository repository)
-        {
-            _boatRepository = repository;
-        }
-        public List<Boat>? Getboats()
-        {
-            List<Boat> boat;
+    public List<Boat>? Getboats()
+    {
+        List<Boat> boat;
 
-            boat = _boatRepository.Getboats();
+        boat = _boatRepository.Getboats();
 
-            return boat;
-        }
+        return boat;
+    }
 
-        public Boat GetBoatById(int id)
-        {
-            Boat boat;
+    public Boat GetBoatById(int id)
+    {
+        Boat boat;
 
-            boat = _boatRepository.GetBoatById(id);
+        boat = _boatRepository.GetBoatById(id);
 
-            return boat;
-        }
+        return boat;
     }
 }

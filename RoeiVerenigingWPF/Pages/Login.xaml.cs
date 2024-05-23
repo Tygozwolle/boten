@@ -10,7 +10,7 @@ namespace RoeiVerenigingWPF.Pages;
 
 public partial class Login : Page
 {
-    private MainWindow _mainWindow;
+    private readonly MainWindow _mainWindow;
 
     public Login(MainWindow mainWindow)
     {
@@ -19,16 +19,14 @@ public partial class Login : Page
 #if !RELEASE
         DebugInlog();
 #endif
-        
-
     }
 
     public void LoginMember(object sender, RoutedEventArgs routedEventArgs)
     {
-        string email = Email.Text;
-        string password = Password.Password;
+        var email = Email.Text;
+        var password = Password.Password;
 
-        MemberService service = new MemberService(new MemberRepository());
+        var service = new MemberService(new MemberRepository());
         try
         {
             _mainWindow.LoggedInMember = service.Login(email, password);
@@ -59,7 +57,7 @@ public partial class Login : Page
         Password.Password = config["USER:password"];
 #endif
 #if INGELOGTBEHEER
-        IConfigurationRoot config = new ConfigurationBuilder().AddUserSecrets<Login>().Build();
+        var config = new ConfigurationBuilder().AddUserSecrets<Login>().Build();
         Email.Text = config["ADMIN:username"];
         Password.Password = config["ADMIN:password"];
 #endif

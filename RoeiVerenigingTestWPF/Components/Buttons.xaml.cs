@@ -1,13 +1,20 @@
-using RoeiVerenigingTestWPF.Frames;
-using RoeiVerenigingTestWPF.Pages;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using RoeiVerenigingTestWPF.Frames;
+using RoeiVerenigingTestWPF.Pages;
 
 namespace RoeiVerenigingTestWPF.Components;
 
 public partial class Buttons : UserControl
 {
+    public Buttons()
+    {
+        InitializeComponent();
+        ButtonsMenu_Loaded();
+    }
+
     public MainWindow MainWindow { set; get; }
 
     public void ButtonsMenu_Loaded()
@@ -16,13 +23,7 @@ public partial class Buttons : UserControl
             new BitmapImage(new Uri("/Images/twee-mensen-in-polyester-roeiboot.png", UriKind.Relative));
     }
 
-    public Buttons()
-    {
-        InitializeComponent();
-        ButtonsMenu_Loaded();
-    }
-
-    private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
+    private void Button_Click(object sender, RoutedEventArgs e)
     {
         switch (sender)
         {
@@ -48,7 +49,7 @@ public partial class Buttons : UserControl
 
     private void ChangeColorOfRectangle(Border rectangle)
     {
-        Color reservationColor = Color.FromArgb(255, 122, 178, 178); // This represents the color #0e5172
+        var reservationColor = Color.FromArgb(255, 122, 178, 178); // This represents the color #0e5172
 
         switch (rectangle)
         {

@@ -1,5 +1,4 @@
 ﻿using System.Net.Mail;
-using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using System.Security.Cryptography;
 using System.Text;
 using RoeiVerenigingLibary.Exceptions;
@@ -10,10 +9,7 @@ public class MemberService(IMemberRepository memberRepository)
 {
     public Member Login(string email, string password)
     {
-        if (!IsValid(email))
-        {
-            throw new InvalidEmailException();
-        }
+        if (!IsValid(email)) throw new InvalidEmailException();
 
         Member? member;
         try
@@ -25,10 +21,7 @@ public class MemberService(IMemberRepository memberRepository)
             throw new IncorrectEmailOrPasswordException();
         }
 
-        if (member == null)
-        {
-            throw new IncorrectEmailOrPasswordException();
-        }
+        if (member == null) throw new IncorrectEmailOrPasswordException();
 
         return member;
     }
@@ -47,10 +40,8 @@ public class MemberService(IMemberRepository memberRepository)
         }
 
         if (member == null)
-        {
             //todo replace with new exception
             throw new IncorrectEmailOrPasswordException();
-        }
 
         return member;
     }
@@ -64,15 +55,9 @@ public class MemberService(IMemberRepository memberRepository)
     public Member Create(Member loggedInMember, string firstName, string infix, string lastName, string email,
         string password, int level)
     {
-        if (!loggedInMember.Roles.Contains("beheerder"))
-        {
-            throw new IncorrectRightsExeption();
-        }
+        if (!loggedInMember.Roles.Contains("beheerder")) throw new IncorrectRightsExeption();
 
-        if (!IsValid(email))
-        {
-            throw new Exception("Dit is geen email adres");
-        }
+        if (!IsValid(email)) throw new Exception("Dit is geen email adres");
 
         Member? member;
         try
@@ -84,10 +69,7 @@ public class MemberService(IMemberRepository memberRepository)
             throw new MemberAlreadyExistsException();
         }
 
-        if (member == null)
-        {
-            throw new MemberAlreadyExistsException();
-        }
+        if (member == null) throw new MemberAlreadyExistsException();
 
         return member;
     }
@@ -98,20 +80,11 @@ public class MemberService(IMemberRepository memberRepository)
     public Member Update(Member loggedInMember, int id, string firstName, string infix, string lastName, string email,
         int level)
     {
-        if (!loggedInMember.Roles.Contains("beheerder"))
-        {
-            throw new IncorrectRightsExeption();
-        }
+        if (!loggedInMember.Roles.Contains("beheerder")) throw new IncorrectRightsExeption();
 
-        if (!IsValid(email))
-        {
-            throw new Exception("Dit is geen email adres");
-        }
+        if (!IsValid(email)) throw new Exception("Dit is geen email adres");
 
-        if (level > 10)
-        {
-            throw new Exception("Niveau mag maximaal 10 zijn");
-        }
+        if (level > 10) throw new Exception("Niveau mag maximaal 10 zijn");
 
         Member? member;
         try
@@ -131,10 +104,7 @@ public class MemberService(IMemberRepository memberRepository)
      */
     public Member Update(Member loggedInMember, string firstName, string infix, string lastName, string email)
     {
-        if (!IsValid(email))
-        {
-            throw new Exception("Dit is geen email adres");
-        }
+        if (!IsValid(email)) throw new Exception("Dit is geen email adres");
 
         Member? member;
         try
@@ -152,10 +122,7 @@ public class MemberService(IMemberRepository memberRepository)
     public void SetRoles(int memberId, List<string> roles)
     {
         memberRepository.RemoveRoles(memberId);
-        foreach (string role in roles)
-        {
-            memberRepository.AddRole(memberId, role);
-        }
+        foreach (var role in roles) memberRepository.AddRole(memberId, role);
     }
 
     public List<string> GetAvailableRoles()
@@ -175,10 +142,7 @@ public class MemberService(IMemberRepository memberRepository)
             throw new IncorrectPasswordException();
         }
 
-        if (newPassword != newPasswordConfirm)
-        {
-            throw new PasswordsDontMatchException();
-        }
+        if (newPassword != newPasswordConfirm) throw new PasswordsDontMatchException();
 
         try
         {
@@ -190,11 +154,11 @@ public class MemberService(IMemberRepository memberRepository)
         }
     }
 
-    private static String CreatePasswordHash(string password)
+    private static string CreatePasswordHash(string password)
     {
-        using (SHA256 sha256 = SHA256.Create())
+        using (var sha256 = SHA256.Create())
         {
-            byte[] hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
+            var hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
             return Convert.ToBase64String(hashedBytes);
         }
     }
@@ -208,5 +172,4 @@ public class MemberService(IMemberRepository memberRepository)
     {
         return memberRepository.GetMembers();
     }
-
 }

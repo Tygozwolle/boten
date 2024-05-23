@@ -1,20 +1,16 @@
-﻿using System.IO;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using DataAccessLibary;
 using RoeiVerenigingLibary;
 using RoeiVerenigingLibrary;
 using RoeiVerenigingWPF.Frames;
-using Xceed.Wpf.Toolkit.Core;
 
 namespace RoeiVerenigingWPF.Pages;
 
 public partial class ManageDamageOverview : Page
 {
-    public MainWindow MainWindow { set; get; }
-    private DamageService _service = new DamageService(new DamageRepository());
-    private ImageRepository _imageRepository = new ImageRepository();
-    public List<Damage> Damages { set; get; }
+    private readonly ImageRepository _imageRepository = new();
+    private readonly DamageService _service = new(new DamageRepository());
 
     public ManageDamageOverview(MainWindow mw)
     {
@@ -27,19 +23,22 @@ public partial class ManageDamageOverview : Page
         SetImages();
     }
 
+    public MainWindow MainWindow { set; get; }
+    public List<Damage> Damages { set; get; }
+
     private void GetImagesFromMail()
     {
-        Task task = new Task(() => { EmailToDb.GetImagesFromEmail(_imageRepository); });
+        var task = new Task(() => { EmailToDb.GetImagesFromEmail(_imageRepository); });
         task.Start();
     }
 
-    private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
+    private void Button_Click(object sender, RoutedEventArgs e)
     {
         if (sender is Button)
         {
-            Button casted = sender as Button;
-            object command = casted.CommandParameter;
-            int id = Int32.Parse(command.ToString());
+            var casted = sender as Button;
+            var command = casted.CommandParameter;
+            var id = int.Parse(command.ToString());
 
             MainWindow.MainContent.Navigate(new ManageDamage(MainWindow, _service.GetById(id)));
         }
@@ -49,32 +48,27 @@ public partial class ManageDamageOverview : Page
 
     private void SetImagesAsync()
     {
-       var thread = new Thread(() =>
-        {
-          SetImages();
-        });
-       thread.Start();
+        var thread = new Thread(() => { SetImages(); });
+        thread.Start();
     }
 
     private void SetImages()
     {
         new Thread(() =>
         {
-            foreach (Damage damage in Damages)
+            foreach (var damage in Damages)
             {
-                Damage damageSave = damage;
-                
+                var damageSave = damage;
+
                 damage.Images = [_imageRepository.GetFirstImage(damageSave.Id)];
             }
-            this.Dispatcher.Invoke(() =>
-                                        {
-                                            ListView.Items.Refresh();
-                                        });
+
+            Dispatcher.Invoke(() => { ListView.Items.Refresh(); });
         }).Start();
     }
 
     private void loadedEvent(object sender, RoutedEventArgs args)
     {
-     //   SetImagesAsync();
+        //   SetImagesAsync();
     }
 }

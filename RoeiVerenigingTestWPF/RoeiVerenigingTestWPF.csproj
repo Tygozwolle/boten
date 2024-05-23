@@ -9,69 +9,69 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\DataAccessLibary\DataAccessLibary.csproj" />
-      <ProjectReference Include="..\RoeiVerenigingLibrary\RoeiVerenigingLibrary.csproj" />
+        <ProjectReference Include="..\DataAccessLibary\DataAccessLibary.csproj"/>
+        <ProjectReference Include="..\RoeiVerenigingLibrary\RoeiVerenigingLibrary.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <Reference Include="Xceed.Wpf.Toolkit.NET5">
-        <HintPath>..\..\..\..\.nuget\packages\extended.wpf.toolkit\4.6.0\lib\net5.0\Xceed.Wpf.Toolkit.NET5.dll</HintPath>
-      </Reference>
+        <Reference Include="Xceed.Wpf.Toolkit.NET5">
+            <HintPath>..\..\..\..\.nuget\packages\extended.wpf.toolkit\4.6.0\lib\net5.0\Xceed.Wpf.Toolkit.NET5.dll</HintPath>
+        </Reference>
     </ItemGroup>
 
     <ItemGroup>
-      <None Remove="Images\Icons\brokenbone.png" />
-      <Content Include="Images\Icons\brokenbone.png">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Content>
-      <None Remove="Images\Icons\calendar.png" />
-      <Content Include="Images\Icons\calendar.png">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Content>
-      <None Remove="Images\Icons\calendar-clock.png" />
-      <Content Include="Images\Icons\calendar-clock.png">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Content>
-      <None Remove="Images\Icons\heart-crack.png" />
-      <Content Include="Images\Icons\heart-crack.png">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Content>
-      <None Remove="Images\Icons\log-out.png" />
-      <Content Include="Images\Icons\log-out.png">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Content>
-      <None Remove="Images\Icons\rectangle-ellipsis.png" />
-      <Content Include="Images\Icons\rectangle-ellipsis.png">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Content>
-      <None Remove="Images\Icons\sailboat.png" />
-      <Content Include="Images\Icons\sailboat.png">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Content>
-      <None Remove="Images\Icons\settings.png" />
-      <Content Include="Images\Icons\settings.png">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Content>
-      <None Remove="Images\Icons\user-plus.png" />
-      <Content Include="Images\Icons\user-plus.png">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Content>
-      <None Remove="Images\Icons\users.png" />
-      <Content Include="Images\Icons\users.png">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Content>
-      <None Remove="Images\Image_not_available.png" />
-      <Content Include="Images\Image_not_available.png">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Content>
-      <None Remove="Images\logo.png" />
-      <Content Include="Images\logo.png">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Content>
-      <None Remove="Images\twee-mensen-in-polyester-roeiboot.png" />
-      <Content Include="Images\twee-mensen-in-polyester-roeiboot.png">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Content>
+        <None Remove="Images\Icons\brokenbone.png"/>
+        <Content Include="Images\Icons\brokenbone.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <None Remove="Images\Icons\calendar.png"/>
+        <Content Include="Images\Icons\calendar.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <None Remove="Images\Icons\calendar-clock.png"/>
+        <Content Include="Images\Icons\calendar-clock.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <None Remove="Images\Icons\heart-crack.png"/>
+        <Content Include="Images\Icons\heart-crack.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <None Remove="Images\Icons\log-out.png"/>
+        <Content Include="Images\Icons\log-out.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <None Remove="Images\Icons\rectangle-ellipsis.png"/>
+        <Content Include="Images\Icons\rectangle-ellipsis.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <None Remove="Images\Icons\sailboat.png"/>
+        <Content Include="Images\Icons\sailboat.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <None Remove="Images\Icons\settings.png"/>
+        <Content Include="Images\Icons\settings.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <None Remove="Images\Icons\user-plus.png"/>
+        <Content Include="Images\Icons\user-plus.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <None Remove="Images\Icons\users.png"/>
+        <Content Include="Images\Icons\users.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <None Remove="Images\Image_not_available.png"/>
+        <Content Include="Images\Image_not_available.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <None Remove="Images\logo.png"/>
+        <Content Include="Images\logo.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <None Remove="Images\twee-mensen-in-polyester-roeiboot.png"/>
+        <Content Include="Images\twee-mensen-in-polyester-roeiboot.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
     </ItemGroup>
 
 </Project>

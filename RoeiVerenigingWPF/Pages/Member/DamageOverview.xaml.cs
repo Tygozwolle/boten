@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
 using DataAccessLibary;
 using RoeiVerenigingLibary;
 using RoeiVerenigingLibrary;
@@ -8,10 +9,9 @@ namespace RoeiVerenigingWPF.Pages;
 
 public partial class DamageOverview : Page
 {
-    public MainWindow MainWindow { set; get; }
-    private DamageService _service = new DamageService(new DamageRepository()); 
-    public List<Damage> Damages { set; get; }
-    private ImageRepository _imageRepository = new ImageRepository();
+    private readonly ImageRepository _imageRepository = new();
+    private readonly DamageService _service = new(new DamageRepository());
+
     public DamageOverview(MainWindow mw)
     {
         InitializeComponent();
@@ -21,43 +21,45 @@ public partial class DamageOverview : Page
         GetImagesFromMail();
         SetImages();
     }
+
+    public MainWindow MainWindow { set; get; }
+    public List<Damage> Damages { set; get; }
+
     private void GetImagesFromMail()
     {
-        Task task = new Task(() =>
-        {
-            EmailToDb.GetImagesFromEmail(_imageRepository);
-        });
+        var task = new Task(() => { EmailToDb.GetImagesFromEmail(_imageRepository); });
         task.Start();
     }
-    private void CreateNewDamageReport(object sender, System.Windows.RoutedEventArgs e)
+
+    private void CreateNewDamageReport(object sender, RoutedEventArgs e)
     {
         MainWindow.MainContent.Navigate(new ListBoatsForDamageReport(MainWindow));
     }
-    private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
+
+    private void Button_Click(object sender, RoutedEventArgs e)
     {
         if (sender is Button)
         {
-            Button casted = sender as Button;
-            object command = casted.CommandParameter;
-            int id = Int32.Parse(command.ToString());
+            var casted = sender as Button;
+            var command = casted.CommandParameter;
+            var id = int.Parse(command.ToString());
             //todo send user to view page(the one with the qr code)
-             MainWindow.MainContent.Navigate(new ViewDamage(MainWindow, _service.GetById(id)));
+            MainWindow.MainContent.Navigate(new ViewDamage(MainWindow, _service.GetById(id)));
         }
     }
+
     private void SetImages()
     {
         new Thread(() =>
         {
-            foreach (Damage damage in Damages)
+            foreach (var damage in Damages)
             {
-                Damage damageSave = damage;
+                var damageSave = damage;
 
                 damage.Images = [_imageRepository.GetFirstImage(damageSave.Id)];
             }
-            this.Dispatcher.Invoke(() =>
-            {
-                ListView.Items.Refresh();
-            });
+
+            Dispatcher.Invoke(() => { ListView.Items.Refresh(); });
         }).Start();
     }
 }

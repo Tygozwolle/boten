@@ -3,10 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      xmlns:local="clr-namespace:RoeiVerenigingWPF.Frames"
-      xmlns:views="clr-namespace:RoeiVerenigingWPF.Components"
       xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-      xmlns:pages="clr-namespace:RoeiVerenigingWPF.Pages"
       mc:Ignorable="d"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Reservering wijzigen">
@@ -50,17 +47,17 @@
 
         <!-- Photo -->
         <Image Source="/Images/Image_not_available.png" Grid.Column="1" Grid.Row="1" />
-       
+
         <!-- Tekst Label -->
-        <Grid  Grid.Row="1" Grid.Column="3" >
+        <Grid Grid.Row="1" Grid.Column="3">
             <Grid.RowDefinitions>
-                <RowDefinition  Height="50"/>
-                <RowDefinition Height="30"/>
-                <RowDefinition Height="30"/>
-                <RowDefinition Height="30"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="50" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Label Content="Informatie over de boot" Grid.Row="0" FontSize="20"/>
+            <Label Content="Informatie over de boot" Grid.Row="0" FontSize="20" />
             <Label Grid.Row="1">
                 <TextBlock>
                     <TextBlock.Text>
@@ -83,27 +80,27 @@
                 <TextBlock>
                     <TextBlock.Style>
                         <Style TargetType="TextBlock">
-                            <Setter Property="Text" Value="{Binding boat.CaptainSeat, StringFormat='Stuurman {0}'}"/>
+                            <Setter Property="Text" Value="{Binding boat.CaptainSeat, StringFormat='Stuurman {0}'}" />
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding boat.CaptainSeat}" Value="True">
-                                    <Setter Property="Text" Value="Stuurman aanwezig"/>
+                                    <Setter Property="Text" Value="Stuurman aanwezig" />
                                 </DataTrigger>
                                 <DataTrigger Binding="{Binding boat.CaptainSeat}" Value="False">
-                                    <Setter Property="Text" Value="Stuurman niet aanwezig"/>
+                                    <Setter Property="Text" Value="Stuurman niet aanwezig" />
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
                     </TextBlock.Style>
                 </TextBlock>
             </Label>
-            <Label Grid.Row="4" Content="{Binding boat.Description}">
-            </Label>
+            <Label Grid.Row="4" Content="{Binding boat.Description}" />
         </Grid>
 
-        <Button Grid.Column="3" Grid.Row="4" MaxHeight="50" Content="Wijzigingen opslaan" Click="ConfirmButton" FontSize="20" Background="#88BFEA">
+        <Button Grid.Column="3" Grid.Row="4" MaxHeight="50" Content="Wijzigingen opslaan" Click="ConfirmButton"
+                FontSize="20" Background="#88BFEA">
             <Button.Resources>
                 <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="15"/>
+                    <Setter Property="CornerRadius" Value="15" />
                 </Style>
             </Button.Resources>
         </Button>
@@ -119,17 +116,16 @@
             </Grid.RowDefinitions>
 
             <Label Content="Begintijd:" Grid.Row="0" Grid.Column="0" FontSize="30" Margin="0,0,20,0" />
-            
-            <xctk:TimePicker x:Name="BeginTimePicker" Height="30"
-                             Width="100" Grid.Column="1" Grid.Row="0" Value="{Binding StartingTime}">
-            </xctk:TimePicker>
 
-            <Label Content="Eindtijd:"  Grid.Row="1" Grid.Column="0" Margin="0,0,20,0"
+            <xctk:TimePicker x:Name="BeginTimePicker" Height="30"
+                             Width="100" Grid.Column="1" Grid.Row="0" Value="{Binding StartingTime}" />
+
+            <Label Content="Eindtijd:" Grid.Row="1" Grid.Column="0" Margin="0,0,20,0"
                    FontSize="30" />
-            <xctk:TimePicker 
-                x:Name="EndTimePicker" 
-                Height="30" 
-                Width="100" 
+            <xctk:TimePicker
+                x:Name="EndTimePicker"
+                Height="30"
+                Width="100"
                 Grid.Column="1" Grid.Row="1"
                 Value="{Binding EndTime}" />
         </Grid>

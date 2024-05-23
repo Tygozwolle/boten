@@ -1,38 +1,37 @@
-﻿using DataAccessLibary;
+﻿using System.Windows;
+using System.Windows.Controls;
+using DataAccessLibary;
 using RoeiVerenigingLibary;
 using RoeiVerenigingWPF.Frames;
-using System.Windows;
-using System.Windows.Controls;
 
-namespace RoeiVerenigingWPF.Pages
+namespace RoeiVerenigingWPF.Pages;
+
+/// <summary>
+///     Interaction logic for ViewUsers.xaml
+/// </summary>
+public partial class ViewReservations : Page
 {
-    /// <summary>
-    /// Interaction logic for ViewUsers.xaml
-    /// </summary>
-    public partial class ViewReservations : Page
+    public ViewReservations(MainWindow mainWindow)
     {
-        public List<Reservation> ReservationList { get; set; }
-        public MainWindow MainWindow { set; get; }
+        InitializeComponent();
+        DataContext = this;
+        var service = new ReservationService(new ReservationRepository());
+        MainWindow = mainWindow;
+        ReservationList = service.GetReservations(mainWindow.LoggedInMember);
+    }
 
-        public ViewReservations(MainWindow mainWindow)
+    public List<Reservation> ReservationList { get; set; }
+    public MainWindow MainWindow { set; get; }
+
+    public void SelectReservation(object sender, RoutedEventArgs e)
+    {
+        if (sender is Button)
         {
-            InitializeComponent();
-            DataContext = this;
-            ReservationService service = new ReservationService(new ReservationRepository());
-            MainWindow = mainWindow;
-            ReservationList = service.GetReservations(mainWindow.LoggedInMember);
-        }
+            var casted = sender as Button;
+            var command = casted.CommandParameter;
+            var idReservation = int.Parse(command.ToString());
 
-        public void SelectReservation(object sender, RoutedEventArgs e)
-        {
-            if (sender is Button)
-            {
-                Button casted = sender as Button;
-                object command = casted.CommandParameter;
-                int idReservation = Int32.Parse(command.ToString());
-
-                MainWindow.MainContent.Navigate(new EditReservation(MainWindow, idReservation));
-            }
+            MainWindow.MainContent.Navigate(new EditReservation(MainWindow, idReservation));
         }
     }
 }

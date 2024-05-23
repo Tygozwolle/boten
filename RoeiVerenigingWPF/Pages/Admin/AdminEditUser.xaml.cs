@@ -9,10 +9,10 @@ namespace RoeiVerenigingWPF.Pages;
 
 public partial class AdminEditUser : Page
 {
-    private MainWindow _mainWindow;
-    private int _memberId;
-    private MemberService _service = new MemberService(new MemberRepository());
-    private Dictionary<string, CheckBox> _roleCheckBoxes = new Dictionary<string, CheckBox>();
+    private readonly MainWindow _mainWindow;
+    private readonly int _memberId;
+    private Dictionary<string, CheckBox> _roleCheckBoxes = new();
+    private readonly MemberService _service = new(new MemberRepository());
 
     public AdminEditUser(MainWindow mainWindow, int memberId)
     {
@@ -20,31 +20,22 @@ public partial class AdminEditUser : Page
         _mainWindow = mainWindow;
         _memberId = memberId;
 
-        Member selectedMember = _service.GetById(memberId);
+        var selectedMember = _service.GetById(memberId);
         FirstName.Text = selectedMember.FirstName;
         Infix.Text = selectedMember.Infix;
         LastName.Text = selectedMember.LastName;
         Email.Text = selectedMember.Email;
         Level.Text = selectedMember.Level.ToString();
 
-        List<string> availableRoles = _service.GetAvailableRoles();
+        var availableRoles = _service.GetAvailableRoles();
 
-        foreach (string role in selectedMember.Roles)
+        foreach (var role in selectedMember.Roles)
         {
-            if (selectedMember.Roles.Contains("beheerder"))
-            {
-                admin.IsChecked = true;
-            }
+            if (selectedMember.Roles.Contains("beheerder")) admin.IsChecked = true;
 
-            if (selectedMember.Roles.Contains("materiaal_commissaris"))
-            {
-                material_comm.IsChecked = true;
-            }
+            if (selectedMember.Roles.Contains("materiaal_commissaris")) material_comm.IsChecked = true;
 
-            if (selectedMember.Roles.Contains("evenementen_commissaris"))
-            {
-                event_comm.IsChecked = true;
-            }
+            if (selectedMember.Roles.Contains("evenementen_commissaris")) event_comm.IsChecked = true;
         }
     }
 
@@ -53,36 +44,27 @@ public partial class AdminEditUser : Page
         try
         {
             //get all data
-            string firstName = FirstName.Text;
-            string infix = Infix.Text;
-            string lastName = LastName.Text;
-            string email = Email.Text;
-            if (!int.TryParse(Level.Text, out int level))
+            var firstName = FirstName.Text;
+            var infix = Infix.Text;
+            var lastName = LastName.Text;
+            var email = Email.Text;
+            if (!int.TryParse(Level.Text, out var level))
             {
                 MessageBox.Show("Het niveau moet een nummer zijn");
                 return;
             }
 
-            List<string> selectedRoles = new List<string>();
+            var selectedRoles = new List<string>();
 
-            if (admin.IsChecked == true)
-            {
-                selectedRoles.Add("beheerder");
-            }
+            if (admin.IsChecked == true) selectedRoles.Add("beheerder");
 
-            if (material_comm.IsChecked == true)
-            {
-                selectedRoles.Add("materiaal_commissaris");
-            }
+            if (material_comm.IsChecked == true) selectedRoles.Add("materiaal_commissaris");
 
-            if (event_comm.IsChecked == true)
-            {
-                selectedRoles.Add("evenementen_commissaris");
-            }
+            if (event_comm.IsChecked == true) selectedRoles.Add("evenementen_commissaris");
 
 
             //run the update methods from the service
-            Member updatedMember = _service.Update(_mainWindow.LoggedInMember, _memberId, firstName, infix, lastName,
+            var updatedMember = _service.Update(_mainWindow.LoggedInMember, _memberId, firstName, infix, lastName,
                 email, level
             );
             _service.SetRoles(_memberId, selectedRoles);

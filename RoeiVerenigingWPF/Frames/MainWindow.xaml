@@ -18,7 +18,7 @@
             <Frame NavigationUIVisibility="Hidden" x:Name="LoginContent" Grid.Row="0" Grid.Column="0"
                    HorizontalAlignment="Center" VerticalAlignment="Center" />
         </Grid>
-        <Grid Name="MainScreenGrid" >
+        <Grid Name="MainScreenGrid">
             <Grid.RowDefinitions>
                 <RowDefinition Height="100" />
                 <RowDefinition Height="*" />

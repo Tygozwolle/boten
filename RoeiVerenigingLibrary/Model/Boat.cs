@@ -1,68 +1,64 @@
-﻿using Aspose.Email.Clients.Activity;
-using System.Text;
+﻿using System.Text;
 
-namespace RoeiVerenigingLibary
+namespace RoeiVerenigingLibary;
+
+public class Boat
 {
-    public class Boat
+    private string _Description;
+
+    public Boat(int id, bool captainSeat, int Seats, int level, string description, string name)
     {
-        public int Id { get; set; }
-        public Boolean CaptainSeat { get; set; }
-        public int Seats { get; set; }
-        public int Level { get; set; }
-        private string _Description;
-        public string Name { get; set; }
-        public string Description
+        Id = id;
+        CaptainSeat = captainSeat;
+        this.Seats = Seats;
+        Level = level;
+        Description = description;
+        Name = name;
+    }
+
+    public Boat(int id, bool captainSeat, int seats, int level, string name)
+    {
+        Id = id;
+        CaptainSeat = captainSeat;
+        Seats = seats;
+        Level = level;
+        Name = name;
+    }
+
+    public int Id { get; set; }
+    public bool CaptainSeat { get; set; }
+    public int Seats { get; set; }
+    public int Level { get; set; }
+    public string Name { get; set; }
+
+    public string Description
+    {
+        get
         {
-            get
+            //convert enters stored in database
+            var input = _Description;
+            if (input.Length > 60)
             {
-                //convert enters stored in database
-                string input = _Description;
-                if (input.Length > 60)
-                {
-                    string[] words = input.Split(' ');
-                    StringBuilder sb = new StringBuilder();
-                    int currLength = 0;
-                    foreach (string word in words)
+                var words = input.Split(' ');
+                var sb = new StringBuilder();
+                var currLength = 0;
+                foreach (var word in words)
+                    if (currLength + word.Length + 1 < 60)
                     {
-                        if (currLength + word.Length + 1 < 60)
-                        {
-                            sb.AppendFormat(" {0}", word);
-                            currLength = (sb.Length % 60);
-                        }
-                        else
-                        {
-                            sb.AppendFormat("{0}{1}", Environment.NewLine, word);
-                            currLength = 0;
-                        }
+                        sb.AppendFormat(" {0}", word);
+                        currLength = sb.Length % 60;
+                    }
+                    else
+                    {
+                        sb.AppendFormat("{0}{1}", Environment.NewLine, word);
+                        currLength = 0;
                     }
 
-                    return sb.ToString();
-                }
-                else
-                {
-                    return input;
-                }
+                return sb.ToString();
             }
-            set { _Description = value; }
-        }
 
-        public Boat(int id, Boolean captainSeat, int Seats, int level, string description, string name)
-        {
-            this.Id = id;
-            CaptainSeat = captainSeat;
-            this.Seats = Seats;
-            Level = level;
-            this.Description = description;
-            Name = name;
+            return input;
         }
-
-        public Boat(int id, Boolean captainSeat, int seats, int level, string name)
-        {
-            Id = id;
-            CaptainSeat = captainSeat;
-            Seats = seats;
-            Level = level;
-            Name = name;
-        }
+        set => _Description = value;
     }
 }
