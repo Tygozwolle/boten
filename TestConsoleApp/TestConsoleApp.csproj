@@ -22,7 +22,7 @@
   </ItemGroup>
    
   <ItemGroup>
-    <ProjectReference Include="..\RoeiVerenigingLibary\RoeiVerenigingLibary.csproj" />
+    <ProjectReference Include="..\RoeiVerenigingLibrary\RoeiVerenigingLibrary.csproj" />
   </ItemGroup>
 
 </Project>

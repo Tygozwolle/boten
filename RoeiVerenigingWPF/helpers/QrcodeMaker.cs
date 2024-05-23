@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using System.Windows.Media;
+using RoeiVerenigingLibrary;
 using Color = System.Drawing.Color;
 
 namespace RoeiVerenigingWPF.helpers

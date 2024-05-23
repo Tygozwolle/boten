@@ -1,6 +1,7 @@
 ﻿using System.Windows.Controls;
 using DataAccessLibary;
 using RoeiVerenigingLibary;
+using RoeiVerenigingLibrary;
 using RoeiVerenigingWPF.Frames;
 
 namespace RoeiVerenigingWPF.Pages;
@@ -30,7 +31,7 @@ public partial class DamageOverview : Page
     }
     private void CreateNewDamageReport(object sender, System.Windows.RoutedEventArgs e)
     {
-        MainWindow.MainContent.Navigate(new ListDamageRoport(MainWindow));
+        MainWindow.MainContent.Navigate(new ListBoatsForDamageReport(MainWindow));
     }
     private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
     {

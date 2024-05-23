@@ -6,14 +6,14 @@ using System.Windows.Controls;
 namespace RoeiVerenigingWPF.Pages
 {
     /// <summary>
-    /// Interaction logic for ListDamageRoport.xaml
+    /// Interaction logic for ListBoatsForDamageReport.xaml
     /// </summary>
-    public partial class ListDamageRoport : Page
+    public partial class ListBoatsForDamageReport : Page
     {
         public List<Boat> boats { get; set; }
         public MainWindow MainWindow { set; get; }
 
-        public ListDamageRoport(MainWindow mw)
+        public ListBoatsForDamageReport(MainWindow mw)
         {
             InitializeComponent();
             BoatService service = new BoatService(new BoatRepository());
