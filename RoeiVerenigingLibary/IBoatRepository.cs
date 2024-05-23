@@ -4,6 +4,6 @@
     {
         public List<Boat> Getboats();
 
-        public Boat Getboat(int id);
+        public Boat GetBoatById(int id);
     }
 }

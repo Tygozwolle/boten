@@ -1,10 +1,9 @@
-﻿using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using DataAccessLibary;
+﻿using DataAccessLibary;
 using RoeiVerenigingLibary;
 using RoeiVerenigingLibary.Exceptions;
-using RoeiVerenigingWPF.Frames;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace RoeiVerenigingWPF.Pages
 {
@@ -17,14 +16,14 @@ namespace RoeiVerenigingWPF.Pages
         private Member _loggedInMember;
 
         private ReservationService _service = new(new ReservationRepository());
-        private int _boatId;
+        private BoatService boatService = new BoatService(new BoatRepository());
+        public Boat boat { get; set; }
 
         public AddReservation(Member loggedInMember, int boatId)
         {
             InitializeComponent();
-            //todo: use boat_id from selected boat, set it in this constructor
-            _boatId = boatId;
             _loggedInMember = loggedInMember;
+            boat = boatService.GetBoatById(boatId);
             DataContext = this;
         }
 
@@ -56,7 +55,7 @@ namespace RoeiVerenigingWPF.Pages
             {
                 if (_service.TimeChecker(startTime, endTime))
                 {
-                    _service.Create(_loggedInMember, _boatId, startDateTime, endDateTime);
+                    _service.Create(_loggedInMember, boat.Id, startDateTime, endDateTime);
                 }
             }
             catch (InvalidTimeException invalidTimeException)
@@ -69,9 +68,14 @@ namespace RoeiVerenigingWPF.Pages
                 MessageBox.Show(maxAmountOfReservationExceededException.Message);
                 return;
             }
-            catch (ArgumentOutOfRangeException argumentOutOfRangeException)
+            catch (ReservationNotInDaylightException ex)
             {
-                MessageBox.Show(argumentOutOfRangeException.Message);
+                MessageBox.Show(ex.Message);
+                return;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
                 return;
             }
 

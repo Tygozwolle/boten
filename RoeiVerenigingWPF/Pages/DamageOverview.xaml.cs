@@ -18,6 +18,7 @@ public partial class DamageOverview : Page
         MainWindow = mw;
         Damages = _service.GetRelatedToUser(MainWindow.LoggedInMember);
         GetImagesFromMail();
+        SetImages();
     }
     private void GetImagesFromMail()
     {
@@ -41,5 +42,21 @@ public partial class DamageOverview : Page
             //todo send user to view page(the one with the qr code)
              MainWindow.MainContent.Navigate(new ViewDamage(MainWindow, _service.GetById(id)));
         }
+    }
+    private void SetImages()
+    {
+        new Thread(() =>
+        {
+            foreach (Damage damage in Damages)
+            {
+                Damage damageSave = damage;
+
+                damage.Images = [_imageRepository.GetFirstImage(damageSave.Id)];
+            }
+            this.Dispatcher.Invoke(() =>
+            {
+                ListView.Items.Refresh();
+            });
+        }).Start();
     }
 }
