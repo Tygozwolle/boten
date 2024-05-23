@@ -23,7 +23,7 @@ public class ReservationRepository : IReservationRepository
                 command.Parameters.Add("@memberId", MySqlDbType.Int16);
                 command.Parameters.Add("@boatId", MySqlDbType.Int16);
                 command.Parameters.Add("@startTime", MySqlDbType.DateTime);
-                command.Parameters.Add("@endtTime", MySqlDbType.DateTime);
+                command.Parameters.Add("@endTime", MySqlDbType.DateTime);
 
                 command.Parameters["@boatId"].Value = boatId;
                 command.Parameters["@memberId"].Value = member.Id;

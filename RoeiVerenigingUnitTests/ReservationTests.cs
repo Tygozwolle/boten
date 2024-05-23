@@ -68,7 +68,9 @@ namespace RoeiVerenigingUnitTests
             var reservationService = new ReservationService(new Mock<IReservationRepository>().Object);
 
             // Act & Assert
-            Assert.Throws<InvalidTimeException>(() => reservationService.Create(member, 4, start, end));
+            var ex = Assert.Throws<Exception>(() => reservationService.Create(member, 4, start, end));
+            Assert.That(ex.Message, Is.EqualTo("Actual exception message"));
+            Assert.Throws<SystemException>(() => reservationService.Create(member, 4, start, end));
         }
 
         public void OnlyTwoBoatsPerMember()
