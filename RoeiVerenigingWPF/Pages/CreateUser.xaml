@@ -39,7 +39,7 @@
                                TextAlignment="Center"
                                Text="Maak een account aan voor een nieuw lid, zodat zij ook boten kunnen reserveren!"
                                FontSize="24" Foreground="#1372a0" />
-                    <Label Grid.Row="2" Content="*Voornaam:" Width="200" FontFamily="Franklin Gothic Medium"
+                    <Label Grid.Row="2" Content="*FirstName:" Width="200" FontFamily="Franklin Gothic Medium"
                            Margin="0,20,0,0"
                            FontSize="24" HorizontalContentAlignment="Center"
                            Foreground="#1372a0" />
@@ -54,7 +54,7 @@
                              Background="#e8f6fc"
                              BorderBrush="#1892cd" FontSize="24" FontFamily="Franklin Gothic Medium" />
 
-                    <Label Grid.Row="6" Content="*Achternaam:" Width="200" FontFamily="Franklin Gothic Medium"
+                    <Label Grid.Row="6" Content="*LastName:" Width="200" FontFamily="Franklin Gothic Medium"
                            FontSize="24" HorizontalContentAlignment="Center"
                            Foreground="#1372a0" />
                     <TextBox Grid.Row="7" x:Name="LastName" Width="367" Height="40" Foreground="#043049"
