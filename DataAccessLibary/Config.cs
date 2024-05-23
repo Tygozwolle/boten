@@ -81,6 +81,42 @@ namespace DataAccessLibary
                 configManager.Save(ConfigurationSaveMode.Modified);
                 ConfigurationManager.RefreshSection(configManager.AppSettings.SectionInformation.Name);
             }
+
+            public static void SetControlUsername(string username)
+            {
+                Configuration configManager = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                KeyValueConfigurationCollection confCollection = configManager.AppSettings.Settings;
+
+                if (confCollection["controlusername"] != null)
+                {
+                    confCollection["controlusername"].Value = username;
+                }
+                else
+                {
+                    confCollection.Add("controlusername", username);
+                }
+
+                configManager.Save(ConfigurationSaveMode.Modified);
+                ConfigurationManager.RefreshSection(configManager.AppSettings.SectionInformation.Name);
+            }
+            public static void SetControlPassword(string password)
+            {
+                Configuration configManager = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                KeyValueConfigurationCollection confCollection = configManager.AppSettings.Settings;
+
+                if (confCollection["controlpassword"] != null)
+                {
+                    confCollection["controlpassword"].Value = password;
+                }
+                else
+                {
+                    confCollection.Add("controlpassword", password);
+                }
+
+                configManager.Save(ConfigurationSaveMode.Modified);
+                ConfigurationManager.RefreshSection(configManager.AppSettings.SectionInformation.Name);
+            }
+
         public static string GetDBAdress()
             {
                 Configuration configManager = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
@@ -132,6 +168,36 @@ namespace DataAccessLibary
             if (confCollection["dbport"] != null)
             {
                 return confCollection["dbport"].Value;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public static string GetControlUsername()
+        {
+            Configuration configManager = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            KeyValueConfigurationCollection confCollection = configManager.AppSettings.Settings;
+
+            if (confCollection["controlusername"] != null)
+            {
+                return confCollection["controlusername"].Value;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public static string GetControlPassword()
+        {
+            Configuration configManager = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            KeyValueConfigurationCollection confCollection = configManager.AppSettings.Settings;
+
+            if (confCollection["controlpassword"] != null)
+            {
+                return confCollection["controlpassword"].Value;
             }
             else
             {

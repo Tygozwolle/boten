@@ -12,6 +12,8 @@ namespace TestConsoleApp
             Config.SetDBPassword("secret");
             Config.SetDBUsername("username");
             Config.SetDBPort("22");
+            Config.SetControlUsername("admin");
+            Config.SetControlPassword("password");
             Console.WriteLine(Config.GetDBAdress());
             //Console.WriteLine("Hello, World!");
             //MemberService memberService = new MemberService(new MemberRepository());
