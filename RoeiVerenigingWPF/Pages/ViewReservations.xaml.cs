@@ -38,7 +38,6 @@ namespace RoeiVerenigingWPF.Pages
 
                 MainWindow.MainContent.Navigate(new EditReservation(MainWindow, idReservation));
             }
-            //MainWindow.MainContent.Navigate(new EditReservation(MainWindow, this, selectedItem.BoatId));
         }
     }
 }

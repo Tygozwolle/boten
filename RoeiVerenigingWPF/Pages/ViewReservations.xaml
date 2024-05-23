@@ -23,7 +23,7 @@
         <Label Content="Reserveringen" FontSize="30" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" />
 
         <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="4" MaxHeight="750px">
-            <ListView Name="ReservationListFinder" ItemsSource="{Binding ReservationList}" Grid.IsSharedSizeScope="True"
+            <ListView ItemsSource="{Binding ReservationList}" Grid.IsSharedSizeScope="True"
                       d:ItemsSource="{d:SampleData ItemCount=8}" ScrollViewer.VerticalScrollBarVisibility="Auto">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>

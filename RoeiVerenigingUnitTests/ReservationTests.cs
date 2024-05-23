@@ -1,6 +1,4 @@
-﻿using Castle.Components.DictionaryAdapter;
-using DataAccessLibary;
-using Microsoft.Extensions.Configuration;
+﻿using DataAccessLibary;
 using Moq;
 using RoeiVerenigingLibary;
 using RoeiVerenigingLibary.Exceptions;
@@ -16,13 +14,13 @@ namespace RoeiVerenigingUnitTests
             //Arrange
             var member = new Member(1, "simon", "van den", "Berg", "simon@windesheim.nl", new List<string>(), 1);
             var ReservationRepository = new Mock<IReservationRepository>();
-            Reservation reservation = new Reservation(member, 4, new DateTime(3), new DateTime(4));
+            Reservation reservation = new Reservation(member, 4, new DateTime(2024, 5, 27, 14, 0, 0), new DateTime(2024, 5, 27, 16, 0, 0));
             ReservationRepository
                 .Setup(x => x.CreateReservation(It.IsAny<Member>(), It.IsAny<int>(), It.IsAny<DateTime>(),
                     It.IsAny<DateTime>())).Returns(reservation);
             var ReservationService = new ReservationService(ReservationRepository.Object);
             //Act
-            var result = ReservationService.Create(member, 4, new DateTime(3), new DateTime(4));
+            var result = ReservationService.Create(member, 4, new DateTime(2024, 5, 27, 14, 0, 0), new DateTime(2024, 5, 27, 16, 0, 0));
             //Assert
             Assert.That(Is.Equals(result, reservation));
         }
@@ -58,19 +56,19 @@ namespace RoeiVerenigingUnitTests
         }
 
         [Test]
-        [TestCase(14, 18)]
-        [TestCase(10, 14)]
-        [TestCase(2, 5)]
+        [TestCase(16, 18)]
+        [TestCase(12, 14)]
+        [TestCase(13, 15)]
         public void ReservationMaxTwoHours(int startHour, int endHour)
         {
             // Arrange
-            var start = new DateTime(2024, 5, 7, startHour, 0, 0);
-            var end = new DateTime(2024, 5, 7, endHour, 0, 0);
+            var start = new DateTime(2024, 5, 27, startHour, 0, 0);
+            var end = new DateTime(2024, 5, 27, endHour, 0, 0);
             var member = new Member(1, "simon", "van den", "Berg", "simon@windesheim.nl", new List<string>(), 1);
             var reservationService = new ReservationService(new Mock<IReservationRepository>().Object);
 
             // Act & Assert
-            var ex = Assert.Throws<InvalidTimeException>(() => reservationService.Create(member, 4, start, end));
+            Assert.Throws<InvalidTimeException>(() => reservationService.Create(member, 4, start, end));
         }
 
         public void OnlyTwoBoatsPerMember()
@@ -134,8 +132,8 @@ namespace RoeiVerenigingUnitTests
         [Test]
         public void CreateReservationSuccesfull()
         {
-            var startTime = new DateTime(2024, 04, 02, 3, 00, 00);
-            var endTime = new DateTime(2024, 04, 02, 4, 00, 00);
+            var startTime = new DateTime(2024, 05, 27, 9, 00, 00);
+            var endTime = new DateTime(2024, 05, 27, 10, 00, 00);
             var loggedInMember = new Member(1, "Rick", "", "Hesp", "123@windesheim.be", new List<string>(), 1);
             var reservation = new Reservation(loggedInMember, 3, startTime, endTime);
             var reservationRepository = new Mock<IReservationRepository>();
@@ -165,8 +163,8 @@ namespace RoeiVerenigingUnitTests
         public void OnlyTwoReservationsPerMember()
         {
             // Arrange
-            var start = new DateTime(2028, 5, 7, 14, 0, 0);
-            var end = new DateTime(2028, 5, 7, 16, 0, 0);
+            var start = new DateTime(2024, 5, 27, 14, 0, 0);
+            var end = new DateTime(2024, 5, 27, 16, 0, 0);
             var member = new Member(1, "simon", "van den", "Berg", "simon@windesheim.nl", new List<string>(), 1);
             var mockRepository = new Mock<IReservationRepository>();
             mockRepository.Setup(r => r.GetAmountOfBoatsCurrRenting(member.Id)).Returns(2);
