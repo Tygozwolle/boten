@@ -116,11 +116,11 @@ namespace RoeiVerenigingWPF.Frames
             try
             {
                 Login login = (Login)LoginContent.Content;
-                if (Config.ControlPassword == null || Config.ControlUsername == null)
+                if (Config.ControlPassword == null || Config.ControlUsername == null || Config.ControlUsername == "" || Config.ControlPassword == "")
                 {
                     LoginContent.Navigate(new ManageApp(this));
-                    ManageApp.IsEnabled = false;
-                    ManageApp.Visibility = Visibility.Hidden;
+                    //ManageApp.IsEnabled = false;
+                    //ManageApp.Visibility = Visibility.Hidden;
                     return;
                 }
                 var email = login.Email.Text;
@@ -128,13 +128,13 @@ namespace RoeiVerenigingWPF.Frames
                 if (password == Config.ControlPassword && email == Config.ControlUsername)
                 {
                     LoginContent.Navigate(new ManageApp(this));
-                    ManageApp.IsEnabled = false;
-                    ManageApp.Visibility = Visibility.Hidden;
+                    //ManageApp.IsEnabled = false;
+                    //ManageApp.Visibility = Visibility.Hidden;
                 }
             }
             catch
             {
-
+                LoginContent.Navigate(new Login(this));
             }
 
         }

@@ -16,6 +16,7 @@ namespace RoeiVerenigingWPF.Pages
         {
             InitializeComponent();
             _mainWindow = mainWindow;
+            _mainWindow.ManageApp.Content= "Beheer app";
             _mainWindow.ManageApp.IsEnabled = true;
             _mainWindow.ManageApp.Visibility = Visibility.Visible;
 #if !RELEASE
