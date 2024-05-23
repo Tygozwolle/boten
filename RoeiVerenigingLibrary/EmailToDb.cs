@@ -11,9 +11,10 @@ using Aspose.Email.Clients.Imap;
 using Aspose.Email.Clients.Pop3;
 using Aspose.Email.Mime;
 using Microsoft.Extensions.Configuration;
+using RoeiVerenigingLibary;
 using Attachment = Aspose.Email.Attachment;
 
-namespace RoeiVerenigingLibary
+namespace RoeiVerenigingLibrary
 {
     public class EmailToDb
     {

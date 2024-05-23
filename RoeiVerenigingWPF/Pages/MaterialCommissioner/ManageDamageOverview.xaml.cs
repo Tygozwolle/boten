@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using DataAccessLibary;
 using RoeiVerenigingLibary;
+using RoeiVerenigingLibrary;
 using RoeiVerenigingWPF.Frames;
 using Xceed.Wpf.Toolkit.Core;
 
