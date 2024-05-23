@@ -11,11 +11,6 @@ namespace RoeiVerenigingWPF.Pages
     /// </summary>
     public partial class ViewReservations : Page
     {
-        public Boat Boat { get; set; }
-        public Member Member { get; set; }
-        public DateTime StartTime { get; set; }
-        public DateTime EndTime { get; set; }
-
         public List<Reservation> ReservationList { get; set; }
         public MainWindow MainWindow { set; get; }
 

@@ -35,7 +35,7 @@ public partial class EditReservation : Page
     public void ConfirmButton(object sender, RoutedEventArgs e)
     {
         service.ChangeReservation(reservationId, reservation.Member, reservation.BoatId, StartingTime, EndTime); //id reserveren
-        MessageBox.Show("changed reservation");
+        MessageBox.Show("Reservering gewijziged");
 
     }
 }
