@@ -56,9 +56,9 @@ namespace RoeiVerenigingUnitTests
         }
 
         [Test]
-        [TestCase(16, 18)]
-        [TestCase(12, 14)]
-        [TestCase(13, 15)]
+        [TestCase(15, 18)]
+        [TestCase(11, 14)]
+        [TestCase(12, 15)]
         public void ReservationMaxTwoHours(int startHour, int endHour)
         {
             // Arrange

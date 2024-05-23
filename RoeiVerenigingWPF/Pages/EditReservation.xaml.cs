@@ -12,6 +12,7 @@ public partial class EditReservation : Page
     public Member member { get; set; }
     public Reservation reservation { get; set; }
     BoatService boatService = new BoatService(new BoatRepository());
+    ReservationService service = new ReservationService(new ReservationRepository());
     public Boat boat { get; set; }
     public DateTime StartingTime { get; set; }
     public DateTime EndTime { get; set; }
@@ -21,7 +22,6 @@ public partial class EditReservation : Page
     {
         Main = main;
         InitializeComponent();
-        ReservationService service = new ReservationService(new ReservationRepository());
         reservation = service.GetReservation(reservationId);
         boat = boatService.GetBoatById(reservation.BoatId);
         DataContext = this;
@@ -32,6 +32,8 @@ public partial class EditReservation : Page
 
     public void ConfirmButton(object sender, RoutedEventArgs e)
     {
+        service.ChangeReservation(reservation.Member, reservation.BoatId, StartingTime, EndTime);
         MessageBox.Show("changed reservation");
+
     }
 }

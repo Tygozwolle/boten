@@ -6,36 +6,6 @@ namespace DataAccessLibary;
 
 public class ReservationRepository : IReservationRepository
 {
-    public Reservation GetSingleReservation(int memberId, int boatId)
-    {
-        using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
-        {
-            connection.Open();
-            string query = $"SELECT * FROM reservation WHERE member_id = @userId AND boat_id = @boatId";
-            using (MySqlCommand command = new MySqlCommand(query, connection))
-            {
-                command.Parameters.Add("@userId", DbType.Int32);
-                command.Parameters.Add("@boatId", DbType.Int32);
-
-                command.Parameters["@boatId"].Value = boatId;
-                command.Parameters["@userId"].Value = memberId;
-
-                using (MySqlDataReader reader = command.ExecuteReader())
-                {
-
-
-                    while (reader.Read())
-                    {
-                        return new Reservation(reader.GetInt16(1), reader.GetInt16(1), reader.GetDateTime(4),
-                            reader.GetDateTime(5));
-                    }
-                }
-            }
-        }
-
-        return null;
-    }
-
     public Reservation checkReservations(Member member, int boat)
     {
         return null;
@@ -61,9 +31,9 @@ public class ReservationRepository : IReservationRepository
                 command.Parameters["@endTime"].Value = endTime;
 
                 command.ExecuteReader();
-                return GetSingleReservation(member.Id, boatId);
             }
         }
+        return null;
     }
     public Reservation CreateReservation(Member member, int boatId, DateTime startTime, DateTime endTime)
     {
@@ -277,14 +247,12 @@ public class ReservationRepository : IReservationRepository
                 {
                     while (reader.Read())
                     {
-                        var id = reader.GetInt32(0);
                         var boatId = reader.GetInt32(1);
                         var memberId = reader.GetInt32(2);
-                        var creationDate = reader.GetDateTime(3);
                         var startTime = reader.GetDateTime(4);
                         var endTime = reader.GetDateTime(5);
 
-                        return reservations = new Reservation(memberId, boatId, startTime, endTime);
+                        return reservations = new Reservation(MemberRepository.Get(memberId), boatId, startTime, endTime);
                     }
                 }
             }
