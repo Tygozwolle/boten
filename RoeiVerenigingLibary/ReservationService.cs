@@ -91,4 +91,14 @@ public class ReservationService
     {
         return _reservationRepository.GetAmountOfBoatsCurrRenting(id);
     }
+
+    public Reservation ChangeReservation(int reservationdId, Member member, int boatId, DateTime start, DateTime end)
+    {
+        return _reservationRepository.ChangeReservation(reservationdId, member, boatId, start, end);
+    }
+
+    public Reservation GetReservation(int reservationid)
+    {
+        return _reservationRepository.GetReservation(reservationid);
+    }
 }

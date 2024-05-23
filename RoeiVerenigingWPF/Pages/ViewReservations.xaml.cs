@@ -1,11 +1,8 @@
-﻿using System.ComponentModel;
-using System.Diagnostics;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using DataAccessLibary;
+﻿using DataAccessLibary;
 using RoeiVerenigingLibary;
 using RoeiVerenigingWPF.Frames;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace RoeiVerenigingWPF.Pages
 {
@@ -26,9 +23,16 @@ namespace RoeiVerenigingWPF.Pages
             ReservationList = service.GetReservations(mainWindow.LoggedInMember);
         }
 
-        public void Button_Click(object sender, RoutedEventArgs e)
+        public void SelectReservation(object sender, RoutedEventArgs e)
         {
-            
+            if (sender is Button)
+            {
+                Button casted = sender as Button;
+                object command = casted.CommandParameter;
+                int idReservation = Int32.Parse(command.ToString());
+
+                MainWindow.MainContent.Navigate(new EditReservation(MainWindow, idReservation));
+            }
         }
     }
 }
