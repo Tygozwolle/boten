@@ -38,6 +38,7 @@
                                Text="Hier kun je jouw eigen gegevens aanpassen."
                                FontSize="24" Foreground="{x:Static local:CustomColors.SubHeaderColor}" />
                     <Label Grid.Row="2" Content="Voornaam:" Width="200" FontFamily="Franklin Gothic Medium"
+
                            Margin="0,20,0,0"
                            FontSize="24" HorizontalContentAlignment="Center"
                            Foreground="{x:Static local:CustomColors.SubHeaderColor}" />
@@ -53,7 +54,7 @@
                              Background="{x:Static local:CustomColors.TextBoxBackgroundColor}"
                              BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}" FontSize="24" FontFamily="Franklin Gothic Medium" />
 
-                    <Label Grid.Row="6" Content="Achternaam:" Width="200" FontFamily="Franklin Gothic Medium"
+                    <Label Grid.Row="6" Content="LastName:" Width="200" FontFamily="Franklin Gothic Medium"
                            Margin="0,20,0,0"
                            FontSize="24" HorizontalContentAlignment="Center"
                            Foreground="{x:Static local:CustomColors.SubHeaderColor}" />

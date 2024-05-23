@@ -15,6 +15,9 @@
     <None Remove="img\twee-mensen-in-polyester-roeiboot.png" />
     <None Remove="img\next.png" />
     <None Remove="img\prev.png" />
+    <Content Include="Images\Icons\search.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Images\twee-mensen-in-polyester-roeiboot.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -49,6 +52,7 @@
     <Content Include="Images\logo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Remove="Images\Icons\search.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -71,10 +75,6 @@
       <XamlRuntime>Wpf</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Images\Icons\" />
   </ItemGroup>
 
   <ItemGroup>

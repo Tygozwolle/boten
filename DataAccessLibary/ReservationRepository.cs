@@ -1,13 +1,42 @@
-using System;
-using System.Data;
-using System.Threading.Channels;
 using MySqlConnector;
 using RoeiVerenigingLibary;
+using System.Data;
 
 namespace DataAccessLibary;
 
 public class ReservationRepository : IReservationRepository
 {
+    public Reservation checkReservations(Member member, int boat)
+    {
+        return null;
+    }
+
+    public Reservation ChangeReservation(int reservationdId, Member member, int boatId, DateTime startTime, DateTime endTime)
+    {
+        using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
+        {
+            connection.Open();
+            string query = $"UPDATE reservation SET boat_id = @boatId, start_time = @startTime, end_time = @endTime WHERE member_id = @memberId AND boat_id = @boatId AND reservation_id = @reservationid";
+            Console.WriteLine(query);
+            using (MySqlCommand command = new MySqlCommand(query, connection))
+            {
+                command.Parameters.Add("@memberId", MySqlDbType.Int16);
+                command.Parameters.Add("@boatId", MySqlDbType.Int16);
+                command.Parameters.Add("@reservationid", MySqlDbType.Int16);
+                command.Parameters.Add("@startTime", MySqlDbType.DateTime);
+                command.Parameters.Add("@endTime", MySqlDbType.DateTime);
+
+                command.Parameters["@boatId"].Value = boatId;
+                command.Parameters["@memberId"].Value = member.Id;
+                command.Parameters["@reservationid"].Value = reservationdId;
+                command.Parameters["@startTime"].Value = startTime;
+                command.Parameters["@endTime"].Value = endTime;
+
+                command.ExecuteReader();
+            }
+        }
+        return null;
+    }
     public Reservation CreateReservation(Member member, int boatId, DateTime startTime, DateTime endTime)
     {
         using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
@@ -201,5 +230,34 @@ public class ReservationRepository : IReservationRepository
         }
 
         return reservations.OrderBy(x => x.Id).ToList();
+    }
+
+    public Reservation GetReservation(int reservationid)
+    {
+        using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
+        {
+            connection.Open();
+            const string sql = $"SELECT * FROM reservation WHERE `reservation_id` = @reservation_id";
+
+            using (MySqlCommand command = new MySqlCommand(sql, connection))
+            {
+                command.Parameters.Add("@reservation_id", MySqlDbType.Int32);
+                command.Parameters["@reservation_id"].Value = reservationid;
+
+                using (MySqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var boatId = reader.GetInt32(1);
+                        var memberId = reader.GetInt32(2);
+                        var startTime = reader.GetDateTime(4);
+                        var endTime = reader.GetDateTime(5);
+
+                        return new Reservation(MemberRepository.Get(memberId), boatId, startTime, endTime);
+                    }
+                }
+            }
+        }
+        return null;
     }
 }

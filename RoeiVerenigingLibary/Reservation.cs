@@ -19,7 +19,7 @@ public class Reservation
         BoatId = boatId;
         Id = id;
     }
-    
+
     public Reservation(Member member, DateTime creationDate, DateTime startTime, DateTime endTime, Boat boat, int id)
     {
         Member = member;
@@ -40,6 +40,6 @@ public class Reservation
 
     public void AddBoatObject(int boatId)
     {
-        
+
     }
 }
