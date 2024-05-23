@@ -84,7 +84,7 @@ namespace DataAccessLibary
                 connection.Open();
 
                 const string sql =
-                    "SELECT * FROM `damage_reports` WHERE `member_id` = @memberId ORDER BY `fixed`, `report_time` DESC";
+                    "SELECT * FROM `damage_reports` WHERE `member_id` = @memberId ";
 
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {
@@ -101,15 +101,15 @@ namespace DataAccessLibary
                             Boat boat = boatRepository.GetBoatById(reader.GetInt32("boat_id"));
                             Damage damageReport = new Damage(reader.GetInt32("id"), member, boat,
                                 reader.GetString("description"),
-                                reader.GetBoolean("fixed"), reader.GetBoolean("usable"));
+                                reader.GetBoolean("fixed"), reader.GetBoolean("usable"), reader.GetDateTime("report_time"));
 
                             damageReports.Add(damageReport);
                         }
                     }
                 }
             }
-
-            return damageReports;
+            var damagereport = damageReports.OrderBy(report => report.BoatFixed).ThenByDescending(report => report.ReportTime).ToList();
+            return damagereport;
         }
 
         public Damage Update(int id, bool boatFixed, bool usable, string description)
