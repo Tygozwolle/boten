@@ -1,8 +1,9 @@
-namespace RoeiVerenigingLibary.Exceptions;
-
-public class ExceededAmountOfReservationsException: Exception
+namespace RoeiVerenigingLibary.Exceptions
 {
-    public ExceededAmountOfReservationsException(String message) : base(message)
+    public class ExceededAmountOfReservationsException : Exception
     {
+        public ExceededAmountOfReservationsException(string message) : base(message)
+        {
+        }
     }
 }

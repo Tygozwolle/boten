@@ -1,11 +1,5 @@
 ﻿using MySqlConnector;
 using RoeiVerenigingLibary;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessLibary
 {
@@ -18,7 +12,7 @@ namespace DataAccessLibary
                 connection.Open();
 
                 const string sql =
-                    $"INSERT INTO `damage_reports`( `boat_id`, `description`, `member_id`) VALUES (@boat_id, @description, @member_id)";
+                    "INSERT INTO `damage_reports`( `boat_id`, `description`, `member_id`) VALUES (@boat_id, @description, @member_id)";
 
 
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
@@ -41,7 +35,7 @@ namespace DataAccessLibary
 
         public List<Damage> GetAllDamageReports()
         {
-            List<Damage> damageReports = new List<Damage>();
+            var damageReports = new List<Damage>();
             MemberRepository memberRepository = new MemberRepository();
             BoatRepository boatRepository = new BoatRepository();
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
@@ -76,7 +70,7 @@ namespace DataAccessLibary
 
         public List<Damage> GetRelatedToUser(int memberId)
         {
-            List<Damage> damageReports = new List<Damage>();
+            var damageReports = new List<Damage>();
             MemberRepository memberRepository = new MemberRepository();
             BoatRepository boatRepository = new BoatRepository();
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
@@ -169,7 +163,7 @@ namespace DataAccessLibary
                         if (reader.Read())
                         {
                             //get member
-                            var imageRepository = new ImageRepository();
+                            ImageRepository imageRepository = new ImageRepository();
                             Member member = memberRepository.GetById(reader.GetInt32("member_id"));
                             //get boat
                             Boat boat = boatRepository.GetBoatById(reader.GetInt32("boat_id"));

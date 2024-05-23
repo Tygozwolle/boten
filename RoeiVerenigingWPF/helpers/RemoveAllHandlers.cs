@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Reflection;
 
 namespace RoeiVerenigingWPF.helpers
 {
@@ -17,17 +12,17 @@ namespace RoeiVerenigingWPF.helpers
                     BindingFlags.Public | BindingFlags.NonPublic
                                         | BindingFlags.Instance | BindingFlags.Static);
 
-                foreach (var eventInfo in eventsToClear)
+                foreach (EventInfo eventInfo in eventsToClear)
                 {
                     try
                     {
-                        var fieldInfo = instance.GetType().GetField(
+                        FieldInfo? fieldInfo = instance.GetType().GetField(
                             eventInfo.Name,
                             BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.Instance);
                         if (fieldInfo != null)
                         {
                             if (fieldInfo.GetValue(instance) is Delegate eventHandler)
-                                foreach (var invocatedDelegate in eventHandler.GetInvocationList())
+                                foreach (Delegate invocatedDelegate in eventHandler.GetInvocationList())
                                     eventInfo.GetRemoveMethod(fieldInfo.IsPrivate).Invoke(
                                         instance,
                                         new object[] { invocatedDelegate });

@@ -1,15 +1,16 @@
-using System.Windows.Controls;
 using RoeiVerenigingTestWPF.Frames;
+using System.Windows.Controls;
 
-namespace RoeiVerenigingTestWPF.Pages;
-
-public partial class MainPage : Page
+namespace RoeiVerenigingTestWPF.Pages
 {
-    public MainWindow MainWindow { get; set; }
-
-    public MainPage(MainWindow mainWindow)
+    public partial class MainPage : Page
     {
-        InitializeComponent();
-        MainWindow = mainWindow;
+
+        public MainPage(MainWindow mainWindow)
+        {
+            InitializeComponent();
+            MainWindow = mainWindow;
+        }
+        public MainWindow MainWindow { get; set; }
     }
 }

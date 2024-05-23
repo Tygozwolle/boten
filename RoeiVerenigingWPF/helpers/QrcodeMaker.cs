@@ -1,15 +1,7 @@
 ﻿using QRCoder;
-using RoeiVerenigingLibary;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media.Imaging;
-using System.Windows.Media;
 using RoeiVerenigingLibrary;
+using System.Drawing;
+using System.Windows.Media;
 using Color = System.Drawing.Color;
 
 namespace RoeiVerenigingWPF.helpers
@@ -24,8 +16,8 @@ namespace RoeiVerenigingWPF.helpers
                 {
                     using (QRCode qrCode = new QRCode(qrCodeData))
                     {
-                        using (Bitmap qrCodeBitmap = qrCode.GetGraphic(20, Color.Black,  Color.FromArgb(232, 246,252),  new Bitmap("Images/logo.png"), 25,0,true,null))
-                        { 
+                        using (Bitmap qrCodeBitmap = qrCode.GetGraphic(20, Color.Black, Color.FromArgb(232, 246, 252), new Bitmap("Images/logo.png"), 25))
+                        {
                             return ImageConverter.Convert(qrCodeBitmap);
                         }
                     }

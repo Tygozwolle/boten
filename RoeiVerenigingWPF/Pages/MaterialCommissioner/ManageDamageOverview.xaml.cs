@@ -1,80 +1,79 @@
-﻿using System.IO;
-using System.Windows;
-using System.Windows.Controls;
-using DataAccessLibary;
+﻿using DataAccessLibary;
 using RoeiVerenigingLibary;
 using RoeiVerenigingLibrary;
 using RoeiVerenigingWPF.Frames;
-using Xceed.Wpf.Toolkit.Core;
+using System.Windows;
+using System.Windows.Controls;
 
-namespace RoeiVerenigingWPF.Pages;
-
-public partial class ManageDamageOverview : Page
+namespace RoeiVerenigingWPF.Pages
 {
-    public MainWindow MainWindow { set; get; }
-    private DamageService _service = new DamageService(new DamageRepository());
-    private ImageRepository _imageRepository = new ImageRepository();
-    public List<Damage> Damages { set; get; }
-
-    public ManageDamageOverview(MainWindow mw)
+    public partial class ManageDamageOverview : Page
     {
-        InitializeComponent();
-        DataContext = this;
-        Loaded += loadedEvent;
-        MainWindow = mw;
-        Damages = _service.GetAll();
-        GetImagesFromMail();
-        SetImages();
-    }
+        private readonly ImageRepository _imageRepository = new ImageRepository();
+        private readonly DamageService _service = new DamageService(new DamageRepository());
 
-    private void GetImagesFromMail()
-    {
-        Task task = new Task(() => { EmailToDb.GetImagesFromEmail(_imageRepository); });
-        task.Start();
-    }
-
-    private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
-    {
-        if (sender is Button)
+        public ManageDamageOverview(MainWindow mw)
         {
-            Button casted = sender as Button;
-            object command = casted.CommandParameter;
-            int id = Int32.Parse(command.ToString());
+            InitializeComponent();
+            DataContext = this;
+            Loaded += loadedEvent;
+            MainWindow = mw;
+            Damages = _service.GetAll();
+            GetImagesFromMail();
+            SetImages();
+        }
+        public MainWindow MainWindow { set; get; }
+        public List<Damage> Damages { set; get; }
 
-            MainWindow.MainContent.Navigate(new ManageDamage(MainWindow, _service.GetById(id)));
+        private void GetImagesFromMail()
+        {
+            Task task = new Task(() => { EmailToDb.GetImagesFromEmail(_imageRepository); });
+            task.Start();
         }
 
-        Damages.Count();
-    }
-
-    private void SetImagesAsync()
-    {
-       var thread = new Thread(() =>
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-          SetImages();
-        });
-       thread.Start();
-    }
-
-    private void SetImages()
-    {
-        new Thread(() =>
-        {
-            foreach (Damage damage in Damages)
+            if (sender is Button)
             {
-                Damage damageSave = damage;
-                
-                damage.Images = [_imageRepository.GetFirstImage(damageSave.Id)];
-            }
-            this.Dispatcher.Invoke(() =>
-                                        {
-                                            ListView.Items.Refresh();
-                                        });
-        }).Start();
-    }
+                Button casted = sender as Button;
+                object command = casted.CommandParameter;
+                int id = Int32.Parse(command.ToString());
 
-    private void loadedEvent(object sender, RoutedEventArgs args)
-    {
-     //   SetImagesAsync();
+                MainWindow.MainContent.Navigate(new ManageDamage(MainWindow, _service.GetById(id)));
+            }
+
+            Damages.Count();
+        }
+
+        private void SetImagesAsync()
+        {
+            Thread thread = new Thread(() =>
+            {
+                SetImages();
+            });
+            thread.Start();
+        }
+
+        private void SetImages()
+        {
+            new Thread(() =>
+            {
+                foreach (Damage damage in Damages)
+                {
+                    Damage damageSave = damage;
+
+                    damage.Images = [_imageRepository.GetFirstImage(damageSave.Id)];
+                }
+                Dispatcher.Invoke(() =>
+                {
+                    ListView.Items.Refresh();
+                });
+            }).Start();
+        }
+
+        private void loadedEvent(object sender, RoutedEventArgs args)
+        {
+            //   SetImagesAsync();
+        }
     }
 }

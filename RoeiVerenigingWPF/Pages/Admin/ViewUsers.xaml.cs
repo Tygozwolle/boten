@@ -1,36 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using DataAccessLibary;
+﻿using DataAccessLibary;
 using RoeiVerenigingLibary;
 using RoeiVerenigingWPF.Frames;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using Color = System.Windows.Media.Color;
-using Image = System.Windows.Controls.Image;
 
 namespace RoeiVerenigingWPF.Pages
 {
     /// <summary>
-    /// Interaction logic for ViewUsers.xaml
+    ///     Interaction logic for ViewUsers.xaml
     /// </summary>
     public partial class ViewUsers : Page
     {
-        private List<Member> _memberList;
-        public Member SelectedMember { get; set; }
-        private MainWindow _mainWindow;
+        private readonly SolidColorBrush _borderColor = new SolidColorBrush(Color.FromArgb(255, 19, 114, 160));
 
-        private SolidColorBrush _textColor = new SolidColorBrush(Color.FromArgb(255, 4, 48, 73));
-        private SolidColorBrush _borderColor = new SolidColorBrush(Color.FromArgb(255, 19, 114, 160));
-
-        private SolidColorBrush
+        private readonly SolidColorBrush
             _evenRowColor = new SolidColorBrush(Color.FromArgb(255, 232, 246, 252)); // Background color for even rows
 
-        private SolidColorBrush
+        private readonly MainWindow _mainWindow;
+        private readonly List<Member> _memberList;
+
+        private readonly SolidColorBrush
             _oddRowColor = new SolidColorBrush(Color.FromArgb(255, 182, 227, 251)); // Background color for odd rows
+
+        private readonly SolidColorBrush _textColor = new SolidColorBrush(Color.FromArgb(255, 4, 48, 73));
 
         public ViewUsers(MainWindow mainWindow)
         {
@@ -42,14 +37,15 @@ namespace RoeiVerenigingWPF.Pages
             _memberList = service.GetMembers();
             PopulateUserList(_memberList);
         }
+        public Member SelectedMember { get; set; }
 
         public void PopulateUserList(List<Member> memberList)
         {
             UserStackPanel.Children.Clear();
             for (int i = 0; i < memberList.Count; i++)
             {
-                var member = memberList[i];
-                var grid = new Grid();
+                Member member = memberList[i];
+                Grid grid = new Grid();
                 grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
                 grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(10) });
 
@@ -103,9 +99,9 @@ namespace RoeiVerenigingWPF.Pages
                 });
                 Grid.SetColumn(grid.Children[5], 5);
 
-                var border = new Border
+                Border border = new Border
                 {
-                    BorderThickness = new System.Windows.Thickness(1),
+                    BorderThickness = new Thickness(1),
                     BorderBrush = _borderColor,
                     CornerRadius = new CornerRadius(5),
                     Padding = new Thickness(10),
@@ -128,7 +124,7 @@ namespace RoeiVerenigingWPF.Pages
                     // Check if it's a double-click
                     if (lastClickedBorder == sender && (DateTime.Now - lastClickTime).TotalMilliseconds < 500)
                     {
-                        var clickedUser = _memberList[UserStackPanel.Children.IndexOf((UIElement)sender)];
+                        Member clickedUser = _memberList[UserStackPanel.Children.IndexOf((UIElement)sender)];
 
                         // Open a new page with the selected user information
                         AdminEditUser userDetailsPage = new AdminEditUser(_mainWindow, clickedUser.Id);
@@ -158,7 +154,7 @@ namespace RoeiVerenigingWPF.Pages
         private void ButtonFilterUsers(object sender, RoutedEventArgs e)
         {
             Button clickedButton = sender as Button;
-            List<Member> selectedMemberList = new List<Member>();
+            var selectedMemberList = new List<Member>();
 
             if (clickedButton != null)
             {
@@ -192,7 +188,7 @@ namespace RoeiVerenigingWPF.Pages
         public void TextFilterUsers(object sender, RoutedEventArgs e)
         {
             TextBox selectedTextbox = sender as TextBox;
-            List<Member> selectedMemberList = new List<Member>();
+            var selectedMemberList = new List<Member>();
 
             if (selectedTextbox != null)
             {
@@ -212,7 +208,7 @@ namespace RoeiVerenigingWPF.Pages
                             break;
                         case "SearchInfix":
                             selectedMemberList = _memberList
-                                .Where(member => member.Infix !=null && member.Infix.ToString().Contains(selectedTextbox.Text))
+                                .Where(member => member.Infix != null && member.Infix.ToString().Contains(selectedTextbox.Text))
                                 .ToList();
                             break;
                         case "SearchLastName":

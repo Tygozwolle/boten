@@ -1,23 +1,20 @@
-﻿using System.Windows;
+﻿using DataAccessLibary;
+using RoeiVerenigingLibary;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using DataAccessLibary;
-using RoeiVerenigingLibary;
-using RoeiVerenigingLibary.Exceptions;
-using RoeiVerenigingTestWPF.Frames;
 
 namespace RoeiVerenigingTestWPF.Pages
 {
     /// <summary>
-    /// Interaction logic for AddReservation.xaml
+    ///     Interaction logic for AddReservation.xaml
     /// </summary>
-    /// 
     public partial class AddReservation : Page
     {
+        private int _boatId;
         private Member _loggedInMember;
 
-        private ReservationService _service = new(new ReservationRepository());
-        private int _boatId;
+        private ReservationService _service = new ReservationService(new ReservationRepository());
 
         public AddReservation(Member loggedInMember, int boatId)
         {
@@ -30,16 +27,15 @@ namespace RoeiVerenigingTestWPF.Pages
 
         private void TimePicker_TextChanged(object sender, TextChangedEventArgs e)
         {
-            var textBox = FocusManager.GetFocusedElement(this) as TextBox;
+            TextBox? textBox = FocusManager.GetFocusedElement(this) as TextBox;
             if (textBox != null)
             {
             }
         }
 
-        public void ConfirmButton(Object sender, RoutedEventArgs e)
+        public void ConfirmButton(object sender, RoutedEventArgs e)
         {
             //check if all fields are valid
-            return;
             // DateTime? startTime = BeginTimePicker.Value;
             // DateTime? endTime = EndTimePicker.Value;
             // DateTime? selectedDate = calendar.SelectedDate;
