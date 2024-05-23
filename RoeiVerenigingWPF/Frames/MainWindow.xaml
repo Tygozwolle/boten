@@ -4,10 +4,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:Components="clr-namespace:RoeiVerenigingWPF.Components"
+        xmlns:local="clr-namespace:RoeiVerenigingWPF.helpers"
         mc:Ignorable="d"
         Title="MainWindow" WindowState="Maximized">
     <Grid>
-        <Grid Name="LoginScreenGrid" Background="#e8f6fc">
+        <Grid Name="LoginScreenGrid" Background="{x:Static local:CustomColors.TextBoxBackgroundColor}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>

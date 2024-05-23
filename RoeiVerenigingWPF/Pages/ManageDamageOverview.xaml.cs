@@ -1,7 +1,6 @@
 ﻿using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using Aspose.Email.Clients.Exchange.WebService.Schema_2016;
 using DataAccessLibary;
 using RoeiVerenigingLibary;
 using RoeiVerenigingWPF.Frames;
