@@ -2,7 +2,7 @@ using System.Windows.Media;
 
 namespace RoeiVerenigingWPF.helpers;
 
-public static class CustomColors
+public abstract class CustomColors
 {
     public static SolidColorBrush
         MainBackgroundColor = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255)); // #ffffff
