@@ -57,7 +57,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DataAccessLibary\DataAccessLibary.csproj" />
-    <ProjectReference Include="..\RoeiVerenigingLibary\RoeiVerenigingLibary.csproj" />
+    <ProjectReference Include="..\RoeiVerenigingLibrary\RoeiVerenigingLibrary.csproj" />
     <Content Include="Images\Image_not_available.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

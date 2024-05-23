@@ -10,7 +10,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\DataAccessLibary\DataAccessLibary.csproj" />
-      <ProjectReference Include="..\RoeiVerenigingLibary\RoeiVerenigingLibary.csproj" />
+      <ProjectReference Include="..\RoeiVerenigingLibrary\RoeiVerenigingLibrary.csproj" />
     </ItemGroup>
 
     <ItemGroup>

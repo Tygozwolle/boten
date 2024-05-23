@@ -6,6 +6,7 @@
     <Nullable>enable</Nullable>
     <UserSecretsId>19388fd9-8aff-46ed-b0dd-2cf69d0e41b9</UserSecretsId>
     <Configurations>Debug;Release;Ingelogd;IngelogtBeheer;IngelogtMateriaal;IngelogtEvent</Configurations>
+    <RootNamespace>RoeiVerenigingLibary</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
