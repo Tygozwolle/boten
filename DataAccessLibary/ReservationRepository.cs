@@ -11,22 +11,24 @@ public class ReservationRepository : IReservationRepository
         return null;
     }
 
-    public Reservation ChangeReservation(Member member, int boatId, DateTime startTime, DateTime endTime)
+    public Reservation ChangeReservation(int reservationdId, Member member, int boatId, DateTime startTime, DateTime endTime)
     {
         using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
         {
             connection.Open();
-            string query = $"UPDATE reservation SET boat_id = @boatId, start_time = @startTime, end_time = @endTime WHERE member_id = @memberId AND boat_id = @boatId";
+            string query = $"UPDATE reservation SET boat_id = @boatId, start_time = @startTime, end_time = @endTime WHERE member_id = @memberId AND boat_id = @boatId AND reservation_id = @reservationid";
             Console.WriteLine(query);
             using (MySqlCommand command = new MySqlCommand(query, connection))
             {
                 command.Parameters.Add("@memberId", MySqlDbType.Int16);
                 command.Parameters.Add("@boatId", MySqlDbType.Int16);
+                command.Parameters.Add("@reservationid", MySqlDbType.Int16);
                 command.Parameters.Add("@startTime", MySqlDbType.DateTime);
                 command.Parameters.Add("@endTime", MySqlDbType.DateTime);
 
                 command.Parameters["@boatId"].Value = boatId;
                 command.Parameters["@memberId"].Value = member.Id;
+                command.Parameters["@reservationid"].Value = reservationdId;
                 command.Parameters["@startTime"].Value = startTime;
                 command.Parameters["@endTime"].Value = endTime;
 
