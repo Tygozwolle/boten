@@ -5,6 +5,8 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Navigation;
+using DataAccessLibary;
+using QRCoder;
 
 namespace RoeiVerenigingWPF.Frames
 {
@@ -106,6 +108,30 @@ namespace RoeiVerenigingWPF.Frames
             MainContent.Visibility = Visibility.Hidden;
             LoginContent.Visibility = Visibility.Visible;
             _loggedInMember = null;
+        }
+
+        private void ManageApp_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Login login = (Login)LoginContent.Content;
+                if (Config.ControlPassword == null || Config.ControlUsername == null)
+                {
+                    LoginContent.Navigate(new MainPage(this));
+                    return;
+                }
+                var email = login.Email.Text;
+                var password = login.Password.Password;
+                if (password == Config.ControlPassword && email == Config.ControlUsername)
+                {
+                    LoginContent.Navigate(new MainPage(this));
+                }
+            }
+            catch
+            {
+
+            }
+
         }
     }
 }
