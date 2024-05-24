@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:RoeiVerenigingWPF.Pages.Admin"
       xmlns:helpers="clr-namespace:RoeiVerenigingWPF.helpers"
       mc:Ignorable="d"
-      Title="ManageBoat" Height="450" Width="800">
+      Title="ManageBoat" Height="800" Width="900">
     <Grid Height="800" Width="900" HorizontalAlignment="Center" VerticalAlignment="Center">
         <Grid.Effect>
             <DropShadowEffect Color="Black" Direction="320" ShadowDepth="10" Opacity="0.3" />
@@ -30,7 +30,7 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <Label Grid.Row="0" HorizontalContentAlignment="Center" VerticalAlignment="Top" Margin="0,60,0,0"
+                    <Label Grid.Row="0" HorizontalContentAlignment="Center" VerticalAlignment="Top" Margin="0,40,0,0"
                            Content="Boot aanmaken"
                            FontFamily="Franklin Gothic Medium" FontSize="36"
                            Foreground="{x:Static helpers:CustomColors.HeaderColor}" />
@@ -45,36 +45,46 @@
                     <TextBox Grid.Row="3" x:Name="Name" Width="367" Height="40" Foreground="{x:Static helpers:CustomColors.SubHeaderColor}"
                              Background="{x:Static helpers:CustomColors.TextBoxBackgroundColor}"
                              BorderBrush="{x:Static helpers:CustomColors.OutsideBorderColor}" FontSize="24" FontFamily="Franklin Gothic Medium" />
-
-                    <Label Grid.Row="4" Content="Niveau:" Width="367" FontFamily="Franklin Gothic Medium"
+                    <Label Grid.Row="4" Content="*Plekken:" Width="200" FontFamily="Franklin Gothic Medium"
                            FontSize="24" HorizontalContentAlignment="Center"
                            Foreground="{x:Static helpers:CustomColors.SubHeaderColor}" />
-                    <TextBox Grid.Row="5" x:Name="Niveau" Width="367" Height="40" Foreground="{x:Static helpers:CustomColors.SubHeaderColor}"
+                    <TextBox Grid.Row="5" x:Name="Seats" Width="367" Height="40" Foreground="{x:Static helpers:CustomColors.SubHeaderColor}"
                              Background="{x:Static helpers:CustomColors.TextBoxBackgroundColor}"
                              BorderBrush="{x:Static helpers:CustomColors.OutsideBorderColor}" FontSize="24" FontFamily="Franklin Gothic Medium" />
-
-                    <Label Grid.Row="6" Content="*LastName:" Width="200" FontFamily="Franklin Gothic Medium"
+                    <Label Grid.Row="6" Content="Niveau:" Width="367" FontFamily="Franklin Gothic Medium"
                            FontSize="24" HorizontalContentAlignment="Center"
                            Foreground="{x:Static helpers:CustomColors.SubHeaderColor}" />
-                    <TextBox Grid.Row="7" x:Name="LastName" Width="367" Height="40" Foreground="{x:Static helpers:CustomColors.SubHeaderColor}"
+                    <TextBox Grid.Row="7" x:Name="Level" Width="367" Height="40" Foreground="{x:Static helpers:CustomColors.SubHeaderColor}"
                              Background="{x:Static helpers:CustomColors.TextBoxBackgroundColor}"
                              BorderBrush="{x:Static helpers:CustomColors.OutsideBorderColor}" FontSize="24" FontFamily="Franklin Gothic Medium" />
-
-                    <Label Grid.Row="8" Content="*Email:" Width="200" FontFamily="Franklin Gothic Medium" FontSize="24"
-                           HorizontalContentAlignment="Center"
-                           Foreground="{x:Static helpers:CustomColors.SubHeaderColor}" />
-                    <TextBox Grid.Row="9" x:Name="Email" Width="367" Height="40" Foreground="{x:Static helpers:CustomColors.SubHeaderColor}"
-                             Background="{x:Static helpers:CustomColors.TextBoxBackgroundColor}"
-                             BorderBrush="{x:Static helpers:CustomColors.OutsideBorderColor}" FontSize="24" FontFamily="Franklin Gothic Medium" />
-
-                    <Label Grid.Row="10" Content="*Wachtwoord:" Width="200" FontFamily="Franklin Gothic Medium"
-                           FontSize="24" HorizontalContentAlignment="Center"
-                           Foreground="{x:Static helpers:CustomColors.SubHeaderColor}" />
-                    <PasswordBox Grid.Row="11" x:Name="Password" Width="367" Height="40" Foreground="{x:Static helpers:CustomColors.SubHeaderColor}"
+                    <StackPanel Grid.Row="8">
+                        <Label Content="*Beschrijving:" Width="200" FontFamily="Franklin Gothic Medium"
+                               FontSize="24" HorizontalContentAlignment="Center" 
+                               Foreground="{x:Static helpers:CustomColors.SubHeaderColor}" />
+                        <TextBox x:Name="Description" Width="367" Height="100" Foreground="{x:Static helpers:CustomColors.SubHeaderColor}"
                                  Background="{x:Static helpers:CustomColors.TextBoxBackgroundColor}"
-                                 BorderBrush="{x:Static helpers:CustomColors.OutsideBorderColor}" FontSize="24" FontFamily="Franklin Gothic Medium" />
+                                 BorderBrush="{x:Static helpers:CustomColors.OutsideBorderColor}" TextWrapping="WrapWithOverflow" FontSize="24" FontFamily="Franklin Gothic Medium" />
+                    </StackPanel>
+                    <StackPanel Grid.Row="9">
+                
+                            <ToggleButton Grid.Column="0" Name="Captain"
+                                 Grid.Row="12"  Content="Stuurman Afwezig" Width="250" Height="50"
+                                        Margin="20,20,20,20"
+                                        FontFamily="Franklin Gothic Medium" FontSize="24" Foreground="{x:Static helpers:CustomColors.HeaderColor}" Background="{x:Static helpers:CustomColors.ButtonBackgroundColor}"
+                                        BorderBrush="{x:Static helpers:CustomColors.OutsideBorderColor}" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Click="ToggleButtonClick"
+                                        >
+                                    <ToggleButton.Resources>
+                                        <Style TargetType="Border">
+                                            <Setter Property="CornerRadius" Value="15" />
+                                        </Style>
+                                    </ToggleButton.Resources>
+                                
+                            </ToggleButton>
+                    </StackPanel>
 
-                    <Button Grid.Row="12" Content="Account aanmaken" Width="295" Height="70"
+                    
+
+                    <Button Grid.Row="12" Content="Boot aanmaken" Width="295" Height="70"
                             Margin="20,40,20,20"
                             FontFamily="Franklin Gothic Medium" FontSize="32" Foreground="{x:Static helpers:CustomColors.HeaderColor}" Background="{x:Static helpers:CustomColors.ButtonBackgroundColor}"
                             BorderBrush="{x:Static helpers:CustomColors.OutsideBorderColor}"

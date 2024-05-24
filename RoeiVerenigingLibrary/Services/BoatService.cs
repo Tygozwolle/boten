@@ -1,6 +1,8 @@
-﻿namespace RoeiVerenigingLibrary
+﻿using RoeiVerenigingLibrary.Exceptions;
+
+namespace RoeiVerenigingLibrary
 {
-    public class BoatService : IBoatRepository
+    public class BoatService 
     {
         private readonly IBoatRepository _boatRepository;
 
@@ -25,13 +27,20 @@
 
             return boat;
         }
-        public Boat Create(string name, string description, int seats, bool captainSeat, int level)
+        public Boat Create(Member LogedInMember, string name, string description, int seats, bool captainSeat, int level)
         {
-            Boat boat;
+            if (LogedInMember.Roles.Contains("beheerder")|| LogedInMember.Roles.Contains("materiaal_commissaris"))
+            {
+                Boat boat;
 
-            boat = _boatRepository.Create(name, description, seats, captainSeat, level);
+                boat = _boatRepository.Create(name, description, seats, captainSeat, level);
 
-            return boat;
+                return boat;
+            }
+            else
+            {
+                throw new IncorrectRightsExeption();
+            }
         }
     }
 }

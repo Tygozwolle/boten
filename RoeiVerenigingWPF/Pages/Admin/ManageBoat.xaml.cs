@@ -5,27 +5,41 @@ using System.Windows.Controls;
 using DataAccessLibrary;
 using RoeiVerenigingLibrary;
 using RoeiVerenigingLibrary.Exceptions;
+using RoeiVerenigingWPF.Frames;
 
 namespace RoeiVerenigingWPF.Pages.Admin
 {
     public partial class ManageBoat : Page
     {
-        public ManageBoat()
+        private MainWindow _mainWindow;
+        public ManageBoat(MainWindow mainWindow)
         {
+            _mainWindow = mainWindow;
             InitializeComponent();
+            Captain.IsChecked = false;
+        }
+        private void ToggleButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (Captain.IsChecked == true)
+            {
+                Captain.Content = "Stuurman aanwezig";
+            }
+            else
+            {
+                Captain.Content = "Stuurman afwezig";
+            }
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             BoatService service = new BoatService(new BoatRepository());
             try
             {
-                string firstName = FirstName.Text;
-                string infix = Infix.Text;
-                string lastName = LastName.Text;
-                string email = Email.Text;
-                string password = Password.Password;
-                Boat createdBoat = service.Create(_mainWindow.LoggedInMember, firstName, infix, lastName, email,
-                    password);
+                string name = Name.Text;
+                string discription = Description.Text;
+                string seats = Seats.Text;
+                string level = Level.Text;
+                bool captain = Captain.IsPressed;
+                Boat createdBoat = service.Create(_mainWindow.LoggedInMember, name, discription, Int32.Parse(seats), captain, Int32.Parse(level));
                 if (createdBoat != null)
                 {
                     MessageBox.Show(
