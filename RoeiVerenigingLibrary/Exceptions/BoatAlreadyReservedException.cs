@@ -1,4 +1,4 @@
-﻿namespace RoeiVerenigingLibary.Exceptions
+﻿namespace RoeiVerenigingLibrary.Exceptions
 {
     public class BoatAlreadyReservedException : Exception
     {

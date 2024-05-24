@@ -2,7 +2,7 @@
 using Aspose.Email.Clients.Imap;
 using Aspose.Email.Mime;
 using Microsoft.Extensions.Configuration;
-using RoeiVerenigingLibary;
+using RoeiVerenigingLibrary;
 using System.Diagnostics;
 using Attachment = Aspose.Email.Attachment;
 

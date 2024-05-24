@@ -1,7 +1,7 @@
 using Innovative.SolarCalculator;
-using RoeiVerenigingLibary.Exceptions;
+using RoeiVerenigingLibrary.Exceptions;
 
-namespace RoeiVerenigingLibary
+namespace RoeiVerenigingLibrary
 {
     public class ReservationService
     {

@@ -1,5 +1,5 @@
 ﻿using DataAccessLibrary;
-using RoeiVerenigingLibary;
+using RoeiVerenigingLibrary;
 using RoeiVerenigingTestWPF.Frames;
 using System.Windows;
 using System.Windows.Controls;

@@ -1,5 +1,5 @@
 ﻿using Moq;
-using RoeiVerenigingLibary;
+using RoeiVerenigingLibrary;
 
 namespace RoeiVerenigingUnitTests
 {

@@ -1,7 +1,7 @@
 ﻿using DataAccessLibrary;
-using RoeiVerenigingLibary.Exceptions;
-using RoeiVerenigingLibary;
-using RoeiVerenigingLibary.Exceptions;
+using RoeiVerenigingLibrary.Exceptions;
+using RoeiVerenigingLibrary;
+using RoeiVerenigingLibrary.Exceptions;
 using RoeiVerenigingTestWPF.Frames;
 using System.Windows;
 using System.Windows.Controls;

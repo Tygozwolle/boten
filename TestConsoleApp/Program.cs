@@ -1,6 +1,6 @@
 using DataAccessLibrary;
 using MySqlConnector;
-using RoeiVerenigingLibary;
+using RoeiVerenigingLibrary;
 using System.Diagnostics;
 
 namespace TestConsoleApp

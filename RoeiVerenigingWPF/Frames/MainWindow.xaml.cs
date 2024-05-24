@@ -1,4 +1,4 @@
-using RoeiVerenigingLibary;
+using RoeiVerenigingLibrary;
 using RoeiVerenigingWPF.helpers;
 using RoeiVerenigingWPF.Pages;
 using System.ComponentModel;

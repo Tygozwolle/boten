@@ -1,6 +1,6 @@
 ﻿using DataAccessLibrary;
-using RoeiVerenigingLibary;
-using RoeiVerenigingLibary.Exceptions;
+using RoeiVerenigingLibrary;
+using RoeiVerenigingLibrary.Exceptions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
