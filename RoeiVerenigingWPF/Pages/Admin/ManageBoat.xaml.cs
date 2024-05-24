@@ -1,6 +1,10 @@
-﻿using DataAccessLibary;
-using RoeiVerenigingLibary;
+﻿using System.Windows;
+using DataAccessLibrary;
+using RoeiVerenigingLibrary;
 using System.Windows.Controls;
+using DataAccessLibrary;
+using RoeiVerenigingLibrary;
+using RoeiVerenigingLibrary.Exceptions;
 
 namespace RoeiVerenigingWPF.Pages.Admin
 {
