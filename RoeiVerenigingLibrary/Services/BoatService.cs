@@ -25,5 +25,13 @@
 
             return boat;
         }
+        public Boat Create(string name, string description, int seats, bool captainSeat, int level)
+        {
+            Boat boat;
+
+            boat = _boatRepository.Create(name, description, seats, captainSeat, level);
+
+            return boat;
+        }
     }
 }

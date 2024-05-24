@@ -1,5 +1,7 @@
 ﻿using MySqlConnector;
 using RoeiVerenigingLibary;
+using System.Reflection.Emit;
+using System;
 
 namespace DataAccessLibary
 {
@@ -101,6 +103,37 @@ namespace DataAccessLibary
             }
 
             return null;
+        }
+        public Boat Create(string name, string description, int seats, bool captainSeat, int level)
+        {
+            using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
+            {
+                connection.Open();
+
+                const string sql =
+                    $"INSERT INTO `boats`( `captain_seat`, `seats`, `level`, `description`, `name`) VALUES (@captainSeat,@seats,@level,@description,@name)";
+
+                using (MySqlCommand command = new MySqlCommand(sql, connection))
+                {
+                    command.Parameters.Add("@captainSeat", MySqlDbType.Bool);
+                    command.Parameters["@captainSeat"].Value = captainSeat;
+                    
+                    command.Parameters.Add("@seats", MySqlDbType.Int32);
+                    command.Parameters["@seats"].Value = seats;
+                    
+                    command.Parameters.Add("@level", MySqlDbType.Int32);
+                    command.Parameters["@level"].Value = level;
+                    
+                    command.Parameters.Add("@description", MySqlDbType.VarChar);
+                    command.Parameters["@description"].Value = description;
+                    
+                    command.Parameters.Add("@name", MySqlDbType.VarChar);
+                    command.Parameters["@name"].Value = name;
+                    
+                    command.ExecuteReader();
+                    return new Boat((int)command.LastInsertedId, captainSeat, seats, level, description, name);
+                }
+            }
         }
     }
 }
