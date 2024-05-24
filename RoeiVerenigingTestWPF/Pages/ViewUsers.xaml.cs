@@ -1,11 +1,14 @@
-﻿using DataAccessLibary;
-using RoeiVerenigingLibary;
+﻿
+using RoeiVerenigingLibrary;
 using RoeiVerenigingTestWPF.Frames;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using DataAccessLibrary;
+using RoeiVerenigingLibrary;
+using RoeiVerenigingTestWPF.Frames;
 
 namespace RoeiVerenigingTestWPF.Pages
 {

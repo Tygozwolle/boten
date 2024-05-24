@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RoeiVerenigingLibrary", "Ro
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RoeiVerenigingUnitTests", "RoeiVerenigingUnitTests\RoeiVerenigingUnitTests.csproj", "{377335C6-7E66-46C5-917F-7DB22C6C5052}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccessLibary", "DataAccessLibary\DataAccessLibary.csproj", "{BE543AD8-4958-4A1E-B85C-BEC124E7C682}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccessLibrary", "DataAccessLibrary\DataAccessLibrary.csproj", "{BE543AD8-4958-4A1E-B85C-BEC124E7C682}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RoeiVerenigingWPF", "RoeiVerenigingWPF\RoeiVerenigingWPF.csproj", "{14E9FAAA-ABC5-4E8B-BBE7-3E0728D94088}"
 EndProject

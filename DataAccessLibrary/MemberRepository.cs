@@ -1,16 +1,16 @@
 ﻿using MySqlConnector;
-using RoeiVerenigingLibary;
+using RoeiVerenigingLibrary;
 
-namespace DataAccessLibary
+namespace DataAccessLibrary;
+
+public class MemberRepository : IMemberRepository
 {
-    public class MemberRepository : IMemberRepository
+    public Member Get(string email, string passwordHash)
     {
-        public Member Get(string email, string passwordHash)
+        using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
         {
-            using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
-            {
-                connection.Open();
-                const string sql = "SELECT * FROM members WHERE email = @email AND password = @passwordHash";
+            connection.Open();
+            const string sql = $"SELECT * FROM members WHERE email = @email AND password = @passwordHash";
 
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {
@@ -356,4 +356,3 @@ namespace DataAccessLibary
             return list;
         }
     }
-}

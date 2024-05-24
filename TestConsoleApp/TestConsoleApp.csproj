@@ -17,12 +17,12 @@
         <PackageReference Include="Microsoft.AspNetCore.Cryptography.KeyDerivation" Version="8.0.5" />
     </ItemGroup>
 
-    <ItemGroup>
-        <ProjectReference Include="..\DataAccessLibary\DataAccessLibary.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <ProjectReference Include="..\RoeiVerenigingLibrary\RoeiVerenigingLibrary.csproj" />
-    </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataAccessLibrary\DataAccessLibrary.csproj" />
+  </ItemGroup>
+   
+  <ItemGroup>
+    <ProjectReference Include="..\RoeiVerenigingLibrary\RoeiVerenigingLibrary.csproj" />
+  </ItemGroup>
 
 </Project>

@@ -1,10 +1,12 @@
-﻿using DataAccessLibary;
-using RoeiVerenigingLibary;
+﻿using RoeiVerenigingLibrary;
 using RoeiVerenigingWPF.Frames;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using DataAccessLibrary;
+using RoeiVerenigingLibrary;
+using RoeiVerenigingWPF.Frames;
 using Color = System.Windows.Media.Color;
 
 namespace RoeiVerenigingWPF.Pages

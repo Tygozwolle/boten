@@ -1,9 +1,9 @@
-﻿using RoeiVerenigingLibary.Exceptions;
+﻿using RoeiVerenigingLibrary.Exceptions;
 using System.Net.Mail;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace RoeiVerenigingLibary
+namespace RoeiVerenigingLibrary
 {
     public class MemberService(IMemberRepository memberRepository)
     {

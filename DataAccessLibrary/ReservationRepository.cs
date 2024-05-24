@@ -1,10 +1,10 @@
 using MySqlConnector;
-using RoeiVerenigingLibary;
+using RoeiVerenigingLibrary;
 
-namespace DataAccessLibary
+namespace DataAccessLibrary;
+
+public class ReservationRepository : IReservationRepository
 {
-    public class ReservationRepository : IReservationRepository
-    {
 
         public Reservation ChangeReservation(int reservationdId, Member member, int boatId, DateTime startTime, DateTime endTime)
         {
@@ -261,4 +261,3 @@ namespace DataAccessLibary
             return null;
         }
     }
-}

@@ -1,4 +1,4 @@
-namespace RoeiVerenigingLibary
+namespace RoeiVerenigingLibrary
 {
     public class Reservation
     {
