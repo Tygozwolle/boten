@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace RoeiVerenigingLibary
+namespace RoeiVerenigingLibrary
 {
     public class Boat
     {
