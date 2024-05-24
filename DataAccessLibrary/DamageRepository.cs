@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccessLibary
+namespace DataAccessLibrary
 {
     public class DamageRepository : IDamageRepository
     {

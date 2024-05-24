@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using DataAccessLibary;
+using DataAccessLibrary;
 using RoeiVerenigingLibary;
 using RoeiVerenigingTestWPF.Frames;
 

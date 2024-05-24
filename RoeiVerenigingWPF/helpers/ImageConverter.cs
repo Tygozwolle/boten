@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using System.Windows.Media;
-using DataAccessLibary;
+using DataAccessLibrary;
 
 namespace RoeiVerenigingWPF.helpers
 {

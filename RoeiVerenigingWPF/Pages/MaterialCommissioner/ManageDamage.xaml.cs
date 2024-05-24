@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using DataAccessLibary;
+using DataAccessLibrary;
 using RoeiVerenigingLibary;
 using RoeiVerenigingLibrary;
 using RoeiVerenigingWPF.Frames;
