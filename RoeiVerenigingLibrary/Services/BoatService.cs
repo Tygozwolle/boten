@@ -42,5 +42,16 @@ namespace RoeiVerenigingLibrary
                 throw new IncorrectRightsExeption();
             }
         }
+        public Boat Update(Member LogedInMember,Boat boat, string name, string description, int seats, bool captainSeat, int level)
+        {
+            if (LogedInMember.Roles.Contains("beheerder")|| LogedInMember.Roles.Contains("materiaal_commissaris"))
+            {
+                return  _boatRepository.Update(boat, name, description, seats, captainSeat, level);
+            }
+            else
+            {
+                throw new IncorrectRightsExeption();
+            }
+        }
     }
 }

@@ -30,11 +30,11 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <Label Grid.Row="0" HorizontalContentAlignment="Center" VerticalAlignment="Top" Margin="0,40,0,0"
+                    <Label Grid.Row="0" Name="HeaderBoat" HorizontalContentAlignment="Center" VerticalAlignment="Top" Margin="0,40,0,0"
                            Content="Boot aanmaken"
                            FontFamily="Franklin Gothic Medium" FontSize="36"
                            Foreground="{x:Static helpers:CustomColors.HeaderColor}" />
-                    <TextBlock Grid.Row="1" Width="580" TextWrapping="Wrap" HorizontalAlignment="Center"
+                    <TextBlock Grid.Row="1" Name="TextBlockBoat" Width="580" TextWrapping="Wrap" HorizontalAlignment="Center"
                                TextAlignment="Center"
                                Text="Maak een boot aan, zodat de boot boot gereserveerd kan worden!"
                                FontSize="24" Foreground="{x:Static helpers:CustomColors.SubHeaderColor}" />
@@ -84,7 +84,7 @@
 
                     
 
-                    <Button Grid.Row="12" Content="Boot aanmaken" Width="295" Height="70"
+                    <Button Grid.Row="12" Name="ButtonEditCreate" Content="Boot aanmaken" Width="295" Height="70"
                             Margin="20,40,20,20"
                             FontFamily="Franklin Gothic Medium" FontSize="32" Foreground="{x:Static helpers:CustomColors.HeaderColor}" Background="{x:Static helpers:CustomColors.ButtonBackgroundColor}"
                             BorderBrush="{x:Static helpers:CustomColors.OutsideBorderColor}"
