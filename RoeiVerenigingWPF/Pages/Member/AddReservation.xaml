@@ -7,124 +7,161 @@
       xmlns:views="clr-namespace:RoeiVerenigingWPF.Components"
       xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       mc:Ignorable="d"
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="Reservering Aanmaken">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="50" />
-            <!-- Title Column -->
-
-            <RowDefinition Height="1*" />
-            <RowDefinition Height="50" />
-            <RowDefinition Height="1*" />
-
-
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*" />
-            <ColumnDefinition Width="1*" />
-
-            <ColumnDefinition Width="1*" />
-        </Grid.ColumnDefinitions>
-
-        <!-- Titel -->
-        <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
-            <TextBlock FontSize="30">
-                <TextBlock.Text>
-                    <MultiBinding StringFormat="Boot {0} Reserveren">
-                        <Binding Path="boat.Name" />
-                    </MultiBinding>
-                </TextBlock.Text>
-            </TextBlock>
-        </Label>
-
-        <!-- calender -->
-        <Viewbox
-            Grid.Row="1"
-            Grid.Column="0"
-            StretchDirection="Both">
-            <Calendar x:Name="calendar" SelectionMode="SingleDate" />
-        </Viewbox>
-
-        <!-- Photo -->
-        <Image Source="/Images/Image_not_available.png" Grid.Column="1" Grid.Row="1" />
-
-        <!-- Tekst Label -->
-        <Grid  Grid.Row="1" Grid.Column="3" >
-            <Grid.RowDefinitions>
-                <RowDefinition  Height="50"/>
-                <RowDefinition Height="30"/>
-                <RowDefinition Height="30"/>
-                <RowDefinition Height="30"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <Label Content="Informatie over de boot" Grid.Row="0" FontSize="20"/>
-            <Label Grid.Row="1">
-                <TextBlock>
-                    <TextBlock.Text>
-                        <MultiBinding StringFormat="De boot heeft: {0} zitplekken">
-                            <Binding Path="boat.Seats" />
-                        </MultiBinding>
-                    </TextBlock.Text>
-                </TextBlock>
-            </Label>
-            <Label Grid.Row="2">
-                <TextBlock>
-                    <TextBlock.Text>
-                        <MultiBinding StringFormat="Het niveau {0} van de boot">
-                            <Binding Path="boat.Level" />
-                        </MultiBinding>
-                    </TextBlock.Text>
-                </TextBlock>
-            </Label>
-            <Label Grid.Row="3">
-                <TextBlock>
-                    <TextBlock.Style>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="Text" Value="{Binding boat.CaptainSeat, StringFormat='Stuurman {0}'}"/>
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding boat.CaptainSeat}" Value="True">
-                                    <Setter Property="Text" Value="Stuurman aanwezig"/>
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding boat.CaptainSeat}" Value="False">
-                                    <Setter Property="Text" Value="Stuurman niet aanwezig"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </TextBlock.Style>
-                </TextBlock>
-            </Label>
-            <Label Grid.Row="4" Content="{Binding boat.Description}">
-            </Label>
-        </Grid>
-        
-
-        <Button Grid.Column="2" Grid.Row="3" MaxHeight="50" Content="Reserveren" Click="ConfirmButton" FontSize="20" Background="#88BFEA">
-            <Button.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="15"/>
-                </Style>
-            </Button.Resources>
-        </Button>
-
-        <Grid Grid.Row="3" Grid.Column="0" Grid.RowSpan="2" Margin="50 0 0 0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="1*" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="50" />
-                <RowDefinition Height="50" />
-            </Grid.RowDefinitions>
-
-            <Label Content="Begintijd:" Grid.Row="0" Grid.Column="0" FontSize="30" />
-            <xctk:TimePicker x:Name="BeginTimePicker" TextBoxBase.TextChanged="TimePicker_TextChanged" Height="30"
-                             Width="100" Grid.Column="1" Grid.Row="0" Value="{Binding currentDateTime}" />
-
-            <Label Content="Eindtijd:" TextBoxBase.TextChanged="TimePicker_TextChanged" Grid.Row="1" Grid.Column="0"
-                   FontSize="30" />
-            <xctk:TimePicker x:Name="EndTimePicker" Height="30" Width="100" Grid.Column="1" Grid.Row="1"
-                             Value="{Binding currentDateTime}" />
-        </Grid>
+      d:DesignHeight="900" d:DesignWidth="1500"
+      Title="Reservering Aanmaken" Background="Transparent">
+    <Grid Height="900" Width="1500" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Grid.Effect>
+            <DropShadowEffect Color="Black" Direction="320" ShadowDepth="10" Opacity="0.3" />
+        </Grid.Effect>
+        <Border CornerRadius="30" BorderThickness="5" BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}">
+            <Border CornerRadius="24" BorderThickness="8"
+                    BorderBrush="{x:Static local:CustomColors.MainBackgroundColor}">
+                <Grid Margin="0,0,0,0" Background="{x:Static local:CustomColors.MainBackgroundColor}" Height="880"
+                      Width="1480">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" /> <!-- Calender -->
+                        <ColumnDefinition Width="*" /> <!-- Timeboxes and boats -->
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Content="Reservering plaatsen"
+                           Margin="0,10,0,10"
+                           HorizontalContentAlignment="Center" VerticalAlignment="Top"
+                           FontFamily="Franklin Gothic Medium" FontSize="48"
+                           Foreground="{x:Static local:CustomColors.HeaderColor}">
+                    </Label>
+                    <TextBlock Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"
+                               Text="Maak hier je reservering aan! Selecteer eerst de dag waarop je wil varen, daarna de tijd en kies dan een boot."
+                               VerticalAlignment="Top" TextWrapping="WrapWithOverflow"
+                               FontFamily="Franklin Gothic Medium" FontSize="32" Width="780"
+                               Foreground="{x:Static local:CustomColors.SubHeaderColor}">
+                    </TextBlock>
+                    <Grid Grid.Column="0" Grid.Row="2">
+                        
+                    </Grid>
+                </Grid>
+            </Border>
+        </Border>
     </Grid>
 </Page>
+
+
+<!-- <Grid.RowDefinitions> -->
+<!--             <RowDefinition Height="50" /> -->
+<!--             ~1~ Title Column @1@ -->
+<!-- -->
+<!--             <RowDefinition Height="1*" /> -->
+<!--             <RowDefinition Height="50" /> -->
+<!--             <RowDefinition Height="1*" /> -->
+<!-- -->
+<!-- -->
+<!--         </Grid.RowDefinitions> -->
+<!--         <Grid.ColumnDefinitions> -->
+<!--             <ColumnDefinition Width="1*" /> -->
+<!--             <ColumnDefinition Width="1*" /> -->
+<!-- -->
+<!--             <ColumnDefinition Width="1*" /> -->
+<!--         </Grid.ColumnDefinitions> -->
+<!-- -->
+<!--         ~1~ Titel @1@ -->
+<!--         <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"> -->
+<!--             <TextBlock FontSize="30"> -->
+<!--                 <TextBlock.Text> -->
+<!--                     <MultiBinding StringFormat="Boot {0} Reserveren"> -->
+<!--                         <Binding Path="boat.Name" /> -->
+<!--                     </MultiBinding> -->
+<!--                 </TextBlock.Text> -->
+<!--             </TextBlock> -->
+<!--         </Label> -->
+<!-- -->
+<!--         ~1~ calender @1@ -->
+<!--         <Viewbox -->
+<!--             Grid.Row="1" -->
+<!--             Grid.Column="0" -->
+<!--             StretchDirection="Both"> -->
+<!--             <Calendar x:Name="calendar" SelectionMode="SingleDate" /> -->
+<!--         </Viewbox> -->
+<!-- -->
+<!--         ~1~ Photo @1@ -->
+<!--         <Image Source="/Images/Image_not_available.png" Grid.Column="1" Grid.Row="1" /> -->
+<!-- -->
+<!--         ~1~ Tekst Label @1@ -->
+<!--         <Grid  Grid.Row="1" Grid.Column="3" > -->
+<!--             <Grid.RowDefinitions> -->
+<!--                 <RowDefinition  Height="50"/> -->
+<!--                 <RowDefinition Height="30"/> -->
+<!--                 <RowDefinition Height="30"/> -->
+<!--                 <RowDefinition Height="30"/> -->
+<!--                 <RowDefinition Height="*"/> -->
+<!--             </Grid.RowDefinitions> -->
+<!--             <Label Content="Informatie over de boot" Grid.Row="0" FontSize="20"/> -->
+<!--             <Label Grid.Row="1"> -->
+<!--                 <TextBlock> -->
+<!--                     <TextBlock.Text> -->
+<!--                         <MultiBinding StringFormat="De boot heeft: {0} zitplekken"> -->
+<!--                             <Binding Path="boat.Seats" /> -->
+<!--                         </MultiBinding> -->
+<!--                     </TextBlock.Text> -->
+<!--                 </TextBlock> -->
+<!--             </Label> -->
+<!--             <Label Grid.Row="2"> -->
+<!--                 <TextBlock> -->
+<!--                     <TextBlock.Text> -->
+<!--                         <MultiBinding StringFormat="Het niveau {0} van de boot"> -->
+<!--                             <Binding Path="boat.Level" /> -->
+<!--                         </MultiBinding> -->
+<!--                     </TextBlock.Text> -->
+<!--                 </TextBlock> -->
+<!--             </Label> -->
+<!--             <Label Grid.Row="3"> -->
+<!--                 <TextBlock> -->
+<!--                     <TextBlock.Style> -->
+<!--                         <Style TargetType="TextBlock"> -->
+<!--                             <Setter Property="Text" Value="{Binding boat.CaptainSeat, StringFormat='Stuurman {0}'}"/> -->
+<!--                             <Style.Triggers> -->
+<!--                                 <DataTrigger Binding="{Binding boat.CaptainSeat}" Value="True"> -->
+<!--                                     <Setter Property="Text" Value="Stuurman aanwezig"/> -->
+<!--                                 </DataTrigger> -->
+<!--                                 <DataTrigger Binding="{Binding boat.CaptainSeat}" Value="False"> -->
+<!--                                     <Setter Property="Text" Value="Stuurman niet aanwezig"/> -->
+<!--                                 </DataTrigger> -->
+<!--                             </Style.Triggers> -->
+<!--                         </Style> -->
+<!--                     </TextBlock.Style> -->
+<!--                 </TextBlock> -->
+<!--             </Label> -->
+<!--             <Label Grid.Row="4" Content="{Binding boat.Description}"> -->
+<!--             </Label> -->
+<!--         </Grid> -->
+<!--          -->
+<!-- -->
+<!--         <Button Grid.Column="2" Grid.Row="3" MaxHeight="50" Content="Reserveren" Click="ConfirmButton" FontSize="20" Background="#88BFEA"> -->
+<!--             <Button.Resources> -->
+<!--                 <Style TargetType="Border"> -->
+<!--                     <Setter Property="CornerRadius" Value="15"/> -->
+<!--                 </Style> -->
+<!--             </Button.Resources> -->
+<!--         </Button> -->
+<!-- -->
+<!--         <Grid Grid.Row="3" Grid.Column="0" Grid.RowSpan="2" Margin="50 0 0 0"> -->
+<!--             <Grid.ColumnDefinitions> -->
+<!--                 <ColumnDefinition Width="1*" /> -->
+<!--                 <ColumnDefinition Width="1*" /> -->
+<!--             </Grid.ColumnDefinitions> -->
+<!--             <Grid.RowDefinitions> -->
+<!--                 <RowDefinition Height="50" /> -->
+<!--                 <RowDefinition Height="50" /> -->
+<!--             </Grid.RowDefinitions> -->
+<!-- -->
+<!--             <Label Content="Begintijd:" Grid.Row="0" Grid.Column="0" FontSize="30" /> -->
+<!--             <xctk:TimePicker x:Name="BeginTimePicker" TextBoxBase.TextChanged="TimePicker_TextChanged" Height="30" -->
+<!--                              Width="100" Grid.Column="1" Grid.Row="0" Value="{Binding currentDateTime}" /> -->
+<!-- -->
+<!--             <Label Content="Eindtijd:" TextBoxBase.TextChanged="TimePicker_TextChanged" Grid.Row="1" Grid.Column="0" -->
+<!--                    FontSize="30" /> -->
+<!--             <xctk:TimePicker x:Name="EndTimePicker" Height="30" Width="100" Grid.Column="1" Grid.Row="1" -->
+<!--                              Value="{Binding currentDateTime}" /> -->
+<!--         </Grid> -->
