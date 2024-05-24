@@ -1,4 +1,5 @@
-using DataAccessLibary;
+using DataAccessLibrary;
+using MySqlConnector;
 using RoeiVerenigingLibary;
 using System.Diagnostics;
 

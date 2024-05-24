@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using MySqlConnector;
 
-namespace DataAccessLibary
+namespace DataAccessLibrary
 {
     public abstract class ConnectionString
     {

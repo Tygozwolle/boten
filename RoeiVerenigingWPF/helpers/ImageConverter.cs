@@ -2,6 +2,7 @@
 using System.Drawing.Imaging;
 using System.IO;
 using System.Windows.Media;
+using DataAccessLibrary;
 using System.Windows.Media.Imaging;
 
 namespace RoeiVerenigingWPF.helpers

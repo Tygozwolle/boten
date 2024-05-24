@@ -1,7 +1,7 @@
 ﻿using MySqlConnector;
 using RoeiVerenigingLibary;
 
-namespace DataAccessLibary
+namespace DataAccessLibrary
 {
     public class ImageRepository : IImageRepository
     {

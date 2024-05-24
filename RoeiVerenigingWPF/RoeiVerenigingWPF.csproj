@@ -55,13 +55,13 @@
         <None Remove="Images\Icons\search.png"/>
     </ItemGroup>
 
-    <ItemGroup>
-        <ProjectReference Include="..\DataAccessLibary\DataAccessLibary.csproj"/>
-        <ProjectReference Include="..\RoeiVerenigingLibrary\RoeiVerenigingLibrary.csproj"/>
-        <Content Include="Images\Image_not_available.png">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Content>
-    </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataAccessLibrary\DataAccessLibrary.csproj" />
+    <ProjectReference Include="..\RoeiVerenigingLibrary\RoeiVerenigingLibrary.csproj" />
+    <Content Include="Images\Image_not_available.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="Extended.Wpf.Toolkit" Version="4.6.0"/>
