@@ -38,26 +38,74 @@
                                TextAlignment="Center"
                                Text="Maak een boot aan, zodat de boot boot gereserveerd kan worden!"
                                FontSize="24" Foreground="{x:Static helpers:CustomColors.SubHeaderColor}" />
-                    <Label Grid.Row="2" Content="*Naam:" Width="200" FontFamily="Franklin Gothic Medium"
+                    <Grid Grid.Row="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0" Margin="10,10,10,10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+
+                            </Grid.RowDefinitions>
+                            <Label Grid.Row="0" Content="Foto:" Width="200" FontFamily="Franklin Gothic Medium"
+                                   Margin="0,20,0,0"
+                                   FontSize="24" HorizontalContentAlignment="Center"
+                                   Foreground="{x:Static helpers:CustomColors.SubHeaderColor}" />
+                            <Image Grid.Row="1" Name="Image" 
+                                   Source="/Images/Image_not_available.png" Height="400px"
+                                   Width="400px" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                   
+                            <Button Grid.Row="2" Name="ButtonUpload" Content="Upload foto" Width="250" Height="50"
+                                    Margin="20,20,20,20" VerticalAlignment="Bottom" 
+                                    FontFamily="Franklin Gothic Medium" FontSize="24" Foreground="{x:Static helpers:CustomColors.HeaderColor}" Background="{x:Static helpers:CustomColors.ButtonBackgroundColor}"
+                                    BorderBrush="{x:Static helpers:CustomColors.OutsideBorderColor}"
+                                    Click="ButtonUpload_Click">
+                                <Button.Resources>
+                                    <Style TargetType="Border">
+                                        <Setter Property="CornerRadius" Value="15" />
+                                    </Style>
+                                </Button.Resources>
+                            </Button>
+                        </Grid>
+                 <Grid Grid.Column="1">
+                     <Grid.RowDefinitions>
+                         <RowDefinition Height="Auto"/>
+                         <RowDefinition Height="Auto"/>
+                         <RowDefinition Height="Auto"/>
+                         <RowDefinition Height="Auto"/>
+                         <RowDefinition Height="Auto"/>
+                         <RowDefinition Height="Auto"/>
+                         <RowDefinition Height="Auto"/>
+                         <RowDefinition Height="Auto"/>
+                         <RowDefinition Height="Auto"/>
+                     </Grid.RowDefinitions>
+                 
+                    <Label Grid.Row="0" Content="*Naam:" Width="200" FontFamily="Franklin Gothic Medium"
                            Margin="0,20,0,0"
                            FontSize="24" HorizontalContentAlignment="Center"
                            Foreground="{x:Static helpers:CustomColors.SubHeaderColor}" />
-                    <TextBox Grid.Row="3" x:Name="Name" Width="367" Height="40" Foreground="{x:Static helpers:CustomColors.SubHeaderColor}"
+                    <TextBox Grid.Row="1" x:Name="Name" Width="367" Height="40" Foreground="{x:Static helpers:CustomColors.SubHeaderColor}"
                              Background="{x:Static helpers:CustomColors.TextBoxBackgroundColor}"
                              BorderBrush="{x:Static helpers:CustomColors.OutsideBorderColor}" FontSize="24" FontFamily="Franklin Gothic Medium" />
-                    <Label Grid.Row="4" Content="*Plekken:" Width="200" FontFamily="Franklin Gothic Medium"
+                    <Label Grid.Row="2" Content="*Plekken:" Width="200" FontFamily="Franklin Gothic Medium"
                            FontSize="24" HorizontalContentAlignment="Center"
                            Foreground="{x:Static helpers:CustomColors.SubHeaderColor}" />
-                    <TextBox Grid.Row="5" x:Name="Seats" Width="367" Height="40" Foreground="{x:Static helpers:CustomColors.SubHeaderColor}"
+                    <TextBox Grid.Row="3" x:Name="Seats" Width="367" Height="40" Foreground="{x:Static helpers:CustomColors.SubHeaderColor}"
                              Background="{x:Static helpers:CustomColors.TextBoxBackgroundColor}"
                              BorderBrush="{x:Static helpers:CustomColors.OutsideBorderColor}" FontSize="24" FontFamily="Franklin Gothic Medium" />
-                    <Label Grid.Row="6" Content="Niveau:" Width="367" FontFamily="Franklin Gothic Medium"
+                    <Label Grid.Row="4" Content="Niveau:" Width="367" FontFamily="Franklin Gothic Medium"
                            FontSize="24" HorizontalContentAlignment="Center"
                            Foreground="{x:Static helpers:CustomColors.SubHeaderColor}" />
-                    <TextBox Grid.Row="7" x:Name="Level" Width="367" Height="40" Foreground="{x:Static helpers:CustomColors.SubHeaderColor}"
+                    <TextBox Grid.Row="5" x:Name="Level" Width="367" Height="40" Foreground="{x:Static helpers:CustomColors.SubHeaderColor}"
                              Background="{x:Static helpers:CustomColors.TextBoxBackgroundColor}"
                              BorderBrush="{x:Static helpers:CustomColors.OutsideBorderColor}" FontSize="24" FontFamily="Franklin Gothic Medium" />
-                    <StackPanel Grid.Row="8">
+                    <StackPanel Grid.Row="6">
                         <Label Content="*Beschrijving:" Width="200" FontFamily="Franklin Gothic Medium"
                                FontSize="24" HorizontalContentAlignment="Center" 
                                Foreground="{x:Static helpers:CustomColors.SubHeaderColor}" />
@@ -65,7 +113,7 @@
                                  Background="{x:Static helpers:CustomColors.TextBoxBackgroundColor}"
                                  BorderBrush="{x:Static helpers:CustomColors.OutsideBorderColor}" TextWrapping="WrapWithOverflow" FontSize="24" FontFamily="Franklin Gothic Medium" />
                     </StackPanel>
-                    <StackPanel Grid.Row="9">
+                    <StackPanel Grid.Row="7">
                 
                             <ToggleButton Grid.Column="0" Name="Captain"
                                  Grid.Row="12"  Content="Stuurman Afwezig" Width="250" Height="50"
@@ -84,7 +132,7 @@
 
                     
 
-                    <Button Grid.Row="12" Name="ButtonEditCreate" Content="Boot aanmaken" Width="295" Height="70"
+                    <Button Grid.Row="8" Name="ButtonEditCreate" Content="Boot aanmaken" Width="295" Height="70"
                             Margin="20,40,20,20"
                             FontFamily="Franklin Gothic Medium" FontSize="32" Foreground="{x:Static helpers:CustomColors.HeaderColor}" Background="{x:Static helpers:CustomColors.ButtonBackgroundColor}"
                             BorderBrush="{x:Static helpers:CustomColors.OutsideBorderColor}"
@@ -95,8 +143,11 @@
                             </Style>
                         </Button.Resources>
                     </Button>
-                </Grid>
+                </Grid> 
+                </Grid></Grid>
+                    
             </Border>
         </Border>
+        
     </Grid>
 </Page>

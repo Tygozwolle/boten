@@ -29,6 +29,7 @@ namespace RoeiVerenigingLibrary
         public int Seats { get; set; }
         public int Level { get; set; }
         public string Name { get; set; }
+        public List<Stream> Images { get; set; }
         public string Description
         {
             get

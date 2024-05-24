@@ -6,6 +6,7 @@ using DataAccessLibrary;
 using RoeiVerenigingLibrary;
 using RoeiVerenigingLibrary.Exceptions;
 using RoeiVerenigingWPF.Frames;
+using RoeiVerenigingWPF.helpers;
 
 namespace RoeiVerenigingWPF.Pages.Admin
 {
@@ -18,6 +19,7 @@ namespace RoeiVerenigingWPF.Pages.Admin
         {
             _mainWindow = mainWindow;
             InitializeComponent();
+            this.boat = boat;
             Name.Text = boat.Name;
             Description.Text = boat.Description;
             Seats.Text = boat.Seats.ToString();
@@ -29,6 +31,10 @@ namespace RoeiVerenigingWPF.Pages.Admin
                 ButtonEditCreate.Content = "Bewerken";
                 HeaderBoat.Content = "Bewerk boot";
                 TextBlockBoat.Text = "Bewerk een boot aan, zodat de informatie correct is!";
+                if (boat.Images[0] != null) 
+                {
+                    Image.Source = ImageConverter.Convert(boat.Images[0]);
+                }
             }
             else
             {
@@ -92,6 +98,10 @@ namespace RoeiVerenigingWPF.Pages.Admin
                 MessageBox.Show("Vul alle velden correct in");
             }
 
+        }
+        private void ButtonUpload_Click(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }
