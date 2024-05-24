@@ -18,11 +18,18 @@ namespace DataAccessLibary
 
             IConfigurationRoot config = new ConfigurationBuilder().AddUserSecrets<ConnectionString>().Build();
             MySqlConnectionStringBuilder builder = new MySqlConnectionStringBuilder();
-
+#if !RELEASE
             builder.UserID = config["DB:username"];
             builder.Password = config["DB:password"];
             builder.Port = 22;
             builder.Server = config["DB:adress"];
+#endif
+#if RELEASE
+            builder.UserID = Config.DBUsername;
+            builder.Password = Config.DBPassword;
+            builder.Port = Config.DBPortInt;
+            builder.Server = Config.DBAdress;
+#endif
             builder.Database = "boten_reservering";
             builder.SslMode = MySqlSslMode.VerifyFull;
             builder.DnsCheckInterval = 10;

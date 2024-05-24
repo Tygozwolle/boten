@@ -91,7 +91,7 @@ namespace RoeiVerenigingWPF.Pages.Admin
 
         private void Change(object sender, RoutedEventArgs e)
         {
-            var valid = TestConection.TestString(DBUserName.Text, DBPassword.Password, DBAdress.Text, DBPort.Text);
+            var valid = TestConection.TestString(DBUserName.Text, DBPassword.Password, DBAdress.Text, DBPort.Text, out string errorMassage);
             if (valid)
             {
                 MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show(
@@ -114,7 +114,7 @@ namespace RoeiVerenigingWPF.Pages.Admin
             else
             {
                 MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show(
-                    "Database instelling kloppen niet. \n Wil u u account instellingen wijzigen?",
+                    $"Database instelling kloppen niet. \n {errorMassage} \n Wil u u account instellingen wijzigen?",
                     "Database instellingen incorrect", System.Windows.MessageBoxButton.YesNo);
                 if (messageBoxResult == MessageBoxResult.Yes)
                 {

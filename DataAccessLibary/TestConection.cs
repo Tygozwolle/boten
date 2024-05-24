@@ -12,6 +12,11 @@ namespace DataAccessLibary
     {
         public static bool TestString(string userName, string password, string adress, string port)
         {
+            return TestString(userName, password, adress, port, out string error);
+        }
+        public static bool TestString(string userName, string password, string adress, string port, out string ErrorMassage)
+        {
+            ErrorMassage = "";
             try
             {
                 MySqlConnectionStringBuilder builder = new MySqlConnectionStringBuilder();
@@ -26,15 +31,16 @@ namespace DataAccessLibary
                 builder.ConnectionProtocol = MySqlConnectionProtocol.Tcp;
 
                 var connectionString = builder.ConnectionString;
-                using (SqlConnection conn = new SqlConnection(connectionString))
+                using (MySqlConnection conn = new MySqlConnection(connectionString))
                 {
                     conn.Open(); // throws if invalid
                 }
 
                 return true;
             }
-            catch
+            catch (Exception ex)
             {
+                ErrorMassage = ex.Message;
                 return false;
             }
         }

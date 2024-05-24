@@ -167,6 +167,28 @@ namespace DataAccessLibary
             }
         }
 
+        public static UInt32 DBPortInt
+        {
+            get
+            {
+                Configuration configManager = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                KeyValueConfigurationCollection confCollection = configManager.AppSettings.Settings;
+
+                if (confCollection["dbport"] != null)
+                {
+                    try
+                    {
+                        return UInt32.Parse(confCollection["dbport"].Value);
+                    }
+                    catch { return 0; }
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+        }
+
         public static void SetDBPort(string port)
         {
             DBPort = port;
