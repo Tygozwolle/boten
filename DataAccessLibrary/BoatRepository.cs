@@ -142,7 +142,7 @@ namespace DataAccessLibrary
                 connection.Open();
 
                 const string sql =
-                    $"UPDATE `boats`( `captain_seat_available`, `seats`, `level`, `description`, `name`) VALUES (@captainSeat,@seats,@level,@description,@name) WHERE id = @id";
+                    $"UPDATE `boats` SET `captain_seat_available` = @captainSeat, `seats` = @seats, `level` = @level, `description` = @description, `name` = @name WHERE id = @id";
 
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {
