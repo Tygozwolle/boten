@@ -24,12 +24,12 @@ namespace RoeiVerenigingWPF.Pages.Admin
                 string lastName = LastName.Text;
                 string email = Email.Text;
                 string password = Password.Password;
-                Member createdMember = service.Create(_mainWindow.LoggedInMember, firstName, infix, lastName, email,
+                Boat createdBoat = service.Create(_mainWindow.LoggedInMember, firstName, infix, lastName, email,
                     password);
-                if (createdMember != null)
+                if (createdBoat != null)
                 {
                     MessageBox.Show(
-                        $"{createdMember.FirstName} {createdMember.Infix} {createdMember.LastName} is aangemaakt met lidnummer {createdMember.Id}");
+                        $"{createdBoat.Name} {createdBoat.Description} {createdBoat.Level} is aangemaakt met bootnummer {createdBoat.Id}");
                 }
             }
             catch (MemberAlreadyExistsException ex)
