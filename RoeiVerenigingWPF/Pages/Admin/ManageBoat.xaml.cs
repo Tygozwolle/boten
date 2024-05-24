@@ -20,7 +20,7 @@ namespace RoeiVerenigingWPF.Pages.Admin
         private Boat boat;
         private bool ImageChanged = false;
         private Stream ImageStream;
-        public ManageBoat(MainWindow mainWindow, Boat boat, bool eddit)
+        public ManageBoat(MainWindow mainWindow, Boat boat)
         {
             _mainWindow = mainWindow;
             InitializeComponent();
@@ -30,9 +30,7 @@ namespace RoeiVerenigingWPF.Pages.Admin
             Seats.Text = boat.Seats.ToString();
             Level.Text = boat.Level.ToString();
             Captain.IsChecked = boat.CaptainSeat;
-            Eddit = eddit;
-            if (eddit)
-            {
+            Eddit = true;
                 ButtonEditCreate.Content = "Bewerken";
                 HeaderBoat.Content = "Bewerk boot";
                 TextBlockBoat.Text = "Bewerk een boot aan, zodat de informatie correct is!";
@@ -40,11 +38,6 @@ namespace RoeiVerenigingWPF.Pages.Admin
                 {
                     Image.Source = ImageConverter.Convert(boat.Image);
                 }
-            }
-            else
-            {
-                ButtonEditCreate.Content = "Aanmaken boot";
-            }
         }
         public ManageBoat(MainWindow mainWindow)
         {
@@ -77,6 +70,10 @@ namespace RoeiVerenigingWPF.Pages.Admin
                 if (Eddit)
                 {
                     boat = service.Update(_mainWindow.LoggedInMember, boat, name, discription, Int32.Parse(seats), captain, Int32.Parse(level));
+                    if (ImageChanged)
+                    {
+                        service.UpdateImage(_mainWindow.LoggedInMember,boat, ImageStream);
+                    }
                     if (boat != null)
                     {
                         MessageBox.Show(
@@ -86,6 +83,10 @@ namespace RoeiVerenigingWPF.Pages.Admin
                 else
                 {
                     createdBoat = service.Create(_mainWindow.LoggedInMember, name, discription, Int32.Parse(seats), captain, Int32.Parse(level));
+                    if (ImageChanged)
+                    {
+                        service.AddImage(_mainWindow.LoggedInMember, createdBoat, ImageStream);
+                    }
                     if (createdBoat != null)
                     {
                         MessageBox.Show(
@@ -117,7 +118,8 @@ namespace RoeiVerenigingWPF.Pages.Admin
                     if (stream != null)
                     {
                         Image.Source = ImageConverter.Convert(stream);
-                        ImageStream = stream;
+                        ImageStream = new MemoryStream();
+                        stream.CopyTo(ImageStream);
                         ImageChanged = true;
                     }
                 }

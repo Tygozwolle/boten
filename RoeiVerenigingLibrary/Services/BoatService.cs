@@ -53,5 +53,38 @@ namespace RoeiVerenigingLibrary
                 throw new IncorrectRightsExeption();
             }
         }
+        public void AddImage(Member LogedInMember, Boat boat, Stream stream)
+        {
+            if (LogedInMember.Roles.Contains("beheerder")|| LogedInMember.Roles.Contains("materiaal_commissaris"))
+            {
+                _boatRepository.AddImage(boat, stream);
+            }
+            else
+            {
+                throw new IncorrectRightsExeption();
+            }
+        }
+        public void Delete(Member LogedInMember, Boat boat)
+        {
+            if (LogedInMember.Roles.Contains("beheerder")|| LogedInMember.Roles.Contains("materiaal_commissaris"))
+            {
+                _boatRepository.Delete(boat);
+            }
+            else
+            {
+                throw new IncorrectRightsExeption();
+            }
+        }
+        public void UpdateImage(Member LogedInMember, Boat boat, Stream stream)
+        {
+            if (LogedInMember.Roles.Contains("beheerder")|| LogedInMember.Roles.Contains("materiaal_commissaris"))
+            {
+                _boatRepository.UpdateImage(boat, stream);
+            }
+            else
+            {
+                throw new IncorrectRightsExeption();
+            }
+        }
     }
 }
