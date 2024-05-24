@@ -3,9 +3,6 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      xmlns:local="clr-namespace:RoeiVerenigingTestWPF.Frames"
-      xmlns:views="clr-namespace:RoeiVerenigingTestWPF.Components"
-      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       mc:Ignorable="d"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Reservering Aanmaken">
@@ -47,10 +44,11 @@
         <!-- Tekst Label -->
         <Label Content="Tekst over Boten" Grid.Row="2" Grid.Column="3" />
 
-        <Button Grid.Column="3" Grid.Row="4" MaxHeight="50" Content="Reserveren" Click="ConfirmButton" FontSize="20" Background="#88BFEA">
+        <Button Grid.Column="3" Grid.Row="4" MaxHeight="50" Content="Reserveren" Click="ConfirmButton" FontSize="20"
+                Background="#88BFEA">
             <Button.Resources>
                 <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="15"/>
+                    <Setter Property="CornerRadius" Value="15" />
                 </Style>
             </Button.Resources>
         </Button>

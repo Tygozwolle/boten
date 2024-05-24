@@ -3,8 +3,6 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:local="clr-namespace:RoeiVerenigingWPF.Pages"
-      xmlns:sys="clr-namespace:System;assembly=System.Runtime"
       mc:Ignorable="d"
       d:DesignHeight="900" d:DesignWidth="1200"
       Title="ViewUsers">
@@ -26,7 +24,7 @@
                            Content="Accounts"
                            FontFamily="Franklin Gothic Medium" FontSize="36"
                            Foreground="#0e5172" />
-                    <Grid Name="SearchBar" Grid.Row="1" Margin="0,0,0,10" >
+                    <Grid Name="SearchBar" Grid.Row="1" Margin="0,0,0,10">
                         <Border BorderBrush="#1892cd" BorderThickness="1">
                             <Grid Background="#bbe3f7">
 
@@ -40,22 +38,22 @@
                                 </Grid.ColumnDefinitions>
                                 <TextBox Grid.Column="0" Name="SearchId" VerticalAlignment="Center" FontSize="14"
                                          Foreground="#0e5172" Background="#e8f6fc"
-                                         BorderBrush="#1892cd" Margin="5" Height="28" TextChanged="TextFilterUsers"  />
+                                         BorderBrush="#1892cd" Margin="5" Height="28" TextChanged="TextFilterUsers" />
                                 <TextBox Grid.Column="1" Name="SearchFirstName" VerticalAlignment="Center"
                                          FontSize="14"
                                          Foreground="#0e5172" Background="#e8f6fc"
                                          BorderBrush="#1892cd" Margin="5" Height="28" TextChanged="TextFilterUsers" />
                                 <TextBox Grid.Column="2" Name="SearchInfix" VerticalAlignment="Center" FontSize="14"
-                                         Foreground="#0e5172"  Background="#e8f6fc"
+                                         Foreground="#0e5172" Background="#e8f6fc"
                                          BorderBrush="#1892cd" Margin="5" Height="28" TextChanged="TextFilterUsers" />
                                 <TextBox Grid.Column="3" Name="SearchLastName" VerticalAlignment="Center" FontSize="14"
-                                         Foreground="#0e5172"  Background="#e8f6fc"
+                                         Foreground="#0e5172" Background="#e8f6fc"
                                          BorderBrush="#1892cd" Margin="5" Height="28" TextChanged="TextFilterUsers" />
                                 <TextBox Grid.Column="4" Name="SearchEmail" VerticalAlignment="Center" FontSize="14"
-                                         Foreground="#0e5172"  Background="#e8f6fc"
+                                         Foreground="#0e5172" Background="#e8f6fc"
                                          BorderBrush="#1892cd" Margin="5" Height="28" TextChanged="TextFilterUsers" />
                                 <TextBox Grid.Column="5" Name="SearchRoles" VerticalAlignment="Center" FontSize="14"
-                                         Foreground="#0e5172"  Background="#e8f6fc"
+                                         Foreground="#0e5172" Background="#e8f6fc"
                                          BorderBrush="#1892cd" Margin="5" Height="28" TextChanged="TextFilterUsers" />
                             </Grid>
                         </Border>
@@ -100,9 +98,8 @@
                     </Grid>
                     <ScrollViewer Grid.Row="3" Width="1050" VerticalScrollBarVisibility="Auto"
                                   HorizontalAlignment="Left">
-                        <StackPanel x:Name="UserStackPanel" Grid.Row="1" CanVerticallyScroll="True"
-                                    ScrollViewer.VerticalScrollBarVisibility="Visible">
-                        </StackPanel>
+                        <StackPanel x:Name="UserStackPanel" CanVerticallyScroll="True"
+                                    ScrollViewer.VerticalScrollBarVisibility="Visible" />
                     </ScrollViewer>
                 </Grid>
             </Border>

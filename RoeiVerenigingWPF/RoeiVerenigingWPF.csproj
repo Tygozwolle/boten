@@ -1,59 +1,59 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>WinExe</OutputType>
-    <TargetFramework>net8.0-windows</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <UseWPF>true</UseWPF>
-    <Configurations>Debug;Release;Ingelogd;IngelogtBeheer;IngelogtMateriaal;IngelogtEvent</Configurations>
-    <UserSecretsId>0c1c39b7-c172-4762-81cf-8f88b3061f85</UserSecretsId>
-  </PropertyGroup>
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net8.0-windows</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <UseWPF>true</UseWPF>
+        <Configurations>Debug;Release;Ingelogd;IngelogtBeheer;IngelogtMateriaal;IngelogtEvent</Configurations>
+        <UserSecretsId>0c1c39b7-c172-4762-81cf-8f88b3061f85</UserSecretsId>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="img\Image_not_available.png" />
-    <None Remove="img\twee-mensen-in-polyester-roeiboot.png" />
-    <None Remove="img\next.png" />
-    <None Remove="img\prev.png" />
-    <Content Include="Images\Icons\search.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Images\twee-mensen-in-polyester-roeiboot.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Images\next.png">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Images\prev.png">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <None Remove="Images\Icons\calendar.svg" />
-    <None Remove="Images\Icons\calendar.png" />
-    <Content Include="Images\Icons\calendar.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <None Remove="Images\Icons\brokenbone.png" />
-    <Content Include="Images\Icons\brokenbone.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <None Remove="Images\Icons\sailboat.png" />
-    <Content Include="Images\Icons\sailboat.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <None Remove="Images\Icons\heart-crack.png" />
-    <Content Include="Images\Icons\heart-crack.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <None Remove="Images\Icons\calendar-clock.png" />
-    <Content Include="Images\Icons\calendar-clock.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <None Remove="Images\logo.png" />
-    <Content Include="Images\logo.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <None Remove="Images\Icons\search.png" />
-  </ItemGroup>
+    <ItemGroup>
+        <None Remove="img\Image_not_available.png"/>
+        <None Remove="img\twee-mensen-in-polyester-roeiboot.png"/>
+        <None Remove="img\next.png"/>
+        <None Remove="img\prev.png"/>
+        <Content Include="Images\Icons\search.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Images\twee-mensen-in-polyester-roeiboot.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Images\next.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Images\prev.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <None Remove="Images\Icons\calendar.svg"/>
+        <None Remove="Images\Icons\calendar.png"/>
+        <Content Include="Images\Icons\calendar.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <None Remove="Images\Icons\brokenbone.png"/>
+        <Content Include="Images\Icons\brokenbone.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <None Remove="Images\Icons\sailboat.png"/>
+        <Content Include="Images\Icons\sailboat.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <None Remove="Images\Icons\heart-crack.png"/>
+        <Content Include="Images\Icons\heart-crack.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <None Remove="Images\Icons\calendar-clock.png"/>
+        <Content Include="Images\Icons\calendar-clock.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <None Remove="Images\logo.png"/>
+        <Content Include="Images\logo.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <None Remove="Images\Icons\search.png"/>
+    </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\DataAccessLibrary\DataAccessLibrary.csproj" />
@@ -63,115 +63,115 @@
     </Content>
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.6.0" />
-    <PackageReference Include="QRCoder" Version="1.5.1" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="8.0.0" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Extended.Wpf.Toolkit" Version="4.6.0"/>
+        <PackageReference Include="QRCoder" Version="1.5.1"/>
+        <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="8.0.0"/>
+    </ItemGroup>
 
-  <ItemGroup>
-    <None Remove="Images\Icons\settings.png" />
-    <Content Include="Images\Icons\settings.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <None Remove="Images\Icons\log-out.png" />
-    <Content Include="Images\Icons\log-out.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <None Remove="Images\Icons\rectangle-ellipsis.png" />
-    <Content Include="Images\Icons\rectangle-ellipsis.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <None Remove="Images\Icons\user-plus.png" />
-    <Content Include="Images\Icons\user-plus.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <None Remove="Images\Icons\users.png" />
-    <Content Include="Images\Icons\users.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
+    <ItemGroup>
+        <None Remove="Images\Icons\settings.png"/>
+        <Content Include="Images\Icons\settings.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <None Remove="Images\Icons\log-out.png"/>
+        <Content Include="Images\Icons\log-out.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <None Remove="Images\Icons\rectangle-ellipsis.png"/>
+        <Content Include="Images\Icons\rectangle-ellipsis.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <None Remove="Images\Icons\user-plus.png"/>
+        <Content Include="Images\Icons\user-plus.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <None Remove="Images\Icons\users.png"/>
+        <Content Include="Images\Icons\users.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Pages\MatchCommissioner\" />
-  </ItemGroup>
+    <ItemGroup>
+        <Folder Include="Pages\MatchCommissioner\"/>
+    </ItemGroup>
 
-  <ItemGroup>
-    <Page Update="Pages\Member\AddReservation.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <XamlRuntime>Wpf</XamlRuntime>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Pages\Admin\AdminEditUser.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <XamlRuntime>Wpf</XamlRuntime>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Pages\Member\ChangePassword.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <XamlRuntime>Wpf</XamlRuntime>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Pages\Member\CreateDamageReport.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <XamlRuntime>Wpf</XamlRuntime>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Pages\Admin\CreateUser.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <XamlRuntime>Wpf</XamlRuntime>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Pages\Member\DamageOverview.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <XamlRuntime>Wpf</XamlRuntime>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Pages\Member\EditReservation.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <XamlRuntime>Wpf</XamlRuntime>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Pages\Member\EditUser.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <XamlRuntime>Wpf</XamlRuntime>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Pages\Member\ListBoats.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <XamlRuntime>Wpf</XamlRuntime>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Pages\MaterialCommissioner\ManageDamage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <XamlRuntime>Wpf</XamlRuntime>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Pages\MaterialCommissioner\ManageDamageOverview.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <XamlRuntime>Wpf</XamlRuntime>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Pages\Member\ListBoatsForDamageReport.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <XamlRuntime>Wpf</XamlRuntime>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Pages\Member\ViewDamage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <XamlRuntime>Wpf</XamlRuntime>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Pages\Member\ViewReservations.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <XamlRuntime>Wpf</XamlRuntime>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Pages\Admin\ViewUsers.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <XamlRuntime>Wpf</XamlRuntime>
-      <SubType>Designer</SubType>
-    </Page>
-  </ItemGroup>
+    <ItemGroup>
+        <Page Update="Pages\Member\AddReservation.xaml">
+            <Generator>MSBuild:Compile</Generator>
+            <XamlRuntime>Wpf</XamlRuntime>
+            <SubType>Designer</SubType>
+        </Page>
+        <Page Update="Pages\Admin\AdminEditUser.xaml">
+            <Generator>MSBuild:Compile</Generator>
+            <XamlRuntime>Wpf</XamlRuntime>
+            <SubType>Designer</SubType>
+        </Page>
+        <Page Update="Pages\Member\ChangePassword.xaml">
+            <Generator>MSBuild:Compile</Generator>
+            <XamlRuntime>Wpf</XamlRuntime>
+            <SubType>Designer</SubType>
+        </Page>
+        <Page Update="Pages\Member\CreateDamageReport.xaml">
+            <Generator>MSBuild:Compile</Generator>
+            <XamlRuntime>Wpf</XamlRuntime>
+            <SubType>Designer</SubType>
+        </Page>
+        <Page Update="Pages\Admin\CreateUser.xaml">
+            <Generator>MSBuild:Compile</Generator>
+            <XamlRuntime>Wpf</XamlRuntime>
+            <SubType>Designer</SubType>
+        </Page>
+        <Page Update="Pages\Member\DamageOverview.xaml">
+            <Generator>MSBuild:Compile</Generator>
+            <XamlRuntime>Wpf</XamlRuntime>
+            <SubType>Designer</SubType>
+        </Page>
+        <Page Update="Pages\Member\EditReservation.xaml">
+            <Generator>MSBuild:Compile</Generator>
+            <XamlRuntime>Wpf</XamlRuntime>
+            <SubType>Designer</SubType>
+        </Page>
+        <Page Update="Pages\Member\EditUser.xaml">
+            <Generator>MSBuild:Compile</Generator>
+            <XamlRuntime>Wpf</XamlRuntime>
+            <SubType>Designer</SubType>
+        </Page>
+        <Page Update="Pages\Member\ListBoats.xaml">
+            <Generator>MSBuild:Compile</Generator>
+            <XamlRuntime>Wpf</XamlRuntime>
+            <SubType>Designer</SubType>
+        </Page>
+        <Page Update="Pages\MaterialCommissioner\ManageDamage.xaml">
+            <Generator>MSBuild:Compile</Generator>
+            <XamlRuntime>Wpf</XamlRuntime>
+            <SubType>Designer</SubType>
+        </Page>
+        <Page Update="Pages\MaterialCommissioner\ManageDamageOverview.xaml">
+            <Generator>MSBuild:Compile</Generator>
+            <XamlRuntime>Wpf</XamlRuntime>
+            <SubType>Designer</SubType>
+        </Page>
+        <Page Update="Pages\Member\ListBoatsForDamageReport.xaml">
+            <Generator>MSBuild:Compile</Generator>
+            <XamlRuntime>Wpf</XamlRuntime>
+            <SubType>Designer</SubType>
+        </Page>
+        <Page Update="Pages\Member\ViewDamage.xaml">
+            <Generator>MSBuild:Compile</Generator>
+            <XamlRuntime>Wpf</XamlRuntime>
+            <SubType>Designer</SubType>
+        </Page>
+        <Page Update="Pages\Member\ViewReservations.xaml">
+            <Generator>MSBuild:Compile</Generator>
+            <XamlRuntime>Wpf</XamlRuntime>
+            <SubType>Designer</SubType>
+        </Page>
+        <Page Update="Pages\Admin\ViewUsers.xaml">
+            <Generator>MSBuild:Compile</Generator>
+            <XamlRuntime>Wpf</XamlRuntime>
+            <SubType>Designer</SubType>
+        </Page>
+    </ItemGroup>
 
 </Project>

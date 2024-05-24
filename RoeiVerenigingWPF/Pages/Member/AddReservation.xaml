@@ -3,8 +3,6 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      xmlns:local="clr-namespace:RoeiVerenigingWPF.helpers"
-      xmlns:views="clr-namespace:RoeiVerenigingWPF.Components"
       xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       mc:Ignorable="d"
       d:DesignHeight="450" d:DesignWidth="800"
@@ -50,15 +48,15 @@
         <Image Source="/Images/Image_not_available.png" Grid.Column="1" Grid.Row="1" />
 
         <!-- Tekst Label -->
-        <Grid  Grid.Row="1" Grid.Column="3" >
+        <Grid Grid.Row="1" Grid.Column="3">
             <Grid.RowDefinitions>
-                <RowDefinition  Height="50"/>
-                <RowDefinition Height="30"/>
-                <RowDefinition Height="30"/>
-                <RowDefinition Height="30"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="50" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Label Content="Informatie over de boot" Grid.Row="0" FontSize="20"/>
+            <Label Content="Informatie over de boot" Grid.Row="0" FontSize="20" />
             <Label Grid.Row="1">
                 <TextBlock>
                     <TextBlock.Text>
@@ -81,28 +79,28 @@
                 <TextBlock>
                     <TextBlock.Style>
                         <Style TargetType="TextBlock">
-                            <Setter Property="Text" Value="{Binding boat.CaptainSeat, StringFormat='Stuurman {0}'}"/>
+                            <Setter Property="Text" Value="{Binding boat.CaptainSeat, StringFormat='Stuurman {0}'}" />
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding boat.CaptainSeat}" Value="True">
-                                    <Setter Property="Text" Value="Stuurman aanwezig"/>
+                                    <Setter Property="Text" Value="Stuurman aanwezig" />
                                 </DataTrigger>
                                 <DataTrigger Binding="{Binding boat.CaptainSeat}" Value="False">
-                                    <Setter Property="Text" Value="Stuurman niet aanwezig"/>
+                                    <Setter Property="Text" Value="Stuurman niet aanwezig" />
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
                     </TextBlock.Style>
                 </TextBlock>
             </Label>
-            <Label Grid.Row="4" Content="{Binding boat.Description}">
-            </Label>
+            <Label Grid.Row="4" Content="{Binding boat.Description}" />
         </Grid>
-        
 
-        <Button Grid.Column="2" Grid.Row="3" MaxHeight="50" Content="Reserveren" Click="ConfirmButton" FontSize="20" Background="#88BFEA">
+
+        <Button Grid.Column="2" Grid.Row="3" MaxHeight="50" Content="Reserveren" Click="ConfirmButton" FontSize="20"
+                Background="#88BFEA">
             <Button.Resources>
                 <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="15"/>
+                    <Setter Property="CornerRadius" Value="15" />
                 </Style>
             </Button.Resources>
         </Button>

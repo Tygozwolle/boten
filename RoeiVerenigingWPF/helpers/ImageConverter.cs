@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
+﻿using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media.Imaging;
 using System.Windows.Media;
 using DataAccessLibrary;
+using System.Windows.Media.Imaging;
 
 namespace RoeiVerenigingWPF.helpers
 {
@@ -17,7 +13,7 @@ namespace RoeiVerenigingWPF.helpers
         {
             using (MemoryStream memory = new MemoryStream())
             {
-                bitmap.Save(memory, System.Drawing.Imaging.ImageFormat.Bmp);
+                bitmap.Save(memory, ImageFormat.Bmp);
                 memory.Position = 0;
                 BitmapImage bitmapImage = new BitmapImage();
                 bitmapImage.BeginInit();
@@ -29,7 +25,7 @@ namespace RoeiVerenigingWPF.helpers
         }
         public static ImageSource Convert(Stream stream)
         {
-            var bitmapImage = new BitmapImage();
+            BitmapImage bitmapImage = new BitmapImage();
             bitmapImage.BeginInit();
             bitmapImage.StreamSource = stream;
             bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
@@ -43,16 +39,14 @@ namespace RoeiVerenigingWPF.helpers
                 return new List<ImageSource>();
             }
 
-            List<ImageSource> ImageSources = new List<ImageSource>(streams.Count);
+            var ImageSources = new List<ImageSource>(streams.Count);
 
-            foreach (var stream in streams)
+            foreach (Stream stream in streams)
             {
                 ImageSources.Add(Convert(stream));
             }
             return ImageSources;
         }
-
     }
 
 }
-

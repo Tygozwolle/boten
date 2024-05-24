@@ -1,7 +1,7 @@
-﻿namespace RoeiVerenigingLibary.Exceptions;
-
-public class CantAccesDatabaseException : Exception
+﻿namespace RoeiVerenigingLibary.Exceptions
 {
-    public override string Message => ("Kan niet verbinden met de database");
-
+    public class CantAccesDatabaseException : Exception
+    {
+        public override string Message => "Kan niet verbinden met de database";
+    }
 }

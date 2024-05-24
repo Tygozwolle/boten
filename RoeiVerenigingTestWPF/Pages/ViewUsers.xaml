@@ -3,7 +3,6 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:local="clr-namespace:RoeiVerenigingTestWPF.Pages"
       mc:Ignorable="d"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ViewUsers">
@@ -25,7 +24,7 @@
                         <GridViewColumnHeader>
                             <StackPanel>
                                 <TextBlock Text="Id" MinWidth="60" />
-                                <TextBox Name="IdFilter" TextChanged="UpdateFilter"></TextBox>
+                                <TextBox Name="IdFilter" TextChanged="UpdateFilter" />
                             </StackPanel>
                             <GridViewColumnHeader.ContextMenu>
                                 <ContextMenu MenuItem.Click="SortMember" Name="Id">
@@ -40,7 +39,7 @@
                         <GridViewColumnHeader>
                             <StackPanel>
                                 <TextBlock Text="FirstName" MinWidth="60" />
-                                <TextBox Name="FirstNameFilter" TextChanged="UpdateFilter"></TextBox>
+                                <TextBox Name="FirstNameFilter" TextChanged="UpdateFilter" />
                             </StackPanel>
                             <GridViewColumnHeader.ContextMenu>
                                 <ContextMenu MenuItem.Click="SortMember" Name="FirstName">
@@ -57,7 +56,7 @@
                         <GridViewColumnHeader>
                             <StackPanel>
                                 <TextBlock Text="LastName" MinWidth="60" />
-                                <TextBox Name="LastNameFilter" TextChanged="UpdateFilter"></TextBox>
+                                <TextBox Name="LastNameFilter" TextChanged="UpdateFilter" />
                             </StackPanel>
                             <GridViewColumnHeader.ContextMenu>
                                 <ContextMenu MenuItem.Click="SortMember" Name="LastName">
@@ -72,7 +71,7 @@
                         <GridViewColumnHeader>
                             <StackPanel>
                                 <TextBlock Text="Email" MinWidth="60" />
-                                <TextBox Name="EmailFilter" TextChanged="UpdateFilter"></TextBox>
+                                <TextBox Name="EmailFilter" TextChanged="UpdateFilter" />
                             </StackPanel>
                             <GridViewColumnHeader.ContextMenu>
                                 <ContextMenu MenuItem.Click="SortMember" Name="Email">
@@ -87,7 +86,7 @@
                         <GridViewColumnHeader>
                             <StackPanel>
                                 <TextBlock Text="Roles" MinWidth="60" />
-                                <TextBox Name="RolesFilter" TextChanged="UpdateFilter"></TextBox>
+                                <TextBox Name="RolesFilter" TextChanged="UpdateFilter" />
                             </StackPanel>
                             <GridViewColumnHeader.ContextMenu>
                                 <ContextMenu MenuItem.Click="SortMember" Name="Roles">
