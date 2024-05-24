@@ -356,4 +356,3 @@ public class MemberRepository : IMemberRepository
             return list;
         }
     }
-}

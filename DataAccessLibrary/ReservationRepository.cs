@@ -5,10 +5,6 @@ namespace DataAccessLibrary;
 
 public class ReservationRepository : IReservationRepository
 {
-    public Reservation checkReservations(Member member, int boat)
-    {
-        return null;
-    }
 
         public Reservation ChangeReservation(int reservationdId, Member member, int boatId, DateTime startTime, DateTime endTime)
         {
@@ -265,4 +261,3 @@ public class ReservationRepository : IReservationRepository
             return null;
         }
     }
-}
