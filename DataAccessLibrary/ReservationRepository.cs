@@ -2,7 +2,7 @@ using MySqlConnector;
 using RoeiVerenigingLibary;
 using System.Data;
 
-namespace DataAccessLibary;
+namespace DataAccessLibrary;
 
 public class ReservationRepository : IReservationRepository
 {

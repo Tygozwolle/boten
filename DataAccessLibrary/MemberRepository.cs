@@ -7,7 +7,7 @@ using System.Reflection.Metadata.Ecma335;
 using static System.Net.Mime.MediaTypeNames;
 using System.Reflection.PortableExecutable;
 
-namespace DataAccessLibary;
+namespace DataAccessLibrary;
 
 public class MemberRepository : IMemberRepository
 {

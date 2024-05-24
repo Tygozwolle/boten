@@ -6,6 +6,7 @@
     <Nullable>enable</Nullable>
     <UserSecretsId>80fe725c-9f9f-4b37-9a00-42f5447559d4</UserSecretsId>
     <Configurations>Debug;Release;Ingelogd;IngelogtBeheer;IngelogtMateriaal;IngelogtEvent</Configurations>
+    <RootNamespace>DataAccessLibary</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

@@ -10,7 +10,7 @@ using Aspose.Email.Mime;
 using Microsoft.VisualBasic;
 using System.Reflection.Emit;
 
-namespace DataAccessLibary
+namespace DataAccessLibrary
 {
     public class ImageRepository : IImageRepository
     {

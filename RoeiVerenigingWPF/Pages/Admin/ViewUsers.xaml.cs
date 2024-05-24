@@ -6,7 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using DataAccessLibary;
+using DataAccessLibrary;
 using RoeiVerenigingLibary;
 using RoeiVerenigingWPF.Frames;
 using Color = System.Windows.Media.Color;

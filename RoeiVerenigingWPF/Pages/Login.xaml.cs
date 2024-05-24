@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using DataAccessLibary;
+using DataAccessLibrary;
 using Microsoft.Extensions.Configuration;
 using RoeiVerenigingLibary;
 using RoeiVerenigingLibary.Exceptions;
