@@ -1,6 +1,6 @@
-﻿using DataAccessLibary;
-using RoeiVerenigingLibary;
-using RoeiVerenigingLibary.Exceptions;
+﻿using DataAccessLibrary;
+using RoeiVerenigingLibrary;
+using RoeiVerenigingLibrary.Exceptions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -8,16 +8,14 @@ using System.Windows.Input;
 namespace RoeiVerenigingWPF.Pages
 {
     /// <summary>
-    /// Interaction logic for AddReservation.xaml
+    ///     Interaction logic for AddReservation.xaml
     /// </summary>
-    /// 
     public partial class AddReservation : Page
     {
-        private Member _loggedInMember;
+        private readonly Member _loggedInMember;
 
-        private ReservationService _service = new(new ReservationRepository());
-        private BoatService boatService = new BoatService(new BoatRepository());
-        public Boat boat { get; set; }
+        private readonly ReservationService _service = new ReservationService(new ReservationRepository());
+        private readonly BoatService boatService = new BoatService(new BoatRepository());
 
         public AddReservation(Member loggedInMember, int boatId)
         {
@@ -26,21 +24,22 @@ namespace RoeiVerenigingWPF.Pages
             boat = boatService.GetBoatById(boatId);
             DataContext = this;
         }
+        public Boat boat { get; set; }
 
         private void TimePicker_TextChanged(object sender, TextChangedEventArgs e)
         {
-            var textBox = FocusManager.GetFocusedElement(this) as TextBox;
+            TextBox? textBox = FocusManager.GetFocusedElement(this) as TextBox;
             if (textBox != null)
             {
             }
         }
 
-        public void ConfirmButton(Object sender, RoutedEventArgs e)
+        public void ConfirmButton(object sender, RoutedEventArgs e)
         {
             //check if all fields are valid
-            DateTime? startTime = BeginTimePicker.Value;
-            DateTime? endTime = EndTimePicker.Value;
-            DateTime? selectedDate = calendar.SelectedDate;
+            var startTime = BeginTimePicker.Value;
+            var endTime = EndTimePicker.Value;
+            var selectedDate = calendar.SelectedDate;
             if (!startTime.HasValue || !endTime.HasValue || !selectedDate.HasValue)
             {
                 MessageBox.Show("Selecteer een datum en begin en eindtijd!");

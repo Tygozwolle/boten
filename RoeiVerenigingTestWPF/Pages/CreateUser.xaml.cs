@@ -1,6 +1,7 @@
-﻿using DataAccessLibary;
-using RoeiVerenigingLibary.Exceptions;
-using RoeiVerenigingLibary;
+﻿using DataAccessLibrary;
+using RoeiVerenigingLibrary.Exceptions;
+using RoeiVerenigingLibrary;
+using RoeiVerenigingLibrary.Exceptions;
 using RoeiVerenigingTestWPF.Frames;
 using System.Windows;
 using System.Windows.Controls;
@@ -8,11 +9,11 @@ using System.Windows.Controls;
 namespace RoeiVerenigingTestWPF.Pages
 {
     /// <summary>
-    /// Interaction logic for CreateUser.xaml
+    ///     Interaction logic for CreateUser.xaml
     /// </summary>
     public partial class CreateUser : Page
     {
-        private MainWindow _mainWindow;
+        private readonly MainWindow _mainWindow;
 
         public CreateUser(MainWindow mainWindow)
         {

@@ -1,6 +1,7 @@
-﻿namespace RoeiVerenigingLibary.Exceptions;
-
-public class IncorrectPasswordException : Exception
+﻿namespace RoeiVerenigingLibrary.Exceptions
 {
-    public override string Message => ("Het opgegeven wachtwoord is onjuist!");
+    public class IncorrectPasswordException : Exception
+    {
+        public override string Message => "Het opgegeven wachtwoord is onjuist!";
+    }
 }

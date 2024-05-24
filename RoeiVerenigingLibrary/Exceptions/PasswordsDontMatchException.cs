@@ -1,6 +1,7 @@
-﻿namespace RoeiVerenigingLibary.Exceptions;
-
-public class PasswordsDontMatchException : Exception
+﻿namespace RoeiVerenigingLibrary.Exceptions
 {
-    public override string Message => ("De wachtwoorden komen niet overeen!");
+    public class PasswordsDontMatchException : Exception
+    {
+        public override string Message => "De wachtwoorden komen niet overeen!";
+    }
 }

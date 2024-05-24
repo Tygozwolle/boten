@@ -1,57 +1,25 @@
-﻿using DataAccessLibary;
-using RoeiVerenigingLibary;
+﻿using DataAccessLibrary;
+using RoeiVerenigingLibrary;
+using RoeiVerenigingLibrary;
 using RoeiVerenigingWPF.Frames;
 using RoeiVerenigingWPF.helpers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using RoeiVerenigingLibrary;
 
 namespace RoeiVerenigingWPF.Pages
 {
     /// <summary>
-    /// Interaction logic for ViewDamage.xaml
+    ///     Interaction logic for ViewDamage.xaml
     /// </summary>
     public partial class ViewDamage : Page
     {
-        private MainWindow _mainWindow { set; get; }
-        public Damage Damage { set; get; }
-        private ImageRepository _imageRepository = new ImageRepository();
-
-        private DamageService _service = new DamageService(new DamageRepository());
-        private List<ImageSource> _images;
         private int _imageIndex;
+        private readonly ImageRepository _imageRepository = new ImageRepository();
+        private readonly List<ImageSource> _images;
 
-        private int imageIndex
-        {
-            get { return _imageIndex; }
-            set
-            {
-                if (value < 0)
-                {
-                    _imageIndex = _images.Count - 1;
-                }
-                else if (value > _images.Count - 1)
-                {
-                    _imageIndex = 0;
-                }
-                else
-                {
-                    _imageIndex = value;
-                }
-            }
-        }
+        private readonly DamageService _service = new DamageService(new DamageRepository());
 
         public ViewDamage(MainWindow mw, Damage damage)
         {
@@ -71,6 +39,28 @@ namespace RoeiVerenigingWPF.Pages
             {
                 ___Next_.IsEnabled = false;
                 ___Prev_.IsEnabled = false;
+            }
+        }
+        private MainWindow _mainWindow { get; }
+        public Damage Damage { set; get; }
+
+        private int imageIndex
+        {
+            get => _imageIndex;
+            set
+            {
+                if (value < 0)
+                {
+                    _imageIndex = _images.Count - 1;
+                }
+                else if (value > _images.Count - 1)
+                {
+                    _imageIndex = 0;
+                }
+                else
+                {
+                    _imageIndex = value;
+                }
             }
         }
 
@@ -93,8 +83,8 @@ namespace RoeiVerenigingWPF.Pages
             new Thread(() =>
             {
                 EmailToDb.GetImagesFromEmail(_imageRepository);
-                var UpdatedDamage = _service.GetById(Damage.Id);
-                this.Dispatcher.Invoke(() =>
+                Damage UpdatedDamage = _service.GetById(Damage.Id);
+                Dispatcher.Invoke(() =>
                 {
                     Mouse.OverrideCursor = null;
                     _mainWindow.MainContent.Navigate(new ViewDamage(_mainWindow, UpdatedDamage));

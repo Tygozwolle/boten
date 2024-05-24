@@ -1,5 +1,5 @@
-﻿using DataAccessLibary;
-using RoeiVerenigingLibary;
+﻿using DataAccessLibrary;
+using RoeiVerenigingLibrary;
 using RoeiVerenigingWPF.Frames;
 using System.Windows;
 using System.Windows.Controls;
@@ -7,15 +7,15 @@ using System.Windows.Controls;
 namespace RoeiVerenigingWPF.Pages
 {
     /// <summary>
-    /// Interaction logic for CreateDamageReport.xaml
+    ///     Interaction logic for CreateDamageReport.xaml
     /// </summary>
     public partial class CreateDamageReport : Page
     {
+        private readonly BoatService _serviceBoat = new BoatService(new BoatRepository());
+        private readonly Boat boat;
         private Damage damage;
-        private DamageService service = new DamageService(new DamageRepository());
-        private BoatService _serviceBoat = new BoatService(new BoatRepository());
-        private Boat boat;
-        private MainWindow mainWindow;
+        private readonly MainWindow mainWindow;
+        private readonly DamageService service = new DamageService(new DamageRepository());
         public CreateDamageReport(MainWindow mainWindow, int boatId)
         {
             this.mainWindow = mainWindow;
@@ -25,7 +25,7 @@ namespace RoeiVerenigingWPF.Pages
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            this.damage = service.CreateReport(mainWindow.LoggedInMember, boat, ___discription_.Text);
+            damage = service.CreateReport(mainWindow.LoggedInMember, boat, ___discription_.Text);
             mainWindow.MainContent.Navigate(new ViewDamage(mainWindow, damage));
         }
     }

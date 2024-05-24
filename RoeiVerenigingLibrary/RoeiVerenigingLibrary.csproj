@@ -1,20 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-    <UserSecretsId>19388fd9-8aff-46ed-b0dd-2cf69d0e41b9</UserSecretsId>
-    <Configurations>Debug;Release;Ingelogd;IngelogtBeheer;IngelogtMateriaal;IngelogtEvent</Configurations>
-    <RootNamespace>RoeiVerenigingLibary</RootNamespace>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <UserSecretsId>19388fd9-8aff-46ed-b0dd-2cf69d0e41b9</UserSecretsId>
+        <Configurations>Debug;Release;Ingelogd;IngelogtBeheer;IngelogtMateriaal;IngelogtEvent</Configurations>
+    </PropertyGroup>
 
-  <ItemGroup>
+    <ItemGroup>
 
-    <PackageReference Include="Aspose.Email" Version="24.4.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Cryptography.KeyDerivation" Version="8.0.5" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="8.0.0" />
-    <PackageReference Include="SolarCalculator" Version="3.3.0" />
-  </ItemGroup>
+        <PackageReference Include="Aspose.Email" Version="24.4.0"/>
+        <PackageReference Include="Microsoft.AspNetCore.Cryptography.KeyDerivation" Version="8.0.5"/>
+        <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="8.0.0"/>
+        <PackageReference Include="SolarCalculator" Version="3.3.0"/>
+    </ItemGroup>
 
 </Project>

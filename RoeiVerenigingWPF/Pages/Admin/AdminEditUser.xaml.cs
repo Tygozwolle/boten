@@ -1,110 +1,113 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using DataAccessLibary;
-using RoeiVerenigingLibary;
-using RoeiVerenigingLibary.Exceptions;
+using DataAccessLibrary;
+using RoeiVerenigingLibrary;
+using RoeiVerenigingLibrary.Exceptions;
 using RoeiVerenigingWPF.Frames;
+using System.Windows;
+using System.Windows.Controls;
 
-namespace RoeiVerenigingWPF.Pages;
-
-public partial class AdminEditUser : Page
+namespace RoeiVerenigingWPF.Pages
 {
-    private MainWindow _mainWindow;
-    private int _memberId;
-    private MemberService _service = new MemberService(new MemberRepository());
-    private Dictionary<string, CheckBox> _roleCheckBoxes = new Dictionary<string, CheckBox>();
-
-    public AdminEditUser(MainWindow mainWindow, int memberId)
+    public partial class AdminEditUser : Page
     {
-        InitializeComponent();
-        _mainWindow = mainWindow;
-        _memberId = memberId;
+        private readonly MainWindow _mainWindow;
+        private readonly int _memberId;
+        private Dictionary<string, CheckBox> _roleCheckBoxes = new Dictionary<string, CheckBox>();
+        private readonly MemberService _service = new MemberService(new MemberRepository());
 
-        Member selectedMember = _service.GetById(memberId);
-        FirstName.Text = selectedMember.FirstName;
-        Infix.Text = selectedMember.Infix;
-        LastName.Text = selectedMember.LastName;
-        Email.Text = selectedMember.Email;
-        Level.Text = selectedMember.Level.ToString();
-
-        List<string> availableRoles = _service.GetAvailableRoles();
-
-        foreach (string role in selectedMember.Roles)
+        public AdminEditUser(MainWindow mainWindow, int memberId)
         {
-            if (selectedMember.Roles.Contains("beheerder"))
-            {
-                admin.IsChecked = true;
-            }
+            InitializeComponent();
+            _mainWindow = mainWindow;
+            _memberId = memberId;
 
-            if (selectedMember.Roles.Contains("materiaal_commissaris"))
-            {
-                material_comm.IsChecked = true;
-            }
+            Member selectedMember = _service.GetById(memberId);
+            FirstName.Text = selectedMember.FirstName;
+            Infix.Text = selectedMember.Infix;
+            LastName.Text = selectedMember.LastName;
+            Email.Text = selectedMember.Email;
+            Level.Text = selectedMember.Level.ToString();
 
-            if (selectedMember.Roles.Contains("evenementen_commissaris"))
+            var availableRoles = _service.GetAvailableRoles();
+
+            foreach (string role in selectedMember.Roles)
             {
-                event_comm.IsChecked = true;
+                if (selectedMember.Roles.Contains("beheerder"))
+                {
+                    admin.IsChecked = true;
+                }
+
+                if (selectedMember.Roles.Contains("materiaal_commissaris"))
+                {
+                    material_comm.IsChecked = true;
+                }
+
+                if (selectedMember.Roles.Contains("evenementen_commissaris"))
+                {
+                    event_comm.IsChecked = true;
+                }
             }
         }
-    }
 
-    private void Button_Click(object sender, RoutedEventArgs e)
-    {
-        try
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            //get all data
-            string firstName = FirstName.Text;
-            string infix = Infix.Text;
-            string lastName = LastName.Text;
-            string email = Email.Text;
-            if (!int.TryParse(Level.Text, out int level))
+            try
             {
-                MessageBox.Show("Het niveau moet een nummer zijn");
-                return;
+                //get all data
+                string firstName = FirstName.Text;
+                string infix = Infix.Text;
+                string lastName = LastName.Text;
+                string email = Email.Text;
+                if (!Int32.TryParse(Level.Text, out int level))
+                {
+                    MessageBox.Show("Het niveau moet een nummer zijn");
+                    return;
+                }
+
+                var selectedRoles = new List<string>();
+
+                if (admin.IsChecked == true)
+                {
+                    selectedRoles.Add("beheerder");
+                }
+
+                if (material_comm.IsChecked == true)
+                {
+                    selectedRoles.Add("materiaal_commissaris");
+                }
+
+                if (event_comm.IsChecked == true)
+                {
+                    selectedRoles.Add("evenementen_commissaris");
+                }
+
+
+                //run the update methods from the service
+                Member updatedMember = _service.Update(_mainWindow.LoggedInMember, _memberId, firstName, infix, lastName,
+                    email, level
+                );
+                _service.SetRoles(_memberId, selectedRoles);
+                //check if updated
+                if (updatedMember != null)
+                {
+                    MessageBox.Show(
+                        $"{updatedMember.FirstName} {updatedMember.Infix} {updatedMember.LastName} is gewijzigd");
+                    _mainWindow.MainContent.Navigate(new ViewUsers(_mainWindow));
+                }
             }
-
-            List<string> selectedRoles = new List<string>();
-
-            if (admin.IsChecked == true)
+            catch (CantAccesDatabaseException ex)
             {
-                selectedRoles.Add("beheerder");
+                MessageBox.Show(ex.Message);
             }
-
-            if (material_comm.IsChecked == true)
+            catch (IncorrectRightsExeption ex)
             {
-                selectedRoles.Add("materiaal_commissaris");
+                MessageBox.Show(ex.Message);
             }
-
-            if (event_comm.IsChecked == true)
+            catch (Exception ex)
             {
-                selectedRoles.Add("evenementen_commissaris");
+                MessageBox.Show(ex.Message);
             }
-
-
-            //run the update methods from the service
-            Member updatedMember = _service.Update(_mainWindow.LoggedInMember, _memberId, firstName, infix, lastName,
-                email, level
-            );
-            _service.SetRoles(_memberId, selectedRoles);
-            //check if updated
-            if (updatedMember != null)
-            {
-                MessageBox.Show(
-                    $"{updatedMember.FirstName} {updatedMember.Infix} {updatedMember.LastName} is gewijzigd");
-                _mainWindow.MainContent.Navigate(new ViewUsers(_mainWindow));
-            }
-        }
-        catch (CantAccesDatabaseException ex)
-        {
-            MessageBox.Show(ex.Message);
-        }
-        catch (IncorrectRightsExeption ex)
-        {
-            MessageBox.Show(ex.Message);
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show(ex.Message);
         }
     }
 }

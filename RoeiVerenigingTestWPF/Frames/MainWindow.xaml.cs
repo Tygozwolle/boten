@@ -1,8 +1,8 @@
+using RoeiVerenigingLibrary;
+using RoeiVerenigingTestWPF.Pages;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
-using RoeiVerenigingLibary;
-using RoeiVerenigingTestWPF.Pages;
 
 namespace RoeiVerenigingTestWPF.Frames
 {
@@ -10,13 +10,22 @@ namespace RoeiVerenigingTestWPF.Frames
     {
         private Member? _loggedInMember;
 
+        public MainWindow()
+        {
+            InitializeComponent();
+            SetupExceptionHandling();
+
+            DataContext = this;
+            ButtonClass.MainWindow = this;
+            HeaderClass.MainWindow = this;
+            MainContent.Navigate(new AddReservation(LoggedInMember, 1));
+        }
+
         public Member? LoggedInMember
         {
-            get
-            {
-                return new Member(12, "Test", "van", "Test", "test@windesheim.nl",
-                    new List<string>() { new string("beheerder") }, 0);
-            }
+            get =>
+                new Member(12, "Test", "van", "Test", "test@windesheim.nl",
+                    new List<string> { new string("beheerder") }, 0);
             set
             {
                 if (_loggedInMember != value)
@@ -43,17 +52,6 @@ namespace RoeiVerenigingTestWPF.Frames
                     HeaderClass.LoggedInMemberName.Content = "Uitgelogd";
                 }
             }
-        }
-
-        public MainWindow()
-        {
-            InitializeComponent();
-            SetupExceptionHandling();
-
-            DataContext = this;
-            ButtonClass.MainWindow = this;
-            HeaderClass.MainWindow = this;
-            MainContent.Navigate(new AddReservation(LoggedInMember, 1));
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
