@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using RoeiVerenigingWPF.helpers;
 using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using RoeiVerenigingWPF.helpers;
 
 namespace RoeiVerenigingWPF
 {
@@ -34,17 +29,11 @@ namespace RoeiVerenigingWPF
                 {
                     return new BitmapImage(new Uri("/Images/Image_not_available.png", UriKind.Relative));
                 }
-                else
+                if (list[0] == null)
                 {
-                    if (list[0] == null)
-                    {
-                        return new BitmapImage(new Uri("/Images/Image_not_available.png", UriKind.Relative));
-                    }
-                    else
-                    {
-                        return ImageConverter.Convert(list[0]);
-                    }
+                    return new BitmapImage(new Uri("/Images/Image_not_available.png", UriKind.Relative));
                 }
+                return ImageConverter.Convert(list[0]);
             }
             catch
             {

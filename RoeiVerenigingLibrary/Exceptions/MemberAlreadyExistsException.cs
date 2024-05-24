@@ -1,6 +1,7 @@
-﻿namespace RoeiVerenigingLibary.Exceptions;
-
-public class MemberAlreadyExistsException : Exception
+﻿namespace RoeiVerenigingLibrary.Exceptions
 {
-    public override string Message => ("Dit email adres wordt al gebruikt!");
+    public class MemberAlreadyExistsException : Exception
+    {
+        public override string Message => "Dit email adres wordt al gebruikt!";
+    }
 }

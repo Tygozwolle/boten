@@ -13,8 +13,10 @@
             <DropShadowEffect Color="Black" Direction="320" ShadowDepth="10" Opacity="0.3" />
         </Grid.Effect>
         <Border CornerRadius="30" BorderThickness="5" BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}">
-            <Border CornerRadius="24" BorderThickness="8" BorderBrush="{x:Static local:CustomColors.MainBackgroundColor}">
-                <Grid Margin="0,0,0,0" Background="{x:Static local:CustomColors.MainBackgroundColor}" Height="780" Width="500">
+            <Border CornerRadius="24" BorderThickness="8"
+                    BorderBrush="{x:Static local:CustomColors.MainBackgroundColor}">
+                <Grid Margin="0,0,0,0" Background="{x:Static local:CustomColors.MainBackgroundColor}" Height="780"
+                      Width="500">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
@@ -33,14 +35,19 @@
                     <Label Grid.Row="2" Content="Email:" HorizontalAlignment="Center"
                            FontFamily="Franklin Gothic Medium" FontSize="24" Margin="0,40,0,0"
                            Foreground="{x:Static local:CustomColors.SubHeaderColor}" />
-                    <TextBox Grid.Row="3" x:Name="Email" Width="367" Height="40" Foreground="{x:Static local:CustomColors.SubHeaderColor}" BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}"
-                             Background="{x:Static local:CustomColors.TextBoxBackgroundColor}" FontSize="24" Text="pieter@gmail.com">
-                    </TextBox>
+
+                    <TextBox Grid.Row="3" x:Name="Email" Width="367" Height="40"
+                             Foreground="{x:Static local:CustomColors.SubHeaderColor}"
+                             BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}"
+                             Background="{x:Static local:CustomColors.TextBoxBackgroundColor}" FontSize="24" />
+
 
                     <Label Grid.Row="4" Content="Wachtwoord:" FontFamily="Franklin Gothic Medium" Margin="0,20,0,0"
                            FontSize="24"
                            Foreground="{x:Static local:CustomColors.SubHeaderColor}" HorizontalAlignment="Center" />
-                    <PasswordBox Grid.Row="5" x:Name="Password" Width="367" Height="40" BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}" Foreground="{x:Static local:CustomColors.SubHeaderColor}"
+                    <PasswordBox Grid.Row="5" x:Name="Password" Width="367" Height="40"
+                                 BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}"
+                                 Foreground="{x:Static local:CustomColors.SubHeaderColor}"
                                  Background="{x:Static local:CustomColors.TextBoxBackgroundColor}" FontSize="24">
                         <PasswordBox.Resources>
                             <Style TargetType="{x:Type Border}">
@@ -51,7 +58,9 @@
 
                     <Button Grid.Row="6" Content="Login" Click="LoginMember" Width="275" Height="70"
                             Margin="20,40,20,20"
-                            FontFamily="Franklin Gothic Medium" FontSize="36" Foreground="{x:Static local:CustomColors.HeaderColor}" Background="{x:Static local:CustomColors.ButtonBackgroundColor}"
+                            FontFamily="Franklin Gothic Medium" FontSize="36"
+                            Foreground="{x:Static local:CustomColors.HeaderColor}"
+                            Background="{x:Static local:CustomColors.ButtonBackgroundColor}"
                             BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}">
                         <Button.Resources>
                             <Style TargetType="Border">

@@ -1,39 +1,42 @@
-﻿using System.ComponentModel;
+﻿
+using RoeiVerenigingLibrary;
+using RoeiVerenigingTestWPF.Frames;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using DataAccessLibary;
-using RoeiVerenigingLibary;
+using DataAccessLibrary;
+using RoeiVerenigingLibrary;
 using RoeiVerenigingTestWPF.Frames;
 
 namespace RoeiVerenigingTestWPF.Pages
 {
     /// <summary>
-    /// Interaction logic for ViewUsers.xaml
+    ///     Interaction logic for ViewUsers.xaml
     /// </summary>
     public partial class ViewUsers : Page
     {
-        private List<Member> _memberList;
-        public Member SelectedMember { get; set; }
-        private MainWindow _mainWindow;
+        private readonly MainWindow _mainWindow;
+        private readonly List<Member> _memberList;
 
         public ViewUsers(MainWindow mainWindow)
         {
             MemberService service = new MemberService(new MemberRepository());
             InitializeComponent();
             _mainWindow = mainWindow;
-            this.DataContext = this;
+            DataContext = this;
             _memberList = service.GetMembers();
             ___UserList_.ItemsSource = _memberList;
             ___UserList_.Items.Filter = Filter;
         }
+        public Member SelectedMember { get; set; }
 
         public void SortMember(object sender, RoutedEventArgs routedEventArgs)
         {
             try
             {
-                ContextMenu sendercast = (System.Windows.Controls.ContextMenu)sender;
+                ContextMenu sendercast = (ContextMenu)sender;
                 string[] validStrings = { "Id", "FirstName", "LastName", "Email" };
                 if (validStrings.Contains(sendercast.Name))
                 {
@@ -65,7 +68,7 @@ namespace RoeiVerenigingTestWPF.Pages
 
         private bool Filter(object item)
         {
-            List<bool> result = new List<bool>();
+            var result = new List<bool>();
             // filter ID
             if (String.IsNullOrEmpty(IdFilter.Text))
             {
@@ -73,8 +76,8 @@ namespace RoeiVerenigingTestWPF.Pages
             }
             else
             {
-                result.Add(((item as Member).Id.ToString()
-                    .IndexOf($"{IdFilter.Text}", StringComparison.OrdinalIgnoreCase) >= 0));
+                result.Add((item as Member).Id.ToString()
+                    .IndexOf($"{IdFilter.Text}", StringComparison.OrdinalIgnoreCase) >= 0);
             }
 
             //Filter FirstName
@@ -84,8 +87,8 @@ namespace RoeiVerenigingTestWPF.Pages
             }
             else
             {
-                result.Add(((item as Member).FirstName.IndexOf($"{FirstNameFilter.Text}",
-                    StringComparison.OrdinalIgnoreCase) >= 0));
+                result.Add((item as Member).FirstName.IndexOf($"{FirstNameFilter.Text}",
+                    StringComparison.OrdinalIgnoreCase) >= 0);
             }
 
             //Filter LastName
@@ -95,8 +98,8 @@ namespace RoeiVerenigingTestWPF.Pages
             }
             else
             {
-                result.Add(((item as Member).LastName.IndexOf($"{LastNameFilter.Text}",
-                    StringComparison.OrdinalIgnoreCase) >= 0));
+                result.Add((item as Member).LastName.IndexOf($"{LastNameFilter.Text}",
+                    StringComparison.OrdinalIgnoreCase) >= 0);
             }
 
             //Filter Email
@@ -106,8 +109,8 @@ namespace RoeiVerenigingTestWPF.Pages
             }
             else
             {
-                result.Add(((item as Member).Email.IndexOf($"{EmailFilter.Text}", StringComparison.OrdinalIgnoreCase) >=
-                            0));
+                result.Add((item as Member).Email.IndexOf($"{EmailFilter.Text}", StringComparison.OrdinalIgnoreCase) >=
+                           0);
             }
 
             //Filter Roles
@@ -117,8 +120,8 @@ namespace RoeiVerenigingTestWPF.Pages
             }
             else
             {
-                result.Add(((item as Member).RolesString.IndexOf($"{RolesFilter.Text}",
-                    StringComparison.OrdinalIgnoreCase) >= 0));
+                result.Add((item as Member).RolesString.IndexOf($"{RolesFilter.Text}",
+                    StringComparison.OrdinalIgnoreCase) >= 0);
             }
 
             return !result.Contains(false);

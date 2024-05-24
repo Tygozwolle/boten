@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:RoeiVerenigingTestWPF.Components"
              mc:Ignorable="d"
              d:DesignHeight="924" d:DesignWidth="350"
              Background="Transparent">
@@ -52,9 +51,8 @@
                             FontSize="32" Foreground="#1A517A" Background="#88BFEA" Click="Button_Click">
                         <Grid HorizontalAlignment="Left">
                             <Image Source="../Images/Icons/calendar.png" Height="50" Width="50" Margin="10,0"
-                                   HorizontalAlignment="Left">
-                            </Image>
-                            <TextBlock Text="Boten" Padding="70,0,20,0" VerticalAlignment="Center"></TextBlock>
+                                   HorizontalAlignment="Left" />
+                            <TextBlock Text="Boten" Padding="70,0,20,0" VerticalAlignment="Center" />
                         </Grid>
                         <Button.BitmapEffect>
                             <DropShadowBitmapEffect Color="Black" Direction="320" Softness="1" ShadowDepth="10"
@@ -78,9 +76,8 @@
                             FontSize="32" Foreground="#1A517A" Background="#88BFEA" Click="Button_Click">
                         <Grid HorizontalAlignment="Left">
                             <Image Source="../Images/Icons/heart-crack.png" Height="50" Width="50" Margin="10,0"
-                                   HorizontalAlignment="Left">
-                            </Image>
-                            <TextBlock Text="Schade" Padding="70,0,20,0" VerticalAlignment="Center"></TextBlock>
+                                   HorizontalAlignment="Left" />
+                            <TextBlock Text="Schade" Padding="70,0,20,0" VerticalAlignment="Center" />
                         </Grid>
                         <Button.BitmapEffect>
                             <DropShadowBitmapEffect Color="Black" Direction="320" Softness="1" ShadowDepth="10"
@@ -92,11 +89,11 @@
                             </Style>
                         </Button.Resources>
                     </Button>
-                    
+
                     <Grid Grid.Row="5" Grid.Column="0" Height="60" Width="15" Margin="5,0,0,0">
-                        <Border Name="EventsRectangle" CornerRadius="5" BorderThickness="2"  />
+                        <Border Name="EventsRectangle" CornerRadius="5" BorderThickness="2" />
                     </Grid>
-                    
+
                     <Button Grid.Column="1" x:Name="EventsButton" Grid.Row="5" Margin="20,20,20,20"
                             HorizontalContentAlignment="Left"
                             HorizontalAlignment="Left" Width="270"
@@ -104,9 +101,8 @@
                             Click="Button_Click">
                         <Grid HorizontalAlignment="Left">
                             <Image Source="../Images/Icons/calendar.png" Height="50" Width="50" Margin="10,0"
-                                   HorizontalAlignment="Left">
-                            </Image>
-                            <TextBlock Text="Evenementen" Padding="70,0,20,0" VerticalAlignment="Center"></TextBlock>
+                                   HorizontalAlignment="Left" />
+                            <TextBlock Text="Evenementen" Padding="70,0,20,0" VerticalAlignment="Center" />
                         </Grid>
                         <Button.BitmapEffect>
                             <DropShadowBitmapEffect Color="Black" Direction="320" Softness="1" ShadowDepth="10"
@@ -118,11 +114,11 @@
                             </Style>
                         </Button.Resources>
                     </Button>
-                    
+
                     <Grid Grid.Row="6" Grid.Column="0" Height="60" Width="15" Margin="5,0,0,0">
                         <Border Name="ReservationRectangle" CornerRadius="5" BorderThickness="2" />
                     </Grid>
-                    
+
                     <Button Grid.Column="1" x:Name="ReserveButton" Grid.Row="6" Margin="20,20,20,20"
                             HorizontalContentAlignment="Left"
                             HorizontalAlignment="Left"
@@ -130,9 +126,8 @@
                             Click="Button_Click" Width="270">
                         <Grid HorizontalAlignment="Left">
                             <Image Source="../Images/Icons/calendar-clock.png" Height="50" Width="50" Margin="10,0"
-                                   HorizontalAlignment="Left">
-                            </Image>
-                            <TextBlock Text="Reserveringen" Padding="70,0,20,0" VerticalAlignment="Center"></TextBlock>
+                                   HorizontalAlignment="Left" />
+                            <TextBlock Text="Reserveringen" Padding="70,0,20,0" VerticalAlignment="Center" />
                         </Grid>
                         <Button.BitmapEffect>
                             <DropShadowBitmapEffect Color="Black" Direction="320" Softness="1" ShadowDepth="10"

@@ -1,17 +1,17 @@
 ﻿using MySqlConnector;
-using RoeiVerenigingLibary;
+using RoeiVerenigingLibrary;
 
-namespace DataAccessLibary
+namespace DataAccessLibrary
 {
     public class BoatRepository : IBoatRepository
     {
         public List<Boat> Getboats()
         {
-            List<Boat> boat = new List<Boat>();
+            var boat = new List<Boat>();
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
             {
                 connection.Open();
-                String sql = $"SELECT * FROM boats";
+                string sql = "SELECT * FROM boats";
 
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {
@@ -19,12 +19,12 @@ namespace DataAccessLibary
                     {
                         while (reader.Read())
                         {
-                            var id = reader.GetInt32(0);
-                            var captainSeat = reader.GetBoolean(1);
-                            var Seats = reader.GetInt32(2);
-                            var Level = reader.GetInt32(3);
-                            var description = reader.GetString(4);
-                            var name = reader.GetString(5);
+                            int id = reader.GetInt32(0);
+                            bool captainSeat = reader.GetBoolean(1);
+                            int Seats = reader.GetInt32(2);
+                            int Level = reader.GetInt32(3);
+                            string description = reader.GetString(4);
+                            string name = reader.GetString(5);
 
                             boat.Add(new Boat(id, captainSeat, Seats, Level, description, name));
                         }
@@ -54,12 +54,12 @@ namespace DataAccessLibary
                     {
                         if (reader.Read())
                         {
-                            var id = reader.GetInt32(0);
-                            var captainSeat = reader.GetBoolean(1);
-                            var seats = reader.GetInt32(2);
-                            var level = reader.GetInt32(3);
-                            var description = reader.GetString(4);
-                            var name = reader.GetString(5);
+                            int id = reader.GetInt32(0);
+                            bool captainSeat = reader.GetBoolean(1);
+                            int seats = reader.GetInt32(2);
+                            int level = reader.GetInt32(3);
+                            string description = reader.GetString(4);
+                            string name = reader.GetString(5);
 
                             boat = new Boat(id, captainSeat, seats, level, description, name);
                         }
@@ -76,7 +76,7 @@ namespace DataAccessLibary
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
             {
                 connection.Open();
-                String sql = $"SELECT * FROM boats WHERE id = @id";
+                string sql = "SELECT * FROM boats WHERE id = @id";
 
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {
@@ -87,12 +87,12 @@ namespace DataAccessLibary
                     {
                         while (reader.Read())
                         {
-                            var id = reader.GetInt32(0);
-                            var captainSeat = reader.GetBoolean(1);
-                            var Seats = reader.GetInt32(2);
-                            var Level = reader.GetInt32(3);
-                            var description = reader.GetString(4);
-                            var name = reader.GetString(5);
+                            int id = reader.GetInt32(0);
+                            bool captainSeat = reader.GetBoolean(1);
+                            int Seats = reader.GetInt32(2);
+                            int Level = reader.GetInt32(3);
+                            string description = reader.GetString(4);
+                            string name = reader.GetString(5);
                             return new Boat(id, captainSeat, Seats, Level, description, name);
                         }
 

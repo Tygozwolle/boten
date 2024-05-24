@@ -1,17 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Net.Mail;
-using System.Text;
-using System.Threading.Tasks;
-using Aspose.Email;
-using Aspose.Email.Clients;
+﻿using Aspose.Email;
 using Aspose.Email.Clients.Imap;
-using Aspose.Email.Clients.Pop3;
 using Aspose.Email.Mime;
 using Microsoft.Extensions.Configuration;
-using RoeiVerenigingLibary;
+using RoeiVerenigingLibrary;
+using System.Diagnostics;
 using Attachment = Aspose.Email.Attachment;
 
 namespace RoeiVerenigingLibrary
@@ -31,18 +23,18 @@ namespace RoeiVerenigingLibrary
                 builder.HasNoFlags(ImapMessageFlags.IsRead);
                 ImapMessageInfoCollection messages = client.ListMessages(builder.GetQuery());
 
-                List<Aspose.Email.Attachment> attachments = new List<Aspose.Email.Attachment>();
+                var attachments = new List<Attachment>();
                 foreach (ImapMessageInfo messageInfo in messages)
                 {
                     // Access the email message
-                    string[] allowedFileTypes = new[]
+                    string[] allowedFileTypes =
                     {
                         MediaTypeNames.Image.Jpeg, MediaTypeNames.Image.Png, MediaTypeNames.Image.Gif,
                         MediaTypeNames.Image.Bmp, MediaTypeNames.Image.Tiff
                     };
-                    Aspose.Email.MailMessage message = client.FetchMessage(messageInfo.UniqueId);
-                    List<Stream> streams = new List<Stream>();
-                    foreach (Aspose.Email.Attachment attachment in message.Attachments)
+                    MailMessage message = client.FetchMessage(messageInfo.UniqueId);
+                    var streams = new List<Stream>();
+                    foreach (Attachment attachment in message.Attachments)
                     {
                         if (allowedFileTypes.Contains(attachment.ContentType.MediaType))
                         {

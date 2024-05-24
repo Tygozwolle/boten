@@ -1,6 +1,7 @@
-namespace RoeiVerenigingLibary.Exceptions;
-
-public class InvalidTimeException : Exception
+namespace RoeiVerenigingLibrary.Exceptions
 {
-    public override string Message => ("De starttijd moet eerder zijn dan de eindtijd!");
+    public class InvalidTimeException : Exception
+    {
+        public override string Message => "De starttijd moet eerder zijn dan de eindtijd!";
+    }
 }

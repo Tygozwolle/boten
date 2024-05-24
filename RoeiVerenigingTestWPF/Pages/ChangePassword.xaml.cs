@@ -1,37 +1,40 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using DataAccessLibary;
-using RoeiVerenigingLibary;
+using DataAccessLibrary;
+using RoeiVerenigingLibrary;
 using RoeiVerenigingTestWPF.Frames;
+using System.Windows;
+using System.Windows.Controls;
 
-namespace RoeiVerenigingTestWPF.Pages;
-
-public partial class ChangePassword : Page
+namespace RoeiVerenigingTestWPF.Pages
 {
-    private MainWindow _mainWindow;
-
-    public ChangePassword(MainWindow mainWindow)
+    public partial class ChangePassword : Page
     {
-        InitializeComponent();
-        _mainWindow = mainWindow;
-    }
+        private readonly MainWindow _mainWindow;
 
-    private void Button_Click(object sender, RoutedEventArgs e)
-    {
-        MemberService service = new MemberService(new MemberRepository());
-        try
+        public ChangePassword(MainWindow mainWindow)
         {
-            string password = CurrentPassword.Password;
-            string newPassword = NewPassword.Password;
-            string newPasswordConfirm = NewPasswordConfirm.Password;
-            service.ChangePassword(_mainWindow.LoggedInMember, password, newPassword, newPasswordConfirm);
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show(ex.Message);
-            return;
+            InitializeComponent();
+            _mainWindow = mainWindow;
         }
 
-        MessageBox.Show("Wachtwoord is veranderd");
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            MemberService service = new MemberService(new MemberRepository());
+            try
+            {
+                string password = CurrentPassword.Password;
+                string newPassword = NewPassword.Password;
+                string newPasswordConfirm = NewPasswordConfirm.Password;
+                service.ChangePassword(_mainWindow.LoggedInMember, password, newPassword, newPasswordConfirm);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return;
+            }
+
+            MessageBox.Show("Wachtwoord is veranderd");
+        }
     }
 }

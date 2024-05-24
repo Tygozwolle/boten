@@ -1,14 +1,13 @@
-using DataAccessLibary;
+using DataAccessLibrary;
 using MySqlConnector;
-using RoeiVerenigingLibary;
+using RoeiVerenigingLibrary;
 using System.Diagnostics;
-
 
 namespace TestConsoleApp
 {
     internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             //Console.WriteLine("Hello, World!");
             //MemberService memberService = new MemberService(new MemberRepository());
@@ -26,9 +25,9 @@ namespace TestConsoleApp
             //     
             //   var test =  imageRepository.get(1);
             DamageRepository damageRepository = new DamageRepository();
-            var st = new Stopwatch();
+            Stopwatch st = new Stopwatch();
             st.Start();
-           var test = damageRepository.GetById(1);
+            Damage test = damageRepository.GetById(1);
             st.Stop();
             Console.WriteLine(st);
             test.ToString();

@@ -1,91 +1,95 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using DataAccessLibary;
-using RoeiVerenigingLibary;
-using RoeiVerenigingLibary.Exceptions;
+using DataAccessLibrary;
+using RoeiVerenigingLibrary;
+using RoeiVerenigingLibrary.Exceptions;
 using RoeiVerenigingTestWPF.Frames;
+using System.Windows;
+using System.Windows.Controls;
 
-namespace RoeiVerenigingTestWPF.Pages;
-
-public partial class AdminEditUser : Page
+namespace RoeiVerenigingTestWPF.Pages
 {
-    private MainWindow _mainWindow;
-    private int _memberId;
-    private MemberService _service = new MemberService(new MemberRepository());
-    private Dictionary<string, CheckBox> _roleCheckBoxes = new Dictionary<string, CheckBox>();
-
-    public AdminEditUser(MainWindow mainWindow, int memberId)
+    public partial class AdminEditUser : Page
     {
-        InitializeComponent();
-        _mainWindow = mainWindow;
-        _memberId = memberId;
+        private readonly MainWindow _mainWindow;
+        private readonly int _memberId;
+        private readonly Dictionary<string, CheckBox> _roleCheckBoxes = new Dictionary<string, CheckBox>();
+        private readonly MemberService _service = new MemberService(new MemberRepository());
 
-        Member selectedMember = _service.GetById(memberId);
-        FirstName.Text = selectedMember.FirstName;
-        Infix.Text = selectedMember.Infix;
-        LastName.Text = selectedMember.LastName;
-        Email.Text = selectedMember.Email;
-        Level.Text = selectedMember.Level.ToString();
-
-        List<string> availableRoles = _service.GetAvailableRoles();
-        foreach (string role in availableRoles)
+        public AdminEditUser(MainWindow mainWindow, int memberId)
         {
-            CheckBox checkBox = new CheckBox { Content = role };
-            _roleCheckBoxes[role] = checkBox;
-            RolesPanel.Children.Add(checkBox);
-        }
+            InitializeComponent();
+            _mainWindow = mainWindow;
+            _memberId = memberId;
 
-        foreach (string role in selectedMember.Roles)
-        {
-            if (_roleCheckBoxes.ContainsKey(role))
+            Member selectedMember = _service.GetById(memberId);
+            FirstName.Text = selectedMember.FirstName;
+            Infix.Text = selectedMember.Infix;
+            LastName.Text = selectedMember.LastName;
+            Email.Text = selectedMember.Email;
+            Level.Text = selectedMember.Level.ToString();
+
+            var availableRoles = _service.GetAvailableRoles();
+            foreach (string role in availableRoles)
             {
-                _roleCheckBoxes[role].IsChecked = true;
+                CheckBox checkBox = new CheckBox { Content = role };
+                _roleCheckBoxes[role] = checkBox;
+                RolesPanel.Children.Add(checkBox);
+            }
+
+            foreach (string role in selectedMember.Roles)
+            {
+                if (_roleCheckBoxes.ContainsKey(role))
+                {
+                    _roleCheckBoxes[role].IsChecked = true;
+                }
             }
         }
-    }
 
-    private void Button_Click(object sender, RoutedEventArgs e)
-    {
-        try
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            //get all data
-            string firstName = FirstName.Text;
-            string infix = Infix.Text;
-            string lastName = LastName.Text;
-            string email = Email.Text;
-            if (!int.TryParse(Level.Text, out int level))
+            try
             {
-                MessageBox.Show("Het niveau moet een nummer zijn");
-                return;
+                //get all data
+                string firstName = FirstName.Text;
+                string infix = Infix.Text;
+                string lastName = LastName.Text;
+                string email = Email.Text;
+                if (!Int32.TryParse(Level.Text, out int level))
+                {
+                    MessageBox.Show("Het niveau moet een nummer zijn");
+                    return;
+                }
+
+                var selectedRoles = _roleCheckBoxes
+                    .Where(pair => pair.Value.IsChecked == true)
+                    .Select(pair => pair.Key)
+                    .ToList();
+                //run the update methods from the service
+                Member updatedMember = _service.Update(_mainWindow.LoggedInMember, _memberId, firstName, infix, lastName,
+                    email, level
+                );
+                _service.SetRoles(_memberId, selectedRoles);
+                //check if updated
+                if (updatedMember != null)
+                {
+                    MessageBox.Show(
+                        $"{updatedMember.FirstName} {updatedMember.Infix} {updatedMember.LastName} is gewijzigd");
+                    _mainWindow.MainContent.Navigate(new ViewUsers(_mainWindow));
+                }
             }
-            
-            List<string> selectedRoles = _roleCheckBoxes
-                .Where(pair => pair.Value.IsChecked == true)
-                .Select(pair => pair.Key)
-                .ToList();
-            //run the update methods from the service
-            Member updatedMember = _service.Update(_mainWindow.LoggedInMember, _memberId, firstName, infix, lastName,
-                email, level
-            );
-            _service.SetRoles(_memberId, selectedRoles);
-            //check if updated
-            if (updatedMember != null)
+            catch (CantAccesDatabaseException ex)
             {
-                MessageBox.Show(
-                    $"{updatedMember.FirstName} {updatedMember.Infix} {updatedMember.LastName} is gewijzigd");
-                _mainWindow.MainContent.Navigate(new ViewUsers(_mainWindow));
+                MessageBox.Show(ex.Message);
             }
-        }
-        catch (CantAccesDatabaseException ex)
-        {
-            MessageBox.Show(ex.Message);
-        }
-        catch (IncorrectRightsExeption ex)
-        {
-            MessageBox.Show(ex.Message);
-        }
-        catch (Exception ex) {
-            MessageBox.Show(ex.Message);
+            catch (IncorrectRightsExeption ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

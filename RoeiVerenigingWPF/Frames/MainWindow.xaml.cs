@@ -1,10 +1,10 @@
+using RoeiVerenigingLibrary;
+using RoeiVerenigingWPF.helpers;
+using RoeiVerenigingWPF.Pages;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Navigation;
-using RoeiVerenigingLibary;
-using RoeiVerenigingWPF.helpers;
-using RoeiVerenigingWPF.Pages;
 
 namespace RoeiVerenigingWPF.Frames
 {
@@ -12,9 +12,21 @@ namespace RoeiVerenigingWPF.Frames
     {
         private Member? _loggedInMember;
 
+        public MainWindow()
+        {
+            InitializeComponent();
+            SetupExceptionHandling();
+
+            DataContext = this;
+            ButtonClass.MainWindow = this;
+            HeaderClass.MainWindow = this;
+            LoginContent.Navigate(new Login(this));
+            MainContent.ContentRendered += MainContent_ContentRendered;
+        }
+
         public Member? LoggedInMember
         {
-            get { return _loggedInMember; }
+            get => _loggedInMember;
             set
             {
                 if (_loggedInMember != value)
@@ -43,17 +55,7 @@ namespace RoeiVerenigingWPF.Frames
             }
         }
 
-        public MainWindow()
-        {
-            InitializeComponent();
-            SetupExceptionHandling();
-
-            DataContext = this;
-            ButtonClass.MainWindow = this;
-            HeaderClass.MainWindow = this;
-            LoginContent.Navigate(new Login(this));
-            this.MainContent.ContentRendered += MainContent_ContentRendered;
-        }
+        public event PropertyChangedEventHandler PropertyChanged;
 
         private void MainContent_ContentRendered(object? sender, EventArgs e)
         {
@@ -62,20 +64,18 @@ namespace RoeiVerenigingWPF.Frames
 
         private void ClearHistory()
         {
-            if (this.MainContent.NavigationService.CanGoBack)
-            { 
-                var entry = this.MainContent.NavigationService.RemoveBackEntry();
+            if (MainContent.NavigationService.CanGoBack)
+            {
+                JournalEntry? entry = MainContent.NavigationService.RemoveBackEntry();
                 RemoveAllHandlers.RemoveAllhandlersFromOpject(entry);
                 while (entry != null)
                 {
-                    entry = this.MainContent.RemoveBackEntry();
+                    entry = MainContent.RemoveBackEntry();
                     RemoveAllHandlers.RemoveAllhandlersFromOpject(entry);
                 }
 
             }
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
