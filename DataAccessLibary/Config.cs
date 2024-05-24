@@ -273,5 +273,16 @@ namespace DataAccessLibary
         {
             ControlPassword = password;
         }
+
+#if !RELEASE
+        public static void FillFromSecrets()
+        {
+            IConfigurationRoot config = new ConfigurationBuilder().AddUserSecrets<Config>().Build();
+            DBUsername = config["DB:username"];
+            DBPassword = config["DB:password"];
+            DBPort = config["DB:port"];
+            DBAdress = config["DB:adress"];
+        }
+#endif
     }
 }

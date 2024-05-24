@@ -23,8 +23,7 @@ namespace DataAccessLibary
             builder.Password = config["DB:password"];
             builder.Port = 22;
             builder.Server = config["DB:adress"];
-#endif
-#if RELEASE
+#elif CONFIGFILEFILLED || RELEASE
             builder.UserID = Config.DBUsername;
             builder.Password = Config.DBPassword;
             builder.Port = Config.DBPortInt;

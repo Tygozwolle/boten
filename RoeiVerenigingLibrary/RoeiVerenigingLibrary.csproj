@@ -5,16 +5,16 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <UserSecretsId>19388fd9-8aff-46ed-b0dd-2cf69d0e41b9</UserSecretsId>
-        <Configurations>Debug;Release;Ingelogd;IngelogtBeheer;IngelogtMateriaal;IngelogtEvent</Configurations>
+        <Configurations>Debug;Release;Ingelogd;IngelogtBeheer;IngelogtMateriaal;IngelogtEvent;ConfigFileFilled</Configurations>
         <RootNamespace>RoeiVerenigingLibary</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
 
-        <PackageReference Include="Aspose.Email" Version="24.4.0"/>
-        <PackageReference Include="Microsoft.AspNetCore.Cryptography.KeyDerivation" Version="8.0.5"/>
-        <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="8.0.0"/>
-        <PackageReference Include="SolarCalculator" Version="3.3.0"/>
+        <PackageReference Include="Aspose.Email" Version="24.4.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Cryptography.KeyDerivation" Version="8.0.5" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="8.0.0" />
+        <PackageReference Include="SolarCalculator" Version="3.3.0" />
     </ItemGroup>
 
 </Project>

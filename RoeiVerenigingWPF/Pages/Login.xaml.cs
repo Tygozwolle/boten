@@ -58,6 +58,10 @@ namespace RoeiVerenigingWPF.Pages
 #if !RELEASE
         private void DebugInlog()
         {
+#if CONFIGFILEFILLED
+            Config.FillFromSecrets();
+#endif
+
 #if INGELOGD
         IConfigurationRoot config = new ConfigurationBuilder().AddUserSecrets<Login>().Build();
         Email.Text = config["USER:username"];
