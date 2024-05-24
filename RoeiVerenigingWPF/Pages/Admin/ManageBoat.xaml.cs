@@ -3,10 +3,13 @@ using DataAccessLibrary;
 using RoeiVerenigingLibrary;
 using System.Windows.Controls;
 using DataAccessLibrary;
+using Microsoft.Win32;
 using RoeiVerenigingLibrary;
 using RoeiVerenigingLibrary.Exceptions;
 using RoeiVerenigingWPF.Frames;
 using RoeiVerenigingWPF.helpers;
+using System.DirectoryServices.ActiveDirectory;
+using System.IO;
 
 namespace RoeiVerenigingWPF.Pages.Admin
 {
@@ -15,6 +18,8 @@ namespace RoeiVerenigingWPF.Pages.Admin
         private MainWindow _mainWindow;
         private bool Eddit;
         private Boat boat;
+        private bool ImageChanged = false;
+        private Stream ImageStream;
         public ManageBoat(MainWindow mainWindow, Boat boat, bool eddit)
         {
             _mainWindow = mainWindow;
@@ -31,9 +36,9 @@ namespace RoeiVerenigingWPF.Pages.Admin
                 ButtonEditCreate.Content = "Bewerken";
                 HeaderBoat.Content = "Bewerk boot";
                 TextBlockBoat.Text = "Bewerk een boot aan, zodat de informatie correct is!";
-                if (boat.Images[0] != null) 
+                if (boat.Image != null) 
                 {
-                    Image.Source = ImageConverter.Convert(boat.Images[0]);
+                    Image.Source = ImageConverter.Convert(boat.Image);
                 }
             }
             else
@@ -101,7 +106,22 @@ namespace RoeiVerenigingWPF.Pages.Admin
         }
         private void ButtonUpload_Click(object sender, RoutedEventArgs e)
         {
-            
+            var fileDialog = new OpenFileDialog();
+            fileDialog.Filter = "Image files (*.png;*.jpeg;*.jpg)|*.png;*.jpeg;*.jpg";
+            fileDialog.Multiselect = false;
+            fileDialog.ShowDialog(_mainWindow);
+            if (fileDialog.CheckFileExists)
+            {
+                using (Stream stream = fileDialog.OpenFile())
+                {
+                    if (stream != null)
+                    {
+                        Image.Source = ImageConverter.Convert(stream);
+                        ImageStream = stream;
+                        ImageChanged = true;
+                    }
+                }
+            }
         }
     }
 }
