@@ -104,6 +104,10 @@ namespace RoeiVerenigingWPF.Pages.Admin
             {
                 MessageBox.Show("Vul alle velden correct in");
             }
+            catch (IncorrectLevelException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
 
         }
         private void ButtonUpload_Click(object sender, RoutedEventArgs e)
