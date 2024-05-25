@@ -3,10 +3,13 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:roeiVerenigingWpf="clr-namespace:RoeiVerenigingWPF"
       mc:Ignorable="d"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="CreateDamageReport">
-
+    <Page.Resources>
+        <roeiVerenigingWpf:SingleStreamImageConverter x:Key="SingleStreamImageConverter" />
+    </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <!-- Header Column -->
@@ -32,7 +35,7 @@
         <Label Content="Schade melding boot X" FontSize="30" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" />
 
         <!-- Photo -->
-        <Image Source="/Images/Image_not_available.png" Grid.Column="0" Grid.Row="1" />
+        <Image Source="{Binding Image, Converter={StaticResource SingleStreamImageConverter}}" Grid.Column="0" Grid.Row="1" />
 
         <!-- Tekst Label -->
         <Label Content="Tekst over Boten" Grid.Row="1" Grid.Column="1" />
