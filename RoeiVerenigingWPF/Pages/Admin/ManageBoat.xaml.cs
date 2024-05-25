@@ -112,23 +112,30 @@ namespace RoeiVerenigingWPF.Pages.Admin
         }
         private void ButtonUpload_Click(object sender, RoutedEventArgs e)
         {
-            var fileDialog = new OpenFileDialog();
-            fileDialog.Filter = "Image files (*.png;*.jpeg;*.jpg)|*.png;*.jpeg;*.jpg";
-            fileDialog.Multiselect = false;
-            fileDialog.ShowDialog(_mainWindow);
-            if (fileDialog.CheckFileExists)
+            try
             {
-                using (Stream stream = fileDialog.OpenFile())
+                var fileDialog = new OpenFileDialog();
+                fileDialog.Filter = "Image files (*.png;*.jpeg;*.jpg)|*.png;*.jpeg;*.jpg";
+                fileDialog.Multiselect = false;
+                fileDialog.ShowDialog(_mainWindow);
+                if (fileDialog.CheckFileExists)
                 {
-                    if (stream != null)
+                    using (Stream stream = fileDialog.OpenFile())
                     {
-                        Stream compressedStream = RisizeImage.ResizeImage(stream, 500, 500);
-                        Image.Source = ImageConverter.Convert(compressedStream);
-                        ImageStream = compressedStream;
-                        //compressedStream.CopyTo(ImageStream);
-                        ImageChanged = true;
+                        if (stream != null)
+                        {
+                            Stream compressedStream = RisizeImage.ResizeImage(stream, 500, 500);
+                            Image.Source = ImageConverter.Convert(compressedStream);
+                            ImageStream = compressedStream;
+                            //compressedStream.CopyTo(ImageStream);
+                            ImageChanged = true;
+                        }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                
             }
         }
     }
