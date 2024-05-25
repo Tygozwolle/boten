@@ -59,7 +59,13 @@
                                    Foreground="{x:Static helpers:CustomColors.SubHeaderColor}" />
                             <Image Grid.Row="1" Name="Image" 
                                    Source="/Images/Image_not_available.png" Height="400px"
-                                   Width="400px" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                   Width="400px" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                <Image.Resources>
+                                    <Style TargetType="Border">
+                                        <Setter Property="CornerRadius" Value="15"></Setter>
+                                    </Style>
+                                </Image.Resources>
+                            </Image>
                                    
                             <Button Grid.Row="2" Name="ButtonUpload" Content="Upload foto" Width="250" Height="50"
                                     Margin="20,65,20,20" VerticalAlignment="Bottom" 
@@ -99,7 +105,7 @@
                     <TextBox Grid.Row="3" x:Name="Seats" Width="367" Height="40" Foreground="{x:Static helpers:CustomColors.SubHeaderColor}"
                              Background="{x:Static helpers:CustomColors.TextBoxBackgroundColor}"
                              BorderBrush="{x:Static helpers:CustomColors.OutsideBorderColor}" FontSize="24" FontFamily="Franklin Gothic Medium" />
-                    <Label Grid.Row="4" Content="Niveau:" Width="367" FontFamily="Franklin Gothic Medium"
+                    <Label Grid.Row="4" Content="*Niveau:" Width="367" FontFamily="Franklin Gothic Medium"
                            FontSize="24" HorizontalContentAlignment="Center"
                            Foreground="{x:Static helpers:CustomColors.SubHeaderColor}" />
                     <TextBox Grid.Row="5" x:Name="Level" Width="367" Height="40" Foreground="{x:Static helpers:CustomColors.SubHeaderColor}"
@@ -111,7 +117,7 @@
                                Foreground="{x:Static helpers:CustomColors.SubHeaderColor}" />
                         <TextBox x:Name="Description" Width="367" Height="100" Foreground="{x:Static helpers:CustomColors.SubHeaderColor}"
                                  Background="{x:Static helpers:CustomColors.TextBoxBackgroundColor}"
-                                 BorderBrush="{x:Static helpers:CustomColors.OutsideBorderColor}" TextWrapping="WrapWithOverflow" FontSize="24" FontFamily="Franklin Gothic Medium" />
+                                 BorderBrush="{x:Static helpers:CustomColors.OutsideBorderColor}" TextWrapping="WrapWithOverflow" FontSize="14"  FontFamily="Franklin Gothic Medium" />
                     </StackPanel>
                     <StackPanel Grid.Row="7">
                 
