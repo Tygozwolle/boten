@@ -50,8 +50,9 @@ namespace RoeiVerenigingWPF.Pages
             _mainWindow.MainContent.Visibility = Visibility.Visible;
             _mainWindow.LoginContent.Visibility = Visibility.Hidden;
            // _mainWindow.MainContent.Navigate(new MainPage(_mainWindow));
-           _mainWindow.MainContent.Navigate(new ManageBoat(_mainWindow, new BoatService(new BoatRepository()).GetBoatById(23)));
+         //  _mainWindow.MainContent.Navigate(new ManageBoat(_mainWindow, new BoatService(new BoatRepository()).GetBoatById(23)));
        // _mainWindow.MainContent.Navigate(new ManageBoat(_mainWindow));
+       _mainWindow.MainContent.Navigate(new ManageBoatList(_mainWindow));
         }
 
 
