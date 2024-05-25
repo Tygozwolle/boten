@@ -46,7 +46,7 @@ namespace RoeiVerenigingLibrary
         {
             if (LogedInMember.Roles.Contains("beheerder")|| LogedInMember.Roles.Contains("materiaal_commissaris"))
             {
-                if (level >=1 && level <= 10)
+                if (!(level >=1 && level <= 10))
                 {
                     throw new IncorrectLevelException();
                 }
