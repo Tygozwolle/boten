@@ -14,7 +14,7 @@
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" /> <!-- Header Column -->
-                                <ColumnDefinition Width="400" /> <!-- Dropdown Column -->
+                                <ColumnDefinition Width="Auto" /> <!-- Dropdown Column -->
                             </Grid.ColumnDefinitions>
 
                             <Grid.RowDefinitions>
@@ -28,6 +28,7 @@
                             <Grid Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center"
                                   Margin="0,0,10,0">
                                 <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60" />
                                     <ColumnDefinition Width="60" />
                                     <ColumnDefinition Width="60" />
                                     <ColumnDefinition Width="60" />
@@ -58,7 +59,17 @@
                                         </Style>
                                     </Button.Resources>
                                 </Button>
-                                <Button Grid.Column="2" Name="Settings_Button" Background="Transparent"
+                                <Button Grid.Column="2" Name="Boat_Button" Background="Transparent"
+                                        BorderBrush="Transparent"
+                                        Click="Button_OnClick" Padding="10,0" Visibility="Hidden">
+                                    <Image HorizontalAlignment="Left" Source="/Images/Icons/sailboat (1).png" Name="Boat_Icon" Height="40" Width="40" />
+                                    <Button.Resources>
+                                        <Style TargetType="Border">
+                                            <Setter Property="CornerRadius" Value="15" />
+                                        </Style>
+                                    </Button.Resources>
+                                </Button>
+                                <Button Grid.Column="3" Name="Settings_Button" Background="Transparent"
                                         BorderBrush="Transparent"
                                         Click="Button_OnClick" Padding="10,0">
                                     <Image HorizontalAlignment="Left" Name="Settings_Icon" Height="40" Width="40" />
@@ -68,7 +79,7 @@
                                         </Style>
                                     </Button.Resources>
                                 </Button>
-                                <Button Grid.Column="3" Name="PasswordChange_Button" Background="Transparent"
+                                <Button Grid.Column="4" Name="PasswordChange_Button" Background="Transparent"
                                         BorderBrush="Transparent"
                                         Click="Button_OnClick" Padding="10,0">
                                     <Image HorizontalAlignment="Left" Name="PasswordChange_Icon" Height="40" Width="40" />
@@ -78,7 +89,7 @@
                                         </Style>
                                     </Button.Resources>
                                 </Button>
-                                <Button Grid.Column="4" Name="LogOut_Button" Background="Transparent"
+                                <Button Grid.Column="5" Name="LogOut_Button" Background="Transparent"
                                         BorderBrush="Transparent"
                                         Click="Button_OnClick" Padding="10,0">
                                     <Image HorizontalAlignment="Left" Name="LogOut_Icon" Height="40" Width="40" />
@@ -88,7 +99,7 @@
                                         </Style>
                                     </Button.Resources>
                                 </Button>
-                                <Grid Grid.Column="5">
+                                <Grid Grid.Column="6">
                                     <Label Name="LoggedInMemberName" Content="Uitgelogd"
                                            VerticalAlignment="Center" FontFamily="Franklin Gothic Medium" FontSize="24"
                                            Foreground="{x:Static local:CustomColors.TextBoxBackgroundColor}" />

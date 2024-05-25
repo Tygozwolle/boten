@@ -1,5 +1,6 @@
 using RoeiVerenigingWPF.Frames;
 using RoeiVerenigingWPF.Pages;
+using RoeiVerenigingWPF.Pages.Admin;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
@@ -45,6 +46,9 @@ namespace RoeiVerenigingWPF.Components
                         break;
                     case "PasswordChange_Button":
                         MainWindow.MainContent.Navigate(new ChangePassword(MainWindow));
+                        break;
+                    case "Boat_Button":
+                        MainWindow.MainContent.Navigate(new ManageBoatList(MainWindow));
                         break;
                     case "LogOut_Button":
                         MainWindow.LogOutMember();
