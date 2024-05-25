@@ -1,10 +1,14 @@
-﻿using Aspose.Email;
-using Aspose.Email.Clients.Imap;
-using Aspose.Email.Mime;
+﻿//using Aspose.Email;
+//using Aspose.Email.Clients.Imap;
+//using Aspose.Email.Mime;
 using Microsoft.Extensions.Configuration;
+using MailKit;
+using MailKit.Search;
+using MailKit.Net.Imap;
+using MimeKit;
 using RoeiVerenigingLibrary;
 using System.Diagnostics;
-using Attachment = Aspose.Email.Attachment;
+//using Attachment = Aspose.Email.Attachment;
 
 namespace RoeiVerenigingLibrary
 {
@@ -16,49 +20,76 @@ namespace RoeiVerenigingLibrary
             try
             {
                 IConfigurationRoot config = new ConfigurationBuilder().AddUserSecrets<EmailToDb>().Build();
-                ImapClient client = new ImapClient("imap.gmail.com", 993, config["Mail:username"],
-                    config["Mail:password"]);
-                client.SelectFolder("images");
-                ImapQueryBuilder builder = new ImapQueryBuilder();
-                builder.HasNoFlags(ImapMessageFlags.IsRead);
-                ImapMessageInfoCollection messages = client.ListMessages(builder.GetQuery());
-
-                var attachments = new List<Attachment>();
-                foreach (ImapMessageInfo messageInfo in messages)
+                ImapClient client = new ImapClient();
+                client.Connect("imap.gmail.com", 993);
+                client.Authenticate(config["Mail:username"], config["Mail:password"]);
+              //  var imagesinbox = client.Inbox;
+                var imagesinbox = client.GetFolder("images");
+                imagesinbox.Open(FolderAccess.ReadWrite);
+                var unread = imagesinbox.Search(SearchQuery.NotSeen);
+                foreach (var VARIABLE in unread)
                 {
-                    // Access the email message
-                    string[] allowedFileTypes =
+                    var message = imagesinbox.GetMessage(VARIABLE);
+                    var attachments = message.Attachments;
+                    foreach (var attachment in attachments)
                     {
-                        MediaTypeNames.Image.Jpeg, MediaTypeNames.Image.Png, MediaTypeNames.Image.Gif,
-                        MediaTypeNames.Image.Bmp, MediaTypeNames.Image.Tiff
-                    };
-                    MailMessage message = client.FetchMessage(messageInfo.UniqueId);
-                    var streams = new List<Stream>();
-                    foreach (Attachment attachment in message.Attachments)
-                    {
-                        if (allowedFileTypes.Contains(attachment.ContentType.MediaType))
+                        if (attachment is MimePart)
                         {
-                            streams.Add(attachment.ContentStream);
-                        }
+                       
+                            var part = (MimePart)attachment;
+                            if (part.FileName != null)
+                            {
+                                var stream = part.Content;
+                                repository.Add(Int32.Parse(message.Subject), stream.Stream);
+                            }
+                     }
                     }
-
-                    try
-                    {
-                        repository.Add(Int32.Parse(messageInfo.Subject), streams);
-                        client.MoveMessage(messageInfo.UniqueId, "proccesed");
-                    }
-                    catch (Exception e)
-                    {
-                        if (Int32.TryParse(messageInfo.Subject, out int result))
-                        {
-                            client.RemoveMessageFlags(messageInfo.UniqueId, ImapMessageFlags.IsRead);
-                        }
-                    }
+                    imagesinbox.AddFlags(VARIABLE, MessageFlags.Seen, true);
                 }
-            }
-            catch (ImapException ex)
-            {
-                Debug.WriteLine($"Unable to connect to the server: {ex.Message}");
+
+
+                //     client.SelectFolder("images");
+                //     ImapQueryBuilder builder = new ImapQueryBuilder();
+                //     builder.HasNoFlags(ImapMessageFlags.IsRead);
+                //     ImapMessageInfoCollection messages = client.ListMessages(builder.GetQuery());
+                //
+                //     var attachments = new List<Attachment>();
+                //     foreach (ImapMessageInfo messageInfo in messages)
+                //     {
+                //         // Access the email message
+                //         string[] allowedFileTypes =
+                //         {
+                //             MediaTypeNames.Image.Jpeg, MediaTypeNames.Image.Png, MediaTypeNames.Image.Gif,
+                //             MediaTypeNames.Image.Bmp, MediaTypeNames.Image.Tiff
+                //         };
+                //         MailMessage message = client.FetchMessage(messageInfo.UniqueId);
+                //         var streams = new List<Stream>();
+                //         foreach (Attachment attachment in message.Attachments)
+                //         {
+                //             if (allowedFileTypes.Contains(attachment.ContentType.MediaType))
+                //             {
+                //                 streams.Add(attachment.ContentStream);
+                //             }
+                //         }
+                //
+                //         try
+                //         {
+                //             repository.Add(Int32.Parse(messageInfo.Subject), streams);
+                //             client.MoveMessage(messageInfo.UniqueId, "proccesed");
+                //         }
+                //         catch (Exception e)
+                //         {
+                //             if (Int32.TryParse(messageInfo.Subject, out int result))
+                //             {
+                //                 client.RemoveMessageFlags(messageInfo.UniqueId, ImapMessageFlags.IsRead);
+                //             }
+                //         }
+                //     }
+                // }
+                // catch (ImapException ex)
+                // {
+                //     Debug.WriteLine($"Unable to connect to the server: {ex.Message}");
+                // }
             }
             catch (Exception ex)
             {
