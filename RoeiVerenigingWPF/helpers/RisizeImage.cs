@@ -5,7 +5,7 @@ using System.IO;
 
 namespace RoeiVerenigingWPF.helpers
 {
-    public abstract class RisizeImage //needs to be in WPF, Otherwise i will have to import System.Drawing in Library
+    public abstract class RisizeImage //needs to be in WPF, Otherwise it will not work
     {
         public static Stream ResizeImage(Stream imageStream, int width, int height)
         {
