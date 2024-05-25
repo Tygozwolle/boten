@@ -62,7 +62,7 @@
                                 <Button Grid.Column="2" Name="Boat_Button" Background="Transparent"
                                         BorderBrush="Transparent"
                                         Click="Button_OnClick" Padding="10,0" Visibility="Hidden">
-                                    <Image HorizontalAlignment="Left" Source="/Images/Icons/sailboat (1).png" Name="Boat_Icon" Height="40" Width="40" />
+                                    <Image HorizontalAlignment="Left" Name="Boat_Icon" Height="40" Width="40" />
                                     <Button.Resources>
                                         <Style TargetType="Border">
                                             <Setter Property="CornerRadius" Value="15" />

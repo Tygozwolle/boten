@@ -1,9 +1,11 @@
 using RoeiVerenigingWPF.Frames;
 using RoeiVerenigingWPF.Pages;
 using RoeiVerenigingWPF.Pages.Admin;
+using System.Drawing;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
+using Image = System.Windows.Controls.Image;
 
 namespace RoeiVerenigingWPF.Components
 {
@@ -25,6 +27,7 @@ namespace RoeiVerenigingWPF.Components
             Settings_Icon.Source = new BitmapImage(new Uri("/Images/Icons/settings.png", UriKind.Relative));
             PasswordChange_Icon.Source = new BitmapImage(new Uri("/Images/Icons/rectangle-ellipsis.png", UriKind.Relative));
             LogOut_Icon.Source = new BitmapImage(new Uri("/Images/Icons/log-out.png", UriKind.Relative));
+            Boat_Icon.Source = new BitmapImage(new Uri("/Images/Icons/sailboat.png", UriKind.Relative));
         }
 
         private void Button_OnClick(object sender, RoutedEventArgs e)
