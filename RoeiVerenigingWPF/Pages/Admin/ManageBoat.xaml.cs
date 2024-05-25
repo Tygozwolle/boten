@@ -10,6 +10,7 @@ using RoeiVerenigingWPF.Frames;
 using RoeiVerenigingWPF.helpers;
 using System.DirectoryServices.ActiveDirectory;
 using System.IO;
+using System.Windows.Media.Imaging;
 
 namespace RoeiVerenigingWPF.Pages.Admin
 {
@@ -117,9 +118,10 @@ namespace RoeiVerenigingWPF.Pages.Admin
                 {
                     if (stream != null)
                     {
-                        Image.Source = ImageConverter.Convert(stream);
-                        ImageStream = new MemoryStream();
-                        stream.CopyTo(ImageStream);
+                        Stream compressedStream = RisizeImage.ResizeImage(stream, 500, 500);
+                        Image.Source = ImageConverter.Convert(compressedStream);
+                        ImageStream = compressedStream;
+                        //compressedStream.CopyTo(ImageStream);
                         ImageChanged = true;
                     }
                 }

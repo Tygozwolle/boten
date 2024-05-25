@@ -79,7 +79,14 @@ namespace RoeiVerenigingLibrary
         {
             if (LogedInMember.Roles.Contains("beheerder")|| LogedInMember.Roles.Contains("materiaal_commissaris"))
             {
-                _boatRepository.UpdateImage(boat, stream);
+                if (_boatRepository.GetImage(boat) != null)
+                {
+                    _boatRepository.UpdateImage(boat, stream);
+                }
+                else
+                {
+                    _boatRepository.AddImage(boat, stream);
+                }
             }
             else
             {

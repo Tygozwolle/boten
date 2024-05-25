@@ -5,7 +5,7 @@ using System.IO;
 
 namespace RoeiVerenigingWPF.helpers
 {
-    public abstract class RisizeImage
+    public abstract class RisizeImage //needs to be in WPF, Otherwise i will have to import System.Drawing in Library
     {
         public static Stream ResizeImage(Stream imageStream, int width, int height)
         {
@@ -13,7 +13,24 @@ namespace RoeiVerenigingWPF.helpers
             var destImage = new Bitmap(width, height);
             using (Image image = Image.FromStream(imageStream))
             {
-
+                var imageHeight = image.Height;
+                var imageWidth = image.Width;
+                if(imageWidth > width || imageHeight > height)
+                {
+                    if(imageWidth > imageHeight)
+                    {
+                        destRect.Height = (int)(height * ((double)imageHeight / imageWidth));
+                    }
+                    else
+                    {
+                        destRect.Width = (int)(width * ((double)imageWidth / imageHeight));
+                    }
+                }
+                else
+                {
+                    destRect.Width = imageWidth;
+                    destRect.Height = imageHeight;
+                }
 
                 destImage.SetResolution(image.HorizontalResolution, image.VerticalResolution);
 
@@ -32,7 +49,7 @@ namespace RoeiVerenigingWPF.helpers
                     }
                 }
                 MemoryStream ms = new MemoryStream();
-                destImage.Save(ms, ImageFormat.Jpeg);
+                destImage.Save(ms, ImageFormat.Png);
 
                 return ms;
             }
