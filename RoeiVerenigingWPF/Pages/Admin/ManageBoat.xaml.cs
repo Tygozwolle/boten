@@ -34,7 +34,7 @@ namespace RoeiVerenigingWPF.Pages.Admin
             Eddit = true;
                 ButtonEditCreate.Content = "Bewerken";
                 HeaderBoat.Content = "Bewerk boot";
-                TextBlockBoat.Text = "Bewerk een boot aan, zodat de informatie correct is!";
+                TextBlockBoat.Text = "Wijzig hier de informatie van de boot.";
                 if (boat.Image != null) 
                 {
                     Image.Source = ImageConverter.Convert(boat.Image);

@@ -46,7 +46,7 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <Grid Grid.Column="0" Margin="10,10,10,10" VerticalAlignment="Stretch">
+                        <Grid Grid.Column="0" Margin="10,10,40,10" VerticalAlignment="Stretch">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
