@@ -29,5 +29,9 @@ namespace RoeiVerenigingWPF.Pages.Admin
                 _mainWindow.MainContent.Navigate(new ManageBoat(_mainWindow, _service.GetBoatById(id)));
             }
         }
+        private void Button_Create_Click(object sender, RoutedEventArgs e)
+        {
+            _mainWindow.MainContent.Navigate(new ManageBoat(_mainWindow));
+        }
     }
 }

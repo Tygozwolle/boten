@@ -31,7 +31,7 @@
                     Margin="10,10,20,20"
                     FontFamily="Franklin Gothic Medium" FontSize="24" Foreground="{x:Static helpers:CustomColors.HeaderColor}" Background="{x:Static helpers:CustomColors.ButtonBackgroundColor}"
                     BorderBrush="{x:Static helpers:CustomColors.OutsideBorderColor}"
-                    Click="Button_Click">
+                    Click="Button_Create_Click">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="15" />
