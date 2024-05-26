@@ -21,30 +21,70 @@
                         <ColumnDefinition Width="*" /> <!-- Timeboxes and boats -->
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="100" /> <!-- Header -->
+                        <RowDefinition Height="100" /> <!-- Subheader -->
+                        <RowDefinition Height="Auto" /> <!-- Content -->
                     </Grid.RowDefinitions>
-                    
+
                     <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Content="Reservering plaatsen"
                            Margin="0,10,0,10"
                            HorizontalContentAlignment="Center" VerticalAlignment="Top"
                            FontFamily="Franklin Gothic Medium" FontSize="48"
-                           Foreground="{x:Static local:CustomColors.HeaderColor}"/>
-                    
+                           Foreground="{x:Static local:CustomColors.HeaderColor}" />
+
                     <TextBlock Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"
                                Text="Maak hier je reservering aan! Selecteer eerst de dag waarop je wil varen, daarna de tijd en kies dan een boot."
                                VerticalAlignment="Top" TextWrapping="WrapWithOverflow"
                                FontFamily="Franklin Gothic Medium" FontSize="32" Width="780"
-                               Foreground="{x:Static local:CustomColors.SubHeaderColor}"/>
-                    
-                    <Grid Grid.Column="0" Grid.Row="2" Name="Calender">
-                        <Viewbox Height="300" Width="250">
-                            <Calendar Name="ReservationCalendar" HorizontalAlignment="Center" VerticalAlignment="Center" SelectionMode="SingleDate"/>
-                        </Viewbox>
-                        <TextBlock Text="{Binding ElementName=ReservationCalendar, Path=SelectedDate, StringFormat='yyyy-MM-dd'}"></TextBlock>
-                    </Grid>
+                               Foreground="{x:Static local:CustomColors.SubHeaderColor}" />
 
+                    <Grid Grid.Column="0" Grid.Row="2" Name="Calender" Width="400" Height="350" Margin="30,0,30,0">
+                        <Border CornerRadius="30" BorderThickness="5"
+                                BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}">
+                            <Border CornerRadius="24" BorderThickness="8"
+                                    BorderBrush="{x:Static local:CustomColors.TextBoxBackgroundColor}">
+                                <Grid Background="{x:Static local:CustomColors.TextBoxBackgroundColor}">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="50" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Row="0" Text="Kies de datum waarop je wil varen:" FontSize="24"
+                                               Foreground="{x:Static local:CustomColors.SubHeaderColor}" />
+                                    <Viewbox Grid.Row="1" Width="300">
+                                        <Calendar Name="ReservationCalendar" HorizontalAlignment="Center"
+                                                  SelectionMode="SingleDate" SelectedDatesChanged="DateIsSelected" />
+                                    </Viewbox>
+                                </Grid>
+                            </Border>
+                        </Border>
+                    </Grid>
+                    <Grid Grid.Column="1" Grid.Row="2" Name="TimeBlockGrid" Width="700">
+                        <Border CornerRadius="30" BorderThickness="5"
+                                BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}">
+                            <Border CornerRadius="24" BorderThickness="8"
+                                    BorderBrush="{x:Static local:CustomColors.TextBoxBackgroundColor}">
+                                <Grid Background="{x:Static local:CustomColors.TextBoxBackgroundColor}">
+                                    <TextBlock Text="Selecteer de tijd (max 2) hoelaat je wil varen." HorizontalAlignment="Center" FontSize="24"
+                                               Foreground="{x:Static local:CustomColors.SubHeaderColor}" />
+                                    <Grid Name="TimeContentGrid"  Margin="0,40,0,0" HorizontalAlignment="Center">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                    </Grid>
+                                </Grid>
+                            </Border>
+                        </Border>
+                    </Grid>
+                    <Grid Grid.Row="2" Grid.Column="1" Name="BoatGrid"></Grid>
                 </Grid>
             </Border>
         </Border>
