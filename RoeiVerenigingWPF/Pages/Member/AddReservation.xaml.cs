@@ -59,7 +59,7 @@ namespace RoeiVerenigingWPF.Pages
         {
             _selectedTimes.Clear();
             _selectedButtons.Clear();
-            
+
             const int rowCount = 4;
             const int columnCount = 4;
 
@@ -120,6 +120,9 @@ namespace RoeiVerenigingWPF.Pages
                 DateTime selectedDate = (DateTime)calendar.SelectedDate;
 
                 PopulateTimeContentGrid(GetAvailableTimes(selectedDate));
+                SelectedDateTextBlock.Text = selectedDate.ToString("dd MMMM yyyy");
+                StartTimeTextBlock.Text = null;
+                EndTimeTextBlock.Text = null;
             }
         }
 
@@ -162,6 +165,17 @@ namespace RoeiVerenigingWPF.Pages
                 else
                 {
                     MessageBox.Show("You can only select up to two consecutive hours.");
+                }
+
+                if (_selectedTimes.Count == 1)
+                {
+                    StartTimeTextBlock.Text = _selectedTimes[0].ToString("t");
+                    EndTimeTextBlock.Text = _selectedTimes[0].AddHours(1).ToString("t");
+                }
+                else
+                {
+                    StartTimeTextBlock.Text = _selectedTimes[0].ToString("t");
+                    EndTimeTextBlock.Text = _selectedTimes[1].AddHours(1).ToString("t");
                 }
             }
         }

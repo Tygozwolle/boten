@@ -24,6 +24,7 @@
                         <RowDefinition Height="100" /> <!-- Header -->
                         <RowDefinition Height="100" /> <!-- Subheader -->
                         <RowDefinition Height="Auto" /> <!-- Content -->
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
                     <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Content="Reservering plaatsen"
@@ -64,20 +65,21 @@
                             <Border CornerRadius="24" BorderThickness="8"
                                     BorderBrush="{x:Static local:CustomColors.TextBoxBackgroundColor}">
                                 <Grid Background="{x:Static local:CustomColors.TextBoxBackgroundColor}">
-                                    <TextBlock Text="Selecteer de tijd (max 2) hoelaat je wil varen." HorizontalAlignment="Center" FontSize="24"
+                                    <TextBlock Text="Selecteer de tijd (max 2) hoelaat je wil varen."
+                                               HorizontalAlignment="Center" FontSize="24"
                                                Foreground="{x:Static local:CustomColors.SubHeaderColor}" />
-                                    <Grid Name="TimeContentGrid"  Margin="0,40,0,0" HorizontalAlignment="Center">
+                                    <Grid Name="TimeContentGrid" Margin="0,40,0,0" HorizontalAlignment="Center">
                                         <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
                                         </Grid.RowDefinitions>
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto"/>
-                                            <ColumnDefinition Width="Auto"/>
-                                            <ColumnDefinition Width="Auto"/>
-                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
                                     </Grid>
                                 </Grid>
@@ -85,6 +87,44 @@
                         </Border>
                     </Grid>
                     <Grid Grid.Row="2" Grid.Column="1" Name="BoatGrid"></Grid>
+                    <Grid Grid.Row="3" Grid.Column="0" Width="400" Height="250" Margin="30,30,30,0"
+                          Background="{x:Static local:CustomColors.TextBoxBackgroundColor}">
+                        <Border CornerRadius="30" BorderThickness="5"
+                                BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}">
+                            <Border CornerRadius="24" BorderThickness="8"
+                                    BorderBrush="{x:Static local:CustomColors.TextBoxBackgroundColor}">
+                                <Grid Background="{x:Static local:CustomColors.TextBoxBackgroundColor}">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Grid.Row="0" FontSize="24" Margin="10,0,0,0"
+                                               Foreground="{x:Static local:CustomColors.HeaderColor}"
+                                               Text="Geselecteerde dag:" />
+                                    <TextBlock Grid.Row="1" FontSize="24" Margin="20,0,0,0"
+                                               Foreground="{x:Static local:CustomColors.SubHeaderColor}"
+                                               Name="SelectedDateTextBlock" />
+                                    <TextBlock Grid.Row="2" FontSize="24" Margin="10,0,0,0"
+                                               Foreground="{x:Static local:CustomColors.HeaderColor}"
+                                               Text="Begintijd:" />
+                                    <TextBlock Grid.Row="3" FontSize="24" Margin="20,0,0,0"
+                                               Foreground="{x:Static local:CustomColors.SubHeaderColor}"
+                                               Name="StartTimeTextBlock" />
+                                    <TextBlock Grid.Row="4" FontSize="24" Margin="10,0,0,0"
+                                               Foreground="{x:Static local:CustomColors.HeaderColor}"
+                                               Text="Eindtijd:" />
+                                    <TextBlock Grid.Row="5" FontSize="24" Margin="20,0,0,0"
+                                               Foreground="{x:Static local:CustomColors.SubHeaderColor}"
+                                               Name="EndTimeTextBlock" />
+                                </Grid>
+                            </Border>
+                        </Border>
+                    </Grid>
                 </Grid>
             </Border>
         </Border>
