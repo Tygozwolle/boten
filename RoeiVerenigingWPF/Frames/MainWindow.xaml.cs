@@ -39,6 +39,11 @@ namespace RoeiVerenigingWPF.Frames
                 {
                     HeaderClass.Users_Button.Visibility = Visibility.Visible;
                     HeaderClass.UserAdd_Button.Visibility = Visibility.Visible;
+                    HeaderClass.Boat_Button.Visibility = Visibility.Visible;
+                }
+                if (_loggedInMember.Roles.Contains("materiaal_commissaris"))
+                {
+                    HeaderClass.Boat_Button.Visibility = Visibility.Visible;
                 }
 
                 if (_loggedInMember != null)

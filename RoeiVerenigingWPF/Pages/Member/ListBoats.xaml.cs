@@ -12,6 +12,7 @@ namespace RoeiVerenigingWPF.Pages
     /// </summary>
     public partial class ListBoats : Page
     {
+        private BoatService _service = new BoatService(new BoatRepository());
         public ListBoats(MainWindow mw)
         {
             InitializeComponent();
@@ -34,6 +35,18 @@ namespace RoeiVerenigingWPF.Pages
 
                 MainWindow.MainContent.Navigate(new AddReservation(MainWindow.LoggedInMember, id));
             }
+        }
+        
+        private void ListView_Loaded(object sender, RoutedEventArgs e)
+        {
+            new Thread(async () =>
+            {
+                _service.GetImageBoats(boats);
+                this.Dispatcher.Invoke(() =>
+                {
+                    ListView.Items.Refresh();
+                });
+            }).Start();
         }
     }
 }

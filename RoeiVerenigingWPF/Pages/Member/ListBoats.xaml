@@ -4,9 +4,13 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:RoeiVerenigingWPF.helpers"
+      xmlns:roeiVerenigingWpf="clr-namespace:RoeiVerenigingWPF"
       mc:Ignorable="d"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ListBoats">
+    <Page.Resources>
+        <roeiVerenigingWpf:SingleStreamImageConverter x:Key="SingleStreamImageConverter" />
+    </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*" MaxHeight="100px" />
@@ -24,7 +28,8 @@
 
         <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="4" MaxHeight="750px">
             <ListView ItemsSource="{Binding boats}" Grid.IsSharedSizeScope="True"
-                      d:ItemsSource="{d:SampleData ItemCount=8}" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                      d:ItemsSource="{d:SampleData ItemCount=8}" Name="ListView"
+                      ScrollViewer.VerticalScrollBarVisibility="Auto" Loaded="ListView_Loaded">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="Template">
@@ -67,9 +72,11 @@
                                                        VerticalAlignment="Center" HorizontalAlignment="Left"
                                                        FontFamily="Franklin Gothic Medium" FontSize="32"
                                                        Foreground="{x:Static local:CustomColors.HeaderColor}" />
-                                            <Image Source="/Images/Image_not_available.png" MaxHeight="100px"
-                                                   MaxWidth="200px" HorizontalAlignment="Left"
-                                                   VerticalAlignment="Center" />
+                                            <Image
+                                                Source="{Binding Image, Converter={StaticResource SingleStreamImageConverter}}"
+                                                MaxHeight="125px"
+                                                MaxWidth="125px"
+                                             HorizontalAlignment="Left" VerticalAlignment="Center" />
                                         </StackPanel>
 
                                         <StackPanel Grid.Column="1" Margin="0 0 15 0" HorizontalAlignment="Right">

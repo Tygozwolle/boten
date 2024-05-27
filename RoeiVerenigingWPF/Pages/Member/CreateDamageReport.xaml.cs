@@ -20,6 +20,7 @@ namespace RoeiVerenigingWPF.Pages
         {
             this.mainWindow = mainWindow;
             boat = _serviceBoat.GetBoatById(boatId);
+            DataContext= boat;
             InitializeComponent();
         }
 
