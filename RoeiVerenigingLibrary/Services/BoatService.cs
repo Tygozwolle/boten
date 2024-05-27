@@ -32,9 +32,14 @@ namespace RoeiVerenigingLibrary
             if (LogedInMember.Roles.Contains("beheerder")|| LogedInMember.Roles.Contains("materiaal_commissaris"))
             {
                 Boat boat;
-
-                boat = _boatRepository.Create(name, description, seats, captainSeat, level);
-
+                if (!(level >= 1 && level <= 10))
+                {
+                    throw new IncorrectLevelException();
+                }
+                else
+                {
+                    boat = _boatRepository.Create(name, description, seats, captainSeat, level);
+                }
                 return boat;
             }
             else
@@ -44,13 +49,16 @@ namespace RoeiVerenigingLibrary
         }
         public Boat Update(Member LogedInMember,Boat boat, string name, string description, int seats, bool captainSeat, int level)
         {
-            if (LogedInMember.Roles.Contains("beheerder")|| LogedInMember.Roles.Contains("materiaal_commissaris"))
+            if (LogedInMember.Roles.Contains("beheerder") || LogedInMember.Roles.Contains("materiaal_commissaris"))
             {
-                if (!(level >=1 && level <= 10))
+                if (!(level >= 1 && level <= 10))
                 {
                     throw new IncorrectLevelException();
                 }
-                return  _boatRepository.Update(boat, name, description, seats, captainSeat, level);
+                else
+                {
+                    return _boatRepository.Update(boat, name, description, seats, captainSeat, level);
+                }
             }
             else
             {
