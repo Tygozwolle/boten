@@ -4,6 +4,7 @@ using RoeiVerenigingLibrary;
 using RoeiVerenigingWPF.Frames;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace RoeiVerenigingWPF.Pages
 {
@@ -34,16 +35,30 @@ namespace RoeiVerenigingWPF.Pages
         {
             MainWindow.MainContent.Navigate(new ListBoatsForDamageReport(MainWindow));
         }
-        private void Button_Click(object sender, RoutedEventArgs e)
+        
+        private void Grid_Click(object sender, MouseButtonEventArgs e)
         {
-            if (sender is Button)
+            if (sender is Grid)
             {
-                Button casted = sender as Button;
-                object command = casted.CommandParameter;
+                Grid casted = sender as Grid;
+                object command = casted.Tag;
                 int id = Int32.Parse(command.ToString());
-                //todo send user to view page(the one with the qr code)
+
                 MainWindow.MainContent.Navigate(new ViewDamage(MainWindow, _service.GetById(id)));
             }
+        }
+        
+        //todo: Tygo will add the images async
+        private void ListView_Loaded(object sender, RoutedEventArgs e)
+        {
+            // new Thread(async () =>
+            // {
+            //     _service.GetImageBoats(boats);
+            //     this.Dispatcher.Invoke(() =>
+            //     {
+            //         ListView.Items.Refresh();
+            //     });
+            // }).Start();
         }
         private void SetImages()
         {
