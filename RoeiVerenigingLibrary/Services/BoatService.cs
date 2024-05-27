@@ -76,6 +76,25 @@ namespace RoeiVerenigingLibrary
                 throw new IncorrectRightsExeption();
             }
         }
+        public void GetImageBoat(Boat boat)
+        {
+            boat.Image = _boatRepository.GetImage(boat);
+        }
+        public void GetImageBoats(List<Boat> boats)
+        {
+            List<Task> tasks = new List<Task>(boats.Count);
+            foreach (Boat boat in boats)
+            {
+               Task task = new  Task(() =>
+                    {
+                        Boat Save = boat;
+                        Save.Image = _boatRepository.GetImage(Save);
+                    });
+                task.Start();
+                tasks.Add(task);
+            }
+            Task.WaitAll(tasks.ToArray());
+        }
         public void Delete(Member LogedInMember, Boat boat)
         {
             if (LogedInMember.Roles.Contains("beheerder")|| LogedInMember.Roles.Contains("materiaal_commissaris"))
