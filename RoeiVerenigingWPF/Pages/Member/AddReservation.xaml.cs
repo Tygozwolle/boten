@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
+using Innovative.SolarCalculator;
 using RoeiVerenigingWPF.helpers;
 using FontFamily = System.Windows.Media.FontFamily;
 
@@ -35,12 +36,34 @@ namespace RoeiVerenigingWPF.Pages
             DataContext = this;
         }
 
+        private DateTime Sunrise(DateTime selectedDate)
+        {
+            SolarTimes solarTimes = new SolarTimes(selectedDate.Date, 52.5125, 6.09444);
+            TimeZoneInfo cet = TimeZoneInfo.FindSystemTimeZoneById("W. Europe Standard Time");
+            DateTime sunrise = TimeZoneInfo.ConvertTimeFromUtc(solarTimes.Sunrise.ToUniversalTime(), cet);
+
+            DateTime roundedSunrise = sunrise.AddMinutes(-sunrise.Minute);
+            if (roundedSunrise != sunrise)
+            {
+                roundedSunrise = roundedSunrise.AddHours(1);
+            }
+
+            return roundedSunrise;
+        }
+
+        private DateTime Sunset(DateTime selectedDate)
+        {
+            SolarTimes solarTimes = new SolarTimes(selectedDate.Date, 52.5125, 6.09444);
+            TimeZoneInfo cet = TimeZoneInfo.FindSystemTimeZoneById("W. Europe Standard Time");
+            DateTime sunset = TimeZoneInfo.ConvertTimeFromUtc(solarTimes.Sunset.ToUniversalTime(), cet);
+            return sunset.AddMinutes(-sunset.Minute);
+        }
 
         public List<DateTime> GetAvailableTimes(DateTime selectedDate)
         {
             List<DateTime> timeAvailableList = new List<DateTime>();
-            DateTime startTime = selectedDate.AddHours(6); // 6 AM selected date
-            DateTime endTime = selectedDate.AddHours(22); // 10 PM selected date
+            DateTime startTime = selectedDate.AddHours(Sunrise(selectedDate).Hour);
+            DateTime endTime = selectedDate.AddHours(Sunset(selectedDate).Hour);
 
             for (DateTime time = startTime; time < endTime; time = time.AddHours(1))
             {

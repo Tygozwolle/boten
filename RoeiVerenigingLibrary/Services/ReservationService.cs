@@ -5,7 +5,6 @@ namespace RoeiVerenigingLibrary
 {
     public class ReservationService
     {
-        private readonly TimeSpan maxReservationTime = new TimeSpan(2, 0, 0);
         private readonly IReservationRepository _reservationRepository;
 
         public ReservationService(IReservationRepository reservationRepository)
@@ -25,7 +24,7 @@ namespace RoeiVerenigingLibrary
 
         public Reservation Create(Member member, int boatId, DateTime startTime, DateTime endTime)
         {
-            if (startTime.Date < DateTime.Now.Date)
+            if (ReservationInThePast(startTime))
             {
                 string message = "Je mag geen reservering in het verleden maken!";
                 throw new Exception(message);
@@ -38,13 +37,13 @@ namespace RoeiVerenigingLibrary
 
             if (!member.Roles.Contains("beheerder"))
             {
-                if (endTime - startTime > maxReservationTime)
+                if (MaxReservationTimePassed(startTime, endTime))
                 {
-                    string message = "Je kan voor maximaal " + maxReservationTime.Hours + " uur reserveren!";
+                    string message = "Je kan voor maximaal 2 uur reserveren!";
                     throw new Exception(message);
                 }
 
-                if (endTime.Date > DateTime.Now.AddDays(14))
+                if (MaxReservationDatePassed(endTime))
                 {
                     string message = "Je mag niet meer dan 2 weken van te voren reserveren!";
                     throw new Exception(message);
@@ -55,7 +54,7 @@ namespace RoeiVerenigingLibrary
                     throw new ReservationNotInDaylightException();
                 }
 
-                if (AmountOfBoatsCurrentlyRenting(member.Id) >= 2)
+                if (MaxReservations(member))
                 {
                     throw new MaxAmountOfReservationExceeded();
                 }
@@ -66,6 +65,17 @@ namespace RoeiVerenigingLibrary
             return _reservationRepository.CreateReservation(member, boatId, startTime, endTime);
         }
 
+        /**
+         * returns true if the reservation was made in the past
+         */
+        public bool ReservationInThePast(DateTime startTime)
+        {
+            return startTime.Date < DateTime.Now.Date;
+        }
+
+        /**
+         * returns true if the start and endTime are both in daylight
+         */
         public bool IsReservationInDaylight(DateTime startTime, DateTime endTime)
         {
             //todo set lat/long and timezone in config
@@ -75,6 +85,36 @@ namespace RoeiVerenigingLibrary
             DateTime sunset = TimeZoneInfo.ConvertTimeFromUtc(solarTimes.Sunset.ToUniversalTime(), cet);
 
             return startTime >= sunrise && endTime <= sunset;
+        }
+
+        public int AmountOfBoatsCurrentlyRenting(int memberId)
+        {
+            return _reservationRepository.GetAmountOfBoatsCurrRenting(memberId);
+        }
+
+        /**
+         * returns True if the endTime is more than 2 weeks away
+         */
+        public bool MaxReservationDatePassed(DateTime endTime)
+        {
+            return endTime.Date > DateTime.Now.AddDays(14);
+        }
+
+        /**
+         * returns true if the member has the limit of 2 or more reservations
+         */
+        public bool MaxReservations(Member member)
+        {
+            return AmountOfBoatsCurrentlyRenting(member.Id) >= 2;
+        }
+
+        /**
+         * returns true if The reservation is longer than 2 hours
+         */
+        public bool MaxReservationTimePassed(DateTime startTime, DateTime endTime)
+        {
+            TimeSpan maxReservationTime = new TimeSpan(2, 0, 0);
+            return endTime - startTime > maxReservationTime;
         }
 
         public List<Reservation> GetReservations()
@@ -87,12 +127,9 @@ namespace RoeiVerenigingLibrary
             return _reservationRepository.GetReservations(member);
         }
 
-        public int AmountOfBoatsCurrentlyRenting(int id)
-        {
-            return _reservationRepository.GetAmountOfBoatsCurrRenting(id);
-        }
 
-        public Reservation ChangeReservation(int reservationdId, Member member, int boatId, DateTime start, DateTime end)
+        public Reservation ChangeReservation(int reservationdId, Member member, int boatId, DateTime start,
+            DateTime end)
         {
             return _reservationRepository.ChangeReservation(reservationdId, member, boatId, start, end);
         }

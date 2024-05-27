@@ -8,6 +8,9 @@ namespace RoeiVerenigingLibrary
         public int GetAmountOfBoatsCurrRenting(int ID);
         public Reservation ChangeReservation(int reservationdId, Member member, int boatId, DateTime startTime, DateTime endTime);
         public Reservation GetReservation(int reservationid);
+        /**
+         * returns true if the boat is already reserved
+         */
         public bool BoatAlreadyReserved(int boatId, DateTime startTime, DateTime endTime);
     }
 }
