@@ -19,7 +19,6 @@ namespace RoeiVerenigingWPF.Pages
             MainWindow = mw;
             Damages = _service.GetRelatedToUser(MainWindow.LoggedInMember);
             GetImagesFromMail();
-           // SetImages();
         }
         public MainWindow MainWindow { set; get; }
         public List<Damage> Damages { set; get; }
