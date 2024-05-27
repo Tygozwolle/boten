@@ -19,6 +19,7 @@ Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "RoeiverenigingInstaller", "
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		ConfigFileFilled|Any CPU = ConfigFileFilled|Any CPU
 		Debug|Any CPU = Debug|Any CPU
 		Ingelogd|Any CPU = Ingelogd|Any CPU
 		IngelogtBeheer|Any CPU = IngelogtBeheer|Any CPU
@@ -27,6 +28,8 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8B7380DF-4CBD-4737-8C80-262D3DE57CBF}.ConfigFileFilled|Any CPU.ActiveCfg = ConfigFileFilled|Any CPU
+		{8B7380DF-4CBD-4737-8C80-262D3DE57CBF}.ConfigFileFilled|Any CPU.Build.0 = ConfigFileFilled|Any CPU
 		{8B7380DF-4CBD-4737-8C80-262D3DE57CBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8B7380DF-4CBD-4737-8C80-262D3DE57CBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B7380DF-4CBD-4737-8C80-262D3DE57CBF}.Ingelogd|Any CPU.ActiveCfg = Ingelogd|Any CPU
@@ -39,6 +42,8 @@ Global
 		{8B7380DF-4CBD-4737-8C80-262D3DE57CBF}.IngelogtMateriaal|Any CPU.Build.0 = IngelogtMateriaal|Any CPU
 		{8B7380DF-4CBD-4737-8C80-262D3DE57CBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B7380DF-4CBD-4737-8C80-262D3DE57CBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{377335C6-7E66-46C5-917F-7DB22C6C5052}.ConfigFileFilled|Any CPU.ActiveCfg = ConfigFileFilled|Any CPU
+		{377335C6-7E66-46C5-917F-7DB22C6C5052}.ConfigFileFilled|Any CPU.Build.0 = ConfigFileFilled|Any CPU
 		{377335C6-7E66-46C5-917F-7DB22C6C5052}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{377335C6-7E66-46C5-917F-7DB22C6C5052}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{377335C6-7E66-46C5-917F-7DB22C6C5052}.Ingelogd|Any CPU.ActiveCfg = Ingelogd|Any CPU
@@ -51,6 +56,8 @@ Global
 		{377335C6-7E66-46C5-917F-7DB22C6C5052}.IngelogtMateriaal|Any CPU.Build.0 = IngelogtMateriaal|Any CPU
 		{377335C6-7E66-46C5-917F-7DB22C6C5052}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{377335C6-7E66-46C5-917F-7DB22C6C5052}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE543AD8-4958-4A1E-B85C-BEC124E7C682}.ConfigFileFilled|Any CPU.ActiveCfg = ConfigFileFilled|Any CPU
+		{BE543AD8-4958-4A1E-B85C-BEC124E7C682}.ConfigFileFilled|Any CPU.Build.0 = ConfigFileFilled|Any CPU
 		{BE543AD8-4958-4A1E-B85C-BEC124E7C682}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BE543AD8-4958-4A1E-B85C-BEC124E7C682}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BE543AD8-4958-4A1E-B85C-BEC124E7C682}.Ingelogd|Any CPU.ActiveCfg = Ingelogd|Any CPU
@@ -63,6 +70,8 @@ Global
 		{BE543AD8-4958-4A1E-B85C-BEC124E7C682}.IngelogtMateriaal|Any CPU.Build.0 = IngelogtMateriaal|Any CPU
 		{BE543AD8-4958-4A1E-B85C-BEC124E7C682}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BE543AD8-4958-4A1E-B85C-BEC124E7C682}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14E9FAAA-ABC5-4E8B-BBE7-3E0728D94088}.ConfigFileFilled|Any CPU.ActiveCfg = ConfigFileFilled|Any CPU
+		{14E9FAAA-ABC5-4E8B-BBE7-3E0728D94088}.ConfigFileFilled|Any CPU.Build.0 = ConfigFileFilled|Any CPU
 		{14E9FAAA-ABC5-4E8B-BBE7-3E0728D94088}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{14E9FAAA-ABC5-4E8B-BBE7-3E0728D94088}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{14E9FAAA-ABC5-4E8B-BBE7-3E0728D94088}.Ingelogd|Any CPU.ActiveCfg = Ingelogd|Any CPU
@@ -75,6 +84,8 @@ Global
 		{14E9FAAA-ABC5-4E8B-BBE7-3E0728D94088}.IngelogtMateriaal|Any CPU.Build.0 = IngelogtMateriaal|Any CPU
 		{14E9FAAA-ABC5-4E8B-BBE7-3E0728D94088}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{14E9FAAA-ABC5-4E8B-BBE7-3E0728D94088}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CEBB323B-9378-4746-9731-9C92ABB621BE}.ConfigFileFilled|Any CPU.ActiveCfg = ConfigFileFilled|Any CPU
+		{CEBB323B-9378-4746-9731-9C92ABB621BE}.ConfigFileFilled|Any CPU.Build.0 = ConfigFileFilled|Any CPU
 		{CEBB323B-9378-4746-9731-9C92ABB621BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CEBB323B-9378-4746-9731-9C92ABB621BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CEBB323B-9378-4746-9731-9C92ABB621BE}.Ingelogd|Any CPU.ActiveCfg = Ingelogd|Any CPU
@@ -87,6 +98,8 @@ Global
 		{CEBB323B-9378-4746-9731-9C92ABB621BE}.IngelogtMateriaal|Any CPU.Build.0 = IngelogtMateriaal|Any CPU
 		{CEBB323B-9378-4746-9731-9C92ABB621BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CEBB323B-9378-4746-9731-9C92ABB621BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2731D120-507A-4983-9643-8ABDA3F29591}.ConfigFileFilled|Any CPU.ActiveCfg = ConfigFileFilled|Any CPU
+		{2731D120-507A-4983-9643-8ABDA3F29591}.ConfigFileFilled|Any CPU.Build.0 = ConfigFileFilled|Any CPU
 		{2731D120-507A-4983-9643-8ABDA3F29591}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2731D120-507A-4983-9643-8ABDA3F29591}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2731D120-507A-4983-9643-8ABDA3F29591}.Ingelogd|Any CPU.ActiveCfg = Release|Any CPU
@@ -99,6 +112,7 @@ Global
 		{2731D120-507A-4983-9643-8ABDA3F29591}.IngelogtMateriaal|Any CPU.Build.0 = Release|Any CPU
 		{2731D120-507A-4983-9643-8ABDA3F29591}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2731D120-507A-4983-9643-8ABDA3F29591}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2ED4826E-2D65-4417-BB04-20C8FE980E84}.ConfigFileFilled|Any CPU.ActiveCfg = ConfigFileFilled
 		{2ED4826E-2D65-4417-BB04-20C8FE980E84}.Debug|Any CPU.ActiveCfg = Debug
 		{2ED4826E-2D65-4417-BB04-20C8FE980E84}.Ingelogd|Any CPU.ActiveCfg = Debug
 		{2ED4826E-2D65-4417-BB04-20C8FE980E84}.IngelogtBeheer|Any CPU.ActiveCfg = Debug

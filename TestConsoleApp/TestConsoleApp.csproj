@@ -5,16 +5,16 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <Configurations>Debug;Release;Ingelogd;IngelogtBeheer;IngelogtMateriaal;IngelogtEvent</Configurations>
+        <Configurations>Debug;Release;Ingelogd;IngelogtBeheer;IngelogtMateriaal;IngelogtEvent;ConfigFileFilled</Configurations>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="MySqlConnector" Version="2.3.7"/>
-        <PackageReference Include="System.Data.SqlClient" Version="4.8.6"/>
+        <PackageReference Include="MySqlConnector" Version="2.3.7" />
+        <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Cryptography.KeyDerivation" Version="8.0.5"/>
+        <PackageReference Include="Microsoft.AspNetCore.Cryptography.KeyDerivation" Version="8.0.5" />
     </ItemGroup>
 
   <ItemGroup>
