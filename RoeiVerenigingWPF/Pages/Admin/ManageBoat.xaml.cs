@@ -27,7 +27,7 @@ namespace RoeiVerenigingWPF.Pages.Admin
             InitializeComponent();
             this.boat = boat;
             Name.Text = boat.Name;
-            Description.Text = boat.Description;
+            Description.Text = boat.DescriptionNoEnter;
             Seats.Text = boat.Seats.ToString();
             Level.Text = boat.Level.ToString();
             Delete_Button.Visibility = Visibility.Visible;
