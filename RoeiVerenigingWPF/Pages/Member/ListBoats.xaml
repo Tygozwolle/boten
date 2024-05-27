@@ -76,9 +76,8 @@
                                                 Source="{Binding Image, Converter={StaticResource SingleStreamImageConverter}}"
                                                 MaxHeight="125px"
                                                 MaxWidth="125px"
-                                             HorizontalAlignment="Left" VerticalAlignment="Center" />
+                                                HorizontalAlignment="Left" VerticalAlignment="Center" />
                                         </StackPanel>
-
                                         <StackPanel Grid.Column="1" Margin="0 0 15 0" HorizontalAlignment="Right">
                                             <TextBlock Text="{Binding Seats, StringFormat='Aantal man: {0}'}"
                                                        FontFamily="Franklin Gothic Medium" FontSize="21"
