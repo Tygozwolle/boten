@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using System.Runtime.InteropServices.JavaScript;
 using DataAccessLibrary;
 using RoeiVerenigingLibrary;
 using RoeiVerenigingLibrary.Exceptions;
@@ -22,21 +23,21 @@ namespace RoeiVerenigingWPF.Pages
         private readonly ReservationService _reservationService = new ReservationService(new ReservationRepository());
         private readonly BoatService _boatService = new BoatService(new BoatRepository());
         private List<Reservation> _reservationsList;
-
+        private List<Boat> _boatList;
         private List<Button> _selectedButtons = new List<Button>();
         private List<DateTime> _selectedTimes = new List<DateTime>();
-        public Boat Boat { get; set; }
+        private DateTime _selectedDate;
+        
 
         public AddReservation(Member loggedInMember, int boatId)
         {
             InitializeComponent();
             _loggedInMember = loggedInMember;
-            Boat = _boatService.GetBoatById(boatId);
+            _boatList = _boatService.Getboats();
             _reservationsList = _reservationService.GetReservations();
             DataContext = this;
         }
 
-    
 
         private void PopulateTimeContentGrid(List<DateTime> availableDates)
         {
@@ -100,10 +101,10 @@ namespace RoeiVerenigingWPF.Pages
             var calendar = sender as Calendar;
             if (calendar.SelectedDate != null)
             {
-                DateTime selectedDate = (DateTime)calendar.SelectedDate;
+                _selectedDate = (DateTime)calendar.SelectedDate;
 
-                PopulateTimeContentGrid(_reservationService.GetAvailableTimes(selectedDate, _reservationsList));
-                SelectedDateTextBlock.Text = selectedDate.ToString("dd MMMM yyyy");
+                PopulateTimeContentGrid(_reservationService.GetAvailableTimes(_selectedDate, _reservationsList));
+                SelectedDateTextBlock.Text = _selectedDate.ToString("dd MMMM yyyy");
                 StartTimeTextBlock.Text = null;
                 EndTimeTextBlock.Text = null;
             }
@@ -160,6 +161,31 @@ namespace RoeiVerenigingWPF.Pages
                 {
                     MessageBox.Show("You can only select up to two consecutive hours.");
                 }
+            }
+        }
+
+        private void NextButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            TimeBlockGrid.Visibility = Visibility.Hidden;
+            BoatGrid.Visibility = Visibility.Visible;
+
+            PopulateBoatGrid(_selectedDate, _selectedTimes[0], _selectedTimes[1]);
+        }
+
+        private void PopulateBoatGrid(DateTime selectedDate, DateTime startTime, DateTime endTime)
+        {
+            List<Boat> availableBoatList = new List<Boat>();
+            availableBoatList = _boatList.Where(boat => !_reservationsList
+                    .Any(reservation => reservation.BoatId == boat.Id &&
+                                        reservation.StartTime.Date == selectedDate.Date &&
+                                        reservation.StartTime < endTime &&
+                                        reservation.EndTime > startTime))
+                .ToList();
+
+            foreach (var boat in availableBoatList)
+            {
+                BoatContentGrid.Children.Add(new TextBlock(){Text = boat.Id.ToString()});
+                // todo: add availableBoatList in cards to the grid
             }
         }
     }
