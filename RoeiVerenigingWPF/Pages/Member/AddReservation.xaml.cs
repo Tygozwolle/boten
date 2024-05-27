@@ -36,58 +36,7 @@ namespace RoeiVerenigingWPF.Pages
             DataContext = this;
         }
 
-        private DateTime Sunrise(DateTime selectedDate)
-        {
-            SolarTimes solarTimes = new SolarTimes(selectedDate.Date, 52.5125, 6.09444);
-            TimeZoneInfo cet = TimeZoneInfo.FindSystemTimeZoneById("W. Europe Standard Time");
-            DateTime sunrise = TimeZoneInfo.ConvertTimeFromUtc(solarTimes.Sunrise.ToUniversalTime(), cet);
-
-            DateTime roundedSunrise = sunrise.AddMinutes(-sunrise.Minute);
-            if (roundedSunrise != sunrise)
-            {
-                roundedSunrise = roundedSunrise.AddHours(1);
-            }
-
-            return roundedSunrise;
-        }
-
-        private DateTime Sunset(DateTime selectedDate)
-        {
-            SolarTimes solarTimes = new SolarTimes(selectedDate.Date, 52.5125, 6.09444);
-            TimeZoneInfo cet = TimeZoneInfo.FindSystemTimeZoneById("W. Europe Standard Time");
-            DateTime sunset = TimeZoneInfo.ConvertTimeFromUtc(solarTimes.Sunset.ToUniversalTime(), cet);
-            return sunset.AddMinutes(-sunset.Minute);
-        }
-
-        public List<DateTime> GetAvailableTimes(DateTime selectedDate)
-        {
-            List<DateTime> timeAvailableList = new List<DateTime>();
-            DateTime startTime = selectedDate.AddHours(Sunrise(selectedDate).Hour);
-            DateTime endTime = selectedDate.AddHours(Sunset(selectedDate).Hour);
-
-            for (DateTime time = startTime; time < endTime; time = time.AddHours(1))
-            {
-                bool isAvailable = false;
-                foreach (var res in _reservationsList)
-                {
-                    if (time == res.StartTime || time.AddHours(1) == res.EndTime && isAvailable == false)
-                    {
-                        isAvailable = false;
-                    }
-                    else
-                    {
-                        isAvailable = true;
-                    }
-                }
-
-                if (isAvailable)
-                {
-                    timeAvailableList.Add(time);
-                }
-            }
-
-            return timeAvailableList;
-        }
+    
 
         private void PopulateTimeContentGrid(List<DateTime> availableDates)
         {
@@ -153,7 +102,7 @@ namespace RoeiVerenigingWPF.Pages
             {
                 DateTime selectedDate = (DateTime)calendar.SelectedDate;
 
-                PopulateTimeContentGrid(GetAvailableTimes(selectedDate));
+                PopulateTimeContentGrid(_reservationService.GetAvailableTimes(selectedDate, _reservationsList));
                 SelectedDateTextBlock.Text = selectedDate.ToString("dd MMMM yyyy");
                 StartTimeTextBlock.Text = null;
                 EndTimeTextBlock.Text = null;
