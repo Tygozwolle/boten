@@ -60,5 +60,17 @@ namespace RoeiVerenigingLibrary
             }
             set => _Description = value;
         }
+
+        public String CaptainSeatToString()
+        {
+            if (CaptainSeat)
+            {
+                return "Ja";
+            }
+            else
+            {
+                return "Nee";
+            }
+        }
     }
 }

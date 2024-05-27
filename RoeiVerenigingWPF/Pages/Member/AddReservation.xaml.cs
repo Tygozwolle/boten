@@ -7,9 +7,11 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 using Innovative.SolarCalculator;
 using RoeiVerenigingWPF.helpers;
 using FontFamily = System.Windows.Media.FontFamily;
+using Image = System.Windows.Controls.Image;
 
 namespace RoeiVerenigingWPF.Pages
 {
@@ -26,8 +28,11 @@ namespace RoeiVerenigingWPF.Pages
         private List<Boat> _boatList;
         private List<Button> _selectedButtons = new List<Button>();
         private List<DateTime> _selectedTimes = new List<DateTime>();
+
+        public DateTime StartTime { get; set; }
+        public DateTime EndTime { get; set; }
         private DateTime _selectedDate;
-        
+
 
         public AddReservation(Member loggedInMember, int boatId)
         {
@@ -104,6 +109,13 @@ namespace RoeiVerenigingWPF.Pages
                 _selectedDate = (DateTime)calendar.SelectedDate;
 
                 PopulateTimeContentGrid(_reservationService.GetAvailableTimes(_selectedDate, _reservationsList));
+
+                BoatGrid.Visibility = Visibility.Hidden;
+                TimeBlockGrid.Visibility = Visibility.Visible;
+
+                NextButton.Visibility = Visibility.Visible;
+                SaveButton.Visibility = Visibility.Hidden;
+
                 SelectedDateTextBlock.Text = _selectedDate.ToString("dd MMMM yyyy");
                 StartTimeTextBlock.Text = null;
                 EndTimeTextBlock.Text = null;
@@ -150,11 +162,15 @@ namespace RoeiVerenigingWPF.Pages
                     {
                         StartTimeTextBlock.Text = _selectedTimes[0].ToString("t");
                         EndTimeTextBlock.Text = _selectedTimes[0].AddHours(1).ToString("t");
+                        StartTime = _selectedTimes[0];
+                        EndTime = _selectedTimes[0].AddHours(1);
                     }
                     else if (_selectedTimes.Count != 0)
                     {
                         StartTimeTextBlock.Text = _selectedTimes[0].ToString("t");
                         EndTimeTextBlock.Text = _selectedTimes[1].AddHours(1).ToString("t");
+                        StartTime = _selectedTimes[0];
+                        EndTime = _selectedTimes[1].AddHours(1);
                     }
                 }
                 else
@@ -169,24 +185,98 @@ namespace RoeiVerenigingWPF.Pages
             TimeBlockGrid.Visibility = Visibility.Hidden;
             BoatGrid.Visibility = Visibility.Visible;
 
-            PopulateBoatGrid(_selectedDate, _selectedTimes[0], _selectedTimes[1]);
+            NextButton.Visibility = Visibility.Hidden;
+            SaveButton.Visibility = Visibility.Visible;
+
+            PopulateBoatGrid(_selectedDate, StartTime, EndTime);
         }
 
         private void PopulateBoatGrid(DateTime selectedDate, DateTime startTime, DateTime endTime)
         {
-            List<Boat> availableBoatList = new List<Boat>();
-            availableBoatList = _boatList.Where(boat => !_reservationsList
+            List<Boat> availableBoatList = _boatList.Where(boat => !_reservationsList
                     .Any(reservation => reservation.BoatId == boat.Id &&
                                         reservation.StartTime.Date == selectedDate.Date &&
                                         reservation.StartTime < endTime &&
                                         reservation.EndTime > startTime))
                 .ToList();
 
+            // List<Boat> availableBoatList = new List<Boat>() { _boatService.GetBoatById(2) };
+
+            BoatContentStackPanel.Children.Clear();
+
             foreach (var boat in availableBoatList)
             {
-                BoatContentGrid.Children.Add(new TextBlock(){Text = boat.Id.ToString()});
-                // todo: add availableBoatList in cards to the grid
+                Grid grid = new Grid();
+                grid.MaxHeight = 200;
+
+                grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(40) });
+                grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+
+                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(300) });
+                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(300) });
+                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(200) });
+
+                grid.Children.Add(new Image
+                {
+                    Source = new BitmapImage(new Uri("/Images/Image_not_available.png", UriKind.Relative)),
+                    Height = 150, Width = 300, VerticalAlignment = VerticalAlignment.Top
+                });
+                Grid.SetColumn(grid.Children[0], 0);
+                Grid.SetRowSpan(grid.Children[0], 2);
+                Grid.SetRow(grid.Children[0], 0);
+
+                grid.Children.Add(new TextBlock
+                {
+                    Text = boat.Name, VerticalAlignment = VerticalAlignment.Center, FontSize = 32,
+                    Foreground = CustomColors.HeaderColor
+                });
+                Grid.SetColumn(grid.Children[1], 1);
+                Grid.SetRow(grid.Children[1], 0);
+
+                grid.Children.Add(new TextBlock
+                {
+                    Text = boat.Description, VerticalAlignment = VerticalAlignment.Center, FontSize = 16,
+                    TextWrapping = TextWrapping.Wrap, Width = 290,
+                    Foreground = CustomColors.SubHeaderColor
+                });
+                Grid.SetColumn(grid.Children[2], 1);
+                Grid.SetRow(grid.Children[2], 1);
+
+                grid.Children.Add(new TextBlock
+                {
+                    Text = $"Aantal man: {boat.Seats}", VerticalAlignment = VerticalAlignment.Bottom, FontSize = 24,
+                    Foreground = CustomColors.HeaderColor, HorizontalAlignment = HorizontalAlignment.Right
+                });
+                Grid.SetColumn(grid.Children[3], 2);
+                Grid.SetRow(grid.Children[3], 0);
+
+                grid.Children.Add(new TextBlock
+                {
+                    Text = $"Stuurman? {boat.CaptainSeatToString()}", VerticalAlignment = VerticalAlignment.Top,
+                    FontSize = 24,
+                    Foreground = CustomColors.HeaderColor, HorizontalAlignment = HorizontalAlignment.Right
+                });
+                Grid.SetColumn(grid.Children[4], 2);
+                Grid.SetRow(grid.Children[4], 1);
+
+                Border border = new Border
+                {
+                    BorderThickness = new Thickness(5),
+                    BorderBrush = CustomColors.OutsideBorderColor,
+                    CornerRadius = new CornerRadius(10),
+                    Padding = new Thickness(10),
+                    Margin = new Thickness(10),
+                    Background = CustomColors.MainBackgroundColor,
+                    Child = grid,
+                };
+
+                BoatContentStackPanel.Children.Add(border);
             }
+        }
+
+        private void SaveButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }
