@@ -112,8 +112,12 @@ namespace RoeiVerenigingWPF.Pages.Admin
             {
                 MessageBox.Show(ex.Message);
             }
+            catch (NameEmptyExeception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
 
-        }
+            }
 
         private void ButtonDelete_Click(object sender, RoutedEventArgs e)
         {
