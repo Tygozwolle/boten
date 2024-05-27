@@ -4,18 +4,18 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       mc:Ignorable="d"
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="900" d:DesignWidth="1200"
       Title="CreateDamageReport" xmlns:local="clr-namespace:RoeiVerenigingWPF.helpers">
 
-    <Grid>
+    <Grid Height="900" Width="1200" HorizontalAlignment="Center" VerticalAlignment="Center">
         <Grid.Effect>
             <DropShadowEffect Color="Black" Direction="320" ShadowDepth="10" Opacity="0.3" />
         </Grid.Effect>
         <Border CornerRadius="30" BorderThickness="5" BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}">
             <Border CornerRadius="24" BorderThickness="8"
-             BorderBrush="{x:Static local:CustomColors.MainBackgroundColor}"
-             Background="{x:Static local:CustomColors.MainBackgroundColor}">
-                <Grid>
+                BorderBrush="{x:Static local:CustomColors.MainBackgroundColor}">
+                <Grid Margin="0,0,0,0" Background="{x:Static local:CustomColors.MainBackgroundColor}" Height="900"
+                  Width="1200">
                     <Grid.RowDefinitions>
                         <!-- Header Column -->
                         <RowDefinition Height="50" />
@@ -37,19 +37,27 @@
                     </Grid.ColumnDefinitions>
 
                     <!-- Header -->
-                    <Label Content="Melden van schade" FontSize="30" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4"  HorizontalAlignment="Center"/>
+                    <Label Content="Melden van schade" FontSize="30" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"  HorizontalAlignment="Center"/>
                     <!-- Titel -->
-                    <Label Content="hier kan je schade melden die een boot heeft. Indien je de schade niet zelf hebt gemaakt, zet dit bij je beschrijving in" FontSize="15" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="4" HorizontalAlignment="Center"/>
+                    <Label Foreground="{x:Static local:CustomColors.SubHeaderColor}" Content="hier kan je schade melden die een boot heeft. Indien je de schade niet zelf hebt gemaakt, zet dit bij je beschrijving in" FontSize="15" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Center"/>
 
                     <!-- Photo -->
-                    <Image Source="/Images/Image_not_available.png" Grid.Column="0" Grid.Row="2"/>
+                    <Image Source="/Images/Image_not_available.png" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Margin="80,94,300,217" Grid.RowSpan="2" />
 
+                    <Label Grid.Row="3" Content="Schade:" FontFamily="Franklin Gothic Medium"
+                        Margin="85,130,216,65"
+                        FontSize="24" HorizontalContentAlignment="Center"
+                        Foreground="{x:Static local:CustomColors.SubHeaderColor}" Grid.ColumnSpan="2" />
 
-                    <TextBox x:Name="___discription_" Grid.Row="3" TextChanged="___discription__TextChanged" Grid.RowSpan="1"  />
+                    <TextBox x:Name="___discription_" Grid.Row="3" TextChanged="___discription__TextChanged" Grid.RowSpan="2" Grid.ColumnSpan="2"
+                    Foreground="{x:Static local:CustomColors.SubHeaderColor}"
+                    Background="{x:Static local:CustomColors.TextBoxBackgroundColor}"
+                    BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}" FontSize="24"
+                    FontFamily="Franklin Gothic Medium" Margin="85,170,220,230" />
+
 
                     <Button Grid.Column="2" x:Name="___submit_" Grid.Row="4" Margin="50,43,36,37"
                     HorizontalContentAlignment="Center" Width="300" Height="100"
-                   
                     FontFamily="Franklin Gothic Medium" BorderBrush="Transparent"
                     FontSize="20" Foreground="{x:Static local:CustomColors.HeaderColor}"
                     Background="{x:Static local:CustomColors.ButtonBackgroundColor}" Click="Button_Click">
