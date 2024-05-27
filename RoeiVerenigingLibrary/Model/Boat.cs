@@ -5,7 +5,16 @@ namespace RoeiVerenigingLibrary
     public class Boat
     {
         private string _Description;
-
+        public Boat(int id, bool captainSeat, int Seats, int level, string description, string name, Stream image)
+        {
+            Id = id;
+            CaptainSeat = captainSeat;
+            this.Seats = Seats;
+            Level = level;
+            Description = description;
+            Name = name;
+            Image = image;
+        }
         public Boat(int id, bool captainSeat, int Seats, int level, string description, string name)
         {
             Id = id;
@@ -29,6 +38,7 @@ namespace RoeiVerenigingLibrary
         public int Seats { get; set; }
         public int Level { get; set; }
         public string Name { get; set; }
+        public Stream Image { get; set; }
         public string Description
         {
             get
