@@ -28,7 +28,7 @@ namespace DataAccessLibrary
                             string description = reader.GetString(4);
                             string name = reader.GetString(5);
 
-                            boat.Add(new Boat(id, captainSeat, Seats, Level, description, name, GetImage(id)));
+                            boat.Add(new Boat(id, captainSeat, Seats, Level, description, name));
                         }
                     }
                 }

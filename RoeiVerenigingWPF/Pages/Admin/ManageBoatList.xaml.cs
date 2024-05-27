@@ -17,6 +17,8 @@ namespace RoeiVerenigingWPF.Pages.Admin
             Boats = _service.Getboats();
             _mainWindow = mw;
             InitializeComponent();
+
+            
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -32,6 +34,23 @@ namespace RoeiVerenigingWPF.Pages.Admin
         private void Button_Create_Click(object sender, RoutedEventArgs e)
         {
             _mainWindow.MainContent.Navigate(new ManageBoat(_mainWindow));
+        }
+
+        private void Page_Initialized(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ListView_Loaded(object sender, RoutedEventArgs e)
+        {
+            new Thread(async () =>
+            {
+                _service.GetImageBoats(Boats);
+                this.Dispatcher.Invoke(() =>
+                {
+                    ListView.Items.Refresh();
+                });
+            }).Start();
         }
     }
 }
