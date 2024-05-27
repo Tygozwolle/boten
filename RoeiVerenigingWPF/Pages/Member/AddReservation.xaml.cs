@@ -47,16 +47,13 @@ namespace RoeiVerenigingWPF.Pages
                 bool isAvailable = false;
                 foreach (var res in _reservationsList)
                 {
-                    if (isAvailable == true)
+                    if (time == res.StartTime || time.AddHours(1) == res.EndTime && isAvailable == false)
                     {
-                        if (time == res.StartTime || time == res.EndTime.AddHours(1))
-                        {
-                            isAvailable = false;
-                        }
-                        else
-                        {
-                            isAvailable = true;
-                        }
+                        isAvailable = false;
+                    }
+                    else
+                    {
+                        isAvailable = true;
                     }
                 }
 
