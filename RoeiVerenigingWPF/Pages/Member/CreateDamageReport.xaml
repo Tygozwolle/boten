@@ -49,7 +49,7 @@
                         FontSize="24" HorizontalContentAlignment="Center"
                         Foreground="{x:Static local:CustomColors.SubHeaderColor}" Grid.ColumnSpan="2" />
 
-                    <TextBox x:Name="___discription_" Grid.Row="3" TextChanged="___discription__TextChanged" Grid.RowSpan="2" Grid.ColumnSpan="2"
+                    <TextBox x:Name="___discription_" Grid.Row="3" Grid.RowSpan="2" Grid.ColumnSpan="2"
                     Foreground="{x:Static local:CustomColors.SubHeaderColor}"
                     Background="{x:Static local:CustomColors.TextBoxBackgroundColor}"
                     BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}" FontSize="24"
