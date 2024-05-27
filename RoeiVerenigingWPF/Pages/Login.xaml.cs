@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using RoeiVerenigingLibrary;
 using RoeiVerenigingLibrary.Exceptions;
 using RoeiVerenigingWPF.Frames;
+using RoeiVerenigingWPF.Pages.Admin;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -49,6 +50,7 @@ namespace RoeiVerenigingWPF.Pages
             _mainWindow.MainContent.Visibility = Visibility.Visible;
             _mainWindow.LoginContent.Visibility = Visibility.Hidden;
             _mainWindow.MainContent.Navigate(new MainPage(_mainWindow));
+   
         }
 
 
