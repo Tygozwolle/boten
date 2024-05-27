@@ -19,7 +19,7 @@ namespace RoeiVerenigingWPF.Pages
             MainWindow = mw;
             Damages = _service.GetRelatedToUser(MainWindow.LoggedInMember);
             GetImagesFromMail();
-            SetImages();
+           // SetImages();
         }
         public MainWindow MainWindow { set; get; }
         public List<Damage> Damages { set; get; }
@@ -51,30 +51,30 @@ namespace RoeiVerenigingWPF.Pages
         //todo: Tygo will add the images async
         private void ListView_Loaded(object sender, RoutedEventArgs e)
         {
-            // new Thread(async () =>
-            // {
-            //     _service.GetImageBoats(boats);
-            //     this.Dispatcher.Invoke(() =>
-            //     {
-            //         ListView.Items.Refresh();
-            //     });
-            // }).Start();
-        }
-        private void SetImages()
-        {
-            new Thread(() =>
+            new Thread(async () =>
             {
-                foreach (Damage damage in Damages)
-                {
-                    Damage damageSave = damage;
-
-                    damage.Images = [_imageRepository.GetFirstImage(damageSave.Id)];
-                }
-                Dispatcher.Invoke(() =>
+                _service.AddFirstImageToClass(Damages, _imageRepository);
+                this.Dispatcher.Invoke(() =>
                 {
                     ListView.Items.Refresh();
                 });
             }).Start();
         }
-    }
+        // private void SetImages()
+        // {
+        //     new Thread(() =>
+        //     {
+        //         foreach (Damage damage in Damages)
+        //         {
+        //             Damage damageSave = damage;
+        //
+        //             damage.Images = [_imageRepository.GetFirstImage(damageSave.Id)];
+        //         }
+        //         Dispatcher.Invoke(() =>
+        //         {
+        //             ListView.Items.Refresh();
+        //         });
+        //     }).Start();
+        // }
+     }
 }

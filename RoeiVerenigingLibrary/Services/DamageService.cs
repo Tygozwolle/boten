@@ -19,7 +19,7 @@
 
         public List<Damage> GetRelatedToUser(Member loggedInMember)
         {
-            return damageRepository.GetRelatedToUser(loggedInMember.Id);
+            return damageRepository.GetRelatedToUser(loggedInMember);
         }
 
         public Damage CreateReport(Member member, Boat boat, string description)
