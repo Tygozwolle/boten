@@ -138,7 +138,6 @@ namespace RoeiVerenigingWPF.Pages.Admin
                             Stream compressedStream = RisizeImage.ResizeImage(stream, 500, 500);
                             Image.Source = ImageConverter.Convert(compressedStream);
                             ImageStream = compressedStream;
-                            //compressedStream.CopyTo(ImageStream);
                             ImageChanged = true;
                         }
                     }
