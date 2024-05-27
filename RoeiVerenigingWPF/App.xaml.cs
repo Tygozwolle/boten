@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using DataAccessLibary;
+using System.Windows;
 
 namespace RoeiVerenigingWPF
 {
