@@ -51,10 +51,10 @@
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
-
+                                <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
                             <Label Grid.Row="0" Content="Foto:" Width="200" FontFamily="Franklin Gothic Medium"
-                                   Margin="0,20,0,0"
+                                   Margin="0,10,0,0"
                                    FontSize="24" HorizontalContentAlignment="Center"
                                    Foreground="{x:Static helpers:CustomColors.SubHeaderColor}" />
                             <Image Grid.Row="1" Name="Image" 
@@ -68,10 +68,21 @@
                             </Image>
                                    
                             <Button Grid.Row="2" Name="ButtonUpload" Content="Upload foto" Width="250" Height="50"
-                                    Margin="20,65,20,20" VerticalAlignment="Bottom" 
+                                    Margin="20,10,10,14" VerticalAlignment="Bottom" 
                                     FontFamily="Franklin Gothic Medium" FontSize="24" Foreground="{x:Static helpers:CustomColors.HeaderColor}" Background="{x:Static helpers:CustomColors.ButtonBackgroundColor}"
                                     BorderBrush="{x:Static helpers:CustomColors.OutsideBorderColor}"
                                     Click="ButtonUpload_Click">
+                                <Button.Resources>
+                                    <Style TargetType="Border">
+                                        <Setter Property="CornerRadius" Value="15" />
+                                    </Style>
+                                </Button.Resources>
+                            </Button>
+                            <Button Grid.Row="3" Name="Delete_Button" Content="Boot verwijderen" Width="250" Height="50"
+                                    Margin="20,20,20,20" VerticalAlignment="Bottom" 
+                                    FontFamily="Franklin Gothic Medium" FontSize="24" Foreground="{x:Static helpers:CustomColors.HeaderColor}" Background="{x:Static helpers:CustomColors.ButtonBackgroundColor}"
+                                    BorderBrush="{x:Static helpers:CustomColors.OutsideBorderColor}"
+                                    Click="ButtonDelete_Click">
                                 <Button.Resources>
                                     <Style TargetType="Border">
                                         <Setter Property="CornerRadius" Value="15" />
@@ -119,11 +130,13 @@
                                  Background="{x:Static helpers:CustomColors.TextBoxBackgroundColor}"
                                  BorderBrush="{x:Static helpers:CustomColors.OutsideBorderColor}" TextWrapping="WrapWithOverflow" FontSize="14"  FontFamily="Franklin Gothic Medium" />
                     </StackPanel>
-                    <StackPanel Grid.Row="7">
-                
+                    <StackPanel Grid.Row="7" Margin="0,20,0,0">
+                        <Label Content="*Stuurman aanwezig:" Width="300" FontFamily="Franklin Gothic Medium"
+                               FontSize="24" HorizontalContentAlignment="Center" 
+                               Foreground="{x:Static helpers:CustomColors.SubHeaderColor}" />
                             <ToggleButton Grid.Column="0" Name="Captain"
                                  Grid.Row="12"  Content="Stuurman Afwezig" Width="250" Height="50"
-                                        Margin="20,20,20,20"
+                                        Margin="20,0,20,20"
                                         FontFamily="Franklin Gothic Medium" FontSize="24" Foreground="{x:Static helpers:CustomColors.HeaderColor}" Background="{x:Static helpers:CustomColors.ButtonBackgroundColor}"
                                         BorderBrush="{x:Static helpers:CustomColors.OutsideBorderColor}" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Click="ToggleButtonClick"
                                         >
@@ -139,7 +152,7 @@
                     
 
                     <Button Grid.Row="8" Name="ButtonEditCreate" Content="Boot aanmaken" Width="295" Height="70"
-                            Margin="20,40,20,20"
+                            Margin="20,20,20,20"
                             FontFamily="Franklin Gothic Medium" FontSize="32" Foreground="{x:Static helpers:CustomColors.HeaderColor}" Background="{x:Static helpers:CustomColors.ButtonBackgroundColor}"
                             BorderBrush="{x:Static helpers:CustomColors.OutsideBorderColor}"
                             Click="Button_Click">

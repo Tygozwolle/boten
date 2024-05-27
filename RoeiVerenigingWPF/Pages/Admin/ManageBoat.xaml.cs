@@ -30,6 +30,7 @@ namespace RoeiVerenigingWPF.Pages.Admin
             Description.Text = boat.Description;
             Seats.Text = boat.Seats.ToString();
             Level.Text = boat.Level.ToString();
+            Delete_Button.Visibility = Visibility.Visible;
             Captain.IsChecked = boat.CaptainSeat;
             Eddit = true;
                 ButtonEditCreate.Content = "Bewerken";
@@ -43,7 +44,9 @@ namespace RoeiVerenigingWPF.Pages.Admin
         public ManageBoat(MainWindow mainWindow)
         {
             _mainWindow = mainWindow;
+           
             InitializeComponent();
+            Delete_Button.Visibility = Visibility.Hidden;
             Captain.IsChecked = false;
         }
         private void ToggleButtonClick(object sender, RoutedEventArgs e)
@@ -80,6 +83,7 @@ namespace RoeiVerenigingWPF.Pages.Admin
                         MessageBox.Show(
                             $"{boat.Name} {boat.Description} {boat.Level} is aangepast met bootnummer {boat.Id}");
                     }
+                    _mainWindow.MainContent.Navigate(new ManageBoatList(_mainWindow));
                 }
                 else
                 {
@@ -93,7 +97,7 @@ namespace RoeiVerenigingWPF.Pages.Admin
                         MessageBox.Show(
                             $"{createdBoat.Name} {createdBoat.Description} {createdBoat.Level} is aangemaakt met bootnummer {createdBoat.Id}");
                     }
-
+                    _mainWindow.MainContent.Navigate(new ManageBoatList(_mainWindow));
                 }
             }
             catch (IncorrectRightsExeption ex)
@@ -109,6 +113,13 @@ namespace RoeiVerenigingWPF.Pages.Admin
                 MessageBox.Show(ex.Message);
             }
 
+        }
+
+        private void ButtonDelete_Click(object sender, RoutedEventArgs e)
+        {
+            BoatService service = new BoatService(new BoatRepository());
+            service.Delete(_mainWindow.LoggedInMember, boat);
+            _mainWindow.MainContent.Navigate(new ManageBoatList(_mainWindow));
         }
         private void ButtonUpload_Click(object sender, RoutedEventArgs e)
         {
