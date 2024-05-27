@@ -8,6 +8,7 @@
       Width="1500" Height="900"
       Title="Reservations">
 
+     <!-- MainGrid -->
     <Border CornerRadius="30" BorderThickness="5" BorderBrush="#1892cd" Background="White" Padding="10">
         <Grid Height="880" Width="1480" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Grid.RowDefinitions>
@@ -21,12 +22,13 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             
+            <!-- Label voor paginatitel -->
             <Label Margin="0" Grid.Row="0" Grid.Column="1" 
                    HorizontalAlignment="Center"
                    VerticalAlignment="Top"
                    Content="Reserveringen"
                    FontFamily="Franklin Gothic Medium" FontSize="36"
-                   Foreground="#0e5172" />
+                   Foreground="#0e5172"/>
             
             <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="4" MaxHeight="750px">
                     <ListView ItemsSource="{Binding ReservationList}" Grid.IsSharedSizeScope="True"
