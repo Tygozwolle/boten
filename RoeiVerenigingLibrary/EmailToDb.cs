@@ -69,7 +69,7 @@ namespace RoeiVerenigingLibrary
         public static string GetStringForEmail(int id)
         {
             IConfigurationRoot config = new ConfigurationBuilder().AddUserSecrets<EmailToDb>().Build();
-            return $"mailto:{config["Mail:username"]}?subject={id}";
+            return $"mailto:{config["Mail:username"]}?subject={id}&&Body=Upload uw foto's hier";
         }
     }
 }
