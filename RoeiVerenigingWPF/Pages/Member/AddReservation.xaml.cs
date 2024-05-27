@@ -44,8 +44,15 @@ namespace RoeiVerenigingWPF.Pages
 
             for (DateTime time = startTime; time < endTime; time = time.AddHours(1))
             {
-                bool isAvailable =
-                    !_reservationsList.Any(res => time < res.EndTime && time.AddHours(1) > res.StartTime);
+                bool isAvailable = true;
+                foreach (var res in _reservationsList)
+                {
+                    if (time == res.StartTime || time == res.EndTime.AddHours(1))
+                    {
+                        
+                    } 
+                }
+
                 if (isAvailable)
                 {
                     timeAvailableList.Add(time);
@@ -161,80 +168,23 @@ namespace RoeiVerenigingWPF.Pages
                             MessageBox.Show("Selected times must be consecutive.");
                         }
                     }
+
+                    if (_selectedTimes.Count == 1)
+                    {
+                        StartTimeTextBlock.Text = _selectedTimes[0].ToString("t");
+                        EndTimeTextBlock.Text = _selectedTimes[0].AddHours(1).ToString("t");
+                    }
+                    else if (_selectedTimes.Count != 0)
+                    {
+                        StartTimeTextBlock.Text = _selectedTimes[0].ToString("t");
+                        EndTimeTextBlock.Text = _selectedTimes[1].AddHours(1).ToString("t");
+                    }
                 }
                 else
                 {
                     MessageBox.Show("You can only select up to two consecutive hours.");
                 }
-
-                if (_selectedTimes.Count == 1)
-                {
-                    StartTimeTextBlock.Text = _selectedTimes[0].ToString("t");
-                    EndTimeTextBlock.Text = _selectedTimes[0].AddHours(1).ToString("t");
-                }
-                else
-                {
-                    StartTimeTextBlock.Text = _selectedTimes[0].ToString("t");
-                    EndTimeTextBlock.Text = _selectedTimes[1].AddHours(1).ToString("t");
-                }
             }
         }
-
-
-        // private void TimePicker_TextChanged(object sender, TextChangedEventArgs e)
-        // {
-        //     var textBox = FocusManager.GetFocusedElement(this) as TextBox;
-        //     if (textBox != null)
-        //     {
-        //     }
-        // }
-        //
-        // public void ConfirmButton(Object sender, RoutedEventArgs e)
-        // {
-        //     //check if all fields are valid
-        //     DateTime? startTime = BeginTimePicker.Value;
-        //     DateTime? endTime = EndTimePicker.Value;
-        //     DateTime? selectedDate = calendar.SelectedDate;
-        //     if (!startTime.HasValue || !endTime.HasValue || !selectedDate.HasValue)
-        //     {
-        //         MessageBox.Show("Selecteer een datum en begin en eindtijd!");
-        //         return;
-        //     }
-        //
-        //     //add date and time together
-        //     DateTime startDateTime = selectedDate.Value.Date.Add(startTime.Value.TimeOfDay);
-        //     DateTime endDateTime = selectedDate.Value.Date.Add(endTime.Value.TimeOfDay);
-        //
-        //     try
-        //     {
-        //         if (_reservationService.TimeChecker(startTime, endTime))
-        //         {
-        //             _reservationService.Create(_loggedInMember, boat.Id, startDateTime, endDateTime);
-        //         }
-        //     }
-        //     catch (InvalidTimeException invalidTimeException)
-        //     {
-        //         MessageBox.Show(invalidTimeException.Message);
-        //         return;
-        //     }
-        //     catch (MaxAmountOfReservationExceeded maxAmountOfReservationExceededException)
-        //     {
-        //         MessageBox.Show(maxAmountOfReservationExceededException.Message);
-        //         return;
-        //     }
-        //     catch (ReservationNotInDaylightException ex)
-        //     {
-        //         MessageBox.Show(ex.Message);
-        //         return;
-        //     }
-        //     catch (Exception ex)
-        //     {
-        //         MessageBox.Show(ex.Message);
-        //         return;
-        //     }
-        //
-        //     MessageBox.Show("Reservering aangemaakt");
-        //     //todo: send to reservation overview
-        // }
     }
 }
