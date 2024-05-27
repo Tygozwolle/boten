@@ -29,12 +29,13 @@ namespace RoeiVerenigingWPF.Pages
         private List<Button> _selectedButtons = new List<Button>();
         private List<DateTime> _selectedTimes = new List<DateTime>();
 
-        public DateTime StartTime { get; set; }
-        public DateTime EndTime { get; set; }
+        private DateTime StartTime { get; set; }
+        private DateTime EndTime { get; set; }
         private DateTime _selectedDate;
+        private Boat _selectedBoat;
 
 
-        public AddReservation(Member loggedInMember, int boatId)
+        public AddReservation(Member loggedInMember)
         {
             InitializeComponent();
             _loggedInMember = loggedInMember;
@@ -258,25 +259,47 @@ namespace RoeiVerenigingWPF.Pages
                 });
                 Grid.SetColumn(grid.Children[4], 2);
                 Grid.SetRow(grid.Children[4], 1);
+                
 
-                Border border = new Border
+                Button button = new Button
                 {
                     BorderThickness = new Thickness(5),
                     BorderBrush = CustomColors.OutsideBorderColor,
-                    CornerRadius = new CornerRadius(10),
                     Padding = new Thickness(10),
                     Margin = new Thickness(10),
                     Background = CustomColors.MainBackgroundColor,
-                    Child = grid,
+                    Content = grid,
+                    Resources = new ResourceDictionary()
+                };
+                
+                button.Tag = boat.Id;
+
+                Style borderStyle = new Style(typeof(Border));
+                borderStyle.Setters.Add(new Setter(Border.CornerRadiusProperty, new CornerRadius(15)));
+
+                button.Resources.Add(typeof(Border), borderStyle);
+                
+                button.Click += (sender, e) =>
+                {
+                    button.Background = CustomColors.ButtonBackgroundColor;
+                    int boatId = (int)((Button)sender).Tag;
+
+                    Boat selectedBoat = _boatList.FirstOrDefault(b => b.Id == boatId);
+                    if (selectedBoat != null)
+                    {
+                        _selectedBoat = selectedBoat;
+                    }
+
+                    
                 };
 
-                BoatContentStackPanel.Children.Add(border);
+                BoatContentStackPanel.Children.Add(button);
             }
         }
 
         private void SaveButton_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            _reservationService.Create(_loggedInMember, _selectedBoat.Id, StartTime, EndTime );
         }
     }
 }

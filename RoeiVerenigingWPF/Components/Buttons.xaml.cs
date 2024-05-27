@@ -35,7 +35,7 @@ namespace RoeiVerenigingWPF.Components
             {
                 case Button button when button == BotenButton:
                     ChangeColorOfRectangle(BoatRectangle);
-                    MainWindow.MainContent.Navigate(new ListBoats(MainWindow));
+                    MainWindow.MainContent.Navigate(new AddReservation(MainWindow.LoggedInMember));
                     break;
                 case Button button when button == DamageButton:
                     ChangeColorOfRectangle(DamageRectangle);
