@@ -39,9 +39,24 @@
                 </Button.Resources>
             </Button>
 
-        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="4" MaxHeight="750px">
-            <ListView Name="ListView" ItemsSource="{Binding Boats}" Grid.IsSharedSizeScope="True"
-                      d:ItemsSource="{d:SampleData ItemCount=8}" ScrollViewer.VerticalScrollBarVisibility="Auto" Loaded="ListView_Loaded">
+    <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="4" MaxHeight="750px">
+            <ListView ItemsSource="{Binding Boats}" Grid.IsSharedSizeScope="True"
+                      d:ItemsSource="{d:SampleData ItemCount=8}" Name="ListView"
+                      ScrollViewer.VerticalScrollBarVisibility="Auto" Loaded="ListView_Loaded">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListViewItem">
+                                    <Border Background="{TemplateBinding Background}">
+                                        <ContentPresenter />
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+
+                </ListView.ItemContainerStyle>
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <UniformGrid Columns="2" />
@@ -49,24 +64,41 @@
                 </ListView.ItemsPanel>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Grid Margin="50 20 50 0" Width="650" Height="200">
-                            <Button Click="Button_Click" CommandParameter="{Binding Id}" Background="#88BFEA">
-                                <Button.Resources>
-                                    <Style TargetType="Border">
-                                        <Setter Property="CornerRadius" Value="15" />
-                                    </Style>
-                                </Button.Resources>
-                                <Border BorderBrush="Black" BorderThickness="1" Width="650" Height="200">
+                        <Grid Background="Transparent" Margin="50 20 50 0" Width="650" Height="200"
+                              PreviewMouseLeftButtonDown="Grid_Click" Tag="{Binding Id}">
+                            <Grid.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="15" />
+                                </Style>
+                            </Grid.Resources>
+                            <Border CornerRadius="30" BorderThickness="5"
+                                    BorderBrush="{x:Static helpers:CustomColors.OutsideBorderColor}">
+                                <Border CornerRadius="24" BorderThickness="8"
+                                        BorderBrush="{x:Static helpers:CustomColors.MainBackgroundColor}">
                                     <Grid>
-                                        <Image Source="{Binding Image, Converter={StaticResource SingleStreamImageConverter}}" MaxHeight="100px"
-                                               MaxWidth="100px" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                                        <StackPanel Margin="110 0 5 0">
-                                            <TextBlock Text="{Binding Id, StringFormat='Boot: {0}'}"
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel Grid.Column="0" Margin="15,0,0,0">
+                                            <TextBlock Text="{Binding Name}"
                                                        VerticalAlignment="Center" HorizontalAlignment="Left"
-                                                       FontSize="25" />
+                                                       FontFamily="Franklin Gothic Medium" FontSize="32"
+                                                       Foreground="{x:Static helpers:CustomColors.HeaderColor}" />
+                                            <Image
+                                                Source="{Binding Image, Converter={StaticResource SingleStreamImageConverter}}"
+                                                MaxHeight="125px"
+                                                MaxWidth="125px"
+                                                HorizontalAlignment="Left" VerticalAlignment="Center" />
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="1" Margin="0 0 15 0" HorizontalAlignment="Right">
                                             <TextBlock Text="{Binding Seats, StringFormat='Aantal man: {0}'}"
+                                                       FontFamily="Franklin Gothic Medium" FontSize="21"
+                                                       Foreground="{x:Static helpers:CustomColors.SubHeaderColor}"
                                                        VerticalAlignment="Center" HorizontalAlignment="Right" />
-                                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right">
+                                            <TextBlock FontFamily="Franklin Gothic Medium" FontSize="21"
+                                                       Foreground="{x:Static helpers:CustomColors.SubHeaderColor}"
+                                                       VerticalAlignment="Center" HorizontalAlignment="Right">
                                                 <TextBlock.Style>
                                                     <Style TargetType="TextBlock">
                                                         <Setter Property="Text"
@@ -83,13 +115,14 @@
                                                     </Style>
                                                 </TextBlock.Style>
                                             </TextBlock>
-                                            <TextBlock Text="{Binding Level, StringFormat='Niveau: {0}'}"
+                                            <TextBlock FontFamily="Franklin Gothic Medium" FontSize="21"
+                                                       Foreground="{x:Static helpers:CustomColors.SubHeaderColor}"
+                                                       Text="{Binding Level, StringFormat='Niveau: {0}'}"
                                                        VerticalAlignment="Center" HorizontalAlignment="Right" />
                                         </StackPanel>
                                     </Grid>
                                 </Border>
-
-                            </Button>
+                            </Border>
                         </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>

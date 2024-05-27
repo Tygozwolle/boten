@@ -5,6 +5,7 @@ using RoeiVerenigingLibrary;
 using RoeiVerenigingWPF.Frames;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace RoeiVerenigingWPF.Pages
 {
@@ -31,28 +32,31 @@ namespace RoeiVerenigingWPF.Pages
             Task task = new Task(() => { EmailToDb.GetImagesFromEmail(_imageRepository); });
             task.Start();
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
+        
+        private void Grid_Click(object sender, MouseButtonEventArgs e)
         {
-            if (sender is Button)
+            if (sender is Grid)
             {
-                Button casted = sender as Button;
-                object command = casted.CommandParameter;
+                Grid casted = sender as Grid;
+                object command = casted.Tag;
                 int id = Int32.Parse(command.ToString());
 
                 MainWindow.MainContent.Navigate(new ManageDamage(MainWindow, _service.GetById(id)));
             }
-
+            
             Damages.Count();
         }
-
-        private void SetImagesAsync()
+        //todo: Tygo will add the images async
+        private void ListView_Loaded(object sender, RoutedEventArgs e)
         {
-            Thread thread = new Thread(() =>
-            {
-                SetImages();
-            });
-            thread.Start();
+            // new Thread(async () =>
+            // {
+            //     _service.GetImageBoats(boats);
+            //     this.Dispatcher.Invoke(() =>
+            //     {
+            //         ListView.Items.Refresh();
+            //     });
+            // }).Start();
         }
 
         private void SetImages()

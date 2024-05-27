@@ -33,8 +33,8 @@ namespace RoeiVerenigingWPF.Pages.Admin
             Delete_Button.Visibility = Visibility.Visible;
             Captain.IsChecked = boat.CaptainSeat;
             Eddit = true;
-                ButtonEditCreate.Content = "Bewerken";
-                HeaderBoat.Content = "Bewerk boot";
+                ButtonEditCreate.Content = "Opslaan";
+                HeaderBoat.Content = "Boot aanpassen";
                 TextBlockBoat.Text = "Wijzig hier de informatie van de boot.";
                 if (boat.Image != null) 
                 {
