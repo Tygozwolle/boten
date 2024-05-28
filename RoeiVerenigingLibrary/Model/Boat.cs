@@ -37,40 +37,14 @@ namespace RoeiVerenigingLibrary
         {
             get
             {
-                //convert enters stored in database
-                string input = _Description;
-                if (input.Length > 60)
-                {
-                    string[] words = input.Split(' ');
-                    StringBuilder sb = new StringBuilder();
-                    int currLength = 0;
-                    foreach (string word in words)
-                    {
-                        if (currLength + word.Length + 1 < 60)
-                        {
-                            sb.AppendFormat(" {0}", word);
-                            currLength = sb.Length % 60;
-                        }
-                        else
-                        {
-                            sb.AppendFormat("{0}{1}", Environment.NewLine, word);
-                            currLength = 0;
-                        }
-                    }
-
-                    return sb.ToString();
-                }
-
-                return input;
+                return _Description;
             }
             set => _Description = value;
         }
+
         public String DescriptionNoEnter
         {
-            get
-            {
-                return _Description;
-            }
+            get { return _Description; }
         }
     }
 }
