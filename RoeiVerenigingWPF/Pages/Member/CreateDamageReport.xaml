@@ -62,7 +62,7 @@ Foreground="{x:Static local:CustomColors.HeaderColor}"/>
 
                     <Button Grid.Column="2" x:Name="___submit_" Grid.Row="4" Margin="50,43,36,37"
                     HorizontalContentAlignment="Center" Width="300" Height="100"
-                    FontFamily="Franklin Gothic Medium" BorderBrush="Transparent"
+                    FontFamily="Franklin Gothic Medium" BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}" BorderThickness="3"
                     FontSize="20" Foreground="{x:Static local:CustomColors.HeaderColor}"
                     Background="{x:Static local:CustomColors.ButtonBackgroundColor}" Click="Button_Click">
                         <TextBlock Text="Schade melden"  VerticalAlignment="Top" Width="133" />
