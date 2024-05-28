@@ -42,6 +42,19 @@ namespace RoeiVerenigingWPF.Pages
             _boatList = _boatService.Getboats();
             _reservationsList = _reservationService.GetReservations();
             DataContext = this;
+            CheckIfMemberHas2Reservations();
+        }
+
+        private void CheckIfMemberHas2Reservations()
+        {
+            if (_loggedInMember.Roles.Contains("beheerder"))
+            {
+                WatchOutTextBlock.Visibility = Visibility.Hidden;
+            }
+            else if (_reservationService.GetReservations(_loggedInMember).Count >= 2)
+            {
+                WatchOutTextBlock.Visibility = Visibility.Visible;
+            }
         }
 
 
@@ -109,13 +122,12 @@ namespace RoeiVerenigingWPF.Pages
             {
                 _selectedDate = (DateTime)calendar.SelectedDate;
 
+                if (_selectedDate < DateTime.Today)
+                {
+                    throw new ReservationNotInDaylightException(); // todo betere exception
+                }
+
                 PopulateTimeContentGrid(_reservationService.GetAvailableTimes(_selectedDate, _reservationsList));
-
-                BoatGrid.Visibility = Visibility.Hidden;
-                TimeBlockGrid.Visibility = Visibility.Visible;
-
-                NextButton.Visibility = Visibility.Visible;
-                SaveButton.Visibility = Visibility.Hidden;
 
                 SelectedDateTextBlock.Text = _selectedDate.ToString("dd MMMM yyyy");
                 StartTimeTextBlock.Text = null;
@@ -259,7 +271,7 @@ namespace RoeiVerenigingWPF.Pages
                 });
                 Grid.SetColumn(grid.Children[4], 2);
                 Grid.SetRow(grid.Children[4], 1);
-                
+
 
                 Button button = new Button
                 {
@@ -271,14 +283,14 @@ namespace RoeiVerenigingWPF.Pages
                     Content = grid,
                     Resources = new ResourceDictionary()
                 };
-                
+
                 button.Tag = boat.Id;
 
                 Style borderStyle = new Style(typeof(Border));
                 borderStyle.Setters.Add(new Setter(Border.CornerRadiusProperty, new CornerRadius(15)));
 
                 button.Resources.Add(typeof(Border), borderStyle);
-                
+
                 button.Click += (sender, e) =>
                 {
                     button.Background = CustomColors.ButtonBackgroundColor;
@@ -289,8 +301,6 @@ namespace RoeiVerenigingWPF.Pages
                     {
                         _selectedBoat = selectedBoat;
                     }
-
-                    
                 };
 
                 BoatContentStackPanel.Children.Add(button);
@@ -299,7 +309,14 @@ namespace RoeiVerenigingWPF.Pages
 
         private void SaveButton_OnClick(object sender, RoutedEventArgs e)
         {
-            _reservationService.Create(_loggedInMember, _selectedBoat.Id, StartTime, EndTime );
+            if (_reservationService.GetReservations(_loggedInMember).Count >= 2)
+            {
+                // todo: show message
+            }
+            else
+            {
+                _reservationService.Create(_loggedInMember, _selectedBoat.Id, StartTime, EndTime);
+            }
         }
     }
 }

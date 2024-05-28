@@ -60,8 +60,13 @@
                             </Border>
                         </Border>
                     </Grid>
-                    <Grid Grid.Column="1" Grid.RowSpan="2" Grid.Row="2" Height="400" Name="TimeBlockGrid" Width="600" HorizontalAlignment="Center" VerticalAlignment="Top">
-                        <Border CornerRadius="30" BorderThickness="5"
+                    <Grid Grid.Column="1" Grid.RowSpan="2" Grid.Row="2" Height="600" Name="TimeBlockGrid" Width="600"
+                          HorizontalAlignment="Center" VerticalAlignment="Top">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="400" />
+                            <RowDefinition Height="200" />
+                        </Grid.RowDefinitions>
+                        <Border Grid.Row="0" CornerRadius="30" BorderThickness="5"
                                 BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}">
                             <Border CornerRadius="24" BorderThickness="8"
                                     BorderBrush="{x:Static local:CustomColors.TextBoxBackgroundColor}">
@@ -87,10 +92,14 @@
                                 </Grid>
                             </Border>
                         </Border>
+                        <TextBlock Grid.Row="1" Visibility="Hidden" Name="WatchOutTextBlock"
+                                   Text="Let op! Je hebt al 2 reserveringen staan en kan dus geen nieuwe aanmaken!"
+                                   HorizontalAlignment="Center" FontSize="24" TextWrapping="WrapWithOverflow"
+                                   Foreground="Red" />
                     </Grid>
 
                     <Grid Grid.Column="1" Grid.RowSpan="2" Grid.Row="2" Name="BoatGrid" Width="900" Height="600">
-                        <Border CornerRadius="30" BorderThickness="5"
+                        <Border CornerRadius="30" BorderThickness="5" Visibility="Hidden"
                                 BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}">
                             <Border CornerRadius="24" BorderThickness="8"
                                     BorderBrush="{x:Static local:CustomColors.TextBoxBackgroundColor}">
