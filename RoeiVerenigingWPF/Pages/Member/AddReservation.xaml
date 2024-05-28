@@ -60,6 +60,31 @@
                             </Border>
                         </Border>
                     </Grid>
+                    <Grid Grid.Column="1" Grid.RowSpan="2" Grid.Row="2" Name="BoatGrid" Width="900" Height="600">
+                        <Border CornerRadius="30" BorderThickness="5" 
+                                BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}">
+                            <Border CornerRadius="24" BorderThickness="8"
+                                    BorderBrush="{x:Static local:CustomColors.TextBoxBackgroundColor}">
+                                <Grid Background="{x:Static local:CustomColors.TextBoxBackgroundColor}">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="50" />
+                                        <RowDefinition Height="520" />
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Row="0" Text="Selecteer de boot waarmee je wil varen:"
+                                               FontSize="24"
+                                               HorizontalAlignment="Center"
+                                               Foreground="{x:Static local:CustomColors.SubHeaderColor}" />
+                                    <Grid Grid.Row="1">
+                                        <ScrollViewer VerticalScrollBarVisibility="Visible"
+                                                      HorizontalAlignment="Left">
+                                            <StackPanel x:Name="BoatContentStackPanel" CanVerticallyScroll="True"
+                                                        ScrollViewer.VerticalScrollBarVisibility="Visible" />
+                                        </ScrollViewer>
+                                    </Grid>
+                                </Grid>
+                            </Border>
+                        </Border>
+                    </Grid>
                     <Grid Grid.Column="1" Grid.RowSpan="2" Grid.Row="2" Height="600" Name="TimeBlockGrid" Width="600"
                           HorizontalAlignment="Center" VerticalAlignment="Top">
                         <Grid.RowDefinitions>
@@ -98,31 +123,7 @@
                                    Foreground="Red" />
                     </Grid>
 
-                    <Grid Grid.Column="1" Grid.RowSpan="2" Grid.Row="2" Name="BoatGrid" Width="900" Height="600">
-                        <Border CornerRadius="30" BorderThickness="5" Visibility="Hidden"
-                                BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}">
-                            <Border CornerRadius="24" BorderThickness="8"
-                                    BorderBrush="{x:Static local:CustomColors.TextBoxBackgroundColor}">
-                                <Grid Background="{x:Static local:CustomColors.TextBoxBackgroundColor}">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="50" />
-                                        <RowDefinition Height="520" />
-                                    </Grid.RowDefinitions>
-                                    <TextBlock Grid.Row="0" Text="Selecteer de boot waarmee je wil varen:"
-                                               FontSize="24"
-                                               HorizontalAlignment="Center"
-                                               Foreground="{x:Static local:CustomColors.SubHeaderColor}" />
-                                    <Grid Grid.Row="1">
-                                        <ScrollViewer VerticalScrollBarVisibility="Visible"
-                                                      HorizontalAlignment="Left">
-                                            <StackPanel x:Name="BoatContentStackPanel" CanVerticallyScroll="True"
-                                                        ScrollViewer.VerticalScrollBarVisibility="Visible" />
-                                        </ScrollViewer>
-                                    </Grid>
-                                </Grid>
-                            </Border>
-                        </Border>
-                    </Grid>
+
                     <Grid Grid.Row="3" Grid.Column="0" Width="400" Margin="30,30,30,0"
                           Background="{x:Static local:CustomColors.TextBoxBackgroundColor}">
                         <Border CornerRadius="30" BorderThickness="5"

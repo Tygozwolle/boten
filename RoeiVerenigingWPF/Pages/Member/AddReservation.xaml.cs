@@ -43,6 +43,7 @@ namespace RoeiVerenigingWPF.Pages
             _reservationsList = _reservationService.GetReservations();
             DataContext = this;
             CheckIfMemberHas2Reservations();
+            BoatGrid.Visibility = Visibility.Hidden;
         }
 
         private void CheckIfMemberHas2Reservations()
@@ -195,13 +196,15 @@ namespace RoeiVerenigingWPF.Pages
 
         private void NextButton_OnClick(object sender, RoutedEventArgs e)
         {
+            PopulateBoatGrid(_selectedDate, StartTime, EndTime);
+            
             TimeBlockGrid.Visibility = Visibility.Hidden;
             BoatGrid.Visibility = Visibility.Visible;
 
             NextButton.Visibility = Visibility.Hidden;
             SaveButton.Visibility = Visibility.Visible;
 
-            PopulateBoatGrid(_selectedDate, StartTime, EndTime);
+            
         }
 
         private void PopulateBoatGrid(DateTime selectedDate, DateTime startTime, DateTime endTime)
