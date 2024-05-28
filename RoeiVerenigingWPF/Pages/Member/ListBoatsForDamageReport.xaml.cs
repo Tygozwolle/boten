@@ -3,6 +3,7 @@ using RoeiVerenigingLibrary;
 using RoeiVerenigingWPF.Frames;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace RoeiVerenigingWPF.Pages
 {
@@ -18,20 +19,33 @@ namespace RoeiVerenigingWPF.Pages
             BoatService service = new BoatService(new BoatRepository());
             DataContext = this;
             MainWindow = mw;
-            boats = service.Getboats();
+            Boats = service.GetBoats();
         }
-        public List<Boat> boats { get; set; }
+        public List<Boat> Boats { get; set; }
         public MainWindow MainWindow { set; get; }
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private BoatService _service = new BoatService(new BoatRepository());
+
+        private void Grid_Click(object sender, MouseButtonEventArgs e)
         {
-            if (sender is Button)
+            if (sender is Grid)
             {
-                Button casted = sender as Button;
-                object command = casted.CommandParameter;
+                Grid casted = sender as Grid;
+                object command = casted.Tag;
                 int id = Int32.Parse(command.ToString());
 
                 MainWindow.MainContent.Navigate(new CreateDamageReport(MainWindow, id));
             }
+        }
+        private void ListView_Loaded(object sender, RoutedEventArgs e)
+        {
+            new Thread(async () =>
+            {
+                _service.GetImageBoats(Boats);
+                this.Dispatcher.Invoke(() =>
+                {
+                    ListView.Items.Refresh();
+                });
+            }).Start();
         }
     }
 }

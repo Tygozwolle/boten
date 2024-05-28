@@ -6,7 +6,7 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <UseWPF>true</UseWPF>
-        <UserSecretsId>20c5db6a-8708-4d27-b35a-1616f70ccc20</UserSecretsId>
+        <Configurations>Debug;Release;ConfigFileFilled</Configurations>
     </PropertyGroup>
 
     <ItemGroup>
@@ -21,55 +21,55 @@
     </ItemGroup>
 
     <ItemGroup>
-        <None Remove="Images\Icons\brokenbone.png"/>
+        <None Remove="Images\Icons\brokenbone.png" />
         <Content Include="Images\Icons\brokenbone.png">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
-        <None Remove="Images\Icons\calendar.png"/>
+        <None Remove="Images\Icons\calendar.png" />
         <Content Include="Images\Icons\calendar.png">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
-        <None Remove="Images\Icons\calendar-clock.png"/>
+        <None Remove="Images\Icons\calendar-clock.png" />
         <Content Include="Images\Icons\calendar-clock.png">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
-        <None Remove="Images\Icons\heart-crack.png"/>
+        <None Remove="Images\Icons\heart-crack.png" />
         <Content Include="Images\Icons\heart-crack.png">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
-        <None Remove="Images\Icons\log-out.png"/>
+        <None Remove="Images\Icons\log-out.png" />
         <Content Include="Images\Icons\log-out.png">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
-        <None Remove="Images\Icons\rectangle-ellipsis.png"/>
+        <None Remove="Images\Icons\rectangle-ellipsis.png" />
         <Content Include="Images\Icons\rectangle-ellipsis.png">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
-        <None Remove="Images\Icons\sailboat.png"/>
+        <None Remove="Images\Icons\sailboat.png" />
         <Content Include="Images\Icons\sailboat.png">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
-        <None Remove="Images\Icons\settings.png"/>
+        <None Remove="Images\Icons\settings.png" />
         <Content Include="Images\Icons\settings.png">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
-        <None Remove="Images\Icons\user-plus.png"/>
+        <None Remove="Images\Icons\user-plus.png" />
         <Content Include="Images\Icons\user-plus.png">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
-        <None Remove="Images\Icons\users.png"/>
+        <None Remove="Images\Icons\users.png" />
         <Content Include="Images\Icons\users.png">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
-        <None Remove="Images\Image_not_available.png"/>
+        <None Remove="Images\Image_not_available.png" />
         <Content Include="Images\Image_not_available.png">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
-        <None Remove="Images\logo.png"/>
+        <None Remove="Images\logo.png" />
         <Content Include="Images\logo.png">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
-        <None Remove="Images\twee-mensen-in-polyester-roeiboot.png"/>
+        <None Remove="Images\twee-mensen-in-polyester-roeiboot.png" />
         <Content Include="Images\twee-mensen-in-polyester-roeiboot.png">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>

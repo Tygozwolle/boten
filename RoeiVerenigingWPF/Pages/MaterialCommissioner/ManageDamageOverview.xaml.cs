@@ -1,10 +1,10 @@
-﻿
-using DataAccessLibrary;
+﻿using DataAccessLibrary;
 using RoeiVerenigingLibrary;
 using RoeiVerenigingLibrary;
 using RoeiVerenigingWPF.Frames;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace RoeiVerenigingWPF.Pages
 {
@@ -17,12 +17,12 @@ namespace RoeiVerenigingWPF.Pages
         {
             InitializeComponent();
             DataContext = this;
-            Loaded += loadedEvent;
+            Loaded += LoadedEvent;
             MainWindow = mw;
             Damages = _service.GetAll();
             GetImagesFromMail();
-            SetImages();
         }
+
         public MainWindow MainWindow { set; get; }
         public List<Damage> Damages { set; get; }
 
@@ -32,12 +32,12 @@ namespace RoeiVerenigingWPF.Pages
             task.Start();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Grid_Click(object sender, MouseButtonEventArgs e)
         {
-            if (sender is Button)
+            if (sender is Grid)
             {
-                Button casted = sender as Button;
-                object command = casted.CommandParameter;
+                Grid casted = sender as Grid;
+                object command = casted.Tag;
                 int id = Int32.Parse(command.ToString());
 
                 MainWindow.MainContent.Navigate(new ManageDamage(MainWindow, _service.GetById(id)));
@@ -46,33 +46,17 @@ namespace RoeiVerenigingWPF.Pages
             Damages.Count();
         }
 
-        private void SetImagesAsync()
+        //todo: Tygo will add the images async
+        private void ListView_Loaded(object sender, RoutedEventArgs e)
         {
-            Thread thread = new Thread(() =>
+            new Thread(async () =>
             {
-                SetImages();
-            });
-            thread.Start();
-        }
-
-        private void SetImages()
-        {
-            new Thread(() =>
-            {
-                foreach (Damage damage in Damages)
-                {
-                    Damage damageSave = damage;
-
-                    damage.Images = [_imageRepository.GetFirstImage(damageSave.Id)];
-                }
-                Dispatcher.Invoke(() =>
-                {
-                    ListView.Items.Refresh();
-                });
+                _service.AddFirstImageToClass(Damages, _imageRepository);
+                this.Dispatcher.Invoke(() => { ListView.Items.Refresh(); });
             }).Start();
         }
 
-        private void loadedEvent(object sender, RoutedEventArgs args)
+        private void LoadedEvent(object sender, RoutedEventArgs args)
         {
             //   SetImagesAsync();
         }

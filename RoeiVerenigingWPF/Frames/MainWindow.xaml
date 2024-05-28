@@ -35,5 +35,18 @@
             <Frame NavigationUIVisibility="Hidden" x:Name="MainContent" Grid.Row="1" Grid.Column="1"
                    Visibility="Hidden" />
         </Grid>
+        <Button x:Name="ManageApp" Grid.Row="6" Content="Beheer app" Width="275" Height="70"
+                Margin="20,40,20,20"
+                FontFamily="Franklin Gothic Medium" FontSize="36"
+                Foreground="{x:Static local:CustomColors.HeaderColor}"
+                Background="{x:Static local:CustomColors.ButtonBackgroundColor}"
+                BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}" HorizontalAlignment="Right"
+                VerticalAlignment="Bottom" Click="ManageApp_Click">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="15" />
+                </Style>
+            </Button.Resources>
+        </Button>
     </Grid>
 </Window>

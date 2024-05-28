@@ -19,6 +19,9 @@ namespace RoeiVerenigingWPF.Pages
         {
             InitializeComponent();
             _mainWindow = mainWindow;
+            _mainWindow.ManageApp.Content= "Beheer app";
+            _mainWindow.ManageApp.IsEnabled = true;
+            _mainWindow.ManageApp.Visibility = Visibility.Visible;
 #if !RELEASE
             DebugInlog();
 #endif
@@ -35,6 +38,8 @@ namespace RoeiVerenigingWPF.Pages
             try
             {
                 _mainWindow.LoggedInMember = service.Login(email, password);
+                _mainWindow.ManageApp.IsEnabled = false;
+                _mainWindow.ManageApp.Visibility = Visibility.Hidden;
             }
             catch (IncorrectEmailOrPasswordException e)
             {
@@ -57,6 +62,10 @@ namespace RoeiVerenigingWPF.Pages
 #if !RELEASE
         private void DebugInlog()
         {
+#if CONFIGFILEFILLED
+            Config.FillFromSecrets();
+#endif
+
 #if INGELOGD
         IConfigurationRoot config = new ConfigurationBuilder().AddUserSecrets<Login>().Build();
         Email.Text = config["USER:username"];

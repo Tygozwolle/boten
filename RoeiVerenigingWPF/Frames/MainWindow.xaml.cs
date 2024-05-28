@@ -5,6 +5,9 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Navigation;
+using DataAccessLibary;
+using RoeiVerenigingWPF.Pages.Admin;
+using System.Security.Principal;
 
 namespace RoeiVerenigingWPF.Frames
 {
@@ -21,6 +24,8 @@ namespace RoeiVerenigingWPF.Frames
             ButtonClass.MainWindow = this;
             HeaderClass.MainWindow = this;
             LoginContent.Navigate(new Login(this));
+            SetManage();
+
             MainContent.ContentRendered += MainContent_ContentRendered;
         }
 
@@ -41,6 +46,7 @@ namespace RoeiVerenigingWPF.Frames
                     HeaderClass.UserAdd_Button.Visibility = Visibility.Visible;
                     HeaderClass.Boat_Button.Visibility = Visibility.Visible;
                 }
+
                 if (_loggedInMember.Roles.Contains("materiaal_commissaris"))
                 {
                     HeaderClass.Boat_Button.Visibility = Visibility.Visible;
@@ -78,7 +84,6 @@ namespace RoeiVerenigingWPF.Frames
                     entry = MainContent.RemoveBackEntry();
                     RemoveAllHandlers.RemoveAllhandlersFromOpject(entry);
                 }
-
             }
         }
 
@@ -101,6 +106,7 @@ namespace RoeiVerenigingWPF.Frames
             }
             catch
             {
+                // ignored
             }
         }
 
@@ -111,6 +117,46 @@ namespace RoeiVerenigingWPF.Frames
             MainContent.Visibility = Visibility.Hidden;
             LoginContent.Visibility = Visibility.Visible;
             _loggedInMember = null;
+        }
+
+        private void ManageApp_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Login login = (Login)LoginContent.Content;
+                if (Config.ControlPassword == null || Config.ControlUsername == null || Config.ControlUsername == "" ||
+                    Config.ControlPassword == "")
+                {
+                    LoginContent.Navigate(new ManageApp(this));
+                    return;
+                }
+
+                var email = login.Email.Text;
+                var password = login.Password.Password;
+                if (password == Config.ControlPassword && email == Config.ControlUsername)
+                {
+                    LoginContent.Navigate(new ManageApp(this));
+                }
+            }
+            catch
+            {
+                Application.Current.Shutdown();
+            }
+        }
+
+        private void SetManage()
+        {
+            bool isElevated;
+            using (WindowsIdentity identity = WindowsIdentity.GetCurrent())
+            {
+                WindowsPrincipal principal = new WindowsPrincipal(identity);
+                isElevated = principal.IsInRole(WindowsBuiltInRole.Administrator);
+            }
+
+            if (isElevated)
+            {
+                LoginContent.Navigate(new ManageApp(this));
+            }
         }
     }
 }

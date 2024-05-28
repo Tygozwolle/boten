@@ -3,7 +3,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:RoeiVerenigingWPF="clr-namespace:RoeiVerenigingWPF" x:Class="RoeiVerenigingWPF.Pages.ManageDamageOverview"
+    xmlns:RoeiVerenigingWPF="clr-namespace:RoeiVerenigingWPF"
+    xmlns:local="clr-namespace:RoeiVerenigingWPF.helpers"
+    x:Class="RoeiVerenigingWPF.Pages.ManageDamageOverview"
     mc:Ignorable="d"
     Title="ManageDamageOverview" d:DesignHeight="450" d:DesignWidth="800">
     <Page.Resources>
@@ -25,8 +27,23 @@
         <Label Content="Schade meldingen" FontSize="30" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" />
 
         <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="4" MaxHeight="750px">
-            <ListView x:Name="ListView" ItemsSource="{Binding Damages}" Grid.IsSharedSizeScope="True"
-                      d:ItemsSource="{d:SampleData ItemCount=8}" ScrollViewer.VerticalScrollBarVisibility="Auto">
+            <ListView ItemsSource="{Binding Damages}" Grid.IsSharedSizeScope="True"
+                      d:ItemsSource="{d:SampleData ItemCount=8}" Name="ListView"
+                      ScrollViewer.VerticalScrollBarVisibility="Auto" Loaded="ListView_Loaded">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListViewItem">
+                                    <Border Background="{TemplateBinding Background}">
+                                        <ContentPresenter />
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+
+                </ListView.ItemContainerStyle>
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <UniformGrid Columns="2" />
@@ -34,22 +51,45 @@
                 </ListView.ItemsPanel>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Grid x:Name="ListViewGrit" Margin="50 20 50 0" Width="650" Height="200">
-                            <Button Click="Button_Click" CommandParameter="{Binding Id}">
-                                <Border BorderBrush="Black" BorderThickness="1" Width="650" Height="200">
+                        <Grid Background="Transparent" Margin="50 20 50 0" Width="650" Height="200"
+                              PreviewMouseLeftButtonDown="Grid_Click" Tag="{Binding Id}">
+                            <Grid.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="15" />
+                                </Style>
+                            </Grid.Resources>
+                            <Border CornerRadius="30" BorderThickness="5"
+                                    BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}">
+                                <Border CornerRadius="24" BorderThickness="8"
+                                        BorderBrush="{x:Static local:CustomColors.MainBackgroundColor}">
                                     <Grid>
-                                        <Image x:Name="DamageImage"
-                                               Source="{Binding Images, Converter={StaticResource ImageSourceConverter}}"
-                                               MaxHeight="100px"
-                                               MaxWidth="200px" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                                        <StackPanel Margin="110 0 5 0">
-                                            <TextBlock Text="{Binding Boat.Id, StringFormat=Boot: \{0\}}"
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel Grid.Column="0" Margin="15,0,0,0">
+                                            <TextBlock Text="{Binding Boat.Name}"
                                                        VerticalAlignment="Center" HorizontalAlignment="Left"
-                                                       FontSize="25" />
-                                            <TextBlock Text="{Binding Description, StringFormat=' \{0\}'}"
-                                                       VerticalAlignment="Center" HorizontalAlignment="Left"
-                                                       TextWrapping="Wrap" />
-                                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right">
+                                                       FontFamily="Franklin Gothic Medium" FontSize="32"
+                                                       Foreground="{x:Static local:CustomColors.HeaderColor}" />
+                                            <Image
+                                                x:Name="DamageImage"
+                                                Source="{Binding Images, Converter={StaticResource ImageSourceConverter}}"
+                                                MaxHeight="125px"
+                                                MaxWidth="125px"
+                                                HorizontalAlignment="Left" VerticalAlignment="Center" />
+                                        </StackPanel>
+                                        <TextBlock Grid.Column="1" Margin="15,5,0,0"
+                                                   Text="{Binding Description, StringFormat=' \{0\}'}"
+                                                   HorizontalAlignment="Left"
+                                                   FontFamily="Franklin Gothic Medium" FontSize="16"
+                                                   Foreground="{x:Static local:CustomColors.HeaderColor}"
+                                                   TextWrapping="Wrap" />
+                                        <StackPanel Grid.Column="2" Margin="0 0 15 0" HorizontalAlignment="Right">
+                                            <TextBlock FontFamily="Franklin Gothic Medium" FontSize="21"
+                                                       Foreground="{x:Static local:CustomColors.SubHeaderColor}"
+                                                       VerticalAlignment="Center" HorizontalAlignment="Right">
                                                 <TextBlock.Style>
                                                     <Style TargetType="{x:Type TextBlock}">
                                                         <Setter Property="Text"
@@ -65,7 +105,9 @@
                                                     </Style>
                                                 </TextBlock.Style>
                                             </TextBlock>
-                                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right">
+                                            <TextBlock FontFamily="Franklin Gothic Medium" FontSize="21"
+                                                       Foreground="{x:Static local:CustomColors.SubHeaderColor}"
+                                                       VerticalAlignment="Center" HorizontalAlignment="Right">
                                                 <TextBlock.Style>
                                                     <Style TargetType="{x:Type TextBlock}">
                                                         <Setter Property="Text"
@@ -84,7 +126,7 @@
                                         </StackPanel>
                                     </Grid>
                                 </Border>
-                            </Button>
+                            </Border>
                         </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>
