@@ -4,6 +4,7 @@ using RoeiVerenigingLibrary;
 using RoeiVerenigingWPF.Frames;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace RoeiVerenigingWPF.Pages
 {
@@ -18,7 +19,6 @@ namespace RoeiVerenigingWPF.Pages
             MainWindow = mw;
             Damages = _service.GetRelatedToUser(MainWindow.LoggedInMember);
             GetImagesFromMail();
-            SetImages();
         }
         public MainWindow MainWindow { set; get; }
         public List<Damage> Damages { set; get; }
@@ -34,32 +34,31 @@ namespace RoeiVerenigingWPF.Pages
         {
             MainWindow.MainContent.Navigate(new ListBoatsForDamageReport(MainWindow));
         }
-        private void Button_Click(object sender, RoutedEventArgs e)
+        
+        private void Grid_Click(object sender, MouseButtonEventArgs e)
         {
-            if (sender is Button)
+            if (sender is Grid)
             {
-                Button casted = sender as Button;
-                object command = casted.CommandParameter;
+                Grid casted = sender as Grid;
+                object command = casted.Tag;
                 int id = Int32.Parse(command.ToString());
-                //todo send user to view page(the one with the qr code)
+
                 MainWindow.MainContent.Navigate(new ViewDamage(MainWindow, _service.GetById(id)));
             }
         }
-        private void SetImages()
+        
+        //todo: Tygo will add the images async
+        private void ListView_Loaded(object sender, RoutedEventArgs e)
         {
-            new Thread(() =>
+            new Thread(async () =>
             {
-                foreach (Damage damage in Damages)
-                {
-                    Damage damageSave = damage;
-
-                    damage.Images = [_imageRepository.GetFirstImage(damageSave.Id)];
-                }
-                Dispatcher.Invoke(() =>
+                _service.AddFirstImageToClass(Damages, _imageRepository);
+                this.Dispatcher.Invoke(() =>
                 {
                     ListView.Items.Refresh();
                 });
             }).Start();
         }
-    }
+
+     }
 }

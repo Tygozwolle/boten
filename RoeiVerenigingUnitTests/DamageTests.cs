@@ -78,7 +78,7 @@ namespace RoeiVerenigingUnitTests
                     new Boat(1, true, 4, 1, "Anna"), "description1", false, true),
                 new Damage(2, member, new Boat(2, false, 2, 1, "Anna"), "description2", true, false)
             };
-            _mockDamageRepository.Setup(repo => repo.GetRelatedToUser(member.Id)).Returns(damageReports);
+            _mockDamageRepository.Setup(repo => repo.GetRelatedToUser(member)).Returns(damageReports);
 
             // Act
             var result = _damageService.GetRelatedToUser(member);
@@ -93,7 +93,7 @@ namespace RoeiVerenigingUnitTests
             // Arrange
             Member member = new Member(1, "John", "", "Doe", "john.doe@example.com", new List<string>(), 1);
             var damageReports = new List<Damage>();
-            _mockDamageRepository.Setup(repo => repo.GetRelatedToUser(member.Id)).Returns(damageReports);
+            _mockDamageRepository.Setup(repo => repo.GetRelatedToUser(member)).Returns(damageReports);
 
             // Act
             var result = _damageService.GetRelatedToUser(member);
