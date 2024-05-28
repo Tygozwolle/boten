@@ -176,12 +176,18 @@ namespace RoeiVerenigingWPF.Pages
             }
             else
             {
-                if (_selectedTimes.Count < 2 || _loggedInMember.Roles.Contains("beheerder") ||
-                    _loggedInMember.Roles.Contains("evenementen_commissaris"))
+                if (_selectedTimes.Count < 2)
                 {
                     _selectedButtons.Add(clickedButton);
                     _selectedTimes.Add(dateTime);
                     clickedButton.Background = CustomColors.ButtonBackgroundColor;
+
+                    if (_selectedTimes.First() > _selectedTimes.Last())
+                    {
+                        DateTime temp = _selectedTimes[0];
+                        _selectedTimes[0] = _selectedTimes.Last();
+                        _selectedTimes[_selectedTimes.Count - 1] = temp;
+                    }
 
                     if (_selectedTimes.Count == 2)
                     {
@@ -210,17 +216,17 @@ namespace RoeiVerenigingWPF.Pages
 
             if (_selectedTimes.Count == 1)
             {
-                StartTimeTextBlock.Text = _selectedTimes[0].ToString("t");
-                EndTimeTextBlock.Text = _selectedTimes[0].AddHours(1).ToString("t");
                 StartTime = _selectedTimes[0];
                 EndTime = _selectedTimes[0].AddHours(1);
+                StartTimeTextBlock.Text = StartTime.ToString("t");
+                EndTimeTextBlock.Text = EndTime.ToString("t");
             }
             else if (_selectedTimes.Count != 0)
             {
-                StartTimeTextBlock.Text = _selectedTimes.First().ToString("t");
-                EndTimeTextBlock.Text = _selectedTimes.Last().ToString("t");
                 StartTime = _selectedTimes[0];
                 EndTime = _selectedTimes[1].AddHours(1);
+                StartTimeTextBlock.Text = StartTime.ToString("t");
+                EndTimeTextBlock.Text = EndTime.ToString("t");
             }
             else
             {
