@@ -60,9 +60,11 @@
                                         <Image Source="/Images/Rightarrow.png" Height="50" MouseDown="NextImage" x:Name="___Next_" Grid.Row="1" Grid.Column="1" />
 
 
-                                        <TextBlock Text="Beschrijving" FontSize="24" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" />
+                                        <TextBlock Text="Beschrijving" FontSize="24" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" Foreground="{x:Static local:CustomColors.HeaderColor}"
+                                            FontFamily="Franklin Gothic Medium"/>
                                         <TextBox Name="Description" MinHeight="100" Grid.ColumnSpan="2" Margin="0,0,0,50"  Grid.Column="0" TextWrapping="Wrap" Text="" Grid.Row="3" 
-                                                 Background="{x:Static local:CustomColors.TextBoxBackgroundColor}"/>
+                                                 Background="{x:Static local:CustomColors.TextBoxBackgroundColor}" Foreground="{x:Static local:CustomColors.HeaderColor}"
+                                            FontFamily="Franklin Gothic Medium"/>
                                     </Grid>
                                 </Grid>
                             </Border>
@@ -132,8 +134,10 @@ BorderBrush="{x:Static local:CustomColors.TextBoxBackgroundColor}" Margin="0 0 0
                                             <ColumnDefinition/>
                                         </Grid.ColumnDefinitions>
 
-                                        <Label Content="Afgerond?" FontSize="20" Grid.Row="0"/>
-                                        <Label Grid.Row="1" x:Name="doneContent"/>
+                                        <Label Content="Afgerond?" FontSize="20" Grid.Row="0" Foreground="{x:Static local:CustomColors.HeaderColor}"
+                                            FontFamily="Franklin Gothic Medium"/>
+                                        <Label Grid.Row="1" x:Name="doneContent" Foreground="{x:Static local:CustomColors.HeaderColor}"
+                                            FontFamily="Franklin Gothic Medium"/>
                                     </Grid>
                                 </Grid>
                             </Border>

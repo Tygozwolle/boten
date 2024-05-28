@@ -58,7 +58,8 @@
                                         <Image Source="/Images/Rightarrow.png" Height="50" MouseDown="NextImage" x:Name="___Next_" Grid.Row="1" Grid.Column="1" />
 
 
-                                        <TextBlock Text="Beschrijving" FontSize="24" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center"/>
+                                        <TextBlock Text="Beschrijving" FontSize="24" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" 
+                                                   Foreground="{x:Static local:CustomColors.HeaderColor}" FontFamily="Franklin Gothic Medium"/>
                                         <TextBox Name="Description" MinHeight="100" Grid.ColumnSpan="2" Margin="0,0,0,20"  Grid.Column="0" TextWrapping="Wrap" Text="" Grid.Row="3" 
                                                  Background="{x:Static local:CustomColors.TextBoxBackgroundColor}"/>
 
@@ -132,9 +133,16 @@ BorderBrush="{x:Static local:CustomColors.TextBoxBackgroundColor}" Margin="0 0 0
                                             <ColumnDefinition/>
                                         </Grid.ColumnDefinitions>
 
-                                        <Label Content="Afgerond?" FontSize="20" Grid.Row="0" HorizontalAlignment="Center"/>
-                                        <CheckBox Name="Usable" Margin="10" Grid.Column="0" Grid.Row="4">Bruikbaar</CheckBox>
-                                        <CheckBox Name="Fixed" Margin="10" Grid.Column="1" Grid.Row="4">Gerepareerd</CheckBox>
+                                        <Label Content="Afgerond?" FontSize="20" Grid.Row="0" HorizontalAlignment="Center" Foreground="{x:Static local:CustomColors.HeaderColor}"
+                                            FontFamily="Franklin Gothic Medium" Grid.ColumnSpan="2"/>
+                                        <CheckBox Name="Usable" Margin="10" Grid.Column="0" Grid.Row="4" BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}"
+                                                  Foreground="{x:Static local:CustomColors.HeaderColor}"
+                                                  FontFamily="Franklin Gothic Medium">
+                                                  Bruikbaar</CheckBox>
+                                        <CheckBox Name="Fixed" Margin="10" Grid.Column="1" Grid.Row="4" BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}" 
+                                                  Foreground="{x:Static local:CustomColors.HeaderColor}"
+                                                  FontFamily="Franklin Gothic Medium">
+                                            Gerepareerd</CheckBox>
                                     </Grid>
                                 </Grid>
                             </Border>
@@ -169,82 +177,4 @@ BorderBrush="{x:Static local:CustomColors.TextBoxBackgroundColor}" Margin="0 0 0
             </Border>
         </Border>
     </Grid>
-    <!--<Grid Margin="150,35,150,150">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <TextBlock Text="{Binding Damage.Boat.Id, StringFormat='Schade melding boot: {0}'}" FontSize="30" Grid.Row="0"
-                   Grid.Column="0" Grid.ColumnSpan="2" />
-        <StackPanel Grid.Row="1" Grid.Column="0">
-            <Image x:Name="DamageImage" Margin="10"
-                   Source="/Images/Image_not_available.png" Height="400px"
-                   Width="400px" HorizontalAlignment="Center" VerticalAlignment="Center" />
-            <Grid HorizontalAlignment="Center">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto" />
-                    <ColumnDefinition Width="auto" />
-                </Grid.ColumnDefinitions>
-                <Button x:Name="___Prev_" Margin="0,0,5,0" Grid.Column="0" Click="PrevImage">
-                    <Image Source="/Images/prev.png" Height="50" />
-                </Button>
-                <Button x:Name="___Next_" Margin="5,0,0,0" Grid.Column="1" Click="NextImage">
-                    <Image Source="/Images/next.png" Height="50" />
-                </Button>
-            </Grid>
-
-        </StackPanel>
-
-        <StackPanel Grid.Row="1" Grid.Column="1" Margin="10">
-            <TextBlock Text="{Binding Damage.Boat.Seats, StringFormat='Aantal plaatsen: {0}'}" />
-            <TextBlock>
-                <TextBlock.Style>
-                    <Style TargetType="TextBlock">
-                        <Setter Property="Text" Value="{Binding Damage.Boat.CaptainSeat, StringFormat='Stuurman {0}'}" />
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding Damage.Boat.CaptainSeat}" Value="True">
-                                <Setter Property="Text" Value="Stuurman positie aanwezig" />
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding Damage.Boat.CaptainSeat}" Value="False">
-                                <Setter Property="Text" Value="Stuurman positie niet aanwezig" />
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </TextBlock.Style>
-            </TextBlock>
-            <TextBlock Text="{Binding Damage.Boat.Level, StringFormat='Benodiged niveau: {0}'}" />
-        </StackPanel>
-        <StackPanel Grid.Row="0" Grid.Column="2" Grid.RowSpan="5">
-            <Image x:Name="qrCodeImage" />
-            <TextBlock Text="Scan de qr-code om foto's toe te voegen." />
-            <TextBlock Text="Voeg de fotos als bijlage aan de mail en verander het onderwerp niet." />
-            <TextBlock Text="Het kan even duren voordat u foto is verwerkt." />
-            <Button x:Name="update_images" Content="refresh afbeeldingen" Click="update_images_Click" />
-        </StackPanel>
-        <TextBlock Text="Beschrijving" FontSize="24" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" />
-        <TextBox Name="Description" MinHeight="100" Margin="10" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" />
-        <Grid Margin="10" Grid.Row="4" Grid.Column="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <CheckBox Name="Usable" Margin="10" Grid.Column="0">Bruikbaar</CheckBox>
-            <CheckBox Name="Fixed" Margin="10" Grid.Column="1">Gerepareerd</CheckBox>
-        </Grid>
-        <Button Margin="10" Content="Opslaan" Click="Button_Click" Grid.Row="4" Grid.Column="1" />
-    </Grid>-->
 </Page>
