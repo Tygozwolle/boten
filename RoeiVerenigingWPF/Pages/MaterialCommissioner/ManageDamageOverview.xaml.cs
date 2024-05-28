@@ -22,7 +22,7 @@ namespace RoeiVerenigingWPF.Pages
             MainWindow = mw;
             Damages = _service.GetAll();
             GetImagesFromMail();
-          //  SetImages();
+         
         }
         public MainWindow MainWindow { set; get; }
         public List<Damage> Damages { set; get; }
@@ -58,23 +58,6 @@ namespace RoeiVerenigingWPF.Pages
                  });
              }).Start();
         }
-
-        // private void SetImages()
-        // {
-        //     new Thread(() =>
-        //     {
-        //         foreach (Damage damage in Damages)
-        //         {
-        //             Damage damageSave = damage;
-        //
-        //             damage.Images = [_imageRepository.GetFirstImage(damageSave.Id)];
-        //         }
-        //         Dispatcher.Invoke(() =>
-        //         {
-        //             ListView.Items.Refresh();
-        //         });
-        //     }).Start();
-        // }
 
         private void loadedEvent(object sender, RoutedEventArgs args)
         {
