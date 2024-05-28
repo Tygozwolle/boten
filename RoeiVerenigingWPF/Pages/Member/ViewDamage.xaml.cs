@@ -1,6 +1,5 @@
 ﻿using DataAccessLibrary;
 using RoeiVerenigingLibrary;
-using RoeiVerenigingLibrary;
 using RoeiVerenigingWPF.Frames;
 using RoeiVerenigingWPF.helpers;
 using System.Windows;
@@ -90,6 +89,12 @@ namespace RoeiVerenigingWPF.Pages
                     _mainWindow.MainContent.Navigate(new ViewDamage(_mainWindow, UpdatedDamage));
                 });
             }).Start();
+        }
+        private void update_content(object sender, RoutedEventArgs e)
+        {
+            Damage.Description = Description.Text;
+            _service.Update(Damage.Id, Damage.BoatFixed, Damage.Usable, Description.Text);
+            MessageBox.Show("Beschrijving is aangepast");
         }
     }
 }
