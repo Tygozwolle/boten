@@ -24,9 +24,9 @@
                            Content="Accounts"
                            FontFamily="Franklin Gothic Medium" FontSize="36"
                            Foreground="#0e5172" />
-                    <Grid Name="SearchBar" Grid.Row="1" Margin="0,0,0,10">
+                    <Grid Name="SearchBar" Grid.Row="1" Margin="0,0,0,10" Visibility="Hidden">
                         <Border BorderBrush="#1892cd" BorderThickness="1">
-                            <Grid Background="#bbe3f7">
+                            <Grid Background="#bbe3f7"  >
 
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="50" /> <!-- ID -->

@@ -1,5 +1,4 @@
-﻿
-using DataAccessLibrary;
+﻿using DataAccessLibrary;
 using RoeiVerenigingLibrary;
 using RoeiVerenigingLibrary;
 using RoeiVerenigingWPF.Frames;
@@ -28,7 +27,7 @@ namespace RoeiVerenigingWPF.Pages
             Usable.IsChecked = damage.Usable;
             Fixed.IsChecked = damage.BoatFixed;
             Description.Text = damage.Description;
-            qrCodeImage.Source = QrcodeMaker.qrcode(damage.Id);
+            qrCodeImage.Source = QrcodeMaker.Qrcode(damage.Id);
             _images = ImageConverter.ConvertList(Damage.Images);
             if (_images.Count != 0)
             {
@@ -40,10 +39,11 @@ namespace RoeiVerenigingWPF.Pages
                 ___Prev_.IsEnabled = false;
             }
         }
+
         private MainWindow _mainWindow { get; }
         public Damage Damage { set; get; }
 
-        private int imageIndex
+        private int ImageIndex
         {
             get => _imageIndex;
             set
@@ -65,25 +65,25 @@ namespace RoeiVerenigingWPF.Pages
 
         private void NextImage(object sender, RoutedEventArgs e)
         {
-            imageIndex++;
-            DamageImage.Source = _images[imageIndex];
+            ImageIndex++;
+            DamageImage.Source = _images[ImageIndex];
         }
 
         private void PrevImage(object sender, RoutedEventArgs e)
         {
-            imageIndex--;
-            DamageImage.Source = _images[imageIndex];
+            ImageIndex--;
+            DamageImage.Source = _images[ImageIndex];
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            bool _fixed = false;
-            bool _usable = false;
+            bool boatFixed = false;
+            bool usable = false;
             if (Fixed.IsChecked == true)
-                _fixed = true;
+                boatFixed = true;
             if (Usable.IsChecked == true)
-                _usable = true;
-            _service.Update(Damage.Id, _fixed, _usable, Description.Text);
+                usable = true;
+            _service.Update(Damage.Id, boatFixed, usable, Description.Text);
             _mainWindow.MainContent.Navigate(new ManageDamageOverview(_mainWindow));
         }
 
@@ -94,11 +94,11 @@ namespace RoeiVerenigingWPF.Pages
             new Thread(() =>
             {
                 EmailToDb.GetImagesFromEmail(_imageRepository);
-                Damage UpdatedDamage = _service.GetById(Damage.Id);
+                Damage updatedDamage = _service.GetById(Damage.Id);
                 Dispatcher.Invoke(() =>
                 {
                     Mouse.OverrideCursor = null;
-                    _mainWindow.MainContent.Navigate(new ManageDamage(_mainWindow, UpdatedDamage));
+                    _mainWindow.MainContent.Navigate(new ManageDamage(_mainWindow, updatedDamage));
                 });
             }).Start();
         }
