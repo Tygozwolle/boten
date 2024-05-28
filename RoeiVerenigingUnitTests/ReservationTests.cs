@@ -14,14 +14,14 @@ namespace RoeiVerenigingUnitTests
             var endTime = DateTime.Now.AddHours(1);
             //Arrange
             Member member = new Member(1, "simon", "van den", "Berg", "simon@windesheim.nl", new List<string>(), 1);
-            var reservationRepository = new Mock<IReservationRepository>();
+            var ReservationRepository = new Mock<IReservationRepository>();
             Reservation reservation = new Reservation(member, 4, startTime, endTime);
-            reservationRepository
+            ReservationRepository
                 .Setup(x => x.CreateReservation(It.IsAny<Member>(), It.IsAny<int>(), It.IsAny<DateTime>(),
                     It.IsAny<DateTime>())).Returns(reservation);
-            ReservationService reservationService = new ReservationService(reservationRepository.Object);
+            ReservationService ReservationService = new ReservationService(ReservationRepository.Object);
             //Act
-            Reservation result = reservationService.Create(member, 4, startTime, endTime);
+            Reservation result = ReservationService.Create(member, 4, startTime, endTime);
             //Assert
             Assert.That(Equals(result, reservation));
         }
@@ -57,6 +57,7 @@ namespace RoeiVerenigingUnitTests
         }
 
         [Test]
+
         public void ReservationMaxTwoHours()
         {
             var start = DateTime.Now.AddMinutes(1);
@@ -113,8 +114,7 @@ namespace RoeiVerenigingUnitTests
                 new DateTime(2024, 5, 7, 16, 0, 0));
 
             var reservationRepository = new Mock<IReservationRepository>();
-            reservationRepository
-                .Setup(x => x.ChangeReservation(1, member, 4, It.IsAny<DateTime>(), It.IsAny<DateTime>()))
+            reservationRepository.Setup(x => x.ChangeReservation(1, member, 4, It.IsAny<DateTime>(), It.IsAny<DateTime>()))
                 .Returns(updatedReservation);
             ReservationService reservationService = new ReservationService(reservationRepository.Object);
 

@@ -9,7 +9,7 @@
       mc:Ignorable="d"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ManageBoatList" Initialized="Page_Initialized">
-    <Page.Resources>
+ <Page.Resources>
         <roeiVerenigingWpf:SingleStreamImageConverter x:Key="SingleStreamImageConverter" />
     </Page.Resources>
     <Grid>
@@ -26,23 +26,20 @@
 
         <!-- Titel -->
 
-        <!-- <Label Content="Boten" FontSize="30" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="1" /> -->
-        <Button Grid.Row="0" Grid.ColumnSpan="4" Grid.Column="0" Name="AddBoat" Content="Boot aanmaken" Width="200"
-                Height="70"
-                Margin="10,10,20,20"
-                FontFamily="Franklin Gothic Medium" FontSize="24"
-                Foreground="{x:Static helpers:CustomColors.HeaderColor}"
-                Background="{x:Static helpers:CustomColors.ButtonBackgroundColor}"
-                BorderBrush="{x:Static helpers:CustomColors.OutsideBorderColor}"
-                Click="Button_Create_Click">
-            <Button.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="15" />
-                </Style>
-            </Button.Resources>
-        </Button>
+            <!-- <Label Content="Boten" FontSize="30" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="1" /> -->
+            <Button Grid.Row="0" Grid.ColumnSpan="4" Grid.Column="0" Name="AddBoat" Content="Boot aanmaken" Width="200" Height="70"
+                    Margin="10,10,20,20"
+                    FontFamily="Franklin Gothic Medium" FontSize="24" Foreground="{x:Static helpers:CustomColors.HeaderColor}" Background="{x:Static helpers:CustomColors.ButtonBackgroundColor}"
+                    BorderBrush="{x:Static helpers:CustomColors.OutsideBorderColor}"
+                    Click="Button_Create_Click">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="15" />
+                    </Style>
+                </Button.Resources>
+            </Button>
 
-        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="4" MaxHeight="750px">
+    <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="4" MaxHeight="750px">
             <ListView ItemsSource="{Binding Boats}" Grid.IsSharedSizeScope="True"
                       d:ItemsSource="{d:SampleData ItemCount=8}" Name="ListView"
                       ScrollViewer.VerticalScrollBarVisibility="Auto" Loaded="ListView_Loaded">

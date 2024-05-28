@@ -2,54 +2,53 @@
 using DataAccessLibrary;
 using RoeiVerenigingLibrary;
 using System.Windows.Controls;
+using DataAccessLibrary;
 using Microsoft.Win32;
+using RoeiVerenigingLibrary;
 using RoeiVerenigingLibrary.Exceptions;
 using RoeiVerenigingWPF.Frames;
 using RoeiVerenigingWPF.helpers;
+using System.DirectoryServices.ActiveDirectory;
 using System.IO;
+using System.Windows.Media.Imaging;
 
 namespace RoeiVerenigingWPF.Pages.Admin
 {
     public partial class ManageBoat : Page
     {
         private MainWindow _mainWindow;
-        private bool _edit;
-        private Boat _boat;
-        private bool _imageChanged = false;
-        private Stream _imageStream;
-
+        private bool Eddit;
+        private Boat boat;
+        private bool ImageChanged = false;
+        private Stream ImageStream;
         public ManageBoat(MainWindow mainWindow, Boat boat)
         {
             _mainWindow = mainWindow;
             InitializeComponent();
-            
-            _boat = boat;
+            this.boat = boat;
             Name.Text = boat.Name;
             Description.Text = boat.Description;
             Seats.Text = boat.Seats.ToString();
             Level.Text = boat.Level.ToString();
             Delete_Button.Visibility = Visibility.Visible;
             Captain.IsChecked = boat.CaptainSeat;
-            
-            _edit = true;
-            ButtonEditCreate.Content = "Opslaan";
-            HeaderBoat.Content = "Boot aanpassen";
-            TextBlockBoat.Text = "Wijzig hier de informatie van de boot.";
-            if (boat.Image != null)
-            {
-                Image.Source = ImageConverter.Convert(boat.Image);
-            }
+            Eddit = true;
+                ButtonEditCreate.Content = "Opslaan";
+                HeaderBoat.Content = "Boot aanpassen";
+                TextBlockBoat.Text = "Wijzig hier de informatie van de boot.";
+                if (boat.Image != null) 
+                {
+                    Image.Source = ImageConverter.Convert(boat.Image);
+                }
         }
-
         public ManageBoat(MainWindow mainWindow)
         {
             _mainWindow = mainWindow;
-
+           
             InitializeComponent();
             Delete_Button.Visibility = Visibility.Hidden;
             Captain.IsChecked = false;
         }
-
         private void ToggleButtonClick(object sender, RoutedEventArgs e)
         {
             if (Captain.IsChecked == true)
@@ -61,50 +60,43 @@ namespace RoeiVerenigingWPF.Pages.Admin
                 Captain.Content = "Stuurman afwezig";
             }
         }
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             BoatService service = new BoatService(new BoatRepository());
             try
             {
                 string name = Name.Text;
-                string description = Description.Text;
+                string discription = Description.Text;
                 string seats = Seats.Text;
                 string level = Level.Text;
                 bool captain = Captain.IsPressed;
                 Boat createdBoat;
-                if (_edit)
+                if (Eddit)
                 {
-                    _boat = service.Update(_mainWindow.LoggedInMember, _boat, name, description, Int32.Parse(seats),
-                        captain, Int32.Parse(level));
-                    if (_imageChanged)
+                    boat = service.Update(_mainWindow.LoggedInMember, boat, name, discription, Int32.Parse(seats), captain, Int32.Parse(level));
+                    if (ImageChanged)
                     {
-                        service.UpdateImage(_mainWindow.LoggedInMember, _boat, _imageStream);
+                        service.UpdateImage(_mainWindow.LoggedInMember,boat, ImageStream);
                     }
-
-                    if (_boat != null)
+                    if (boat != null)
                     {
                         MessageBox.Show(
-                            $"{_boat.Name} {_boat.Description} {_boat.Level} is aangepast met bootnummer {_boat.Id}");
+                            $"{boat.Name} {boat.Description} {boat.Level} is aangepast met bootnummer {boat.Id}");
                     }
-
                     _mainWindow.MainContent.Navigate(new ManageBoatList(_mainWindow));
                 }
                 else
                 {
-                    createdBoat = service.Create(_mainWindow.LoggedInMember, name, description, Int32.Parse(seats),
-                        captain, Int32.Parse(level));
-                    if (_imageChanged)
+                    createdBoat = service.Create(_mainWindow.LoggedInMember, name, discription, Int32.Parse(seats), captain, Int32.Parse(level));
+                    if (ImageChanged)
                     {
-                        service.AddImage(_mainWindow.LoggedInMember, createdBoat, _imageStream);
+                        service.AddImage(_mainWindow.LoggedInMember, createdBoat, ImageStream);
                     }
-
                     if (createdBoat != null)
                     {
                         MessageBox.Show(
                             $"{createdBoat.Name} {createdBoat.Description} {createdBoat.Level} is aangemaakt met bootnummer {createdBoat.Id}");
                     }
-
                     _mainWindow.MainContent.Navigate(new ManageBoatList(_mainWindow));
                 }
             }
@@ -124,15 +116,15 @@ namespace RoeiVerenigingWPF.Pages.Admin
             {
                 MessageBox.Show(ex.Message);
             }
-        }
+
+            }
 
         private void ButtonDelete_Click(object sender, RoutedEventArgs e)
         {
             BoatService service = new BoatService(new BoatRepository());
-            service.Delete(_mainWindow.LoggedInMember, _boat);
+            service.Delete(_mainWindow.LoggedInMember, boat);
             _mainWindow.MainContent.Navigate(new ManageBoatList(_mainWindow));
         }
-
         private void ButtonUpload_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -147,17 +139,17 @@ namespace RoeiVerenigingWPF.Pages.Admin
                     {
                         if (stream != null)
                         {
-                            Stream compressedStream = ResizeImage.ResizeTheImage(stream, 500, 500);
+                            Stream compressedStream = RisizeImage.ResizeImage(stream, 500, 500);
                             Image.Source = ImageConverter.Convert(compressedStream);
-                            _imageStream = compressedStream;
-                            _imageChanged = true;
+                            ImageStream = compressedStream;
+                            ImageChanged = true;
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                // ignored
+                
             }
         }
     }

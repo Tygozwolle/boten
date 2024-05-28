@@ -84,8 +84,7 @@ namespace RoeiVerenigingWPF.Pages
 
 
                 //run the update methods from the service
-                Member updatedMember = _service.Update(_mainWindow.LoggedInMember, _memberId, firstName, infix,
-                    lastName,
+                Member updatedMember = _service.Update(_mainWindow.LoggedInMember, _memberId, firstName, infix, lastName,
                     email, level
                 );
                 _service.SetRoles(_memberId, selectedRoles);

@@ -29,7 +29,7 @@ namespace RoeiVerenigingWPF.Pages
             Damage = damage;
             Description.Text = damage.Description;
             _images = ImageConverter.ConvertList(Damage.Images);
-            qrCodeImage.Source = QrcodeMaker.Qrcode(damage.Id);
+            qrCodeImage.Source = QrcodeMaker.qrcode(damage.Id);
             if (_images.Count != 0)
             {
                 DamageImage.Source = _images[0];

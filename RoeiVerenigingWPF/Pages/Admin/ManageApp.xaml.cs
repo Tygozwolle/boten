@@ -1,7 +1,21 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Reflection;
+using System.Security.Permissions;
 using System.Security.Principal;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 using DataAccessLibary;
 using RoeiVerenigingWPF.Frames;
 
@@ -70,14 +84,14 @@ namespace RoeiVerenigingWPF.Pages.Admin
             if (!isElevated)
             {
                 StartNewProcessAll();
-                Application.Current.Shutdown();
+               Application.Current.Shutdown();
+
             }
         }
 
         private void Change(object sender, RoutedEventArgs e)
         {
-            var valid = TestConnection.TestString(DBUserName.Text, DBPassword.Password, DBAdress.Text, DBPort.Text,
-                out string errorMassage);
+            var valid = TestConection.TestString(DBUserName.Text, DBPassword.Password, DBAdress.Text, DBPort.Text, out string errorMassage);
             if (valid)
             {
                 MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show(
@@ -104,6 +118,7 @@ namespace RoeiVerenigingWPF.Pages.Admin
                     "Database instellingen incorrect", System.Windows.MessageBoxButton.YesNo);
                 if (messageBoxResult == MessageBoxResult.Yes)
                 {
+
                     Config.SetControlUsername(Email.Text);
                     Config.SetControlPassword(Password.Password);
                 }
@@ -112,27 +127,29 @@ namespace RoeiVerenigingWPF.Pages.Admin
                     return;
                 }
             }
+
+            
         }
 
         static void StartNewProcessAll()
         {
             ProcessStartInfo startInfo = new ProcessStartInfo
             {
-                FileName = Process.GetCurrentProcess().MainModule.FileName,
+                FileName = System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName,
                 Arguments = $"UpdateAll",
                 UseShellExecute = true,
                 CreateNoWindow = false,
             };
             startInfo.Verb = "runas";
-
+            
             using (Process process = new Process())
             {
                 process.StartInfo = startInfo;
                 process.Start();
             }
-
             Thread.Sleep(1000);
             Application.Current.Shutdown();
         }
+
     }
 }

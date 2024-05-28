@@ -19,7 +19,7 @@ namespace RoeiVerenigingWPF.Pages
             BoatService service = new BoatService(new BoatRepository());
             DataContext = this;
             MainWindow = mw;
-            Boats = service.GetBoats();
+            Boats = service.Getboats();
         }
         public List<Boat> Boats { get; set; }
         public MainWindow MainWindow { set; get; }

@@ -5,18 +5,19 @@ using System.Drawing;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
+using Image = System.Windows.Controls.Image;
 
 namespace RoeiVerenigingWPF.Components
 {
     public partial class Header : UserControl
     {
+
         public Header()
         {
             InitializeComponent();
             DataContext = this;
             LoadButtonIcons();
         }
-
         public MainWindow MainWindow { set; get; }
 
         private void LoadButtonIcons()
@@ -24,8 +25,7 @@ namespace RoeiVerenigingWPF.Components
             UserAdd_Icon.Source = new BitmapImage(new Uri("/Images/Icons/user-plus.png", UriKind.Relative));
             Users_Icon.Source = new BitmapImage(new Uri("/Images/Icons/users.png", UriKind.Relative));
             Settings_Icon.Source = new BitmapImage(new Uri("/Images/Icons/settings.png", UriKind.Relative));
-            PasswordChange_Icon.Source =
-                new BitmapImage(new Uri("/Images/Icons/rectangle-ellipsis.png", UriKind.Relative));
+            PasswordChange_Icon.Source = new BitmapImage(new Uri("/Images/Icons/rectangle-ellipsis.png", UriKind.Relative));
             LogOut_Icon.Source = new BitmapImage(new Uri("/Images/Icons/log-out.png", UriKind.Relative));
             Boat_Icon.Source = new BitmapImage(new Uri("/Images/Icons/sailboatWhite.png", UriKind.Relative));
         }

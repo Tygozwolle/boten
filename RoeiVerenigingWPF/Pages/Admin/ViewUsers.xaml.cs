@@ -39,7 +39,6 @@ namespace RoeiVerenigingWPF.Pages
             _memberList = service.GetMembers();
             PopulateUserList(_memberList);
         }
-
         public Member SelectedMember { get; set; }
 
         public void PopulateUserList(List<Member> memberList)
@@ -211,8 +210,7 @@ namespace RoeiVerenigingWPF.Pages
                             break;
                         case "SearchInfix":
                             selectedMemberList = _memberList
-                                .Where(member =>
-                                    member.Infix != null && member.Infix.ToString().Contains(selectedTextbox.Text))
+                                .Where(member => member.Infix != null && member.Infix.ToString().Contains(selectedTextbox.Text))
                                 .ToList();
                             break;
                         case "SearchLastName":
@@ -256,3 +254,281 @@ namespace RoeiVerenigingWPF.Pages
         }
     }
 }
+
+/* Extra xaml shit:
+
+ // public void SortMember(object sender, RoutedEventArgs routedEventArgs)
+        // {
+        //     try
+        //     {
+        //         ContextMenu sendercast = (System.Windows.Controls.ContextMenu)sender;
+        //         string[] validStrings = { "Id", "FirstName", "LastName", "Email" };
+        //         if (validStrings.Contains(sendercast.Name))
+        //         {
+        //             MenuItem routedEventArgsCast = (MenuItem)routedEventArgs.Source;
+        //             if (routedEventArgsCast.Header.ToString() == "Ascending")
+        //             {
+        //                 UserList.Items.SortDescriptions.Clear();
+        //                 UserList.Items.SortDescriptions.Add(new SortDescription(sendercast.Name,
+        //                     ListSortDirection.Ascending));
+        //             }
+        //             else
+        //             {
+        //                 UserList.Items.SortDescriptions.Clear();
+        //                 UserList.Items.SortDescriptions.Add(new SortDescription(sendercast.Name,
+        //                     ListSortDirection.Descending));
+        //             }
+        //         }
+        //     }
+        //     catch (Exception e)
+        //     {
+        //         Debug.WriteLine(e);
+        //     }
+        // }
+        //
+        // public void UpdateFilter(object sender, RoutedEventArgs routedEventArgs)
+        // {
+        //     CollectionViewSource.GetDefaultView(UserList.ItemsSource).Refresh();
+        // }
+
+        // private bool Filter(object item)
+        // {
+        //     List<bool> result = new List<bool>();
+        //     // filter ID
+        //     if (String.IsNullOrEmpty(IdFilter.Text))
+        //     {
+        //         result.Add(true);
+        //     }
+        //     else
+        //     {
+        //         result.Add(((item as Member).Id.ToString()
+        //             .IndexOf($"{IdFilter.Text}", StringComparison.OrdinalIgnoreCase) >= 0));
+        //     }
+        //
+        //     //Filter FirstName
+        //     if (String.IsNullOrEmpty(FirstNameFilter.Text))
+        //     {
+        //         result.Add(true);
+        //     }
+        //     else
+        //     {
+        //         result.Add(((item as Member).FirstName.IndexOf($"{FirstNameFilter.Text}",
+        //             StringComparison.OrdinalIgnoreCase) >= 0));
+        //     }
+        //
+        //     //Filter LastName
+        //     if (String.IsNullOrEmpty(LastNameFilter.Text))
+        //     {
+        //         result.Add(true);
+        //     }
+        //     else
+        //     {
+        //         result.Add(((item as Member).LastName.IndexOf($"{LastNameFilter.Text}",
+        //             StringComparison.OrdinalIgnoreCase) >= 0));
+        //     }
+        //
+        //     //Filter Email
+        //     if (String.IsNullOrEmpty(EmailFilter.Text))
+        //     {
+        //         result.Add(true);
+        //     }
+        //     else
+        //     {
+        //         result.Add(((item as Member).Email.IndexOf($"{EmailFilter.Text}", StringComparison.OrdinalIgnoreCase) >=
+        //                     0));
+        //     }
+        //
+        //     //Filter Roles
+        //     if (String.IsNullOrEmpty(RolesFilter.Text))
+        //     {
+        //         result.Add(true);
+        //     }
+        //     else
+        //     {
+        //         result.Add(((item as Member).RolesString.IndexOf($"{RolesFilter.Text}",
+        //             StringComparison.OrdinalIgnoreCase) >= 0));
+        //     }
+        //
+        //     return !result.Contains(false);
+        // }
+
+
+ <!-- <StackPanel Background="White"> -->
+                <!--     <ListView x:Name="UserList" ItemsSource="{Binding _memberList}" BorderBrush="Transparent" -->
+                <!--               SelectedItem="{Binding SelectedMember}" -->
+                <!--               Margin="40,20,40,20"> -->
+                <!-- -->
+                <!--         <ListView.Resources> -->
+                <!--             ~1~ Modern style for GridViewColumnHeader @1@ -->
+                <!--             <Style TargetType="GridViewColumnHeader"> -->
+                <!--                 <Setter Property="HorizontalContentAlignment" Value="Left" /> -->
+                <!--                 <Setter Property="Padding" Value="10" /> -->
+                <!--                 <Setter Property="Background" Value="#1892cd" /> -->
+                <!--                 <Setter Property="Foreground" Value="#e8f6fc" /> -->
+                <!--                 <Setter Property="FontWeight" Value="Bold" /> -->
+                <!--                 <Setter Property="FontSize" Value="14" /> -->
+                <!--             </Style> -->
+                <!-- -->
+                <!--             ~1~ Modern style for ListViewItem @1@ -->
+                <!--             <Style TargetType="ListViewItem"> -->
+                <!--                 <Setter Property="HorizontalContentAlignment" Value="Stretch" /> -->
+                <!--                 <Setter Property="Padding" Value="10" /> -->
+                <!--                 <Setter Property="Margin" Value="2" /> -->
+                <!--                 <Setter Property="Background" Value="#e8f6fc" /> -->
+                <!--                 <Setter Property="BorderBrush" Value="#031017" /> -->
+                <!--                 <Setter Property="BorderThickness" Value="0,0,0,1" /> -->
+                <!--                 <Setter Property="FontSize" Value="14" /> -->
+                <!--                 <Style.Triggers> -->
+                <!--                     <Trigger Property="IsMouseOver" Value="True"> -->
+                <!--                         <Setter Property="Background" Value="#e8f6fc" /> -->
+                <!--                     </Trigger> -->
+                <!--                     <Trigger Property="IsSelected" Value="True"> -->
+                <!--                         <Setter Property="Background" Value="#007ACC" /> -->
+                <!--                         <Setter Property="Foreground" Value="White" /> -->
+                <!--                     </Trigger> -->
+                <!--                 </Style.Triggers> -->
+                <!--             </Style> -->
+                <!-- -->
+                <!--             ~1~ Add placeholder text functionality @1@ -->
+                <!--             <Style TargetType="TextBox"> -->
+                <!--                 <Setter Property="Template"> -->
+                <!--                     <Setter.Value> -->
+                <!--                         <ControlTemplate TargetType="TextBox"> -->
+                <!--                             <Grid> -->
+                <!--                                 <TextBox x:Name="textBox" Text="{TemplateBinding Text}" -->
+                <!--                                          Background="{TemplateBinding Background}" -->
+                <!--                                          BorderBrush="{TemplateBinding BorderBrush}" -->
+                <!--                                          BorderThickness="{TemplateBinding BorderThickness}" -->
+                <!--                                          Foreground="{TemplateBinding Foreground}" /> -->
+                <!--                                 <TextBlock x:Name="placeholderTextBlock" -->
+                <!--                                            Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Tag}" -->
+                <!--                                            Foreground="Gray" Margin="5,0,0,0" IsHitTestVisible="False" -->
+                <!--                                            VerticalAlignment="Center" /> -->
+                <!--                             </Grid> -->
+                <!--                             <ControlTemplate.Triggers> -->
+                <!--                                 <Trigger Property="Text" Value=""> -->
+                <!--                                     <Setter TargetName="placeholderTextBlock" Property="Visibility" -->
+                <!--                                             Value="Visible" /> -->
+                <!--                                 </Trigger> -->
+                <!--                                 <Trigger Property="Text" Value="{x:Null}"> -->
+                <!--                                     <Setter TargetName="placeholderTextBlock" Property="Visibility" -->
+                <!--                                             Value="Visible" /> -->
+                <!--                                 </Trigger> -->
+                <!--                                 <Trigger Property="Text" Value="{x:Static sys:String.Empty}"> -->
+                <!--                                     <Setter TargetName="placeholderTextBlock" Property="Visibility" -->
+                <!--                                             Value="Visible" /> -->
+                <!--                                 </Trigger> -->
+                <!--                                 <Trigger Property="Text" Value="*"> -->
+                <!--                                     <Setter TargetName="placeholderTextBlock" Property="Visibility" -->
+                <!--                                             Value="Collapsed" /> -->
+                <!--                                 </Trigger> -->
+                <!--                             </ControlTemplate.Triggers> -->
+                <!--                         </ControlTemplate> -->
+                <!--                     </Setter.Value> -->
+                <!--                 </Setter> -->
+                <!--             </Style> -->
+                <!--         </ListView.Resources> -->
+                <!-- -->
+                <!--         <ListView.View> -->
+                <!--             <GridView> -->
+                <!--                 <GridViewColumn Header="ID" DisplayMemberBinding="{Binding Id}" Width="40" /> -->
+                <!--                 <GridViewColumn Header="First Name" DisplayMemberBinding="{Binding FirstName}" -->
+                <!--                                 Width="100" /> -->
+                <!--                 <GridViewColumn Header="Infix" DisplayMemberBinding="{Binding Infix}" -->
+                <!--                                 Width="70" /> -->
+                <!--                 <GridViewColumn Header="Last Name" DisplayMemberBinding="{Binding LastName}" -->
+                <!--                                 Width="150" /> -->
+                <!--                 <GridViewColumn Header="Email" DisplayMemberBinding="{Binding Email}" Width="200" /> -->
+                <!--                 <GridViewColumn Header="Roles" DisplayMemberBinding="{Binding RolesString}" Width="150" /> -->
+                <!--             </GridView> -->
+                <!--         </ListView.View> -->
+                <!--     </ListView> -->
+                <!-- </StackPanel> -->
+
+                <!-- <ListView Visibility="Hidden" x:Name="___UserList_" Margin="0,14,0,0" VerticalAlignment="Top" -->
+                <!--           d:ItemsSource="{d:SampleData ItemCount=5}" HorizontalAlignment="Center" Grid.Row="1" -->
+                <!--           ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible" -->
+                <!--           MaxHeight="700" SelectedItem="{Binding SelectedMember}"> -->
+                <!--     <ListView.View> -->
+                <!--         <GridView> -->
+                <!--             <GridViewColumn DisplayMemberBinding="{Binding Id}"> -->
+                <!--                 <GridViewColumnHeader> -->
+                <!--                     <StackPanel> -->
+                <!--                         <TextBlock Text="Id" MinWidth="60" /> -->
+                <!--                         <TextBox Name="IdFilter" TextChanged="UpdateFilter"></TextBox> -->
+                <!--                     </StackPanel> -->
+                <!--                     <GridViewColumnHeader.ContextMenu> -->
+                <!--                         <ContextMenu MenuItem.Click="SortMember" Name="Id"> -->
+                <!--                             <MenuItem Header="Ascending" /> -->
+                <!--                             <MenuItem Header="Descending" /> -->
+                <!--                         </ContextMenu> -->
+                <!--                     </GridViewColumnHeader.ContextMenu> -->
+                <!--                 </GridViewColumnHeader> -->
+                <!--             </GridViewColumn> -->
+                <!-- -->
+                <!--             <GridViewColumn DisplayMemberBinding="{Binding FirstName}"> -->
+                <!--                 <GridViewColumnHeader> -->
+                <!--                     <StackPanel> -->
+                <!--                         <TextBlock Text="FirstName" MinWidth="60" /> -->
+                <!--                         <TextBox Name="FirstNameFilter" TextChanged="UpdateFilter"></TextBox> -->
+                <!--                     </StackPanel> -->
+                <!--                     <GridViewColumnHeader.ContextMenu> -->
+                <!--                         <ContextMenu MenuItem.Click="SortMember" Name="FirstName"> -->
+                <!--                             <MenuItem Header="Ascending" /> -->
+                <!--                             <MenuItem Header="Descending" /> -->
+                <!--                         </ContextMenu> -->
+                <!--                     </GridViewColumnHeader.ContextMenu> -->
+                <!--                 </GridViewColumnHeader> -->
+                <!--             </GridViewColumn> -->
+                <!-- -->
+                <!--             <GridViewColumn Header="Infix" DisplayMemberBinding="{Binding  Infix}" /> -->
+                <!-- -->
+                <!--             <GridViewColumn DisplayMemberBinding="{Binding LastName}"> -->
+                <!--                 <GridViewColumnHeader> -->
+                <!--                     <StackPanel> -->
+                <!--                         <TextBlock Text="LastName" MinWidth="60" /> -->
+                <!--                         <TextBox Name="LastNameFilter" TextChanged="UpdateFilter"></TextBox> -->
+                <!--                     </StackPanel> -->
+                <!--                     <GridViewColumnHeader.ContextMenu> -->
+                <!--                         <ContextMenu MenuItem.Click="SortMember" Name="LastName"> -->
+                <!--                             <MenuItem Header="Ascending" /> -->
+                <!--                             <MenuItem Header="Descending" /> -->
+                <!--                         </ContextMenu> -->
+                <!--                     </GridViewColumnHeader.ContextMenu> -->
+                <!--                 </GridViewColumnHeader> -->
+                <!--             </GridViewColumn> -->
+                <!-- -->
+                <!--             <GridViewColumn DisplayMemberBinding="{Binding Email}"> -->
+                <!--                 <GridViewColumnHeader> -->
+                <!--                     <StackPanel> -->
+                <!--                         <TextBlock Text="Email" MinWidth="60" /> -->
+                <!--                         <TextBox Name="EmailFilter" TextChanged="UpdateFilter"></TextBox> -->
+                <!--                     </StackPanel> -->
+                <!--                     <GridViewColumnHeader.ContextMenu> -->
+                <!--                         <ContextMenu MenuItem.Click="SortMember" Name="Email"> -->
+                <!--                             <MenuItem Header="Ascending" /> -->
+                <!--                             <MenuItem Header="Descending" /> -->
+                <!--                         </ContextMenu> -->
+                <!--                     </GridViewColumnHeader.ContextMenu> -->
+                <!--                 </GridViewColumnHeader> -->
+                <!--             </GridViewColumn> -->
+                <!-- -->
+                <!--             <GridViewColumn DisplayMemberBinding="{Binding RolesString}"> -->
+                <!--                 <GridViewColumnHeader> -->
+                <!--                     <StackPanel> -->
+                <!--                         <TextBlock Text="Roles" MinWidth="60" /> -->
+                <!--                         <TextBox Name="RolesFilter" TextChanged="UpdateFilter"></TextBox> -->
+                <!--                     </StackPanel> -->
+                <!--                     <GridViewColumnHeader.ContextMenu> -->
+                <!--                         <ContextMenu MenuItem.Click="SortMember" Name="Roles"> -->
+                <!--                             <MenuItem Header="Ascending" /> -->
+                <!--                             <MenuItem Header="Descending" /> -->
+                <!--                         </ContextMenu> -->
+                <!--                     </GridViewColumnHeader.ContextMenu> -->
+                <!--                 </GridViewColumnHeader> -->
+                <!--             </GridViewColumn> -->
+                <!-- -->
+                <!--         </GridView> -->
+                <!--     </ListView.View> -->
+                <!-- </ListView> -->
+ */

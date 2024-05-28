@@ -9,15 +9,15 @@ namespace RoeiVerenigingWPF.Components
 {
     public partial class Buttons : UserControl
     {
+
         public Buttons()
         {
             InitializeComponent();
             ButtonsMenu_Loaded();
         }
-
         public MainWindow MainWindow { set; get; }
 
-        private void ButtonsMenu_Loaded()
+        public void ButtonsMenu_Loaded()
         {
             VerenigingsAfbeelding.Source =
                 new BitmapImage(new Uri("/Images/twee-mensen-in-polyester-roeiboot.png", UriKind.Relative));
@@ -45,7 +45,6 @@ namespace RoeiVerenigingWPF.Components
                         MainWindow.MainContent.Navigate(new ManageDamageOverview(MainWindow));
                         break;
                     }
-
                     MainWindow.MainContent.Navigate(new DamageOverview(MainWindow));
                     break;
 
@@ -67,25 +66,25 @@ namespace RoeiVerenigingWPF.Components
 
             switch (rectangle)
             {
-                case { }  when rectangle == BoatRectangle:
+                case Grid border when rectangle == BoatRectangle:
                     BoatRectangle.Visibility = Visibility.Visible;
                     DamageRectangle.Visibility = Visibility.Hidden;
                     EventsRectangle.Visibility = Visibility.Hidden;
                     ReservationRectangle.Visibility = Visibility.Hidden;
                     break;
-                case { } when rectangle == DamageRectangle:
+                case Grid border when rectangle == DamageRectangle:
                     BoatRectangle.Visibility = Visibility.Hidden;
                     DamageRectangle.Visibility = Visibility.Visible;
                     EventsRectangle.Visibility = Visibility.Hidden;
                     ReservationRectangle.Visibility = Visibility.Hidden;
                     break;
-                case { } when rectangle == EventsRectangle:
+                case Grid grid when rectangle == EventsRectangle:
                     BoatRectangle.Visibility = Visibility.Hidden;
                     DamageRectangle.Visibility = Visibility.Hidden;
                     EventsRectangle.Visibility = Visibility.Visible;
                     ReservationRectangle.Visibility = Visibility.Hidden;
                     break;
-                case { } when rectangle == ReservationRectangle:
+                case Grid grid when rectangle == ReservationRectangle:
                     BoatRectangle.Visibility = Visibility.Hidden;
                     DamageRectangle.Visibility = Visibility.Hidden;
                     EventsRectangle.Visibility = Visibility.Hidden;

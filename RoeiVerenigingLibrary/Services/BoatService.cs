@@ -2,22 +2,57 @@
 
 namespace RoeiVerenigingLibrary
 {
-    public class BoatService(IBoatRepository repository)
+    public class BoatService 
     {
-        public List<Boat>? GetBoats()
+        private readonly IBoatRepository _boatRepository;
+
+        public BoatService(IBoatRepository repository)
         {
-            return repository.GetBoats();
+            _boatRepository = repository;
+        }
+        public List<Boat>? Getboats()
+        {
+            List<Boat> boat;
+
+            boat = _boatRepository.Getboats();
+
+            return boat;
         }
 
         public Boat GetBoatById(int id)
         {
-            return repository.GetBoatById(id);
-        }
+            Boat boat;
 
-        public Boat Create(Member loggedInMember, string name, string description, int seats, bool captainSeat,
-            int level)
+            boat = _boatRepository.GetBoatById(id);
+
+            return boat;
+        }
+        public Boat Create(Member LogedInMember, string name, string description, int seats, bool captainSeat, int level)
         {
-            if (loggedInMember.Roles.Contains("beheerder") || loggedInMember.Roles.Contains("materiaal_commissaris"))
+            if (LogedInMember.Roles.Contains("beheerder") || LogedInMember.Roles.Contains("materiaal_commissaris"))
+            {
+                if (name.Length >= 1) {
+
+
+                    if (!(level >= 1 && level <= 10))
+                    {
+                        throw new IncorrectLevelException();
+                    }
+                    else
+                    {
+                        return _boatRepository.Create(name, description, seats, captainSeat, level);
+                    }
+
+                } else { throw new NameEmptyExeception(); }
+            }
+            else
+            {
+                throw new IncorrectRightsExeption();
+            }
+        }
+        public Boat Update(Member LogedInMember, Boat boat, string name, string description, int seats, bool captainSeat, int level)
+        {
+            if (LogedInMember.Roles.Contains("beheerder") || LogedInMember.Roles.Contains("materiaal_commissaris"))
             {
                 if (name.Length >= 1)
                 {
@@ -27,104 +62,69 @@ namespace RoeiVerenigingLibrary
                     }
                     else
                     {
-                        return repository.Create(name, description, seats, captainSeat, level);
+                        return _boatRepository.Update(boat, name, description, seats, captainSeat, level);
                     }
                 }
-                else
-                {
-                    throw new NameEmptyExeception();
-                }
+                else { throw new NameEmptyExeception(); }
             }
             else
             {
                 throw new IncorrectRightsExeption();
             }
         }
-
-        public Boat Update(Member loggedInMember, Boat boat, string name, string description, int seats,
-            bool captainSeat, int level)
+        
+        public void AddImage(Member LogedInMember, Boat boat, Stream stream)
         {
-            if (loggedInMember.Roles.Contains("beheerder") || loggedInMember.Roles.Contains("materiaal_commissaris"))
+            if (LogedInMember.Roles.Contains("beheerder")|| LogedInMember.Roles.Contains("materiaal_commissaris"))
             {
-                if (name.Length >= 1)
-                {
-                    if (!(level >= 1 && level <= 10))
-                    {
-                        throw new IncorrectLevelException();
-                    }
-                    else
-                    {
-                        return repository.Update(boat, name, description, seats, captainSeat, level);
-                    }
-                }
-                else
-                {
-                    throw new NameEmptyExeception();
-                }
+                _boatRepository.AddImage(boat, stream);
             }
             else
             {
                 throw new IncorrectRightsExeption();
             }
         }
-
-        public void AddImage(Member loggedInMember, Boat boat, Stream stream)
-        {
-            if (loggedInMember.Roles.Contains("beheerder") || loggedInMember.Roles.Contains("materiaal_commissaris"))
-            {
-                repository.AddImage(boat, stream);
-            }
-            else
-            {
-                throw new IncorrectRightsExeption();
-            }
-        }
-
         public void GetImageBoat(Boat boat)
         {
-            boat.Image = repository.GetImage(boat);
+            boat.Image = _boatRepository.GetImage(boat);
         }
-
         public void GetImageBoats(List<Boat> boats)
         {
             List<Task> tasks = new List<Task>(boats.Count);
             foreach (Boat boat in boats)
             {
-                Task task = new Task(() =>
-                {
-                    Boat save = boat;
-                    save.Image = repository.GetImage(save);
-                });
+               Task task = new  Task(() =>
+                    {
+                        Boat Save = boat;
+                        Save.Image = _boatRepository.GetImage(Save);
+                    });
                 task.Start();
                 tasks.Add(task);
             }
-
             Task.WaitAll(tasks.ToArray());
         }
-
-        public void Delete(Member loggedInMember, Boat boat)
+        public void Delete(Member LogedInMember, Boat boat)
         {
-            if (loggedInMember.Roles.Contains("beheerder") || loggedInMember.Roles.Contains("materiaal_commissaris"))
+            if (LogedInMember.Roles.Contains("beheerder")|| LogedInMember.Roles.Contains("materiaal_commissaris"))
             {
-                repository.Delete(boat);
+                _boatRepository.Delete(boat);
             }
             else
             {
                 throw new IncorrectRightsExeption();
             }
         }
-
-        public void UpdateImage(Member loggedInMember, Boat boat, Stream stream)
+        public void UpdateImage(Member LogedInMember, Boat boat, Stream stream)
         {
-            if (loggedInMember.Roles.Contains("beheerder") || loggedInMember.Roles.Contains("materiaal_commissaris"))
+            if (LogedInMember.Roles.Contains("beheerder")|| LogedInMember.Roles.Contains("materiaal_commissaris"))
             {
-                if (repository.GetImage(boat) != null)
+                if (_boatRepository.GetImage(boat) != null)
                 {
-                    repository.UpdateImage(boat, stream);
+                    _boatRepository.UpdateImage(boat, stream);
                 }
                 else
                 {
-                    repository.AddImage(boat, stream);
+                    _boatRepository.AddImage(boat, stream);
                 }
             }
             else

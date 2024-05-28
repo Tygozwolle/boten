@@ -1,13 +1,22 @@
 ﻿using MySqlConnector;
+using System;
+using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace DataAccessLibary
 {
-    public abstract class TestConnection
+    public abstract class TestConection
     {
-        public static bool TestString(string userName, string password, string adress, string port,
-            out string errorMassage)
+        public static bool TestString(string userName, string password, string adress, string port)
         {
-            errorMassage = "";
+            return TestString(userName, password, adress, port, out string error);
+        }
+        public static bool TestString(string userName, string password, string adress, string port, out string ErrorMassage)
+        {
+            ErrorMassage = "";
             try
             {
                 MySqlConnectionStringBuilder builder = new MySqlConnectionStringBuilder();
@@ -31,7 +40,7 @@ namespace DataAccessLibary
             }
             catch (Exception ex)
             {
-                errorMassage = ex.Message;
+                ErrorMassage = ex.Message;
                 return false;
             }
         }

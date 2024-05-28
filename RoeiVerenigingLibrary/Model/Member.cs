@@ -2,8 +2,8 @@
 {
     public class Member
     {
-        public Member(int id, string firstName, string infix, string lastName, string email, List<string> roles,
-            int level)
+
+        public Member(int id, string firstName, string infix, string lastName, string email, List<string> roles, int level)
         {
             Id = id;
             FirstName = firstName;
@@ -13,7 +13,6 @@
             Roles = roles;
             Level = level;
         }
-
         public int Id { get; set; }
         public string FirstName { get; set; }
 
@@ -38,5 +37,7 @@
                 return result;
             }
         }
+
+        public string FullName => $"{FirstName} {Infix} {LastName}";
     }
 }

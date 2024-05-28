@@ -5,6 +5,29 @@ namespace DataAccessLibrary
 {
     public class ImageRepository : IImageRepository
     {
+
+        public void Add(int id, Stream image)
+        {
+            using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
+            {
+                connection.Open();
+                using (MySqlTransaction transaction = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        Add(id, image, connection, transaction);
+                        transaction.Commit();
+                    }
+
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        throw ex;
+                    }
+                }
+            }
+        }
+
         public void Add(int id, List<Stream> images)
         {
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
@@ -33,12 +56,15 @@ namespace DataAccessLibrary
                         transaction.Rollback();
                         throw ex;
                     }
+
                 }
             }
         }
-
         public Stream GetFirstImage(int id)
         {
+
+
+            //var list = new List<Stream>();
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
             {
                 connection.Open();
@@ -61,7 +87,52 @@ namespace DataAccessLibrary
             return null;
         }
 
-        public List<Stream> Get(int id)
+        public List<Stream> getAsync(int id)
+        {
+            var list = new List<Stream>();
+            var ids = new List<int>();
+            using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
+            {
+                connection.Open();
+                const string sql = "SELECT * FROM damage_report_fotos WHERE damage_report_id = @id";
+
+                using (MySqlCommand command = new MySqlCommand(sql, connection))
+                {
+                    command.Parameters.Add("@id", MySqlDbType.Int32);
+                    command.Parameters["@id"].Value = id;
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            ids.Add(reader.GetInt32("Id"));
+                        }
+                    }
+                }
+            }
+            var tasks = new List<Task>();
+
+
+            foreach (int imageId in ids)
+            {
+                Task task = new Task(() =>
+                {
+
+                    Stream streamToAdd = GetImage(imageId);
+
+                    lock (list)
+                    {
+                        list.Add(streamToAdd);
+                    }
+                });
+                task.Start();
+                tasks.Add(task);
+                //  task.Wait();
+            }
+            Task.WaitAll(tasks.ToArray());
+            return list;
+        }
+
+        public List<Stream> get(int id)
         {
             var list = new List<Stream>();
             var ids = new List<int>();
@@ -83,10 +154,8 @@ namespace DataAccessLibrary
                     }
                 }
             }
-
             return list;
         }
-
         private void Add(int id, Stream image, MySqlConnection connection, MySqlTransaction transaction)
         {
             const string sql =
@@ -103,9 +172,11 @@ namespace DataAccessLibrary
                 command.ExecuteNonQuery();
             }
         }
-
         private Stream GetImage(int id)
         {
+
+
+            //var list = new List<Stream>();
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
             {
                 connection.Open();
@@ -127,5 +198,12 @@ namespace DataAccessLibrary
 
             return null;
         }
+
+        //var i = new BitmapImage();
+        //i.BeginInit();
+        //i.StreamSource = ImageRepository.get(1)[0];
+        //i.CacheOption = BitmapCacheOption.OnLoad;
+        //i.EndInit();
     }
+
 }

@@ -65,8 +65,7 @@ namespace DataAccessLibrary
                                 Member member = memberRepository.GetById(memberid);
                                 //get boat
                                 Boat boat = boatRepository.GetBoatById(boatid);
-                                Damage damageReport = new Damage(id, member, boat, description, fixedboat, usable,
-                                    reporttime);
+                                Damage damageReport = new Damage(id, member, boat, description, fixedboat, usable, reporttime);
                                 lock (damageReports)
                                 {
                                     damageReports.Add(damageReport);
@@ -74,20 +73,20 @@ namespace DataAccessLibrary
                             });
                             task.Start();
                             tasks.Add(task);
-                        }
 
+                        }
                         Task.WaitAll(tasks.ToArray());
                     }
                 }
             }
-
-            return damageReports.OrderBy(damageReport => damageReport.BoatFixed)
-                .ThenByDescending(damageReport => damageReport.ReportTime).ToList();
+            var Sorted = damageReports.OrderBy(damageReport => damageReport.BoatFixed).ThenByDescending(damageReport => damageReport.ReportTime).ToList();
+            return Sorted;
         }
 
         public List<Damage> GetRelatedToUser(Member member)
         {
             var damageReports = new List<Damage>();
+            MemberRepository memberRepository = new MemberRepository();
             BoatRepository boatRepository = new BoatRepository();
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
             {
@@ -118,8 +117,7 @@ namespace DataAccessLibrary
                             {
                                 //get boat
                                 Boat boat = boatRepository.GetBoatById(boatid);
-                                Damage damageReport = new Damage(id, member, boat, description, fixedboat, usable,
-                                    reporttime);
+                                Damage damageReport = new Damage(id, member, boat, description, fixedboat, usable, reporttime);
                                 lock (damageReports)
                                 {
                                     damageReports.Add(damageReport);
@@ -127,19 +125,20 @@ namespace DataAccessLibrary
                             });
                             task.Start();
                             tasks.Add(task);
-                        }
 
+                        }
                         Task.WaitAll(tasks.ToArray());
                     }
                 }
             }
-
-            return damageReports.OrderBy(damageReport => damageReport.BoatFixed)
-                .ThenByDescending(damageReport => damageReport.ReportTime).ToList();
+            var Sorted = damageReports.OrderBy(damageReport => damageReport.BoatFixed).ThenByDescending(damageReport => damageReport.ReportTime).ToList();
+            return Sorted;
         }
 
         public Damage Update(int id, bool boatFixed, bool usable, string description)
         {
+            Damage damage = null;
+
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
             {
                 connection.Open();
@@ -164,15 +163,16 @@ namespace DataAccessLibrary
                     command.ExecuteNonQuery();
 
                     // After updating, retrieve the updated damage report
-                    return GetById(id);
+                    damage = GetById(id);
                 }
             }
 
-            return null;
+            return damage;
         }
 
         public Damage GetById(int id)
         {
+            Damage damage = null;
             MemberRepository memberRepository = new MemberRepository();
             BoatRepository boatRepository = new BoatRepository();
 
@@ -196,16 +196,15 @@ namespace DataAccessLibrary
                             Member member = memberRepository.GetById(reader.GetInt32("member_id"));
                             //get boat
                             Boat boat = boatRepository.GetBoatById(reader.GetInt32("boat_id"));
-                            return new Damage(reader.GetInt32("id"), member, boat,
+                            damage = new Damage(reader.GetInt32("id"), member, boat,
                                 reader.GetString("description"),
-                                reader.GetBoolean("fixed"), reader.GetBoolean("usable"),
-                                imageRepository.Get(reader.GetInt32("id")));
+                                reader.GetBoolean("fixed"), reader.GetBoolean("usable"), imageRepository.get(reader.GetInt32("id")));
                         }
                     }
                 }
             }
 
-            return null;
+            return damage;
         }
     }
 }

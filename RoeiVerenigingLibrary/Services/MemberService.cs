@@ -60,7 +60,7 @@ namespace RoeiVerenigingLibrary
             return Create(loggedInMember, firstName, infix, lastName, email, password, 1);
         }
 
-        private Member Create(Member loggedInMember, string firstName, string infix, string lastName, string email,
+        public Member Create(Member loggedInMember, string firstName, string infix, string lastName, string email,
             string password, int level)
         {
             if (!loggedInMember.Roles.Contains("beheerder"))
@@ -70,14 +70,13 @@ namespace RoeiVerenigingLibrary
 
             if (!IsValid(email))
             {
-                throw new InvalidEmailException();
+                throw new Exception("Dit is geen email adres");
             }
 
             Member? member;
             try
             {
-                member = memberRepository.Create(firstName, infix, lastName, email, CreatePasswordHash(password),
-                    level);
+                member = memberRepository.Create(firstName, infix, lastName, email, CreatePasswordHash(password), level);
             }
             catch (Exception)
             {
@@ -92,8 +91,10 @@ namespace RoeiVerenigingLibrary
             return member;
         }
 
-        public Member Update(Member loggedInMember, int id, string firstName, string infix, string lastName,
-            string email,
+        /**
+         * This method updates the members data based on the given id. this can only be done if the loggedInMember is an admin
+         */
+        public Member Update(Member loggedInMember, int id, string firstName, string infix, string lastName, string email,
             int level)
         {
             if (!loggedInMember.Roles.Contains("beheerder"))
@@ -123,7 +124,10 @@ namespace RoeiVerenigingLibrary
 
             return member;
         }
-        
+
+        /**
+         * This method updates the members data based on the loggedInMember
+         */
         public Member Update(Member loggedInMember, string firstName, string infix, string lastName, string email)
         {
             if (!IsValid(email))

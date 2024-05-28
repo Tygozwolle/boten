@@ -8,7 +8,7 @@ namespace RoeiVerenigingWPF.helpers
 {
     public abstract class QrcodeMaker
     {
-        public static ImageSource Qrcode(int id)
+        public static ImageSource qrcode(int id)
         {
             using (QRCodeGenerator qrGenerator = new QRCodeGenerator())
             {

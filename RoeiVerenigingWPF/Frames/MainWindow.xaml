@@ -40,8 +40,7 @@
                 FontFamily="Franklin Gothic Medium" FontSize="36"
                 Foreground="{x:Static local:CustomColors.HeaderColor}"
                 Background="{x:Static local:CustomColors.ButtonBackgroundColor}"
-                BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}" HorizontalAlignment="Right"
-                VerticalAlignment="Bottom" Click="ManageApp_Click">
+                BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ManageApp_Click">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="15" />
