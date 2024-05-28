@@ -10,16 +10,18 @@ namespace RoeiVerenigingUnitTests
         [Test]
         public void ReservationSuccesfull()
         {
+            var startTime = DateTime.Now.AddMinutes(1);
+            var endTime = DateTime.Now.AddHours(1);
             //Arrange
             Member member = new Member(1, "simon", "van den", "Berg", "simon@windesheim.nl", new List<string>(), 1);
-            var ReservationRepository = new Mock<IReservationRepository>();
-            Reservation reservation = new Reservation(member, 4, new DateTime(2024, 5, 27, 14, 0, 0), new DateTime(2024, 5, 27, 16, 0, 0));
-            ReservationRepository
+            var reservationRepository = new Mock<IReservationRepository>();
+            Reservation reservation = new Reservation(member, 4, startTime, endTime);
+            reservationRepository
                 .Setup(x => x.CreateReservation(It.IsAny<Member>(), It.IsAny<int>(), It.IsAny<DateTime>(),
                     It.IsAny<DateTime>())).Returns(reservation);
-            ReservationService ReservationService = new ReservationService(ReservationRepository.Object);
+            ReservationService reservationService = new ReservationService(reservationRepository.Object);
             //Act
-            Reservation result = ReservationService.Create(member, 4, new DateTime(2024, 5, 27, 14, 0, 0), new DateTime(2024, 5, 27, 16, 0, 0));
+            Reservation result = reservationService.Create(member, 4, startTime, endTime);
             //Assert
             Assert.That(Equals(result, reservation));
         }
@@ -55,14 +57,11 @@ namespace RoeiVerenigingUnitTests
         }
 
         [Test]
-        [TestCase(15, 18)]
-        [TestCase(11, 14)]
-        [TestCase(12, 15)]
-        public void ReservationMaxTwoHours(int startHour, int endHour)
+        public void ReservationMaxTwoHours()
         {
+            var start = DateTime.Now.AddMinutes(1);
+            var end = DateTime.Now.AddHours(3);
             // Arrange
-            DateTime start = new DateTime(2024, 5, 27, startHour, 0, 0);
-            DateTime end = new DateTime(2024, 5, 27, endHour, 0, 0);
             Member member = new Member(1, "simon", "van den", "Berg", "simon@windesheim.nl", new List<string>(), 1);
             ReservationService reservationService = new ReservationService(new Mock<IReservationRepository>().Object);
 
@@ -114,7 +113,8 @@ namespace RoeiVerenigingUnitTests
                 new DateTime(2024, 5, 7, 16, 0, 0));
 
             var reservationRepository = new Mock<IReservationRepository>();
-            reservationRepository.Setup(x => x.ChangeReservation(1, member, 4, It.IsAny<DateTime>(), It.IsAny<DateTime>()))
+            reservationRepository
+                .Setup(x => x.ChangeReservation(1, member, 4, It.IsAny<DateTime>(), It.IsAny<DateTime>()))
                 .Returns(updatedReservation);
             ReservationService reservationService = new ReservationService(reservationRepository.Object);
 
@@ -130,8 +130,8 @@ namespace RoeiVerenigingUnitTests
         [Test]
         public void CreateReservationSuccesfull()
         {
-            DateTime startTime = new DateTime(2024, 05, 27, 9, 00, 00);
-            DateTime endTime = new DateTime(2024, 05, 27, 10, 00, 00);
+            DateTime startTime = DateTime.Now.AddMinutes(1);
+            DateTime endTime = startTime.AddHours(1);
             Member loggedInMember = new Member(1, "Rick", "", "Hesp", "123@windesheim.be", new List<string>(), 1);
             Reservation reservation = new Reservation(loggedInMember, 3, startTime, endTime);
             var reservationRepository = new Mock<IReservationRepository>();
@@ -160,8 +160,8 @@ namespace RoeiVerenigingUnitTests
         public void OnlyTwoReservationsPerMember()
         {
             // Arrange
-            DateTime start = new DateTime(2024, 5, 27, 14, 0, 0);
-            DateTime end = new DateTime(2024, 5, 27, 16, 0, 0);
+            DateTime start = DateTime.Now.AddMinutes(1);
+            DateTime end = DateTime.Now.AddHours(1);
             Member member = new Member(1, "simon", "van den", "Berg", "simon@windesheim.nl", new List<string>(), 1);
             var mockRepository = new Mock<IReservationRepository>();
             mockRepository.Setup(r => r.GetAmountOfBoatsCurrRenting(member.Id)).Returns(2);

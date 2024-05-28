@@ -1,5 +1,4 @@
-﻿using DataAccessLibary;
-using Microsoft.Extensions.Caching.Memory;
+﻿using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using MySqlConnector;
 

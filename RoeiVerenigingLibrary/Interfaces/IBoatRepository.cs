@@ -2,7 +2,7 @@
 {
     public interface IBoatRepository
     {
-        public List<Boat> Getboats();
+        public List<Boat> GetBoats();
 
         public Boat GetBoatById(int id);
         public Boat Create(string name, string description, int seats, bool captainSeat, int level);

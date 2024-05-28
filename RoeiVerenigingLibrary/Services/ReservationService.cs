@@ -3,7 +3,7 @@ using RoeiVerenigingLibrary.Exceptions;
 
 namespace RoeiVerenigingLibrary
 {
-    public class ReservationService
+    public class ReservationService(IReservationRepository reservationRepository)
     {
         private readonly IReservationRepository _reservationRepository;
 
@@ -11,6 +11,9 @@ namespace RoeiVerenigingLibrary
         {
             _reservationRepository = reservationRepository;
         }
+
+        private readonly TimeSpan _maxReservationTime = new (2, 0, 0);
+
 
         public bool TimeChecker(DateTime? start, DateTime? end)
         {
@@ -30,16 +33,17 @@ namespace RoeiVerenigingLibrary
                 throw new Exception(message);
             }
 
-            if (_reservationRepository.BoatAlreadyReserved(boatId, startTime, endTime))
+            if (reservationRepository.BoatAlreadyReserved(boatId, startTime, endTime))
             {
                 throw new BoatAlreadyReservedException();
             }
 
             if (!member.Roles.Contains("beheerder"))
             {
-                if (MaxReservationTimePassed(startTime, endTime))
+                if (endTime - startTime > _maxReservationTime)
                 {
-                    string message = "Je kan voor maximaal 2 uur reserveren!";
+                    string message = "Je kan voor maximaal " + _maxReservationTime.Hours + " uur reserveren!";
+
                     throw new Exception(message);
                 }
 
@@ -62,7 +66,7 @@ namespace RoeiVerenigingLibrary
                 // TODO bij niveau --> moet deze niet bij de klik op een boot?
             }
 
-            return _reservationRepository.CreateReservation(member, boatId, startTime, endTime);
+            return reservationRepository.CreateReservation(member, boatId, startTime, endTime);
         }
 
         /**
@@ -119,24 +123,29 @@ namespace RoeiVerenigingLibrary
 
         public List<Reservation> GetReservations()
         {
-            return _reservationRepository.GetReservations();
+            return reservationRepository.GetReservations();
         }
 
         public List<Reservation> GetReservations(Member member)
         {
-            return _reservationRepository.GetReservations(member);
+            return reservationRepository.GetReservations(member);
         }
 
+        private int AmountOfBoatsCurrentlyRenting(int id)
+        {
+            return reservationRepository.GetAmountOfBoatsCurrRenting(id);
+        }
 
-        public Reservation ChangeReservation(int reservationdId, Member member, int boatId, DateTime start,
+        public Reservation ChangeReservation(int reservationId, Member member, int boatId, DateTime start,
+
             DateTime end)
         {
-            return _reservationRepository.ChangeReservation(reservationdId, member, boatId, start, end);
+            return reservationRepository.ChangeReservation(reservationId, member, boatId, start, end);
         }
 
-        public Reservation GetReservation(int reservationid)
+        public Reservation GetReservation(int reservationId)
         {
-            return _reservationRepository.GetReservation(reservationid);
+            return reservationRepository.GetReservation(reservationId);
         }
         
         public DateTime Sunrise(DateTime selectedDate)
