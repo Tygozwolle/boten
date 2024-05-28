@@ -10,7 +10,6 @@ namespace RoeiVerenigingWPF
     [ValueConversion(typeof(List<Stream>), typeof(ImageSource))]
     public class ImageSourceConverter : IValueConverter
     {
-
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             try
@@ -29,10 +28,12 @@ namespace RoeiVerenigingWPF
                 {
                     return new BitmapImage(new Uri("/Images/Image_not_available.png", UriKind.Relative));
                 }
+
                 if (list[0] == null)
                 {
                     return new BitmapImage(new Uri("/Images/Image_not_available.png", UriKind.Relative));
                 }
+
                 return ImageConverter.Convert(list[0]);
             }
             catch
@@ -46,5 +47,4 @@ namespace RoeiVerenigingWPF
             throw new NotImplementedException();
         }
     }
-    
 }

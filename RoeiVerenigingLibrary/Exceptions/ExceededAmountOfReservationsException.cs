@@ -2,8 +2,6 @@ namespace RoeiVerenigingLibrary.Exceptions
 {
     public class ExceededAmountOfReservationsException : Exception
     {
-        public ExceededAmountOfReservationsException(string message) : base(message)
-        {
-        }
+        public override string Message => "Je mag maximaal 2 reserveringen hebben tegelijk!";
     }
 }

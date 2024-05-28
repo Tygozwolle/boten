@@ -11,12 +11,12 @@ namespace RoeiVerenigingWPF.Pages.Admin
     {
         private MainWindow _mainWindow;
         private BoatService _service = new BoatService(new BoatRepository());
-        public List<Boat> Boats { get; set; }
+        private List<Boat> Boats { get; set; }
 
         public ManageBoatList(MainWindow mw)
         {
             DataContext = this;
-            Boats = _service.Getboats();
+            Boats = _service.GetBoats();
             _mainWindow = mw;
             InitializeComponent();
         }

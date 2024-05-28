@@ -2,18 +2,8 @@ namespace RoeiVerenigingLibrary
 {
     public class Reservation
     {
-
-        public Reservation(Member member, DateTime creationDate, DateTime startTime, DateTime endTime, int boatId, int id)
-        {
-            Member = member;
-            CreationDate = creationDate;
-            StartTime = startTime;
-            EndTime = endTime;
-            BoatId = boatId;
-            Id = id;
-        }
-
-        public Reservation(Member member, DateTime creationDate, DateTime startTime, DateTime endTime, Boat boat, int id)
+        public Reservation(Member member, DateTime creationDate, DateTime startTime, DateTime endTime, Boat boat,
+            int id)
         {
             Member = member;
             CreationDate = creationDate;
@@ -30,6 +20,7 @@ namespace RoeiVerenigingLibrary
             EndTime = endTime;
             BoatId = boatId;
         }
+
         public Member Member { get; set; }
         public DateTime CreationDate { get; }
         public DateTime StartTime { get; set; }
@@ -37,10 +28,5 @@ namespace RoeiVerenigingLibrary
         public int BoatId { get; set; }
         public Boat Boat { get; set; }
         public int Id { get; }
-
-        public void AddBoatObject(int boatId)
-        {
-
-        }
     }
 }

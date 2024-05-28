@@ -6,7 +6,6 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Navigation;
 using DataAccessLibary;
-using QRCoder;
 using RoeiVerenigingWPF.Pages.Admin;
 using System.Security.Principal;
 
@@ -28,7 +27,6 @@ namespace RoeiVerenigingWPF.Frames
             SetManage();
 
             MainContent.ContentRendered += MainContent_ContentRendered;
-
         }
 
         public Member? LoggedInMember
@@ -48,6 +46,7 @@ namespace RoeiVerenigingWPF.Frames
                     HeaderClass.UserAdd_Button.Visibility = Visibility.Visible;
                     HeaderClass.Boat_Button.Visibility = Visibility.Visible;
                 }
+
                 if (_loggedInMember.Roles.Contains("materiaal_commissaris"))
                 {
                     HeaderClass.Boat_Button.Visibility = Visibility.Visible;
@@ -85,7 +84,6 @@ namespace RoeiVerenigingWPF.Frames
                     entry = MainContent.RemoveBackEntry();
                     RemoveAllHandlers.RemoveAllhandlersFromOpject(entry);
                 }
-
             }
         }
 
@@ -108,6 +106,7 @@ namespace RoeiVerenigingWPF.Frames
             }
             catch
             {
+                // ignored
             }
         }
 
@@ -129,8 +128,6 @@ namespace RoeiVerenigingWPF.Frames
                     Config.ControlPassword == "")
                 {
                     LoginContent.Navigate(new ManageApp(this));
-                    //ManageApp.IsEnabled = false;
-                    //ManageApp.Visibility = Visibility.Hidden;
                     return;
                 }
 
@@ -139,15 +136,12 @@ namespace RoeiVerenigingWPF.Frames
                 if (password == Config.ControlPassword && email == Config.ControlUsername)
                 {
                     LoginContent.Navigate(new ManageApp(this));
-                    //ManageApp.IsEnabled = false;
-                    //ManageApp.Visibility = Visibility.Hidden;
                 }
             }
             catch
             {
                 Application.Current.Shutdown();
             }
-
         }
 
         private void SetManage()
@@ -163,7 +157,6 @@ namespace RoeiVerenigingWPF.Frames
             {
                 LoginContent.Navigate(new ManageApp(this));
             }
-
         }
     }
 }

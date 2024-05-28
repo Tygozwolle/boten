@@ -36,7 +36,7 @@ namespace RoeiVerenigingWPF.Pages
                 doneContent.Content = "Boot is weer klaar voor gebruik";
             }
             _images = ImageConverter.ConvertList(Damage.Images);
-            qrCodeImage.Source = QrcodeMaker.qrcode(damage.Id);
+            qrCodeImage.Source = QrcodeMaker.Qrcode(damage.Id);
             if (_images.Count != 0)
             {
                 DamageImage.Source = _images[0];
