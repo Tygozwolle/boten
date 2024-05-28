@@ -3,9 +3,13 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:roeiVerenigingWpf="clr-namespace:RoeiVerenigingWPF"
       mc:Ignorable="d"
       d:DesignHeight="900" d:DesignWidth="1200"
       Title="CreateDamageReport" xmlns:local="clr-namespace:RoeiVerenigingWPF.helpers">
+    <Page.Resources>
+        <roeiVerenigingWpf:SingleStreamImageConverter x:Key="SingleStreamImageConverter" />
+    </Page.Resources>
 
     <Grid Height="900" Width="1200" HorizontalAlignment="Center" VerticalAlignment="Center">
         <Grid.Effect>
@@ -40,9 +44,8 @@
                     <Label Content="Melden van schade" FontSize="30" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"  HorizontalAlignment="Center"/>
                     <!-- Titel -->
                     <Label Foreground="{x:Static local:CustomColors.SubHeaderColor}" Content="hier kan je schade melden die een boot heeft. Indien je de schade niet zelf hebt gemaakt, zet dit bij je beschrijving in" FontSize="15" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Center"/>
-
-                    <!-- Photo -->
-                    <Image Source="/Images/Image_not_available.png" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Margin="80,94,300,217" Grid.RowSpan="2" />
+        <!-- Photo -->
+        <Image Source="{Binding Image, Converter={StaticResource SingleStreamImageConverter}}" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Margin="80,94,300,217" Grid.RowSpan="2" />
 
                     <Label Grid.Row="3" Content="Schade:" FontFamily="Franklin Gothic Medium"
                         Margin="85,130,216,65"

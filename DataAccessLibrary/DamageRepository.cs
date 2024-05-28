@@ -49,26 +49,41 @@ namespace DataAccessLibrary
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
+                        List<Task> tasks = new List<Task>();
                         while (reader.Read())
                         {
+                            var memberid = reader.GetInt32("member_id");
+                            var boatid = reader.GetInt32("boat_id");
+                            var id = reader.GetInt32("id");
+                            var description = reader.GetString("description");
+                            var fixedboat = reader.GetBoolean("fixed");
+                            var usable = reader.GetBoolean("usable");
+                            var reporttime = reader.GetDateTime("report_time");
                             //get member
-                            Member member = memberRepository.GetById(reader.GetInt32("member_id"));
-                            //get boat
-                            Boat boat = boatRepository.GetBoatById(reader.GetInt32("boat_id"));
-                            Damage damageReport = new Damage(reader.GetInt32("id"), member, boat,
-                                reader.GetString("description"),
-                                reader.GetBoolean("fixed"), reader.GetBoolean("usable"));
+                            Task task = new Task(() =>
+                            {
+                                Member member = memberRepository.GetById(memberid);
+                                //get boat
+                                Boat boat = boatRepository.GetBoatById(boatid);
+                                Damage damageReport = new Damage(id, member, boat, description, fixedboat, usable, reporttime);
+                                lock (damageReports)
+                                {
+                                    damageReports.Add(damageReport);
+                                }
+                            });
+                            task.Start();
+                            tasks.Add(task);
 
-                            damageReports.Add(damageReport);
                         }
+                        Task.WaitAll(tasks.ToArray());
                     }
                 }
             }
-
-            return damageReports;
+            var Sorted = damageReports.OrderBy(damageReport => damageReport.BoatFixed).ThenByDescending(damageReport => damageReport.ReportTime).ToList();
+            return Sorted;
         }
 
-        public List<Damage> GetRelatedToUser(int memberId)
+        public List<Damage> GetRelatedToUser(Member member)
         {
             var damageReports = new List<Damage>();
             MemberRepository memberRepository = new MemberRepository();
@@ -83,27 +98,41 @@ namespace DataAccessLibrary
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {
                     command.Parameters.Add("@memberId", MySqlDbType.Int32);
-                    command.Parameters["@memberId"].Value = memberId;
+                    command.Parameters["@memberId"].Value = member.Id;
 
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
+                        List<Task> tasks = new List<Task>();
                         while (reader.Read())
                         {
                             //get member
-                            Member member = memberRepository.GetById(reader.GetInt32("member_id"));
+                            var boatid = reader.GetInt32("boat_id");
+                            var id = reader.GetInt32("id");
+                            var description = reader.GetString("description");
+                            var fixedboat = reader.GetBoolean("fixed");
+                            var usable = reader.GetBoolean("usable");
+                            var reporttime = reader.GetDateTime("report_time");
                             //get boat
-                            Boat boat = boatRepository.GetBoatById(reader.GetInt32("boat_id"));
-                            Damage damageReport = new Damage(reader.GetInt32("id"), member, boat,
-                                reader.GetString("description"),
-                                reader.GetBoolean("fixed"), reader.GetBoolean("usable"));
+                            Task task = new Task(() =>
+                            {
+                                //get boat
+                                Boat boat = boatRepository.GetBoatById(boatid);
+                                Damage damageReport = new Damage(id, member, boat, description, fixedboat, usable, reporttime);
+                                lock (damageReports)
+                                {
+                                    damageReports.Add(damageReport);
+                                }
+                            });
+                            task.Start();
+                            tasks.Add(task);
 
-                            damageReports.Add(damageReport);
                         }
+                        Task.WaitAll(tasks.ToArray());
                     }
                 }
             }
-
-            return damageReports;
+            var Sorted = damageReports.OrderBy(damageReport => damageReport.BoatFixed).ThenByDescending(damageReport => damageReport.ReportTime).ToList();
+            return Sorted;
         }
 
         public Damage Update(int id, bool boatFixed, bool usable, string description)
