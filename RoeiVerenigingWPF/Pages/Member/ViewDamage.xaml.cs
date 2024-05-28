@@ -1,6 +1,5 @@
 ﻿using DataAccessLibrary;
 using RoeiVerenigingLibrary;
-using RoeiVerenigingLibrary;
 using RoeiVerenigingWPF.Frames;
 using RoeiVerenigingWPF.helpers;
 using System.Windows;
@@ -28,6 +27,7 @@ namespace RoeiVerenigingWPF.Pages
             _mainWindow = mw;
             Damage = damage;
             Description.Text = damage.Description;
+            doneContent.Content = damage.BoatFixed;
             _images = ImageConverter.ConvertList(Damage.Images);
             qrCodeImage.Source = QrcodeMaker.qrcode(damage.Id);
             if (_images.Count != 0)
