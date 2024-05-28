@@ -39,7 +39,7 @@
                     <TextBox Grid.Row="3" x:Name="Email" Width="367" Height="40"
                              Foreground="{x:Static local:CustomColors.SubHeaderColor}"
                              BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}"
-                             Background="{x:Static local:CustomColors.TextBoxBackgroundColor}" FontSize="24" Text="pieter@gmail.com" />
+                             Background="{x:Static local:CustomColors.TextBoxBackgroundColor}" FontSize="24" />
 
 
                     <Label Grid.Row="4" Content="Wachtwoord:" FontFamily="Franklin Gothic Medium" Margin="0,20,0,0"

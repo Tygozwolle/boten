@@ -5,11 +5,11 @@ namespace RoeiVerenigingLibrary
 {
     public class ReservationService(IReservationRepository reservationRepository)
     {
-        private readonly IReservationRepository _reservationRepository;
+        // private readonly IReservationRepository _reservationRepository;
 
         private readonly TimeSpan _maxReservationTime = new (2, 0, 0);
 
-
+        
         public bool TimeChecker(DateTime? start, DateTime? end)
         {
             if (start < end)
@@ -88,7 +88,7 @@ namespace RoeiVerenigingLibrary
 
         public int AmountOfBoatsCurrentlyRenting(int memberId)
         {
-            return _reservationRepository.GetAmountOfBoatsCurrRenting(memberId);
+            return reservationRepository.GetAmountOfBoatsCurrRenting(memberId);
         }
 
         /**
