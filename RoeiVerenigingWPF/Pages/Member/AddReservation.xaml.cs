@@ -64,12 +64,12 @@ namespace RoeiVerenigingWPF.Pages
         {
             BoatGrid.Visibility = Visibility.Hidden;
             TimeBlockGrid.Visibility = Visibility.Visible;
-            
+
             NextButton.Visibility = Visibility.Visible;
             SaveButton.Visibility = Visibility.Hidden;
 
             _selectedBoat = null;
-            
+
             _selectedTimes.Clear();
             _selectedButtons.Clear();
 
@@ -176,7 +176,8 @@ namespace RoeiVerenigingWPF.Pages
             }
             else
             {
-                if (_selectedTimes.Count < 2)
+                if (_selectedTimes.Count < 2 || _loggedInMember.Roles.Contains("beheerder") ||
+                    _loggedInMember.Roles.Contains("evenementen_commissaris"))
                 {
                     _selectedButtons.Add(clickedButton);
                     _selectedTimes.Add(dateTime);
@@ -192,7 +193,7 @@ namespace RoeiVerenigingWPF.Pages
                             // Deselect all buttons if not consecutive
                             foreach (var button in _selectedButtons)
                             {
-                                button.Background = CustomColors.TextBoxBackgroundColor;
+                                button.Background = CustomColors.MainBackgroundColor;
                             }
 
                             _selectedButtons.Clear();
@@ -216,8 +217,8 @@ namespace RoeiVerenigingWPF.Pages
             }
             else if (_selectedTimes.Count != 0)
             {
-                StartTimeTextBlock.Text = _selectedTimes[0].ToString("t");
-                EndTimeTextBlock.Text = _selectedTimes[1].AddHours(1).ToString("t");
+                StartTimeTextBlock.Text = _selectedTimes.First().ToString("t");
+                EndTimeTextBlock.Text = _selectedTimes.Last().ToString("t");
                 StartTime = _selectedTimes[0];
                 EndTime = _selectedTimes[1].AddHours(1);
             }
@@ -241,11 +242,7 @@ namespace RoeiVerenigingWPF.Pages
 
         private void PopulateBoatGrid(DateTime selectedDate, DateTime startTime, DateTime endTime)
         {
-            List<Boat> boats = new List<Boat>();
-            boats.Add(_boatService.GetBoatById(22));
-            boats.Add(_boatService.GetBoatById(21));
-            
-            List<Boat> availableBoatList = boats.Where(boat => !_reservationsList
+            List<Boat> availableBoatList = _boatList.Where(boat => !_reservationsList
                     .Any(reservation => reservation.BoatId == boat.Id &&
                                         reservation.StartTime.Date == selectedDate.Date &&
                                         reservation.StartTime < endTime &&
