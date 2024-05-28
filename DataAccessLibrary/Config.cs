@@ -180,7 +180,10 @@ namespace DataAccessLibary
                     {
                         return UInt32.Parse(confCollection["dbport"].Value);
                     }
-                    catch { return 0; }
+                    catch
+                    {
+                        return 0;
+                    }
                 }
                 else
                 {

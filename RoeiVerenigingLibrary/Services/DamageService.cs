@@ -26,19 +26,21 @@
         {
             return damageRepository.Create(member, boat, description);
         }
+
         public void AddFirstImageToClass(List<Damage> damages, IImageRepository imageRepository)
         {
             List<Task> tasks = new List<Task>(damages.Count);
             foreach (Damage damage in damages)
             {
-                Task task = new  Task(() =>
+                Task task = new Task(() =>
                 {
                     Damage Save = damage;
-                    Save.Images = new List<Stream>{imageRepository.GetFirstImage(Save.Id)};
+                    Save.Images = new List<Stream> { imageRepository.GetFirstImage(Save.Id) };
                 });
                 task.Start();
                 tasks.Add(task);
             }
+
             Task.WaitAll(tasks.ToArray());
         }
     }

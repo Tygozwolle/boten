@@ -10,7 +10,6 @@ namespace RoeiVerenigingWPF
     [ValueConversion(typeof(Stream), typeof(ImageSource))]
     public class SingleStreamImageConverter : IValueConverter
     {
-
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             try
@@ -19,6 +18,7 @@ namespace RoeiVerenigingWPF
                 {
                     return new BitmapImage(new Uri("/Images/Image_not_available.png", UriKind.Relative));
                 }
+
                 return ImageConverter.Convert(value as Stream);
             }
             catch

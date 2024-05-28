@@ -5,9 +5,9 @@ using System.IO;
 
 namespace RoeiVerenigingWPF.helpers
 {
-    public abstract class RisizeImage //needs to be in WPF, Otherwise it will not work
+    public abstract class ResizeImage //needs to be in WPF, Otherwise it will not work
     {
-        public static Stream ResizeImage(Stream imageStream, int width, int height)
+        public static Stream ResizeTheImage(Stream imageStream, int width, int height)
         {
             var destRect = new Rectangle(0, 0, width, height);
             var destImage = new Bitmap(width, height);
@@ -15,9 +15,9 @@ namespace RoeiVerenigingWPF.helpers
             {
                 var imageHeight = image.Height;
                 var imageWidth = image.Width;
-                if(imageWidth > width || imageHeight > height)
+                if (imageWidth > width || imageHeight > height)
                 {
-                    if(imageWidth > imageHeight)
+                    if (imageWidth > imageHeight)
                     {
                         destRect.Height = (int)(height * ((double)imageHeight / imageWidth));
                     }
@@ -45,9 +45,11 @@ namespace RoeiVerenigingWPF.helpers
                     using (var wrapMode = new ImageAttributes())
                     {
                         wrapMode.SetWrapMode(WrapMode.TileFlipXY);
-                        graphics.DrawImage(image, destRect, 0, 0, image.Width, image.Height, GraphicsUnit.Pixel, wrapMode);
+                        graphics.DrawImage(image, destRect, 0, 0, image.Width, image.Height, GraphicsUnit.Pixel,
+                            wrapMode);
                     }
                 }
+
                 MemoryStream ms = new MemoryStream();
                 destImage.Save(ms, ImageFormat.Png);
 

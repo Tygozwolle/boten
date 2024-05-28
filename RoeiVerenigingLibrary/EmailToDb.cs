@@ -10,7 +10,6 @@ namespace RoeiVerenigingLibrary
 {
     public class EmailToDb
     {
-
         public static void GetImagesFromEmail(IImageRepository repository)
         {
             try
