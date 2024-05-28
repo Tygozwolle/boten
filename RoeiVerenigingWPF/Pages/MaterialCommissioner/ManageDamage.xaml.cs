@@ -1,6 +1,5 @@
 ﻿using DataAccessLibrary;
 using RoeiVerenigingLibrary;
-using RoeiVerenigingLibrary;
 using RoeiVerenigingWPF.Frames;
 using RoeiVerenigingWPF.helpers;
 using System.Windows;
