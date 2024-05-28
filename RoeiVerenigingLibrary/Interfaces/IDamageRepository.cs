@@ -8,7 +8,7 @@
 
         public Damage GetById(int id);
 
-        public List<Damage> GetRelatedToUser(int memberId);
+        public List<Damage> GetRelatedToUser(Member member);
 
         public Damage Create(Member member, Boat boat, string description);
     }
