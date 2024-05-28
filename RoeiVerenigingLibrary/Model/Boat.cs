@@ -65,5 +65,12 @@ namespace RoeiVerenigingLibrary
             }
             set => _Description = value;
         }
+        public String DescriptionNoEnter
+        {
+            get
+            {
+                return _Description;
+            }
+        }
     }
 }
