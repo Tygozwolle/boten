@@ -62,6 +62,14 @@ namespace RoeiVerenigingWPF.Pages
 
         private void PopulateTimeContentGrid(List<DateTime> availableDates)
         {
+            BoatGrid.Visibility = Visibility.Hidden;
+            TimeBlockGrid.Visibility = Visibility.Visible;
+            
+            NextButton.Visibility = Visibility.Visible;
+            SaveButton.Visibility = Visibility.Hidden;
+
+            _selectedBoat = null;
+            
             _selectedTimes.Clear();
             _selectedButtons.Clear();
 
@@ -122,6 +130,7 @@ namespace RoeiVerenigingWPF.Pages
             var calendar = sender as Calendar;
             ExceptionText.Text = "";
             ExceptionText.Foreground = Brushes.Red;
+            TimeContentGrid.Children.Clear();
 
             try
             {
@@ -140,7 +149,7 @@ namespace RoeiVerenigingWPF.Pages
                         throw new DateTooFarInTheFuture();
                     }
 
-                    PopulateTimeContentGrid(_reservationService.GetAvailableTimes(_selectedDate, _reservationsList));
+                    PopulateTimeContentGrid(_reservationService.GetAvailableTimes(_selectedDate, _boatList));
 
                     SelectedDateTextBlock.Text = _selectedDate.ToString("dd MMMM yyyy");
                     StartTimeTextBlock.Text = null;

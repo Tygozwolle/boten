@@ -145,7 +145,9 @@ namespace RoeiVerenigingLibrary
             TimeZoneInfo cet = TimeZoneInfo.FindSystemTimeZoneById("W. Europe Standard Time");
             DateTime sunrise = TimeZoneInfo.ConvertTimeFromUtc(solarTimes.Sunrise.ToUniversalTime(), cet);
 
-            DateTime roundedSunrise = sunrise.AddMinutes(-sunrise.Minute);
+            DateTime roundedSunrise = sunrise.AddMinutes(-sunrise.Minute).AddSeconds(-sunrise.Second)
+                .AddMilliseconds(-sunrise.Millisecond)
+                .AddMicroseconds(-sunrise.Microsecond);
             if (roundedSunrise != sunrise)
             {
                 roundedSunrise = roundedSunrise.AddHours(1);
@@ -159,19 +161,46 @@ namespace RoeiVerenigingLibrary
             SolarTimes solarTimes = new SolarTimes(selectedDate.Date, 52.5125, 6.09444);
             TimeZoneInfo cet = TimeZoneInfo.FindSystemTimeZoneById("W. Europe Standard Time");
             DateTime sunset = TimeZoneInfo.ConvertTimeFromUtc(solarTimes.Sunset.ToUniversalTime(), cet);
-            return sunset.AddMinutes(-sunset.Minute);
+            return sunset.AddMinutes(-sunset.Minute).AddSeconds(-sunset.Second).AddMilliseconds(-sunset.Millisecond)
+                .AddMicroseconds(-sunset.Microsecond);
         }
-        
-        public List<DateTime> GetAvailableTimes(DateTime selectedDate,List<Reservation> _reservationsList)
+
+        /// <summary>
+        /// Evil LINQ magic!
+        /// </summary>
+        public List<DateTime> GetAvailableTimes(DateTime selectedDate, List<Boat> boatList)
         {
-            List<DateTime> timeAvailableList = new List<DateTime>();
+            List<Reservation> reservations = GetReservations();
+
+            // Start and end time bound within sunrise and sunset, rounded to the nearest full hour.
             DateTime startTime = selectedDate.AddHours(Sunrise(selectedDate).Hour);
             DateTime endTime = selectedDate.AddHours(Sunset(selectedDate).Hour);
 
-            for (DateTime time = startTime; time < endTime; time = time.AddHours(1))
-            {
-                bool isAvailable = false;
-                foreach (var res in _reservationsList)
+            // Dictionary with a key of a DateTime and an integer as value.
+            // The key is the DateTime of the reservation. The value is the number of reservations for that DateTime.
+            // Example: 10/10/2023 16:00 could have a value of 4, meaning there are 4 reservations for that DateTime.
+            Dictionary<DateTime, int> reservationsPerTimeBlock = reservations
+                .SelectMany(reservation => Enumerable.Range(0, (reservation.EndTime - reservation.StartTime).Hours)
+                    .Select(i => reservation.StartTime.AddHours(i)))
+                .GroupBy(time => time)
+                .ToDictionary(group => group.Key, group => group.Count());
+
+            // List of DateTimes where the time falls between the earlier start and end time, and where the value of the
+            // DateTime key in reservationsPerTimeBlock is less than the total amount of boats.
+            List<DateTime> timeAvailableList = Enumerable.Range(0, (endTime - startTime).Hours)
+                .Select(i => startTime.AddHours(i))
+                .Where(time =>
+                    !reservationsPerTimeBlock.ContainsKey(time) || reservationsPerTimeBlock[time] < boatList.Count)
+                .ToList();
+
+            return timeAvailableList;
+        }
+    }
+}
+
+/*
+ *bool isAvailable = false;
+                foreach (var res in reservationsList)
                 {
                     if (time == res.StartTime || time.AddHours(1) == res.EndTime && isAvailable == false)
                     {
@@ -187,9 +216,5 @@ namespace RoeiVerenigingLibrary
                 {
                     timeAvailableList.Add(time);
                 }
-            }
-
-            return timeAvailableList;
-        }
-    }
-}
+ *
+ */
