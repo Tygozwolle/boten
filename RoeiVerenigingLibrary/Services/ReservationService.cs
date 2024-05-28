@@ -7,11 +7,6 @@ namespace RoeiVerenigingLibrary
     {
         private readonly IReservationRepository _reservationRepository;
 
-        public ReservationService(IReservationRepository reservationRepository)
-        {
-            _reservationRepository = reservationRepository;
-        }
-
         private readonly TimeSpan _maxReservationTime = new (2, 0, 0);
 
 
@@ -129,11 +124,6 @@ namespace RoeiVerenigingLibrary
         public List<Reservation> GetReservations(Member member)
         {
             return reservationRepository.GetReservations(member);
-        }
-
-        private int AmountOfBoatsCurrentlyRenting(int id)
-        {
-            return reservationRepository.GetAmountOfBoatsCurrRenting(id);
         }
 
         public Reservation ChangeReservation(int reservationId, Member member, int boatId, DateTime start,

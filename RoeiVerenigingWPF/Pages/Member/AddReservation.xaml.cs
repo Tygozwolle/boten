@@ -40,7 +40,7 @@ namespace RoeiVerenigingWPF.Pages
         {
             InitializeComponent();
             _loggedInMember = loggedInMember;
-            _boatList = _boatService.Getboats();
+            _boatList = _boatService.GetBoats();
             _reservationsList = _reservationService.GetReservations();
             DataContext = this;
             CheckIfMemberHas2Reservations();
