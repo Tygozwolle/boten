@@ -16,7 +16,7 @@
         {
             return damageRepository.GetById(id);
         }
-
+        
         public List<Damage> GetRelatedToUser(Member loggedInMember)
         {
             return damageRepository.GetRelatedToUser(loggedInMember);
