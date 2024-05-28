@@ -47,7 +47,7 @@ namespace RoeiVerenigingLibrary
             }
             else
             {
-                throw new IncorrectRightsExeption();
+                throw new IncorrectRightsException();
             }
         }
         public Boat Update(Member LogedInMember, Boat boat, string name, string description, int seats, bool captainSeat, int level)
@@ -69,7 +69,7 @@ namespace RoeiVerenigingLibrary
             }
             else
             {
-                throw new IncorrectRightsExeption();
+                throw new IncorrectRightsException();
             }
         }
         
@@ -81,7 +81,7 @@ namespace RoeiVerenigingLibrary
             }
             else
             {
-                throw new IncorrectRightsExeption();
+                throw new IncorrectRightsException();
             }
         }
         public void GetImageBoat(Boat boat)
@@ -111,7 +111,7 @@ namespace RoeiVerenigingLibrary
             }
             else
             {
-                throw new IncorrectRightsExeption();
+                throw new IncorrectRightsException();
             }
         }
         public void UpdateImage(Member LogedInMember, Boat boat, Stream stream)
@@ -129,7 +129,7 @@ namespace RoeiVerenigingLibrary
             }
             else
             {
-                throw new IncorrectRightsExeption();
+                throw new IncorrectRightsException();
             }
         }
     }

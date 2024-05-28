@@ -21,8 +21,8 @@
                         <ColumnDefinition Width="Auto" /> <!-- Timeboxes and boats -->
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="100" /> <!-- Header -->
-                        <RowDefinition Height="100" /> <!-- Subheader -->
+                        <RowDefinition Height="85" /> <!-- Header -->
+                        <RowDefinition Height="Auto" /> <!-- Subheader -->
                         <RowDefinition Height="350" /> <!-- Content -->
                         <RowDefinition Height="250" />
                         <RowDefinition Height="80" />
@@ -34,11 +34,22 @@
                            FontFamily="Franklin Gothic Medium" FontSize="48"
                            Foreground="{x:Static local:CustomColors.HeaderColor}" />
 
-                    <TextBlock Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"
-                               Text="Maak hier je reservering aan! Selecteer eerst de dag waarop je wil varen, daarna de tijd en kies dan een boot."
-                               VerticalAlignment="Top" TextWrapping="WrapWithOverflow"
-                               FontFamily="Franklin Gothic Medium" FontSize="32" Width="780"
-                               Foreground="{x:Static local:CustomColors.SubHeaderColor}" />
+                    <Grid Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Margin="0,0,0,10"
+                                   Text="Maak hier je reservering aan! Selecteer eerst de dag waarop je wil varen, daarna de tijd en kies dan een boot."
+                                   VerticalAlignment="Top" TextWrapping="WrapWithOverflow"
+                                   FontFamily="Franklin Gothic Medium" FontSize="32" Width="780"
+                                   Foreground="{x:Static local:CustomColors.SubHeaderColor}" />
+                        <TextBlock Grid.Row="1" Name="ExceptionText" HorizontalAlignment="Center" FontSize="24"
+                               TextWrapping="WrapWithOverflow" FontWeight="Bold"
+                               Foreground="Red" Padding="0,0,0,5">
+                        </TextBlock>
+                    </Grid>
+
 
                     <Grid Grid.Column="0" Grid.Row="2" Name="Calender" Width="400" Height="350" Margin="30,0,30,0">
                         <Border CornerRadius="30" BorderThickness="5"
@@ -61,7 +72,7 @@
                         </Border>
                     </Grid>
                     <Grid Grid.Column="1" Grid.RowSpan="2" Grid.Row="2" Name="BoatGrid" Width="900" Height="600">
-                        <Border CornerRadius="30" BorderThickness="5" 
+                        <Border CornerRadius="30" BorderThickness="5"
                                 BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}">
                             <Border CornerRadius="24" BorderThickness="8"
                                     BorderBrush="{x:Static local:CustomColors.TextBoxBackgroundColor}">

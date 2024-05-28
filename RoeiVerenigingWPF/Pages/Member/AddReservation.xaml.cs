@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using Innovative.SolarCalculator;
 using RoeiVerenigingWPF.helpers;
+using Brushes = System.Windows.Media.Brushes;
 using FontFamily = System.Windows.Media.FontFamily;
 using Image = System.Windows.Controls.Image;
 
@@ -119,31 +120,50 @@ namespace RoeiVerenigingWPF.Pages
         private void DateIsSelected(object? sender, SelectionChangedEventArgs e)
         {
             var calendar = sender as Calendar;
-            if (calendar.SelectedDate != null)
+            ExceptionText.Text = "";
+            ExceptionText.Foreground = Brushes.Red;
+
+            try
             {
-                _selectedDate = (DateTime)calendar.SelectedDate;
-
-                if (_selectedDate < DateTime.Today)
+                if (calendar.SelectedDate != null)
                 {
-                    throw new ReservationNotInDaylightException(); // todo betere exception
+                    _selectedDate = (DateTime)calendar.SelectedDate;
+
+                    if (_selectedDate < DateTime.Today)
+                    {
+                        throw new ReservationInThePastException();
+                    }
+                    else if (_selectedDate > DateTime.Today.AddDays(14) &&
+                             (!_loggedInMember.Roles.Contains("beheerder") &&
+                              !_loggedInMember.Roles.Contains("evenementen_commissaris")))
+                    {
+                        throw new DateTooFarInTheFuture();
+                    }
+
+                    PopulateTimeContentGrid(_reservationService.GetAvailableTimes(_selectedDate, _reservationsList));
+
+                    SelectedDateTextBlock.Text = _selectedDate.ToString("dd MMMM yyyy");
+                    StartTimeTextBlock.Text = null;
+                    EndTimeTextBlock.Text = null;
                 }
-
-                PopulateTimeContentGrid(_reservationService.GetAvailableTimes(_selectedDate, _reservationsList));
-
-                SelectedDateTextBlock.Text = _selectedDate.ToString("dd MMMM yyyy");
-                StartTimeTextBlock.Text = null;
-                EndTimeTextBlock.Text = null;
+            }
+            catch (Exception ex)
+            {
+                ExceptionText.Text = ex.Message;
+                TimeContentGrid.Children.Clear();
             }
         }
 
         private void TimeButton_Click(Button clickedButton, DateTime dateTime)
         {
+            ExceptionText.Text = "";
+
             if (_selectedTimes.Contains((dateTime)))
             {
                 // Deselect the button
                 _selectedButtons.Remove(clickedButton);
                 _selectedTimes.Remove(dateTime);
-                clickedButton.Background = CustomColors.TextBoxBackgroundColor;
+                clickedButton.Background = CustomColors.MainBackgroundColor;
             }
             else
             {
@@ -168,55 +188,60 @@ namespace RoeiVerenigingWPF.Pages
 
                             _selectedButtons.Clear();
                             _selectedTimes.Clear();
-                            MessageBox.Show("Selected times must be consecutive.");
+                            ExceptionText.Text = "De tijdblokken moeten direct achter elkaar zijn!";
                         }
-                    }
-
-                    if (_selectedTimes.Count == 1)
-                    {
-                        StartTimeTextBlock.Text = _selectedTimes[0].ToString("t");
-                        EndTimeTextBlock.Text = _selectedTimes[0].AddHours(1).ToString("t");
-                        StartTime = _selectedTimes[0];
-                        EndTime = _selectedTimes[0].AddHours(1);
-                    }
-                    else if (_selectedTimes.Count != 0)
-                    {
-                        StartTimeTextBlock.Text = _selectedTimes[0].ToString("t");
-                        EndTimeTextBlock.Text = _selectedTimes[1].AddHours(1).ToString("t");
-                        StartTime = _selectedTimes[0];
-                        EndTime = _selectedTimes[1].AddHours(1);
                     }
                 }
                 else
                 {
-                    MessageBox.Show("You can only select up to two consecutive hours.");
+                    ExceptionText.Text = "Je kan maar 2 uur achter elkaar selecteren!";
                 }
+            }
+
+            if (_selectedTimes.Count == 1)
+            {
+                StartTimeTextBlock.Text = _selectedTimes[0].ToString("t");
+                EndTimeTextBlock.Text = _selectedTimes[0].AddHours(1).ToString("t");
+                StartTime = _selectedTimes[0];
+                EndTime = _selectedTimes[0].AddHours(1);
+            }
+            else if (_selectedTimes.Count != 0)
+            {
+                StartTimeTextBlock.Text = _selectedTimes[0].ToString("t");
+                EndTimeTextBlock.Text = _selectedTimes[1].AddHours(1).ToString("t");
+                StartTime = _selectedTimes[0];
+                EndTime = _selectedTimes[1].AddHours(1);
+            }
+            else
+            {
+                StartTimeTextBlock.Text = "";
+                EndTimeTextBlock.Text = "";
             }
         }
 
         private void NextButton_OnClick(object sender, RoutedEventArgs e)
         {
             PopulateBoatGrid(_selectedDate, StartTime, EndTime);
-            
+
             TimeBlockGrid.Visibility = Visibility.Hidden;
             BoatGrid.Visibility = Visibility.Visible;
 
             NextButton.Visibility = Visibility.Hidden;
             SaveButton.Visibility = Visibility.Visible;
-
-            
         }
 
         private void PopulateBoatGrid(DateTime selectedDate, DateTime startTime, DateTime endTime)
         {
-            List<Boat> availableBoatList = _boatList.Where(boat => !_reservationsList
+            List<Boat> boats = new List<Boat>();
+            boats.Add(_boatService.GetBoatById(22));
+            boats.Add(_boatService.GetBoatById(21));
+            
+            List<Boat> availableBoatList = boats.Where(boat => !_reservationsList
                     .Any(reservation => reservation.BoatId == boat.Id &&
                                         reservation.StartTime.Date == selectedDate.Date &&
                                         reservation.StartTime < endTime &&
                                         reservation.EndTime > startTime))
                 .ToList();
-
-            // List<Boat> availableBoatList = new List<Boat>() { _boatService.GetBoatById(2) };
 
             BoatContentStackPanel.Children.Clear();
 
@@ -312,13 +337,19 @@ namespace RoeiVerenigingWPF.Pages
 
         private void SaveButton_OnClick(object sender, RoutedEventArgs e)
         {
-            if (_reservationService.GetReservations(_loggedInMember).Count >= 2)
+            if (_reservationService.GetReservations(_loggedInMember).Count < 2 ||
+                _loggedInMember.Roles.Contains("beheerder") || _loggedInMember.Roles.Contains("materiaal_commissaris"))
             {
-                // todo: show message
-            }
-            else
-            {
-                _reservationService.Create(_loggedInMember, _selectedBoat.Id, StartTime, EndTime);
+                try
+                {
+                    _reservationService.Create(_loggedInMember, _selectedBoat.Id, StartTime, EndTime);
+                    ExceptionText.Text = "De reservering is aangemaakt!";
+                    ExceptionText.Foreground = Brushes.Lime;
+                }
+                catch (Exception exception)
+                {
+                    ExceptionText.Text = exception.Message;
+                }
             }
         }
     }

@@ -79,7 +79,7 @@ namespace RoeiVerenigingUnitTests
                 It.IsAny<string>(), It.IsAny<string>(), 1)).Returns((Member)null);
             MemberService memberService = new MemberService(memberRepository.Object);
             //Act and Assert
-            Assert.Throws<IncorrectRightsExeption>(() =>
+            Assert.Throws<IncorrectRightsException>(() =>
                 memberService.Create(admin, "tygo", "van", "olst", "tygo@windesheim.nl", "Test1234"));
         }
 
@@ -202,7 +202,7 @@ namespace RoeiVerenigingUnitTests
             MemberService memberService = new MemberService(memberRepository.Object);
 
             // Act and Assert
-            Assert.Throws<IncorrectRightsExeption>(() =>
+            Assert.Throws<IncorrectRightsException>(() =>
                 memberService.Update(admin, 1, "tygo", "van", "olst", "tygo@windesheim.nl", 1));
         }
 
