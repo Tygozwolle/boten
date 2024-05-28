@@ -11,7 +11,10 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <None Remove="Images\Icons\sailboatWhite.png" />
+
+        <None Remove="Images\Leftarrow.png" />
+        <None Remove="Images\Rightarrow.png" />
+
         <None Remove="img\Image_not_available.png" />
         <None Remove="img\twee-mensen-in-polyester-roeiboot.png" />
         <None Remove="img\next.png" />
@@ -21,6 +24,12 @@
         </Content>
         <Content Include="Images\Icons\search.png">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Images\Leftarrow.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Images\Rightarrow.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
         <Content Include="Images\twee-mensen-in-polyester-roeiboot.png">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
