@@ -80,10 +80,11 @@
                                                 MaxWidth="125px"
                                                 HorizontalAlignment="Left" VerticalAlignment="Center" />
                                         </StackPanel>
-                                        <TextBlock Grid.Column="1" Margin="15,5,0,0" Text="{Binding Description, StringFormat=' \{0\}'}"
+                                        <TextBlock Grid.Column="1" Margin="15,5,0,0"
+                                                   Text="{Binding Description, StringFormat=' \{0\}'}"
                                                    HorizontalAlignment="Left"
                                                    FontFamily="Franklin Gothic Medium" FontSize="16"
-                                                   Foreground="{x:Static local:CustomColors.HeaderColor}" 
+                                                   Foreground="{x:Static local:CustomColors.HeaderColor}"
                                                    TextWrapping="Wrap" />
                                         <StackPanel Grid.Column="2" Margin="0 0 15 0" HorizontalAlignment="Right">
                                             <TextBlock FontFamily="Franklin Gothic Medium" FontSize="21"

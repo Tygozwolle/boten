@@ -1,5 +1,4 @@
-﻿
-using DataAccessLibrary;
+﻿using DataAccessLibrary;
 using RoeiVerenigingLibrary;
 using RoeiVerenigingLibrary;
 using RoeiVerenigingWPF.Frames;
@@ -18,12 +17,12 @@ namespace RoeiVerenigingWPF.Pages
         {
             InitializeComponent();
             DataContext = this;
-            Loaded += loadedEvent;
+            Loaded += LoadedEvent;
             MainWindow = mw;
             Damages = _service.GetAll();
             GetImagesFromMail();
-         
         }
+
         public MainWindow MainWindow { set; get; }
         public List<Damage> Damages { set; get; }
 
@@ -32,7 +31,7 @@ namespace RoeiVerenigingWPF.Pages
             Task task = new Task(() => { EmailToDb.GetImagesFromEmail(_imageRepository); });
             task.Start();
         }
-        
+
         private void Grid_Click(object sender, MouseButtonEventArgs e)
         {
             if (sender is Grid)
@@ -43,23 +42,21 @@ namespace RoeiVerenigingWPF.Pages
 
                 MainWindow.MainContent.Navigate(new ManageDamage(MainWindow, _service.GetById(id)));
             }
-            
+
             Damages.Count();
         }
+
         //todo: Tygo will add the images async
         private void ListView_Loaded(object sender, RoutedEventArgs e)
         {
-             new Thread(async () =>
-             {
-                 _service.AddFirstImageToClass(Damages, _imageRepository);
-                 this.Dispatcher.Invoke(() =>
-                 {
-                     ListView.Items.Refresh();
-                 });
-             }).Start();
+            new Thread(async () =>
+            {
+                _service.AddFirstImageToClass(Damages, _imageRepository);
+                this.Dispatcher.Invoke(() => { ListView.Items.Refresh(); });
+            }).Start();
         }
 
-        private void loadedEvent(object sender, RoutedEventArgs args)
+        private void LoadedEvent(object sender, RoutedEventArgs args)
         {
             //   SetImagesAsync();
         }
