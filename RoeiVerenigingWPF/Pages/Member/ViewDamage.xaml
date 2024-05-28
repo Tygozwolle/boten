@@ -146,13 +146,12 @@ BorderBrush="{x:Static local:CustomColors.TextBoxBackgroundColor}" Margin="0 0 0
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
-                            <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <Button Grid.Column="0" x:Name="update_content" Grid.Row="1" Margin="80,140,10, 80"
+                        <Button Grid.Column="0" Grid.Row="1" Margin="80,140,80, 80"
                             HorizontalContentAlignment="Center" 
                             FontFamily="Franklin Gothic Medium" BorderBrush="Transparent"
                             FontSize="20" Foreground="{x:Static local:CustomColors.HeaderColor}"
-                            Background="{x:Static local:CustomColors.ButtonBackgroundColor}" Click="update_images_Click">
+                            Background="{x:Static local:CustomColors.ButtonBackgroundColor}" Click="update_content">
                             <TextBlock Text="Wijzigen"  VerticalAlignment="Center" Width="71" />
                             <Button.BitmapEffect>
                                 <DropShadowBitmapEffect Color="Black" Direction="320" Softness="1" ShadowDepth="10"
@@ -164,23 +163,6 @@ BorderBrush="{x:Static local:CustomColors.TextBoxBackgroundColor}" Margin="0 0 0
                                 </Style>
                             </Button.Resources>
                         </Button>
-                        <Button Grid.Column="1" x:Name="verwijder_content" Grid.Row="2" Margin="10,140,80, 80"
-                            HorizontalContentAlignment="Center" 
-                            FontFamily="Franklin Gothic Medium" BorderBrush="Transparent"
-                            FontSize="20" Foreground="{x:Static local:CustomColors.HeaderColor}"
-                            Background="{x:Static local:CustomColors.ButtonBackgroundColor}" Click="update_images_Click">
-                            <TextBlock Text="Verwijderen" Foreground="Red" VerticalAlignment="Center" Width="100" />
-                            <Button.BitmapEffect>
-                                <DropShadowBitmapEffect Color="Black" Direction="320" Softness="1" ShadowDepth="10"
-                                Opacity="0.5" />
-                            </Button.BitmapEffect>
-                            <Button.Resources>
-                                <Style TargetType="Border">
-                                    <Setter Property="CornerRadius" Value="15" />
-                                </Style>
-                            </Button.Resources>
-                        </Button>
-
                     </Grid>
                 </Grid>
             </Border>

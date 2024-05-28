@@ -27,7 +27,14 @@ namespace RoeiVerenigingWPF.Pages
             _mainWindow = mw;
             Damage = damage;
             Description.Text = damage.Description;
-            doneContent.Content = damage.BoatFixed;
+            if (damage.BoatFixed == false)
+            {
+                doneContent.Content = "Boot is nog niet klaar voor gebruik";
+            }
+            else
+            {
+                doneContent.Content = "Boot is weer klaar voor gebruik";
+            }
             _images = ImageConverter.ConvertList(Damage.Images);
             qrCodeImage.Source = QrcodeMaker.qrcode(damage.Id);
             if (_images.Count != 0)
@@ -90,6 +97,12 @@ namespace RoeiVerenigingWPF.Pages
                     _mainWindow.MainContent.Navigate(new ViewDamage(_mainWindow, UpdatedDamage));
                 });
             }).Start();
+        }
+        private void update_content(object sender, RoutedEventArgs e)
+        {
+            Damage.Description = Description.Text;
+            _service.Update(Damage.Id, Damage.BoatFixed, Damage.Usable, Description.Text);
+            MessageBox.Show("Beschrijving is aangepast");
         }
     }
 }
