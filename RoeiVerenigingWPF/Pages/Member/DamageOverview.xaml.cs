@@ -59,21 +59,6 @@ namespace RoeiVerenigingWPF.Pages
                 });
             }).Start();
         }
-        // private void SetImages()
-        // {
-        //     new Thread(() =>
-        //     {
-        //         foreach (Damage damage in Damages)
-        //         {
-        //             Damage damageSave = damage;
-        //
-        //             damage.Images = [_imageRepository.GetFirstImage(damageSave.Id)];
-        //         }
-        //         Dispatcher.Invoke(() =>
-        //         {
-        //             ListView.Items.Refresh();
-        //         });
-        //     }).Start();
-        // }
+
      }
 }
