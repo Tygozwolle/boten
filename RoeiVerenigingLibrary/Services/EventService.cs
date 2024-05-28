@@ -16,9 +16,9 @@ namespace RoeiVerenigingLibrary.Services
         {
             _eventRepository = eventRepository;
         }
-        public Event CreateEvent(DateTime startDate, DateTime endDate, string description, string name, int maxParticipants, List<Boat> boats, Member logedInMember)
+        public Event CreateEvent(DateTime startDate, DateTime endDate, string description, string name, int maxParticipants, List<Boat> boats, Member loggedInMember)
         {
-            if (!(logedInMember.Roles.Contains("evenementen_connissaris") || logedInMember.Roles.Contains("beheerder")))
+            if (!(loggedInMember.Roles.Contains("evenementen_connissaris") || loggedInMember.Roles.Contains("beheerder")))
             {
                 throw new IncorrectRightsExeption();
             }
@@ -30,11 +30,11 @@ namespace RoeiVerenigingLibrary.Services
             {
                 throw new InvalidTimeException();
             }
-            return _eventRepository.Create(startDate, endDate, description, name, maxParticipants, boats, logedInMember);
+            return _eventRepository.Create(startDate, endDate, description, name, maxParticipants, boats, loggedInMember);
         }
-        public Event UpdateEvent(Event events, DateTime startDate, DateTime endDate, string description, string name, int maxParticipants, Member logedInMember)
+        public Event UpdateEvent(Event events, DateTime startDate, DateTime endDate, string description, string name, int maxParticipants, Member loggedInMember)
         {
-            if (!(logedInMember.Roles.Contains("evenementen_connissaris") || logedInMember.Roles.Contains("beheerder")))
+            if (!(loggedInMember.Roles.Contains("evenementen_connissaris") || loggedInMember.Roles.Contains("beheerder")))
             {
                 throw new IncorrectRightsExeption();
             }
@@ -46,10 +46,9 @@ namespace RoeiVerenigingLibrary.Services
             {
                 throw new InvalidTimeException();
             }
+            //TODO: check if max participants is not less than the amount of participants
             return _eventRepository.Change(events, startDate, endDate, description, name, maxParticipants);
         }
-
-
     }
 }
 
