@@ -34,8 +34,8 @@
             {
                 Task task = new Task(() =>
                 {
-                    Damage Save = damage;
-                    Save.Images = new List<Stream> { imageRepository.GetFirstImage(Save.Id) };
+                    Damage save = damage;
+                    save.Images = new List<Stream> { imageRepository.GetFirstImage(save.Id) };
                 });
                 task.Start();
                 tasks.Add(task);
