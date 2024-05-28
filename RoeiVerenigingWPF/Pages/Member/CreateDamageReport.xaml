@@ -41,7 +41,8 @@
                     </Grid.ColumnDefinitions>
 
                     <!-- Header -->
-                    <Label Content="Melden van schade" FontSize="30" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"  HorizontalAlignment="Center"/>
+                    <Label Content="Melden van schade" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"  HorizontalAlignment="Center" FontFamily="Franklin Gothic Medium" FontSize="36"
+Foreground="{x:Static local:CustomColors.HeaderColor}"/>
                     <!-- Titel -->
                     <Label Foreground="{x:Static local:CustomColors.SubHeaderColor}" Content="hier kan je schade melden die een boot heeft. Indien je de schade niet zelf hebt gemaakt, zet dit bij je beschrijving in" FontSize="15" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Center"/>
         <!-- Photo -->

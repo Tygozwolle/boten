@@ -27,14 +27,6 @@ namespace RoeiVerenigingWPF.Pages
             _mainWindow = mw;
             Damage = damage;
             Description.Text = damage.Description;
-            if (damage.BoatFixed == false)
-            {
-                doneContent.Content = "Boot is nog niet klaar voor gebruik";
-            }
-            else
-            {
-                doneContent.Content = "Boot is weer klaar voor gebruik";
-            }
             _images = ImageConverter.ConvertList(Damage.Images);
             qrCodeImage.Source = QrcodeMaker.Qrcode(damage.Id);
             if (_images.Count != 0)
