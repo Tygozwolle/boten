@@ -1,4 +1,5 @@
 ﻿using RoeiVerenigingLibrary.Interfaces;
+using RoeiVerenigingLibrary.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,10 @@ namespace RoeiVerenigingLibrary.Services
         public EventService(IEventRepository eventRepository)
         {
             _eventRepository = eventRepository;
+        }
+        public Event CreateEvent( DateTime startDate, DateTime endDate, string description, string name, int maxParticipants, List<Boat> boats, Member logedInMember)
+        {
+            return _eventRepository.Create(startDate, endDate, description, name, maxParticipants, boats, logedInMember);
         }
     }
 }
