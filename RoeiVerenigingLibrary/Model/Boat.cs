@@ -35,10 +35,7 @@ namespace RoeiVerenigingLibrary
 
         public string Description
         {
-            get
-            {
-                return _Description;
-            }
+            get { return _Description; }
             set => _Description = value;
         }
 
@@ -52,6 +49,7 @@ namespace RoeiVerenigingLibrary
             {
                 return "Nee";
             }
+        }
 
         public String DescriptionNoEnter
         {
