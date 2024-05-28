@@ -60,7 +60,7 @@
                                         <Image Source="/Images/Rightarrow.png" Height="50" MouseDown="NextImage" x:Name="___Next_" Grid.Row="1" Grid.Column="1" />
 
 
-                                        <TextBlock Text="Beschrijving" FontSize="24" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" />
+                                        <TextBlock Text="Beschrijving" FontSize="24" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" />
                                         <TextBox Name="Description" MinHeight="100" Grid.ColumnSpan="2" Margin="0,0,0,50"  Grid.Column="0" TextWrapping="Wrap" Text="" Grid.Row="3" 
                                                  Background="{x:Static local:CustomColors.TextBoxBackgroundColor}"/>
                                     </Grid>

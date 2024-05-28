@@ -3,9 +3,173 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:RoeiVerenigingWPF.helpers"
       mc:Ignorable="d"
-      Title="ManageDamage" d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Margin="150,35,150,150">
+      Title="ManageDamage" d:DesignHeight="900" d:DesignWidth="1165">
+    <Grid Height="900" Width="1165" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Grid.Effect>
+            <DropShadowEffect Color="Black" Direction="320" ShadowDepth="10" Opacity="0.3" />
+        </Grid.Effect>
+        <Border CornerRadius="30" BorderThickness="5" BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}">
+            <Border CornerRadius="24" BorderThickness="8"
+                 BorderBrush="{x:Static local:CustomColors.MainBackgroundColor}">
+                <Grid Margin="0,0,0,0" Background="{x:Static local:CustomColors.MainBackgroundColor}" Height="900"
+                   Width="1165">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="1*" />
+
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="20" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="{Binding Damage.Boat.Name, StringFormat='Schade melding van {0}'}" FontSize="30" Grid.Row="0"
+               Grid.Column="0" Grid.ColumnSpan="4" HorizontalAlignment="Center" />
+                    <!--imageblock-->
+                    <Grid Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.RowSpan="4">
+                        <Grid.Effect>
+                            <DropShadowEffect Color="Black" Direction="320" ShadowDepth="10" Opacity="0.3" />
+                        </Grid.Effect>
+                        <Border CornerRadius="30" BorderThickness="5" BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}" Margin="0,0,0,0">
+                            <Border CornerRadius="24" BorderThickness="8"
+                                BorderBrush="{x:Static local:CustomColors.TextBoxBackgroundColor}" Margin="0 0 0 0" Height="700" Width="400">
+                                <Grid Margin="0,0,0,0" Background="{x:Static local:CustomColors.TextBoxBackgroundColor}">
+                                    <Grid HorizontalAlignment="Center" Margin="40,0,40,0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="1*" />
+                                            <RowDefinition Height="50" />
+                                            <RowDefinition Height="50" />
+                                            <RowDefinition Height="1*" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="1*" />
+                                            <ColumnDefinition Width="1*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Image x:Name="DamageImage"
+                                               Source="/Images/Image_not_available.png" 
+                                               Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
+
+                                        <Image Source="/Images/Leftarrow.png" Height="50" x:Name="___Prev_"  Grid.Row="1" MouseDown="PrevImage"/>
+                                        <Image Source="/Images/Rightarrow.png" Height="50" MouseDown="NextImage" x:Name="___Next_" Grid.Row="1" Grid.Column="1" />
+
+
+                                        <TextBlock Text="Beschrijving" FontSize="24" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center"/>
+                                        <TextBox Name="Description" MinHeight="100" Grid.ColumnSpan="2" Margin="0,0,0,20"  Grid.Column="0" TextWrapping="Wrap" Text="" Grid.Row="3" 
+                                                 Background="{x:Static local:CustomColors.TextBoxBackgroundColor}"/>
+
+                                    </Grid>
+                                </Grid>
+                            </Border>
+                        </Border>
+                    </Grid>
+                    <!--qrcodeblock-->
+                    <Grid Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.RowSpan="2" Height="450">
+                        <Grid.Effect>
+                            <DropShadowEffect Color="Black" Direction="320" ShadowDepth="10" Opacity="0.3" />
+                        </Grid.Effect>
+                        <Border CornerRadius="30" BorderThickness="5" BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}" Margin="0,10,0,-10">
+                            <Border CornerRadius="24" BorderThickness="8"
+            BorderBrush="{x:Static local:CustomColors.TextBoxBackgroundColor}" Margin="0 0 0 0" Height="440" Width="400">
+                                <Grid Margin="0,0,0,0" Background="{x:Static local:CustomColors.TextBoxBackgroundColor}">
+                                    <Grid HorizontalAlignment="Center">
+                                        <Grid.RowDefinitions>
+
+                                            <RowDefinition Height="300"/>
+                                            <RowDefinition Height="50" />
+                                            <RowDefinition Height="50" />
+                                            <RowDefinition Height="1*" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="1*" />
+                                            <ColumnDefinition Width="1*" />
+                                        </Grid.ColumnDefinitions>
+
+
+                                        <Image x:Name="qrCodeImage" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
+                                        <TextBlock Grid.Row="1" Margin="10,0,10,0" HorizontalAlignment="Center" Grid.ColumnSpan="2"  TextWrapping="Wrap" Text="Scan de qr-code om foto's toe te voegen. Voeg de fotos als bijlage aan de mail en verander het onderwerp niet. Het kan even duren voordat u foto is verwerkt." />
+                                        <Button Grid.Column="0" x:Name="update_images" Grid.Row="2" Margin="74,0,74,0"
+                                            HorizontalContentAlignment="Center" 
+                                            FontFamily="Franklin Gothic Medium" BorderBrush="Transparent"
+                                            FontSize="20" Foreground="{x:Static local:CustomColors.HeaderColor}"
+                                            Background="{x:Static local:CustomColors.ButtonBackgroundColor}" Click="update_images_Click" Grid.ColumnSpan="2">
+                                            <TextBlock Text="refresh afbeeldingen"  VerticalAlignment="Center" Width="183" />
+                                            <Button.BitmapEffect>
+                                                <DropShadowBitmapEffect Color="Black" Direction="320" Softness="1" ShadowDepth="10"
+                                                Opacity="0.5" />
+                                            </Button.BitmapEffect>
+                                            <Button.Resources>
+                                                <Style TargetType="Border">
+                                                    <Setter Property="CornerRadius" Value="15" />
+                                                </Style>
+                                            </Button.Resources>
+                                        </Button>
+                                    </Grid>
+                                </Grid>
+                            </Border>
+                        </Border>
+                    </Grid>
+                    <!--doneblock-->
+                    <Grid Grid.Row="2" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.RowSpan="2" Height="150" Margin="0,250,0,0">
+                        <Grid.Effect>
+                            <DropShadowEffect Color="Black" Direction="320" ShadowDepth="10" Opacity="0.3" />
+                        </Grid.Effect>
+                        <Border CornerRadius="30" BorderThickness="5" BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}" Margin="0,0,0,0">
+                            <Border CornerRadius="24" BorderThickness="8"
+BorderBrush="{x:Static local:CustomColors.TextBoxBackgroundColor}" Margin="0 0 0 0" Height="140" Width="400">
+                                <Grid Margin="0,0,0,0" Background="{x:Static local:CustomColors.TextBoxBackgroundColor}">
+                                    <Grid HorizontalAlignment="Center">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Label Content="Afgerond?" FontSize="20" Grid.Row="0" HorizontalAlignment="Center"/>
+                                        <CheckBox Name="Usable" Margin="10" Grid.Column="0" Grid.Row="4">Bruikbaar</CheckBox>
+                                        <CheckBox Name="Fixed" Margin="10" Grid.Column="1" Grid.Row="4">Gerepareerd</CheckBox>
+                                    </Grid>
+                                </Grid>
+                            </Border>
+                        </Border>
+                    </Grid>
+                    <!--buttons-->
+                    <Grid Grid.Row="3" Grid.Column="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" Grid.Row="1" Margin="80,140,80, 80"
+                            HorizontalContentAlignment="Center" 
+                            FontFamily="Franklin Gothic Medium" BorderBrush="Transparent"
+                            FontSize="20" Foreground="{x:Static local:CustomColors.HeaderColor}"
+                            Background="{x:Static local:CustomColors.ButtonBackgroundColor}" Click="Button_Click">
+                            <TextBlock Text="Opslaan"  VerticalAlignment="Center" Width="71" />
+                            <Button.BitmapEffect>
+                                <DropShadowBitmapEffect Color="Black" Direction="320" Softness="1" ShadowDepth="10"
+                                Opacity="0.5" />
+                            </Button.BitmapEffect>
+                            <Button.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="15" />
+                                </Style>
+                            </Button.Resources>
+                        </Button>
+                    </Grid>
+                </Grid>
+            </Border>
+        </Border>
+    </Grid>
+    <!--<Grid Margin="150,35,150,150">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
@@ -82,5 +246,5 @@
             <CheckBox Name="Fixed" Margin="10" Grid.Column="1">Gerepareerd</CheckBox>
         </Grid>
         <Button Margin="10" Content="Opslaan" Click="Button_Click" Grid.Row="4" Grid.Column="1" />
-    </Grid>
+    </Grid>-->
 </Page>
