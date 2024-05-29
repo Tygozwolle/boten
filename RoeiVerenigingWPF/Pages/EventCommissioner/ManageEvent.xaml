@@ -49,10 +49,10 @@
                                Foreground="Red" Padding="0,0,0,5">
                         </TextBlock>
                     </Grid>
-                    <Grid Grid.Row="1" Grid.Column="0" ColumnSpan="2" Margin="0, 0,0,10" HorizontalAlignment="Center">
+                    <Grid Grid.Row="1" Grid.Column="0" ColumnSpan="2" Margin="30, 0,0,10" >
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="300" /> 
-                            <ColumnDefinition Width="Auto" /> 
+                            <ColumnDefinition Width="400" /> 
+                            <ColumnDefinition Width="900" /> 
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" /> 
@@ -62,8 +62,8 @@
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto"></RowDefinition>
                             </Grid.RowDefinitions> 
-                            <StackPanel Grid.Row="0" Margin="10,0,10,10">
-                                <Label Content="*Naam:" Width="200" FontFamily="Franklin Gothic Medium"
+                            <StackPanel Grid.Row="0" Margin="10,0,10,10" >
+                                <Label Content="*Naam event:" Width="200" FontFamily="Franklin Gothic Medium"
                                        FontSize="14" HorizontalContentAlignment="Center"
                                        Foreground="{x:Static helpers:CustomColors.SubHeaderColor}" />
                                 <TextBox x:Name="Name" Width="367" Height="20"
@@ -93,7 +93,7 @@
                                 <Label Content="*Beschrijving:" Width="200" FontFamily="Franklin Gothic Medium"
                                        FontSize="14" HorizontalContentAlignment="Center"
                                        Foreground="{x:Static helpers:CustomColors.SubHeaderColor}" />
-                                <TextBox x:Name="Description" Width="367" Height="75"
+                                <TextBox x:Name="Description" Width="700" Height="75"
                                          Foreground="{x:Static helpers:CustomColors.SubHeaderColor}"
                                          Background="{x:Static helpers:CustomColors.TextBoxBackgroundColor}"
                                          BorderBrush="{x:Static helpers:CustomColors.OutsideBorderColor}"
