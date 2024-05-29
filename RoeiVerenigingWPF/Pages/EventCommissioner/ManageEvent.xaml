@@ -8,7 +8,7 @@
       mc:Ignorable="d"
       d:DesignHeight="900" d:DesignWidth="1500"
       Title="Evenement Aanmaken" Background="Transparent">
-    <Grid Height="900" Width="1500" HorizontalAlignment="Center" VerticalAlignment="Center">
+    <Grid Height="900" Width="1500" HorizontalAlignment="Center" VerticalAlignment="Center" Loaded="FrameworkElement_OnLoaded">
         <Grid.Effect>
             <DropShadowEffect Color="Black" Direction="320" ShadowDepth="10" Opacity="0.3" />
         </Grid.Effect>
@@ -234,6 +234,7 @@
                             Foreground="{x:Static helpers:CustomColors.HeaderColor}"
                             Background="{x:Static helpers:CustomColors.ButtonBackgroundColor}"
                             BorderBrush="{x:Static helpers:CustomColors.OutsideBorderColor}"
+                            IsEnabled="False"
                             Content="Volgende" Click="NextButton_OnClick" Name="NextButton">
                         <Button.Resources>
                             <Style TargetType="Border">

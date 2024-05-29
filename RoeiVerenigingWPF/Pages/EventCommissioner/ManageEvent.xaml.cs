@@ -6,6 +6,7 @@ using RoeiVerenigingWPF.Frames;
 using RoeiVerenigingWPF.helpers;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -13,7 +14,7 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
 {
     public partial class ManageEvent : Page
     {
-      
+
         private readonly Member _loggedInMember;
         private MainWindow _mainWindow;
 
@@ -36,11 +37,11 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
             _mainWindow = mainWindow;
             InitializeComponent();
             _loggedInMember = mainWindow.LoggedInMember;
-            _boatList = _boatService.GetBoats();
+            
             DataContext = this;
             BoatGrid.Visibility = Visibility.Hidden;
         }
-        
+
 
 
         private void PopulateTimeContentGrid(List<DateTime> availableDates)
@@ -274,9 +275,13 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
                 grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(300) });
                 grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(200) });
 
+                var imageconverter = new SingleStreamImageConverter(); 
+                var source = imageconverter.Convert(boat.Image, typeof(ImageSource), null, null);
+                                
+
                 grid.Children.Add(new Image
                 {
-                    Source = new BitmapImage(new Uri("/Images/Image_not_available.png", UriKind.Relative)),
+                    Source = (BitmapImage)source,
                     Height = 150, Width = 300, VerticalAlignment = VerticalAlignment.Top
                 });
                 Grid.SetColumn(grid.Children[0], 0);
@@ -368,7 +373,7 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
             }
             ScrollViewerBoat.UpdateLayout();
         }
-       
+
         private void SaveButton_OnClick(object sender, RoutedEventArgs e)
         {
             if (_selectedBoats.Count >= 1)
@@ -384,6 +389,18 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
                     ExceptionText.Text = exception.Message;
                 }
             }
+        }
+        private void FrameworkElement_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            new Task(() =>
+            {
+                _boatList = _boatService.GetBoats();
+                _boatService.GetImageBoats(_boatList);
+                this.Dispatcher.Invoke(() =>
+                {
+                    NextButton.IsEnabled = true;
+                });
+            }).Start();
         }
     }
 }
