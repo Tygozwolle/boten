@@ -367,16 +367,6 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
                 BoatContentStackPanel.Children.Add(button);
             }
             ScrollViewerBoat.UpdateLayout();
-           // stackPanel.MaxHeight = 500;
-            // ScrollViewer scrollViewer = new ScrollViewer
-            // {
-            //     Content = stackPanel,
-            //     VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
-            //     HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled
-            // };
-            // scrollViewer.Content = BoatContentStackPanel;
-            
-            //.Content = scrollViewer;
         }
        
         private void SaveButton_OnClick(object sender, RoutedEventArgs e)
