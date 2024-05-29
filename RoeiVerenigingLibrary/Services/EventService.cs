@@ -20,7 +20,7 @@ namespace RoeiVerenigingLibrary.Services
         {
             if (!(loggedInMember.Roles.Contains("evenementen_connissaris") || loggedInMember.Roles.Contains("beheerder")))
             {
-                throw new IncorrectRightsExeption();
+                throw new IncorrectRightsException();
             }
             if (startDate < DateTime.Now.AddDays(14))
             {
@@ -36,7 +36,7 @@ namespace RoeiVerenigingLibrary.Services
         {
             if (!(loggedInMember.Roles.Contains("evenementen_connissaris") || loggedInMember.Roles.Contains("beheerder")))
             {
-                throw new IncorrectRightsExeption();
+                throw new IncorrectRightsException();
             }
             if (startDate < DateTime.Now.AddDays(14))
             {
