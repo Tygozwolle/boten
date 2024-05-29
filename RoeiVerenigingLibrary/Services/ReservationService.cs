@@ -19,7 +19,7 @@ namespace RoeiVerenigingLibrary
 
             throw new InvalidTimeException();
         }
-
+        
         public Reservation Create(Member member, int boatId, DateTime startTime, DateTime endTime)
         {
             if (ReservationInThePast(startTime))
