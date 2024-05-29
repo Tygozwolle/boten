@@ -114,7 +114,7 @@
                                         <RowDefinition Height="50" />
                                         <RowDefinition Height="*" />
                                     </Grid.RowDefinitions>
-                                    <TextBlock Grid.Row="0" Text="Kies de datum waarop je wil varen:" FontSize="24"
+                                    <TextBlock Grid.Row="0" Text="Kies de datum waarop het evenement is:" FontSize="20"
                                                Foreground="{x:Static helpers:CustomColors.SubHeaderColor}" />
                                     <Viewbox Grid.Row="1" Width="300">
                                         <Calendar Name="ReservationCalendar" HorizontalAlignment="Center"

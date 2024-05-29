@@ -44,6 +44,30 @@ namespace DataAccessLibrary
                 }
             }
         }
+
+        public List<Event> GetAll()
+        {
+            var list = new List<Event>();
+            using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
+            {
+                connection.Open();
+
+                const string sql = "SELECT * FROM `events`";
+
+                using (MySqlCommand command = new MySqlCommand(sql, connection))
+                {
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            list.Add(new Event(new List<Member>(), reader.GetDateTime("start_time"), reader.GetDateTime("end_time"), reader.GetString("description"), reader.GetString("name"),
+                                reader.GetInt32("id"), reader.GetInt32("max_participants"), new List<Boat>()));
+                        }
+                    }
+                }
+            }
+            return list;
+        }
         private void AddBoatsToEvent(Event events, Boat boat, MySqlConnection connection, MySqlTransaction transaction)
         {
             const string sql =

@@ -1,6 +1,7 @@
 ﻿using DataAccessLibrary;
 using RoeiVerenigingLibrary;
 using RoeiVerenigingLibrary.Exceptions;
+using RoeiVerenigingLibrary.Services;
 using RoeiVerenigingWPF.helpers;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,6 +17,7 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
 
         private readonly ReservationService _reservationService = new ReservationService(new ReservationRepository());
         private readonly BoatService _boatService = new BoatService(new BoatRepository());
+        private readonly EventService _eventService = new EventService(new EventRepository());
         private List<Reservation> _reservationsList;
         private List<Boat> _boatList;
         private List<Button> _selectedButtons = new List<Button>();
@@ -34,21 +36,9 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
             _boatList = _boatService.GetBoats();
             _reservationsList = _reservationService.GetReservations();
             DataContext = this;
-            CheckIfMemberHas2Reservations();
             BoatGrid.Visibility = Visibility.Hidden;
         }
-
-        private void CheckIfMemberHas2Reservations()
-        {
-            if (_loggedInMember.Roles.Contains("beheerder"))
-            {
-                WatchOutTextBlock.Visibility = Visibility.Hidden;
-            }
-            else if (_reservationService.GetReservations(_loggedInMember).Count >= 2)
-            {
-                WatchOutTextBlock.Visibility = Visibility.Visible;
-            }
-        }
+        
 
 
         private void PopulateTimeContentGrid(List<DateTime> availableDates)
