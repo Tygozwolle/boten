@@ -1,14 +1,18 @@
-﻿using DataAccessLibrary;
+﻿
+using DataAccessLibrary;
 using RoeiVerenigingLibrary;
 using RoeiVerenigingWPF.Frames;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
+using RoeiVerenigingWPF.Pages.Admin;
 
 namespace RoeiVerenigingWPF.Pages
 {
     /// <summary>
     ///     Interaction logic for ViewUsers.xaml
     /// </summary>
+    ///
     public partial class ViewReservations : Page
     {
 
@@ -17,21 +21,45 @@ namespace RoeiVerenigingWPF.Pages
             InitializeComponent();
             DataContext = this;
             ReservationService service = new ReservationService(new ReservationRepository());
-            MainWindow = mainWindow;
+            _MainWindow = mainWindow;
             ReservationList = service.GetReservations(mainWindow.LoggedInMember);
+            BoatListFill(ReservationList);
         }
+
         public List<Reservation> ReservationList { get; set; }
-        public MainWindow MainWindow { set; get; }
+        public List<Boat> BoatList { get; set; } = new List<Boat>();
+        public BoatService BService { get; } = new BoatService(new BoatRepository());
+        public MainWindow _MainWindow { set; get; }
 
-        public void SelectReservation(object sender, RoutedEventArgs e)
+        private void BoatListFill(List<Reservation> reservationList)
         {
-            if (sender is Button)
+            foreach (var reservation in reservationList)
             {
-                Button casted = sender as Button;
-                object command = casted.CommandParameter;
-                int idReservation = Int32.Parse(command.ToString());
+                this.BoatList.Add(reservation.Boat);
+            }
+        }
 
-                MainWindow.MainContent.Navigate(new EditReservation(MainWindow, idReservation));
+        private void ListView_Loaded(object sender, RoutedEventArgs e)
+        {
+            new Thread(async () =>
+            {
+                BService.GetImageBoats(BoatList);
+                Dispatcher.Invoke((Action)(() =>
+                {
+                    ReservationListView.Items.Refresh();
+                }));
+            }).Start();
+        }
+
+        private void Grid_Click(object sender, MouseButtonEventArgs e)
+        {
+            if (sender is Grid)
+            {
+                Grid casted = sender as Grid;
+                object command = casted.Tag;
+                int id = Int32.Parse(command.ToString());
+
+                _MainWindow.MainContent.Navigate(new ManageBoat(_MainWindow, BService.GetBoatById(id)));
             }
         }
     }
