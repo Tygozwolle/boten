@@ -371,19 +371,18 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
        
         private void SaveButton_OnClick(object sender, RoutedEventArgs e)
         {
-            if (_reservationService.GetReservations(_loggedInMember).Count < 2 ||
-                _loggedInMember.Roles.Contains("beheerder") || _loggedInMember.Roles.Contains("materiaal_commissaris"))
+            if (_selectedBoats.Count >= 1)
             {
-                try
-                {
-                    _reservationService.Create(_loggedInMember, _selectedBoat.Id, StartTime, EndTime);
-                    ExceptionText.Text = "De reservering is aangemaakt!";
+               // try
+               // {
+                   _eventService.CreateEvent(StartTime, EndTime, Description.Text, Name.Text, Int32.Parse(MaxPartisipants.Text), _selectedBoats, _loggedInMember);
+                    ExceptionText.Text = "Het Evenement is aangemaakt!";
                     ExceptionText.Foreground = Brushes.Lime;
-                }
-                catch (Exception exception)
-                {
-                    ExceptionText.Text = exception.Message;
-                }
+             //   }
+                // catch (Exception exception)
+                // {
+                //     ExceptionText.Text = exception.Message;
+                // }
             }
         }
     }
