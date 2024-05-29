@@ -5,46 +5,90 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:roeiVerenigingWpf="clr-namespace:RoeiVerenigingWPF"
       mc:Ignorable="d"
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="CreateDamageReport">
+      d:DesignHeight="900" d:DesignWidth="1200"
+      Title="CreateDamageReport" xmlns:local="clr-namespace:RoeiVerenigingWPF.helpers">
     <Page.Resources>
         <roeiVerenigingWpf:SingleStreamImageConverter x:Key="SingleStreamImageConverter" />
     </Page.Resources>
-    <Grid>
-        <Grid.RowDefinitions>
-            <!-- Header Column -->
-            <RowDefinition Height="50" />
-            <!-- Title Column -->
 
-            <RowDefinition Height="1*" />
-            <RowDefinition Height="50" />
-            <RowDefinition Height="1*" />
-            <RowDefinition Height="1*" />
+    <Grid Height="900" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Grid.Effect>
+            <DropShadowEffect Color="Black" Direction="320" ShadowDepth="10" Opacity="0.3" />
+        </Grid.Effect>
+        <Border CornerRadius="30" BorderThickness="5" BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}">
+            <Border CornerRadius="24" BorderThickness="8"
+                    BorderBrush="{x:Static local:CustomColors.MainBackgroundColor}">
+                <Grid Margin="0,0,0,0" Background="{x:Static local:CustomColors.MainBackgroundColor}" Height="900">
+                    <Grid.RowDefinitions>
+                        <!-- Header Column -->
+                        <RowDefinition Height="Auto" />
+                        <!-- Title Column -->
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
 
 
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
 
-            <ColumnDefinition Width="1*" />
-            <ColumnDefinition Width="1*" />
+                    <!-- Header -->
+                    <Label Margin="15,5,15,5" Content="Melden van schade" Grid.Row="0" Grid.Column="0"
+                           Grid.ColumnSpan="2"
+                           HorizontalAlignment="Center" FontFamily="Franklin Gothic Medium" FontSize="36"
+                           Foreground="{x:Static local:CustomColors.HeaderColor}" />
+                    <!-- Titel -->
+                    <Label Margin="15,5,15,5" Foreground="{x:Static local:CustomColors.SubHeaderColor}"
+                           Content="hier kan je schade melden die een boot heeft. Indien je de schade niet zelf hebt gemaakt vermeld je dit in de omschrijving"
+                           FontSize="15" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" />
 
-            <ColumnDefinition Width="1*" />
-        </Grid.ColumnDefinitions>
+                    <!-- Titel -->
+                    <Label Margin="15,5,15,5" Foreground="{x:Static local:CustomColors.SubHeaderColor}"
+                           Content="Na het aanmaken kan je foto's toevoegen"
+                           FontSize="15" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" />
+                    <!-- Photo -->
+                    <Image Margin="15,5,15,5"
+                           Source="{Binding Image, Converter={StaticResource SingleStreamImageConverter}}"
+                           Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" MaxHeight="200px" />
 
-        <!-- Titel -->
-        <Label Content="Schade melding boot X" FontSize="30" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" />
+                    <Label Margin="15,5,15,5" Grid.Row="4" Content="Omschrijving:" FontFamily="Franklin Gothic Medium"
+                           FontSize="24" HorizontalContentAlignment="Center"
+                           Foreground="{x:Static local:CustomColors.SubHeaderColor}" Grid.ColumnSpan="2" />
 
-        <!-- Photo -->
-        <Image Source="{Binding Image, Converter={StaticResource SingleStreamImageConverter}}" Grid.Column="0" Grid.Row="1" />
+                    <TextBox Margin="15,5,15,5" x:Name="___discription_" Grid.Row="5" Grid.ColumnSpan="2"
+                             Foreground="{x:Static local:CustomColors.SubHeaderColor}"
+                             Background="{x:Static local:CustomColors.TextBoxBackgroundColor}"
+                             BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}" FontSize="24"
+                             FontFamily="Franklin Gothic Medium"
+                             Height="300" />
 
-        <!-- Tekst Label -->
-        <Label Content="Tekst over Boten" Grid.Row="1" Grid.Column="1" />
 
-        <Label Content="Schade:" Grid.Row="2" FontSize="30" />
+                    <Button Margin="15,5,15,5" Grid.Column="2" HorizontalAlignment="Right" x:Name="___submit_"
+                            Grid.Row="6"
+                            HorizontalContentAlignment="Center" Width="300" Height="100"
+                            FontFamily="Franklin Gothic Medium"
+                            BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}" BorderThickness="3"
+                            FontSize="20" Foreground="{x:Static local:CustomColors.HeaderColor}"
+                            Background="{x:Static local:CustomColors.ButtonBackgroundColor}" Click="Button_Click">
+                        <TextBlock Text="Schade melden" VerticalAlignment="Top" Width="133" />
+                        <Button.BitmapEffect>
+                            <DropShadowBitmapEffect Color="Black" Direction="320" Softness="1" ShadowDepth="10"
+                                                    Opacity="0.5" />
+                        </Button.BitmapEffect>
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="15" />
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                </Grid>
+            </Border>
+        </Border>
 
-        <TextBox x:Name="___discription_" Grid.Row="3" Grid.Column="0" Margin="5 0 0 0" />
-
-        <Button x:Name="___submit_" Grid.Column="3" Grid.Row="4" MaxHeight="50" Content="Melden" FontSize="20"
-                Click="Button_Click" />
     </Grid>
 </Page>
