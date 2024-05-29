@@ -54,7 +54,9 @@ namespace RoeiVerenigingLibrary.Services
             List<Event> events = _eventRepository.GetAll();
 
             DateTime startTime = selectedDate.Date;
-            DateTime endTime = selectedDate.Date.AddHours(23);
+         //   DateTime endTime = selectedDate.Date.AddHours(23);
+           // var range = Enumerable.Range(0, 23);
+            
             
             Dictionary<DateTime, int> reservationsPerTimeBlock = events
                 .SelectMany(eventob => Enumerable.Range(0, (eventob.EndDate - eventob.StartDate).Hours)
@@ -62,7 +64,7 @@ namespace RoeiVerenigingLibrary.Services
                 .GroupBy(time => time)
                 .ToDictionary(group => group.Key, group => group.Count());
             
-            List<DateTime> timeAvailableList = Enumerable.Range(0, (endTime - startTime).Hours)
+            List<DateTime> timeAvailableList = Enumerable.Range(0, 24)
                 .Select(i => startTime.AddHours(i))
                 .Where(time =>
                     !reservationsPerTimeBlock.ContainsKey(time))

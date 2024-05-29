@@ -124,7 +124,7 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
 
                     if (_selectedDate < DateTime.Today)
                     {
-                        throw new ReservationInThePastException();
+                        //throw new ReservationInThePastException();
                     }
                     else if (_selectedDate > DateTime.Today.AddDays(14) &&
                              (!_loggedInMember.Roles.Contains("beheerder") &&

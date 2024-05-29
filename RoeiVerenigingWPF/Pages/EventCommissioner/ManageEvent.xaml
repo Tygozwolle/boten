@@ -154,7 +154,7 @@
                     <Grid Grid.Column="1" Grid.RowSpan="2" Grid.Row="2" Height="600" Name="TimeBlockGrid" Width="600"
                           HorizontalAlignment="Center" VerticalAlignment="Top">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="400" />
+                            <RowDefinition Height="500" />
                             <RowDefinition Height="200" />
                         </Grid.RowDefinitions>
                         <Border Grid.Row="0" CornerRadius="30" BorderThickness="5"
@@ -162,10 +162,10 @@
                             <Border CornerRadius="24" BorderThickness="8"
                                     BorderBrush="{x:Static helpers:CustomColors.TextBoxBackgroundColor}">
                                 <Grid Background="{x:Static helpers:CustomColors.TextBoxBackgroundColor}">
-                                    <TextBlock Text="Selecteer de tijd (max 2) hoelaat je wil varen."
+                                    <TextBlock  Text="Selecteer de tijd (max 2) hoelaat je wil varen."
                                                HorizontalAlignment="Center" FontSize="24"
                                                Foreground="{x:Static helpers:CustomColors.SubHeaderColor}" />
-                                    <Grid Name="TimeContentGrid" Margin="0,40,0,0" HorizontalAlignment="Center">
+                                    <Grid Name="TimeContentGrid"  Margin="0,40,0,0" HorizontalAlignment="Center">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto" />
                                             <RowDefinition Height="Auto" />
