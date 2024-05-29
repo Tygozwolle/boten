@@ -24,6 +24,7 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
         private List<Boat> _boatList;
         private List<Button> _selectedButtons = new List<Button>();
         private List<DateTime> _selectedTimes = new List<DateTime>();
+        private List<DateTime> _availableTimes = new List<DateTime>();
 
         private DateTime StartTime { get; set; }
         private DateTime EndTime { get; set; }
@@ -132,8 +133,8 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
                     {
                         throw new DateTooFarInTheFuture();
                     }
-
-                    PopulateTimeContentGrid(_eventService.GetAvailableTimes(_selectedDate));
+                    _availableTimes = _eventService.GetAvailableTimes(_selectedDate);
+                    PopulateTimeContentGrid(_availableTimes);
 
                     SelectedDateTextBlock.Text = _selectedDate.ToString("dd MMMM yyyy");
                     StartTimeTextBlock.Text = null;
@@ -214,17 +215,24 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
             }
             else if (_selectedTimes.Count != 0)
             {
-                StartTime = _selectedTimes[0];
-                if(_selectedTimes[1].AddHours(1).Hour != 0)
+                if (CheckIfPosible())
                 {
-                    EndTime = _selectedTimes[1].AddHours(1);
+                    StartTime = _selectedTimes[0];
+                    if (_selectedTimes[1].AddHours(1).Hour != 0)
+                    {
+                        EndTime = _selectedTimes[1].AddHours(1);
+                    }
+                    else
+                    {
+                        EndTime = _selectedTimes[1].AddMinutes(59).AddSeconds(59);
+                    }
+                    StartTimeTextBlock.Text = StartTime.ToString("t");
+                    EndTimeTextBlock.Text = EndTime.ToString("t");
                 }
                 else
                 {
-                    EndTime = _selectedTimes[1].AddMinutes(59).AddSeconds(59);
+                    ExceptionText.Text = "Deze tijden zijn niet beschikbaar!";
                 }
-                StartTimeTextBlock.Text = StartTime.ToString("t");
-                EndTimeTextBlock.Text = EndTime.ToString("t");
             }
             else
             {
@@ -232,7 +240,28 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
                 EndTimeTextBlock.Text = "";
             }
         }
-
+        private bool CheckIfPosible()
+        {
+            if (_selectedTimes.Count < 2)
+            {
+                return true;
+            }
+            else if (_selectedTimes.Count == 2)
+            {
+                DateTime startTime = _selectedTimes[0];
+                DateTime endTime = _selectedTimes[1];
+                var range = Enumerable.Range(startTime.Hour, endTime.Hour);
+                foreach (var start in range)
+                {
+                    if (!(_availableTimes.Contains(startTime.AddHours(start))))
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            return false;
+        }
         private void NextButton_OnClick(object sender, RoutedEventArgs e)
         {
             PopulateBoatGrid(_selectedDate, StartTime, EndTime);
