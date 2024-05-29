@@ -37,7 +37,7 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Grid Background="Transparent" Margin="50 20 50 0" Width="650" Height="200"
-                              PreviewMouseLeftButtonDown="SelectReservation" Tag="{Binding Id}">
+                              PreviewMouseLeftButtonDown="Grid_Click" Tag="{Binding Boat.Id}">
                             <Grid.Resources>
                                 <Style TargetType="Border">
                                     <Setter Property="CornerRadius" Value="15" />

@@ -4,6 +4,8 @@ using RoeiVerenigingLibrary;
 using RoeiVerenigingWPF.Frames;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
+using RoeiVerenigingWPF.Pages.Admin;
 
 namespace RoeiVerenigingWPF.Pages
 {
@@ -19,7 +21,7 @@ namespace RoeiVerenigingWPF.Pages
             InitializeComponent();
             DataContext = this;
             ReservationService service = new ReservationService(new ReservationRepository());
-            MainWindow = mainWindow;
+            _MainWindow = mainWindow;
             ReservationList = service.GetReservations(mainWindow.LoggedInMember);
             BoatListFill(ReservationList);
         }
@@ -27,7 +29,7 @@ namespace RoeiVerenigingWPF.Pages
         public List<Reservation> ReservationList { get; set; }
         public List<Boat> BoatList { get; set; } = new List<Boat>();
         public BoatService BService { get; } = new BoatService(new BoatRepository());
-        public MainWindow MainWindow { set; get; }
+        public MainWindow _MainWindow { set; get; }
 
         private void BoatListFill(List<Reservation> reservationList)
         {
@@ -49,14 +51,15 @@ namespace RoeiVerenigingWPF.Pages
             }).Start();
         }
 
-        public void SelectReservation(object sender, RoutedEventArgs e)
+        private void Grid_Click(object sender, MouseButtonEventArgs e)
         {
-            if (sender is Button)
+            if (sender is Grid)
             {
-                Button casted = sender as Button;
-                object command = casted.CommandParameter;
-                int idReservation = Int32.Parse(command.ToString());
-                MainWindow.MainContent.Navigate(new EditReservation(MainWindow, idReservation));
+                Grid casted = sender as Grid;
+                object command = casted.Tag;
+                int id = Int32.Parse(command.ToString());
+
+                _MainWindow.MainContent.Navigate(new ManageBoat(_MainWindow, BService.GetBoatById(id)));
             }
         }
     }
