@@ -49,9 +49,9 @@
                                Foreground="Red" Padding="0,0,0,5">
                         </TextBlock>
                     </Grid>
-                    <Grid Grid.Row="1" Grid.Column="1" Margin="0, 0,0,10" HorizontalAlignment="Center">
+                    <Grid Grid.Row="1" Grid.Column="0" ColumnSpan="2" Margin="0, 0,0,10" HorizontalAlignment="Center">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" /> 
+                            <ColumnDefinition Width="300" /> 
                             <ColumnDefinition Width="Auto" /> 
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
