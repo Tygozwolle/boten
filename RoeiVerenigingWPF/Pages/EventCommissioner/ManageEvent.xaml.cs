@@ -373,16 +373,16 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
         {
             if (_selectedBoats.Count >= 1)
             {
-               // try
-               // {
-                   _eventService.CreateEvent(StartTime, EndTime, Description.Text, Name.Text, Int32.Parse(MaxPartisipants.Text), _selectedBoats, _loggedInMember);
+                try
+                {
+                    _eventService.CreateEvent(StartTime, EndTime, Description.Text, Name.Text, Int32.Parse(MaxPartisipants.Text), _selectedBoats, _loggedInMember);
                     ExceptionText.Text = "Het Evenement is aangemaakt!";
                     ExceptionText.Foreground = Brushes.Lime;
-             //   }
-                // catch (Exception exception)
-                // {
-                //     ExceptionText.Text = exception.Message;
-                // }
+                }
+                catch (Exception exception)
+                {
+                    ExceptionText.Text = exception.Message;
+                }
             }
         }
     }
