@@ -12,7 +12,15 @@ namespace TestConsoleApp
         private static void Main(string[] args)
         {
             EventService eventService = new EventService(new EventRepository());
-            Event ev = eventService.getEventById(1);
+            Event ev = eventService.GetEventById(1);
+            List<Event> evs = eventService.GetEventsFromPastMonths(3);
+            foreach (var e in evs)
+            {
+                Console.WriteLine(e.Name);
+            }
+            
+            
+            
             ev.AddParticipantsFromDatabase(new EventResultRepository());
             foreach (var participant in ev.Participants)
             {

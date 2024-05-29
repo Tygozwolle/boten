@@ -289,5 +289,51 @@ namespace DataAccessLibrary
 
             return eventTemp;
         }
+
+        public List<Event> GetEventsFromPastMonths(int AmountOfMonths)
+        {
+            List<Event> events = new List<Event>();
+
+            using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
+            {
+                connection.Open();
+
+                const string sql = @"
+            SELECT *
+            FROM `events`
+            WHERE `end_time` BETWEEN DATE_ADD(CURDATE(), INTERVAL -@AmountOfMonths MONTH) AND CURDATE()";
+
+                using (MySqlCommand command = new MySqlCommand(sql, connection))
+                {
+                    command.Parameters.Add("@AmountOfMonths", MySqlDbType.Int32);
+                    command.Parameters["@AmountOfMonths"].Value = AmountOfMonths;
+
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var participants =
+                                new List<EventParticipant>(); //Empty because the data can be retrieved when it is needed
+                            var boats = new List<Boat>(); //Empty because the data can be retrieved when it is needed
+
+                            Event eventTemp = new Event(
+                                participants,
+                                reader.GetDateTime("start_time"),
+                                reader.GetDateTime("end_time"),
+                                reader.GetString("description"),
+                                reader.GetString("name"),
+                                reader.GetInt32("id"),
+                                reader.GetInt32("max_participants"),
+                                boats
+                            );
+
+                            events.Add(eventTemp);
+                        }
+                    }
+                }
+            }
+
+            return events;
+        }
     }
 }

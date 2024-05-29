@@ -50,9 +50,14 @@ namespace RoeiVerenigingLibrary.Services
             return _eventRepository.Change(events, startDate, endDate, description, name, maxParticipants);
         }
 
-        public Event getEventById(int id)
+        public Event GetEventById(int id)
         {
            return _eventRepository.GetEventById(id);
+        }
+
+        public List<Event> GetEventsFromPastMonths(int AmountOfMonths)
+        {
+            return _eventRepository.GetEventsFromPastMonths(AmountOfMonths);
         }
     }
 }
