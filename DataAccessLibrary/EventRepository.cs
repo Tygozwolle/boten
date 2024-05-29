@@ -14,6 +14,7 @@ namespace DataAccessLibrary
     {
         public Event Create(DateTime startTime, DateTime endDate, string descriptions, string name, int maxParticipants, List<Boat> boats, Member member)
         {
+            var systemId = GetSystemId();
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
             {
                 connection.Open();
@@ -31,7 +32,7 @@ namespace DataAccessLibrary
                         foreach (Boat boat in boats)
                         {
                             AddBoatsToEvent(eventTemp, boat, connection, transaction);
-                            MakeEventReservation(eventTemp, boat, member, connection, transaction);
+                            MakeEventReservation(eventTemp, boat, systemId, connection, transaction);
                         }
                         transaction.Commit();
                         return eventTemp;
@@ -85,8 +86,45 @@ namespace DataAccessLibrary
                 command.ExecuteNonQuery();
             }
         }
+        private int GetSystemId()
+        {
+            using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
+            {
+                connection.Open();
+                const string sql = "SELECT member_id FROM members WHERE first_name = @system ";
 
-        private void MakeEventReservation(Event events, Boat boat, Member member, MySqlConnection connection, MySqlTransaction transaction)
+                using (MySqlCommand command = new MySqlCommand(sql, connection))
+                {
+                    command.Parameters.Add("@system", MySqlDbType.VarChar);
+                    command.Parameters["@system"].Value = "System";
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            return reader.GetInt32("member_id");
+                        }
+                    }
+                }
+            }
+            using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
+            {
+                connection.Open();
+                const string sql = " INSERT INTO boten_reservering.members (member_id, first_name, infix, last_name, level, email, password)\nVALUES (0, 'System', null, 'System', DEFAULT, 'System', 'System');";
+
+                using (MySqlCommand command = new MySqlCommand(sql, connection))
+                {
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            return reader.GetInt32("member_id");
+                        }
+                    }
+                }
+            }
+            throw new Exception("System member not found");
+        }
+        private void MakeEventReservation(Event events, Boat boat, int memberId, MySqlConnection connection, MySqlTransaction transaction)
         {
             const string sql =
                 "INSERT INTO `reservation` (`boat_id`, `member_id`, `start_time`, `end_time`) VALUES (@boat_id, @member_id, @start_time, @end_time)";
@@ -97,7 +135,7 @@ namespace DataAccessLibrary
                 command.Parameters["@boat_id"].Value = boat.Id;
 
                 command.Parameters.Add("@member_id", MySqlDbType.Int32);
-                command.Parameters["@member_id"].Value = member.Id;
+                command.Parameters["@member_id"].Value = memberId;
 
                 command.Parameters.Add("@start_time", MySqlDbType.DateTime);
                 command.Parameters["@start_time"].Value = events.StartDate;
