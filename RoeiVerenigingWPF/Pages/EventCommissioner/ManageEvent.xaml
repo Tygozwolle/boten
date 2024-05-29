@@ -62,7 +62,7 @@
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto"></RowDefinition>
                             </Grid.RowDefinitions> 
-                            <StackPanel Grid.Row="0">
+                            <StackPanel Grid.Row="0" Margin="10,10,10,10">
                                 <Label Content="*Naam:" Width="200" FontFamily="Franklin Gothic Medium"
                                        FontSize="14" HorizontalContentAlignment="Center"
                                        Foreground="{x:Static helpers:CustomColors.SubHeaderColor}" />
@@ -89,6 +89,17 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
+                            <StackPanel Grid.Row="0" Margin="10,10,10,10">
+                                <Label Content="*Beschrijving:" Width="200" FontFamily="Franklin Gothic Medium"
+                                       FontSize="14" HorizontalContentAlignment="Center"
+                                       Foreground="{x:Static helpers:CustomColors.SubHeaderColor}" />
+                                <TextBox x:Name="Description" Width="367" Height="75"
+                                         Foreground="{x:Static helpers:CustomColors.SubHeaderColor}"
+                                         Background="{x:Static helpers:CustomColors.TextBoxBackgroundColor}"
+                                         BorderBrush="{x:Static helpers:CustomColors.OutsideBorderColor}"
+                                         TextWrapping="WrapWithOverflow" FontSize="14"
+                                         FontFamily="Franklin Gothic Medium" />
+                            </StackPanel>
                     </Grid>
                     </Grid>
 
