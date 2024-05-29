@@ -2,6 +2,8 @@ using DataAccessLibrary;
 using MySqlConnector;
 using RoeiVerenigingLibrary;
 using System.Diagnostics;
+using RoeiVerenigingLibrary.Model;
+using RoeiVerenigingLibrary.Services;
 
 namespace TestConsoleApp
 {
@@ -9,6 +11,19 @@ namespace TestConsoleApp
     {
         private static void Main(string[] args)
         {
+            EventService eventService = new EventService(new EventRepository());
+            Event ev = eventService.getEventById(1);
+            ev.AddParticipantsFromDatabase(new EventResultRepository());
+            foreach (var participant in ev.Participants)
+            {
+                Console.WriteLine("Event: " + participant.EventId + ", " + participant.FirstName + " " +
+                                  participant.Infix + " " + participant.LastName + ": " +
+                                  participant.ResultTime);
+                participant.ResultTime = new TimeSpan(1, 8, 1);
+                participant.saveResultTime(new EventResultRepository());
+            }
+
+
             //Config.DBAdress = "adress";
             //Config.SetDBPassword("secret");
             //Config.SetDBUsername("username");

@@ -49,6 +49,11 @@ namespace RoeiVerenigingLibrary.Services
             //TODO: check if max participants is not less than the amount of participants
             return _eventRepository.Change(events, startDate, endDate, description, name, maxParticipants);
         }
+
+        public Event getEventById(int id)
+        {
+           return _eventRepository.GetEventById(id);
+        }
     }
 }
 
