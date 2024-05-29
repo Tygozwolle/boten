@@ -59,7 +59,7 @@
                         <Grid HorizontalAlignment="Left">
                             <Image Source="../Images/Icons/calendar.png" Height="50" Width="50" Margin="10,0"
                                    HorizontalAlignment="Left" />
-                            <TextBlock Text="Boten" Padding="70,0,20,0" VerticalAlignment="Center" />
+                            <TextBlock Text="Ik wil roeien!" Padding="70,0,20,0" VerticalAlignment="Center" />
                         </Grid>
                         <Button.BitmapEffect>
                             <DropShadowBitmapEffect Color="Black" Direction="320" Softness="1" ShadowDepth="10"
@@ -71,23 +71,24 @@
                             </Style>
                         </Button.Resources>
                     </Button>
-
-                    <Grid Grid.Row="4" Grid.Column="0" Name="DamageRectangle" Height="60" Width="15" Margin="5,0,0,0"
-                          Visibility="Hidden">
+                    
+                    <Grid Grid.Row="4" Grid.Column="0" Name="ReservationRectangle" Height="60" Width="15"
+                          Margin="5,0,0,0" Visibility="Hidden">
                         <Border CornerRadius="5" BorderThickness="2"
                                 Background="{x:Static local:CustomColors.OutsideBorderColor}" />
                     </Grid>
 
-                    <Button Grid.Column="1" x:Name="DamageButton" Grid.Row="4" Margin="20,20,20,20"
+                    <Button Grid.Column="1" x:Name="ReserveButton" Grid.Row="4" Margin="20,20,20,20"
                             HorizontalContentAlignment="Left"
-                            HorizontalAlignment="Left" Width="270"
-                            FontFamily="Franklin Gothic Medium" BorderBrush="Transparent"
-                            FontSize="32" Foreground="{x:Static local:CustomColors.HeaderColor}"
-                            Background="{x:Static local:CustomColors.ButtonBackgroundColor}" Click="Button_Click">
+                            HorizontalAlignment="Left" BorderBrush="Transparent"
+                            FontFamily="Franklin Gothic Medium" FontSize="32"
+                            Foreground="{x:Static local:CustomColors.HeaderColor}"
+                            Background="{x:Static local:CustomColors.ButtonBackgroundColor}"
+                            Click="Button_Click" Width="270">
                         <Grid HorizontalAlignment="Left">
-                            <Image Source="../Images/Icons/heart-crack.png" Height="50" Width="50" Margin="10,0"
+                            <Image Source="../Images/Icons/calendar-clock.png" Height="50" Width="50" Margin="10,0"
                                    HorizontalAlignment="Left" />
-                            <TextBlock Text="Schade" Padding="70,0,20,0" VerticalAlignment="Center" />
+                            <TextBlock Text="Reserveringen" Padding="70,0,20,0" VerticalAlignment="Center" />
                         </Grid>
                         <Button.BitmapEffect>
                             <DropShadowBitmapEffect Color="Black" Direction="320" Softness="1" ShadowDepth="10"
@@ -99,6 +100,8 @@
                             </Style>
                         </Button.Resources>
                     </Button>
+
+                    
 
                     <Grid Grid.Row="5" Grid.Column="0" Name="EventsRectangle" Height="60" Width="15" Margin="5,0,0,0"
                           Visibility="Hidden">
@@ -116,7 +119,7 @@
                         <Grid HorizontalAlignment="Left">
                             <Image Source="../Images/Icons/calendar.png" Height="50" Width="50" Margin="10,0"
                                    HorizontalAlignment="Left" />
-                            <TextBlock Text="Evenementen" Padding="70,0,20,0" VerticalAlignment="Center" />
+                            <TextBlock Text="Uitslagen" Padding="70,0,20,0" VerticalAlignment="Center" />
                         </Grid>
                         <Button.BitmapEffect>
                             <DropShadowBitmapEffect Color="Black" Direction="320" Softness="1" ShadowDepth="10"
@@ -129,23 +132,22 @@
                         </Button.Resources>
                     </Button>
 
-                    <Grid Grid.Row="6" Grid.Column="0" Name="ReservationRectangle" Height="60" Width="15"
-                          Margin="5,0,0,0" Visibility="Hidden">
+                    <Grid Grid.Row="6" Grid.Column="0" Name="DamageRectangle" Height="60" Width="15" Margin="5,0,0,0"
+                          Visibility="Hidden">
                         <Border CornerRadius="5" BorderThickness="2"
                                 Background="{x:Static local:CustomColors.OutsideBorderColor}" />
                     </Grid>
 
-                    <Button Grid.Column="1" x:Name="ReserveButton" Grid.Row="6" Margin="20,20,20,20"
+                    <Button Grid.Column="1" x:Name="DamageButton" Grid.Row="6" Margin="20,20,20,20"
                             HorizontalContentAlignment="Left"
-                            HorizontalAlignment="Left" BorderBrush="Transparent"
-                            FontFamily="Franklin Gothic Medium" FontSize="32"
-                            Foreground="{x:Static local:CustomColors.HeaderColor}"
-                            Background="{x:Static local:CustomColors.ButtonBackgroundColor}"
-                            Click="Button_Click" Width="270">
+                            HorizontalAlignment="Left" Width="270"
+                            FontFamily="Franklin Gothic Medium" BorderBrush="Transparent"
+                            FontSize="32" Foreground="{x:Static local:CustomColors.HeaderColor}"
+                            Background="{x:Static local:CustomColors.ButtonBackgroundColor}" Click="Button_Click">
                         <Grid HorizontalAlignment="Left">
-                            <Image Source="../Images/Icons/calendar-clock.png" Height="50" Width="50" Margin="10,0"
+                            <Image Source="../Images/Icons/heart-crack.png" Height="50" Width="50" Margin="10,0"
                                    HorizontalAlignment="Left" />
-                            <TextBlock Text="Reserveringen" Padding="70,0,20,0" VerticalAlignment="Center" />
+                            <TextBlock Text="Schade" Padding="70,0,20,0" VerticalAlignment="Center" />
                         </Grid>
                         <Button.BitmapEffect>
                             <DropShadowBitmapEffect Color="Black" Direction="320" Softness="1" ShadowDepth="10"
