@@ -148,5 +148,37 @@ namespace DataAccessLibrary
                 }
             }
         }
+        public List<int> GetEventReservationsIds(Event events)
+        {
+            var list = new List<int>();
+            using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
+            {
+                connection.Open();
+
+                const string sql = "SELECT `reservation_id` FROM `reservation` WHERE (SELECT `boat_id` FROM `event_reserved_boats` WHERE `event_id` = @id) = `boat_id` AND `start_time` = @start_time AND `end_time` = @end_time";
+
+                using (MySqlCommand command = new MySqlCommand(sql, connection))
+                {
+                    command.Parameters.Add("@id", MySqlDbType.Int32);
+                    command.Parameters["@id"].Value = events.Id;
+                    
+                    command.Parameters.Add("@start_time", MySqlDbType.DateTime);
+                    command.Parameters["@start_time"].Value = events.StartDate;
+                    
+                    command.Parameters.Add("@end_time", MySqlDbType.DateTime);
+                    command.Parameters["@end_time"].Value = events.EndDate;
+
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            list.Add(reader.GetInt32("reservation_id"));
+                        }
+                    }
+                }
+            }
+            return list;
+        }
+        
     }
 }
