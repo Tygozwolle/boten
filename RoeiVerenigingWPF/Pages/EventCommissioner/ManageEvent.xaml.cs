@@ -20,12 +20,11 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
         private readonly ReservationService _reservationService = new ReservationService(new ReservationRepository());
         private readonly BoatService _boatService = new BoatService(new BoatRepository());
         private readonly EventService _eventService = new EventService(new EventRepository());
-        private List<Reservation> _reservationsList;
         private List<Boat> _boatList;
         private List<Button> _selectedButtons = new List<Button>();
         private List<DateTime> _selectedTimes = new List<DateTime>();
         private List<DateTime> _availableTimes = new List<DateTime>();
-
+        private List<Boat> _selectedBoats = new List<Boat>();
         private DateTime StartTime { get; set; }
         private DateTime EndTime { get; set; }
         private DateTime _selectedDate;
@@ -38,7 +37,6 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
             InitializeComponent();
             _loggedInMember = mainWindow.LoggedInMember;
             _boatList = _boatService.GetBoats();
-            _reservationsList = _reservationService.GetReservations();
             DataContext = this;
             BoatGrid.Visibility = Visibility.Hidden;
         }
@@ -176,21 +174,7 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
 
                     if (_selectedTimes.Count == 2)
                     {
-                        // Check if the selected times are consecutive
                         _selectedTimes.Sort();
-                      //  TimeSpan difference = _selectedTimes[1] - _selectedTimes[0];
-                        // if (difference != TimeSpan.FromHours(1))
-                        // {
-                        //     // Deselect all buttons if not consecutive
-                        //     foreach (var button in _selectedButtons)
-                        //     {
-                        //         button.Background = CustomColors.MainBackgroundColor;
-                        //     }
-                        //
-                        //     _selectedButtons.Clear();
-                        //     _selectedTimes.Clear();
-                        //     ExceptionText.Text = "De tijdblokken moeten direct achter elkaar zijn!";
-                        // }
                     }
                 }
                 else
@@ -275,15 +259,10 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
 
         private void PopulateBoatGrid(DateTime selectedDate, DateTime startTime, DateTime endTime)
         {
-            List<Boat> availableBoatList = _boatList.Where(boat => !_reservationsList
-                    .Any(reservation => reservation.BoatId == boat.Id &&
-                                        reservation.StartTime.Date == selectedDate.Date &&
-                                        reservation.StartTime < endTime &&
-                                        reservation.EndTime > startTime))
-                .ToList();
+            List<Boat> availableBoatList = _boatList;
 
             BoatContentStackPanel.Children.Clear();
-
+            
             foreach (var boat in availableBoatList)
             {
                 Grid grid = new Grid();
@@ -360,20 +339,45 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
 
                 button.Click += (sender, e) =>
                 {
-                    button.Background = CustomColors.ButtonBackgroundColor;
-                    int boatId = (int)((Button)sender).Tag;
-
-                    Boat selectedBoat = _boatList.FirstOrDefault(b => b.Id == boatId);
-                    if (selectedBoat != null)
+                    if (button.Background != CustomColors.ButtonBackgroundColor)
                     {
-                        _selectedBoat = selectedBoat;
+                        button.Background = CustomColors.ButtonBackgroundColor;
+                        int boatId = (int)((Button)sender).Tag;
+                        Boat selectedBoat = _boatList.FirstOrDefault(b => b.Id == boatId);
+
+                        if (selectedBoat != null)
+                        {
+                            _selectedBoat = selectedBoat;
+                            _selectedBoats.Add(_selectedBoat);
+                        }
+                    }
+                    else
+                    {
+                        button.Background = CustomColors.MainBackgroundColor;
+                        int boatId = (int)((Button)sender).Tag;
+                        Boat selectedBoat = _boatList.FirstOrDefault(b => b.Id == boatId);
+
+                        if (selectedBoat != null)
+                        {
+                            _selectedBoat = selectedBoat;
+                            _selectedBoats.Remove(_selectedBoat);
+                        }
                     }
                 };
 
                 BoatContentStackPanel.Children.Add(button);
             }
+            ScrollViewer scrollViewer = new ScrollViewer
+            {
+                Content = BoatContentStackPanel,
+                VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
+                HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled
+            };
+            //scrollViewer.Content = BoatContentStackPanel;
+            ScrollViewerBoat = scrollViewer;
+            _mainWindow.Show();
         }
-
+       
         private void SaveButton_OnClick(object sender, RoutedEventArgs e)
         {
             if (_reservationService.GetReservations(_loggedInMember).Count < 2 ||

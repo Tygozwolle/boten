@@ -141,7 +141,7 @@
                                                HorizontalAlignment="Center"
                                                Foreground="{x:Static helpers:CustomColors.SubHeaderColor}" />
                                     <Grid Grid.Row="1">
-                                        <ScrollViewer VerticalScrollBarVisibility="Visible"
+                                        <ScrollViewer Name="ScrollViewerBoat" VerticalScrollBarVisibility="Visible"
                                                       HorizontalAlignment="Left">
                                             <StackPanel x:Name="BoatContentStackPanel" CanVerticallyScroll="True"
                                                         ScrollViewer.VerticalScrollBarVisibility="Visible" />
