@@ -54,10 +54,10 @@
                                         </Grid.ColumnDefinitions>
                                         <StackPanel Grid.Column="0" Margin="15,0,0,0">
                                             <Image
-                                                Source="{Binding Image, Converter={StaticResource SingleStreamImageConverter}}"
+                                                Source="{Binding Boat.Image, Converter={StaticResource SingleStreamImageConverter}}"
                                                 MaxHeight="125px"
                                                 MaxWidth="125px"
-                                                HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                                HorizontalAlignment="Right" VerticalAlignment="Top"/>
                                             <TextBlock Text="{Binding Boat.Id, StringFormat='Boot: {0}'}"
                                                        VerticalAlignment="Center" HorizontalAlignment="Left"
                                                        FontSize="25" />
