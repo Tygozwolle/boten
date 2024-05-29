@@ -29,7 +29,7 @@
                     </Grid.RowDefinitions>
 
                     <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Content="Evenement maken"
-                           Margin="0,10,0,10"
+                           Margin="0,10,0,0"
                            HorizontalContentAlignment="Center" VerticalAlignment="Top"
                            FontFamily="Franklin Gothic Medium" FontSize="48"
                            Foreground="{x:Static helpers:CustomColors.HeaderColor}" />
@@ -49,7 +49,7 @@
                                Foreground="Red" Padding="0,0,0,5">
                         </TextBlock>
                     </Grid>
-                    <Grid Grid.Row="1" Grid.Column="1">
+                    <Grid Grid.Row="1" Grid.Column="1" Margin="0, 0,0,10" HorizontalAlignment="Center">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" /> 
                             <ColumnDefinition Width="Auto" /> 
@@ -62,7 +62,7 @@
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto"></RowDefinition>
                             </Grid.RowDefinitions> 
-                            <StackPanel Grid.Row="0" Margin="10,10,10,10">
+                            <StackPanel Grid.Row="0" Margin="10,0,10,10">
                                 <Label Content="*Naam:" Width="200" FontFamily="Franklin Gothic Medium"
                                        FontSize="14" HorizontalContentAlignment="Center"
                                        Foreground="{x:Static helpers:CustomColors.SubHeaderColor}" />
@@ -89,7 +89,7 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
-                            <StackPanel Grid.Row="0" Margin="10,10,10,10">
+                            <StackPanel Grid.Row="0" Margin="10,0,10,10">
                                 <Label Content="*Beschrijving:" Width="200" FontFamily="Franklin Gothic Medium"
                                        FontSize="14" HorizontalContentAlignment="Center"
                                        Foreground="{x:Static helpers:CustomColors.SubHeaderColor}" />
