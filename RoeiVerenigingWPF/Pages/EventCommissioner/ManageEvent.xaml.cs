@@ -2,6 +2,7 @@
 using RoeiVerenigingLibrary;
 using RoeiVerenigingLibrary.Exceptions;
 using RoeiVerenigingLibrary.Services;
+using RoeiVerenigingWPF.Frames;
 using RoeiVerenigingWPF.helpers;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,6 +15,7 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
     {
       
         private readonly Member _loggedInMember;
+        private MainWindow _mainWindow;
 
         private readonly ReservationService _reservationService = new ReservationService(new ReservationRepository());
         private readonly BoatService _boatService = new BoatService(new BoatRepository());
@@ -29,10 +31,11 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
         private Boat _selectedBoat;
 
 
-        public ManageEvent(Member loggedInMember)
+        public ManageEvent(MainWindow mainWindow)
         {
+            _mainWindow = mainWindow;
             InitializeComponent();
-            _loggedInMember = loggedInMember;
+            _loggedInMember = mainWindow.LoggedInMember;
             _boatList = _boatService.GetBoats();
             _reservationsList = _reservationService.GetReservations();
             DataContext = this;
@@ -174,19 +177,19 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
                     {
                         // Check if the selected times are consecutive
                         _selectedTimes.Sort();
-                        TimeSpan difference = _selectedTimes[1] - _selectedTimes[0];
-                        if (difference != TimeSpan.FromHours(1))
-                        {
-                            // Deselect all buttons if not consecutive
-                            foreach (var button in _selectedButtons)
-                            {
-                                button.Background = CustomColors.MainBackgroundColor;
-                            }
-
-                            _selectedButtons.Clear();
-                            _selectedTimes.Clear();
-                            ExceptionText.Text = "De tijdblokken moeten direct achter elkaar zijn!";
-                        }
+                      //  TimeSpan difference = _selectedTimes[1] - _selectedTimes[0];
+                        // if (difference != TimeSpan.FromHours(1))
+                        // {
+                        //     // Deselect all buttons if not consecutive
+                        //     foreach (var button in _selectedButtons)
+                        //     {
+                        //         button.Background = CustomColors.MainBackgroundColor;
+                        //     }
+                        //
+                        //     _selectedButtons.Clear();
+                        //     _selectedTimes.Clear();
+                        //     ExceptionText.Text = "De tijdblokken moeten direct achter elkaar zijn!";
+                        // }
                     }
                 }
                 else

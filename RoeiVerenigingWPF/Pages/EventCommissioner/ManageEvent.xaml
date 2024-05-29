@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:RoeiVerenigingWPF.Pages.EventCommissioner"
       xmlns:helpers="clr-namespace:RoeiVerenigingWPF.helpers"
+      mc:Ignorable="d"
       d:DesignHeight="900" d:DesignWidth="1500"
       Title="Evenement Aanmaken" Background="Transparent">
     <Grid Height="900" Width="1500" HorizontalAlignment="Center" VerticalAlignment="Center">

@@ -54,7 +54,7 @@ namespace RoeiVerenigingLibrary.Services
             List<Event> events = _eventRepository.GetAll();
 
             DateTime startTime = selectedDate.Date;
-            DateTime endTime = selectedDate.Date.AddDays(1);
+            DateTime endTime = selectedDate.Date.AddHours(23);
             
             Dictionary<DateTime, int> reservationsPerTimeBlock = events
                 .SelectMany(eventob => Enumerable.Range(0, (eventob.EndDate - eventob.StartDate).Hours)
