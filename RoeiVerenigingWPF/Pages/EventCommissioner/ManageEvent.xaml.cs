@@ -194,21 +194,35 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
                 }
                 else
                 {
-                    ExceptionText.Text = "Je kan maar 2 uur achter elkaar selecteren!";
+                    ExceptionText.Text = "Selecteer het eerste en laatste tijdblok!";
                 }
             }
 
             if (_selectedTimes.Count == 1)
             {
                 StartTime = _selectedTimes[0];
-                EndTime = _selectedTimes[0].AddHours(1);
+                if (_selectedTimes[0].AddHours(1).Hour != 0)
+                {
+                    EndTime = _selectedTimes[0].AddHours(1);
+                }
+                else
+                {
+                    EndTime = _selectedTimes[0].AddMinutes(59).AddSeconds(59);
+                }
                 StartTimeTextBlock.Text = StartTime.ToString("t");
                 EndTimeTextBlock.Text = EndTime.ToString("t");
             }
             else if (_selectedTimes.Count != 0)
             {
                 StartTime = _selectedTimes[0];
-                EndTime = _selectedTimes[1].AddHours(1);
+                if(_selectedTimes[1].AddHours(1).Hour != 0)
+                {
+                    EndTime = _selectedTimes[1].AddHours(1);
+                }
+                else
+                {
+                    EndTime = _selectedTimes[1].AddMinutes(59).AddSeconds(59);
+                }
                 StartTimeTextBlock.Text = StartTime.ToString("t");
                 EndTimeTextBlock.Text = EndTime.ToString("t");
             }
