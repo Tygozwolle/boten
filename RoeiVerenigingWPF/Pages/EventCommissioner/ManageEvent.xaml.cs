@@ -262,7 +262,6 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
             List<Boat> availableBoatList = _boatList;
 
             BoatContentStackPanel.Children.Clear();
-            
             foreach (var boat in availableBoatList)
             {
                 Grid grid = new Grid();
@@ -367,15 +366,17 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
 
                 BoatContentStackPanel.Children.Add(button);
             }
-            ScrollViewer scrollViewer = new ScrollViewer
-            {
-                Content = BoatContentStackPanel,
-                VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
-                HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled
-            };
-            //scrollViewer.Content = BoatContentStackPanel;
-            ScrollViewerBoat = scrollViewer;
-            _mainWindow.Show();
+            ScrollViewerBoat.UpdateLayout();
+           // stackPanel.MaxHeight = 500;
+            // ScrollViewer scrollViewer = new ScrollViewer
+            // {
+            //     Content = stackPanel,
+            //     VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
+            //     HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled
+            // };
+            // scrollViewer.Content = BoatContentStackPanel;
+            
+            //.Content = scrollViewer;
         }
        
         private void SaveButton_OnClick(object sender, RoutedEventArgs e)

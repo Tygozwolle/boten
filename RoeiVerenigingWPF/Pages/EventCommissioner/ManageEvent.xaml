@@ -130,7 +130,7 @@
                                 BorderBrush="{x:Static helpers:CustomColors.OutsideBorderColor}">
                             <Border CornerRadius="24" BorderThickness="8"
                                     BorderBrush="{x:Static helpers:CustomColors.TextBoxBackgroundColor}">
-                                <Grid Background="{x:Static helpers:CustomColors.TextBoxBackgroundColor}">
+                                <Grid Name="GridWithScroll" Background="{x:Static helpers:CustomColors.TextBoxBackgroundColor}">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="50" />
                                         <RowDefinition Height="Auto"></RowDefinition>
@@ -140,10 +140,11 @@
                                                FontSize="24"
                                                HorizontalAlignment="Center"
                                                Foreground="{x:Static helpers:CustomColors.SubHeaderColor}" />
+                                    <!-- <ContentPresenter Name="ContentPresenter" Grid.Row="1"></ContentPresenter> -->
                                     <Grid Grid.Row="1">
-                                        <ScrollViewer Name="ScrollViewerBoat" VerticalScrollBarVisibility="Visible"
+                                        <ScrollViewer Name="ScrollViewerBoat" VerticalScrollBarVisibility="Visible" Height="500"
                                                       HorizontalAlignment="Left">
-                                            <StackPanel x:Name="BoatContentStackPanel" CanVerticallyScroll="True"
+                                            <StackPanel x:Name="BoatContentStackPanel" CanVerticallyScroll="True" 
                                                         ScrollViewer.VerticalScrollBarVisibility="Visible" />
                                         </ScrollViewer>
                                     </Grid>
