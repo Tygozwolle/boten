@@ -3,9 +3,14 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:RoeiVerenigingWPF.helpers"
+      xmlns:roeiVerenigingWpf="clr-namespace:RoeiVerenigingWPF"
       mc:Ignorable="d"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ViewReservations">
+    <Page.Resources>
+        <roeiVerenigingWpf:SingleStreamImageConverter x:Key="SingleStreamImageConverter" />
+    </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*" MaxHeight="100px" />
@@ -22,7 +27,7 @@
         <Label Content="Reserveringen" FontSize="30" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" />
 
         <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="4" MaxHeight="750px">
-            <ListView ItemsSource="{Binding ReservationList}" Grid.IsSharedSizeScope="True"
+            <ListView Name="ReservationListView" ItemsSource="{Binding ReservationList}" Loaded="ListView_Loaded" Grid.IsSharedSizeScope="True"
                       d:ItemsSource="{d:SampleData ItemCount=8}" ScrollViewer.VerticalScrollBarVisibility="Auto">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -31,13 +36,28 @@
                 </ListView.ItemsPanel>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Grid Name="Grid" Margin="50 20 50 0" Width="650" Height="200">
-                            <Button CommandParameter="{Binding Id}" Click="SelectReservation">
-                                <Border BorderBrush="Black" BorderThickness="1" Width="650" Height="200">
-                                    <Grid Name="GridList">
-                                        <Image Source="/Images/Image_not_available.png" MaxHeight="100px"
-                                               MaxWidth="200px" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                                        <StackPanel Margin="110 0 5 0">
+                        <Grid Background="Transparent" Margin="50 20 50 0" Width="650" Height="200"
+                              PreviewMouseLeftButtonDown="SelectReservation" Tag="{Binding Id}">
+                            <Grid.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="15" />
+                                </Style>
+                            </Grid.Resources>
+                            <Border CornerRadius="30" BorderThickness="5"
+                                    BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}">
+                                <Border CornerRadius="24" BorderThickness="8"
+                                        BorderBrush="{x:Static local:CustomColors.MainBackgroundColor}">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel Grid.Column="0" Margin="15,0,0,0">
+                                            <Image
+                                                Source="{Binding Image, Converter={StaticResource SingleStreamImageConverter}}"
+                                                MaxHeight="125px"
+                                                MaxWidth="125px"
+                                                HorizontalAlignment="Left" VerticalAlignment="Center"/>
                                             <TextBlock Text="{Binding Boat.Id, StringFormat='Boot: {0}'}"
                                                        VerticalAlignment="Center" HorizontalAlignment="Left"
                                                        FontSize="25" />
@@ -73,7 +93,7 @@
                                         </StackPanel>
                                     </Grid>
                                 </Border>
-                            </Button>
+                                </Border>
                         </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>

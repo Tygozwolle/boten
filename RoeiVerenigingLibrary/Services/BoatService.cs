@@ -80,6 +80,17 @@ namespace RoeiVerenigingLibrary
             }
         }
 
+        public List<Stream> getImageByReservation(List<Reservation> reservations)
+        {
+            List<Stream> images = new List<Stream>();
+            foreach (var reservation in reservations)
+            {
+                images.Add(reservation.Boat.Image);
+            }
+
+            return images;
+        }
+        
         public void GetImageBoat(Boat boat)
         {
             boat.Image = repository.GetImage(boat);
