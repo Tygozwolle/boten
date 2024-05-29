@@ -49,7 +49,7 @@ namespace RoeiVerenigingLibrary.Services
             //TODO: check if max participants is not less than the amount of participants
             return _eventRepository.Change(events, startDate, endDate, description, name, maxParticipants);
         }
-        public List<DateTime> GetAvailableTimes(DateTime selectedDate, List<Boat> boatList)
+        public List<DateTime> GetAvailableTimes(DateTime selectedDate)
         {
             List<Event> events = _eventRepository.GetAll();
 
@@ -65,7 +65,7 @@ namespace RoeiVerenigingLibrary.Services
             List<DateTime> timeAvailableList = Enumerable.Range(0, (endTime - startTime).Hours)
                 .Select(i => startTime.AddHours(i))
                 .Where(time =>
-                    !reservationsPerTimeBlock.ContainsKey(time) || reservationsPerTimeBlock[time] < boatList.Count)
+                    !reservationsPerTimeBlock.ContainsKey(time))
                 .ToList();
 
             return timeAvailableList;

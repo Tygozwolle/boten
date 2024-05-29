@@ -130,7 +130,7 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
                         throw new DateTooFarInTheFuture();
                     }
 
-                    PopulateTimeContentGrid(_reservationService.GetAvailableTimes(_selectedDate, _boatList));
+                    PopulateTimeContentGrid(_eventService.GetAvailableTimes(_selectedDate));
 
                     SelectedDateTextBlock.Text = _selectedDate.ToString("dd MMMM yyyy");
                     StartTimeTextBlock.Text = null;
