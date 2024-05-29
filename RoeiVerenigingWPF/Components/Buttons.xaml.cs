@@ -52,6 +52,8 @@ namespace RoeiVerenigingWPF.Components
                         if (MainWindow.LoggedInMember.Roles.Contains("materiaal_commissaris"))
                         {
                             MainWindow.MainContent.Navigate(new ManageDamageOverview(MainWindow));
+                            ChangeColorOfRectangle(DamageRectangle);
+
                             break;
                         }
                         MainWindow.MainContent.Navigate(new DamageOverview(MainWindow));
@@ -81,7 +83,6 @@ namespace RoeiVerenigingWPF.Components
                     {
                         MainWindow.MainContent.Navigate(new ViewReservations(MainWindow));
                         ChangeColorOfRectangle(ReservationRectangle);
-
                     }
                     catch (Exception exception)
                     {
