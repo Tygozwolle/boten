@@ -48,7 +48,7 @@ namespace RoeiVerenigingUnitTests
             var member = new Member( 1, "tygo", "van", "olst", "tygo@mail.nl",new List<string>(), 10 );
 
             // Act & Assert
-            Assert.Throws<IncorrectRightsExeption>(() => _boatService.Create(member, "Test Boat", "Test Description", 5, true, 1));
+            Assert.Throws<IncorrectRightsException>(() => _boatService.Create(member, "Test Boat", "Test Description", 5, true, 1));
             _mockBoatRepository.Verify(r => r.Create(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<bool>(), It.IsAny<int>()), Times.Never);
         }
     }

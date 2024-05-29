@@ -37,7 +37,7 @@ namespace RoeiVerenigingLibrary
             }
             else
             {
-                throw new IncorrectRightsExeption();
+                throw new IncorrectRightsException();
             }
         }
 
@@ -64,7 +64,7 @@ namespace RoeiVerenigingLibrary
             }
             else
             {
-                throw new IncorrectRightsExeption();
+                throw new IncorrectRightsException();
             }
         }
 
@@ -76,7 +76,7 @@ namespace RoeiVerenigingLibrary
             }
             else
             {
-                throw new IncorrectRightsExeption();
+                throw new IncorrectRightsException();
             }
         }
 
@@ -121,7 +121,7 @@ namespace RoeiVerenigingLibrary
             }
             else
             {
-                throw new IncorrectRightsExeption();
+                throw new IncorrectRightsException();
             }
         }
 
@@ -140,7 +140,7 @@ namespace RoeiVerenigingLibrary
             }
             else
             {
-                throw new IncorrectRightsExeption();
+                throw new IncorrectRightsException();
             }
         }
     }
