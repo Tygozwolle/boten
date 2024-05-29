@@ -45,7 +45,7 @@ namespace RoeiVerenigingWPF.Pages
             {
                 MessageBox.Show(ex.Message);
             }
-            catch (IncorrectRightsExeption ex)
+            catch (IncorrectRightsException ex)
             {
                 MessageBox.Show(ex.Message);
             }

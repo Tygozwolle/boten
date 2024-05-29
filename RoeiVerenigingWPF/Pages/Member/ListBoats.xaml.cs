@@ -33,7 +33,7 @@ namespace RoeiVerenigingWPF.Pages
                 object command = casted.Tag;
                 int id = Int32.Parse(command.ToString());
 
-                MainWindow.MainContent.Navigate(new AddReservation(MainWindow.LoggedInMember, id));
+                MainWindow.MainContent.Navigate(new AddReservation(MainWindow.LoggedInMember));
             }
         }
         

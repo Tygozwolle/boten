@@ -35,11 +35,20 @@ namespace RoeiVerenigingLibrary
 
         public string Description
         {
-            get
-            {
-                return _Description;
-            }
+            get { return _Description; }
             set => _Description = value;
+        }
+
+        public String CaptainSeatToString()
+        {
+            if (CaptainSeat)
+            {
+                return "Ja";
+            }
+            else
+            {
+                return "Nee";
+            }
         }
 
         public String DescriptionNoEnter

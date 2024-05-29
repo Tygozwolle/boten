@@ -108,7 +108,7 @@ namespace RoeiVerenigingWPF.Pages.Admin
                     _mainWindow.MainContent.Navigate(new ManageBoatList(_mainWindow));
                 }
             }
-            catch (IncorrectRightsExeption ex)
+            catch (IncorrectRightsException ex)
             {
                 MessageBox.Show(ex.Message);
             }

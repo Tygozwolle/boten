@@ -65,7 +65,7 @@ namespace RoeiVerenigingLibrary
         {
             if (!loggedInMember.Roles.Contains("beheerder"))
             {
-                throw new IncorrectRightsExeption();
+                throw new IncorrectRightsException();
             }
 
             if (!IsValid(email))
@@ -98,7 +98,7 @@ namespace RoeiVerenigingLibrary
         {
             if (!loggedInMember.Roles.Contains("beheerder"))
             {
-                throw new IncorrectRightsExeption();
+                throw new IncorrectRightsException();
             }
 
             if (!IsValid(email))
