@@ -53,7 +53,7 @@
                     <Button Grid.Column="1" x:Name="BotenButton" Grid.Row="3" Margin="20,20,20,20"
                             HorizontalContentAlignment="Left"
                             HorizontalAlignment="Left"
-                            FontFamily="Franklin Gothic Medium" Width="270" BorderBrush="Transparent"
+                            FontFamily="Franklin Gothic Medium" Width="270" BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}" BorderThickness="3"
                             FontSize="32" Foreground="{x:Static local:CustomColors.HeaderColor}"
                             Background="{x:Static local:CustomColors.ButtonBackgroundColor}" Click="Button_Click">
                         <Grid HorizontalAlignment="Left">
@@ -80,7 +80,7 @@
 
                     <Button Grid.Column="1" x:Name="ReserveButton" Grid.Row="4" Margin="20,20,20,20"
                             HorizontalContentAlignment="Left"
-                            HorizontalAlignment="Left" BorderBrush="Transparent"
+                            HorizontalAlignment="Left" BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}" BorderThickness="3"
                             FontFamily="Franklin Gothic Medium" FontSize="32"
                             Foreground="{x:Static local:CustomColors.HeaderColor}"
                             Background="{x:Static local:CustomColors.ButtonBackgroundColor}"
@@ -111,7 +111,7 @@
 
                     <Button Grid.Column="1" x:Name="EventsButton" Grid.Row="5" Margin="20,20,20,20"
                             HorizontalContentAlignment="Left"
-                            HorizontalAlignment="Left" Width="270" BorderBrush="Transparent"
+                            HorizontalAlignment="Left" Width="270" BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}" BorderThickness="3"
                             FontFamily="Franklin Gothic Medium" FontSize="32"
                             Foreground="{x:Static local:CustomColors.HeaderColor}"
                             Background="{x:Static local:CustomColors.ButtonBackgroundColor}"
@@ -141,7 +141,7 @@
                     <Button Grid.Column="1" x:Name="DamageButton" Grid.Row="6" Margin="20,20,20,20"
                             HorizontalContentAlignment="Left"
                             HorizontalAlignment="Left" Width="270"
-                            FontFamily="Franklin Gothic Medium" BorderBrush="Transparent"
+                            FontFamily="Franklin Gothic Medium" BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}" BorderThickness="3"
                             FontSize="32" Foreground="{x:Static local:CustomColors.HeaderColor}"
                             Background="{x:Static local:CustomColors.ButtonBackgroundColor}" Click="Button_Click">
                         <Grid HorizontalAlignment="Left">

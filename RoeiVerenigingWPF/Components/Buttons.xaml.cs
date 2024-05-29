@@ -38,33 +38,56 @@ namespace RoeiVerenigingWPF.Components
                     {
                         MainWindow.MainContent.Navigate(new AddReservation(MainWindow.LoggedInMember));
                         ChangeColorOfRectangle(BoatRectangle);
-
                     }
                     catch (Exception exception)
                     {
                         Console.WriteLine(exception.Message);
                     }
+
                     break;
                 case Button button when button == DamageButton:
-                    ChangeColorOfRectangle(DamageRectangle);
-
-                    if (MainWindow.LoggedInMember.Roles.Contains("materiaal_commissaris"))
+                    try
                     {
-                        MainWindow.MainContent.Navigate(new ManageDamageOverview(MainWindow));
-                        break;
+
+                        if (MainWindow.LoggedInMember.Roles.Contains("materiaal_commissaris"))
+                        {
+                            MainWindow.MainContent.Navigate(new ManageDamageOverview(MainWindow));
+                            ChangeColorOfRectangle(DamageRectangle);
+
+                            break;
+                        }
+                        MainWindow.MainContent.Navigate(new DamageOverview(MainWindow));
+                        ChangeColorOfRectangle(DamageRectangle);
+                    }
+                    catch (Exception exception)
+                    {
+                        Console.WriteLine(exception.Message);
                     }
 
-                    MainWindow.MainContent.Navigate(new DamageOverview(MainWindow));
                     break;
 
                 case Button button when button == EventsButton:
-                    ChangeColorOfRectangle(EventsRectangle);
-                    // MainWindow.MainContent.Navigate(new ViewReservations());
+                    try
+                    {
+                        ChangeColorOfRectangle(EventsRectangle);
+                        // MainWindow.MainContent.Navigate(new ViewReservations());
+                    }
+                    catch (Exception exception)
+                    {
+                        Console.WriteLine(exception);
+                    }
                     break;
 
                 case Button button when button == ReserveButton:
-                    ChangeColorOfRectangle(ReservationRectangle);
-                    MainWindow.MainContent.Navigate(new ViewReservations(MainWindow));
+                    try
+                    {
+                        MainWindow.MainContent.Navigate(new ViewReservations(MainWindow));
+                        ChangeColorOfRectangle(ReservationRectangle);
+                    }
+                    catch (Exception exception)
+                    {
+                        Console.WriteLine(exception);
+                    }
                     break;
             }
         }
@@ -75,7 +98,7 @@ namespace RoeiVerenigingWPF.Components
 
             switch (rectangle)
             {
-                case { }  when rectangle == BoatRectangle:
+                case { } when rectangle == BoatRectangle:
                     BoatRectangle.Visibility = Visibility.Visible;
                     DamageRectangle.Visibility = Visibility.Hidden;
                     EventsRectangle.Visibility = Visibility.Hidden;
