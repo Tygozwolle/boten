@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Navigation;
 using DataAccessLibary;
 using RoeiVerenigingWPF.Pages.Admin;
+using System.Diagnostics;
 using System.Security.Principal;
 
 namespace RoeiVerenigingWPF.Frames
@@ -117,6 +118,7 @@ namespace RoeiVerenigingWPF.Frames
             MainContent.Visibility = Visibility.Hidden;
             LoginContent.Visibility = Visibility.Visible;
             _loggedInMember = null;
+            StartNewProcess();
         }
 
         private void ManageApp_Click(object sender, RoutedEventArgs e)
@@ -157,6 +159,28 @@ namespace RoeiVerenigingWPF.Frames
             {
                 LoginContent.Navigate(new ManageApp(this));
             }
+        }
+        /// <summary>
+        /// restarts the application
+        /// </summary>
+        static async void StartNewProcess()
+        {
+            ProcessStartInfo startInfo = new ProcessStartInfo
+            {
+                FileName = Process.GetCurrentProcess().MainModule.FileName,
+                Arguments = $"",
+                UseShellExecute = true,
+                CreateNoWindow = false,
+            };
+           
+
+            using (Process process = new Process())
+            {
+                process.StartInfo = startInfo;
+                process.Start();
+            }
+            await Task.Delay(1000);
+            Application.Current.Shutdown();
         }
     }
 }
