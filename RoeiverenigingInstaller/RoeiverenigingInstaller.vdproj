@@ -16,6 +16,12 @@
     {
         "Entry"
         {
+        "MsmKey" = "8:_09F6211541C04218AE841C1EBB9EF571"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_13366D12FA82431187EABB6C21935FC5"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -275,6 +281,26 @@
         }
         "File"
         {
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_09F6211541C04218AE841C1EBB9EF571"
+            {
+            "SourcePath" = "8:..\\RoeiVerenigingWPF\\Images\\Icons\\calendar-plus-2.png"
+            "TargetName" = "8:calendar-plus-2.png"
+            "Tag" = "8:"
+            "Folder" = "8:_4F547C56F1754CD4B1C9A462E64CC469"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_13366D12FA82431187EABB6C21935FC5"
             {
             "SourcePath" = "8:..\\RoeiVerenigingWPF\\Images\\Icons\\users.png"
