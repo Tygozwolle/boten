@@ -112,8 +112,7 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
         private void DateIsSelected(object? sender, SelectionChangedEventArgs e)
         {
             var calendar = sender as Calendar;
-            ExceptionText.Text = "";
-            ExceptionText.Foreground = Brushes.Red;
+            ClearExceptionText();
             TimeContentGrid.Children.Clear();
 
             try
@@ -146,11 +145,24 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
                 TimeContentGrid.Children.Clear();
             }
         }
-
-        private void TimeButton_Click(Button clickedButton, DateTime dateTime)
+        private void ClearExceptionText()
         {
             ExceptionText.Text = "";
-
+            ExceptionText.Visibility = Visibility.Collapsed;
+            ExceptionText.Foreground = Brushes.Red;
+            PageTitle.SetValue(Grid.ColumnSpanProperty, 2);
+        }
+        private void SetExceptionText(string message)
+        {
+            ExceptionText.Text = message;
+            ExceptionText.Visibility = Visibility.Visible;
+            ExceptionText.Foreground = Brushes.Red;
+            PageTitle.SetValue(Grid.ColumnSpanProperty, 1);
+        }
+        private void TimeButton_Click(Button clickedButton, DateTime dateTime)
+        {
+            ClearExceptionText();
+            
             if (_selectedTimes.Contains((dateTime)))
             {
                 // Deselect the button
@@ -180,7 +192,7 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
                 }
                 else
                 {
-                    ExceptionText.Text = "Selecteer het eerste en laatste tijdblok!";
+                    SetExceptionText( "Selecteer het eerste en laatste tijdblok!");
                 }
             }
 
@@ -216,7 +228,8 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
                 }
                 else
                 {
-                    ExceptionText.Text = "Deze tijden zijn niet beschikbaar!";
+                    SetExceptionText("Deze tijden zijn niet beschikbaar!");
+                    // ExceptionText.Text = "Deze tijden zijn niet beschikbaar!";
                 }
             }
             else
@@ -383,10 +396,12 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
                     _eventService.CreateEvent(StartTime, EndTime, Description.Text, Name.Text, Int32.Parse(MaxPartisipants.Text), _selectedBoats, _loggedInMember);
                     ExceptionText.Text = "Het Evenement is aangemaakt!";
                     ExceptionText.Foreground = Brushes.Lime;
+                    ExceptionText.Visibility = Visibility.Visible;
                 }
                 catch (Exception exception)
                 {
-                    ExceptionText.Text = exception.Message;
+                    SetExceptionText(exception.Message);
+                    
                 }
             }
         }
