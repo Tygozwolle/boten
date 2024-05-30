@@ -144,7 +144,7 @@ namespace RoeiVerenigingLibrary
             }
         }
 
-        public Boat GetMostPopulairBoat(List<Reservation> reservations)
+        public List<Boat> GetMostANdLeastPopulairBoat(List<Reservation> reservations)
         {
             Dictionary<Boat, int> boatDictionary = new Dictionary<Boat, int>();
 
@@ -164,7 +164,9 @@ namespace RoeiVerenigingLibrary
 
             // Find the boat with the highest count
             Boat mostPopularBoat = null;
+            Boat leastPopularBoat = null;
             int maxCount = 0;
+            int minCount = 100;
 
             foreach (var entry in boatDictionary)
             {
@@ -172,10 +174,14 @@ namespace RoeiVerenigingLibrary
                 {
                     mostPopularBoat = entry.Key;
                     maxCount = entry.Value;
+                } else if (entry.Value < minCount)
+                {
+                    leastPopularBoat = entry.Key;
+                    minCount = entry.Value;
                 }
             }
 
-            return mostPopularBoat;
+            return new List<Boat>() { leastPopularBoat, mostPopularBoat };
         }
     }
 }

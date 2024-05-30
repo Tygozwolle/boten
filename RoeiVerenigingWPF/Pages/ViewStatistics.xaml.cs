@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices.JavaScript;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -16,6 +17,8 @@ public partial class ViewStatistics : Page
     public List<Statistic> AllStatistics { get; set; }
     private ReservationService _reservationService = new ReservationService(new ReservationRepository());
     private BoatService _boatService = new BoatService(new BoatRepository());
+    private DamageService _damageService = new DamageService(new DamageRepository());
+    private MemberService _memberService = new MemberService(new MemberRepository());
     public MainWindow MainWindow;
 
     public ViewStatistics(MainWindow mainWindow)
@@ -30,23 +33,38 @@ public partial class ViewStatistics : Page
         AllStatistics = new List<Statistic>() { };
         SelectedStatistics = new List<Statistic>() { };
 
+        List<Member> memberList = _memberService.GetMembers();
+        List<Reservation> reservationsList = _reservationService.GetReservations();
+        List<Damage> damageList = _damageService.GetAll();
+        List<Boat> boatList = _boatService.GetBoats();
+
         AllStatistics.Add(new Statistic(1, "Totale reserveringstijd:",
-            "Dit is de totale tijd van al jouw eigen reserveringen!", _reservationService.GetTotalReservationTime(MainWindow.LoggedInMember).ToString(), true));
+            "Dit is de totale tijd van al jouw eigen reserveringen!",
+            _reservationService.GetTotalReservationTime(MainWindow.LoggedInMember, reservationsList) + " uur", true));
         AllStatistics.Add(
-            new Statistic(2, "Populaiste boot:", "Deze boot wordt het meeste gereserveerd!", _boatService.GetMostPopulairBoat(_reservationService.GetReservations()).Name, true));
+            new Statistic(2, "Populaiste boot:", "Deze boot wordt het meeste gereserveerd!",
+                _boatService.GetMostANdLeastPopulairBoat((_reservationService.GetReservations()))[1].Name, true));
         AllStatistics.Add(new Statistic(3, "Minst populaire boot:", "Deze boot wordt het minste gereserveerd!",
-            "Anna 2.0", true));
+            _boatService.GetMostANdLeastPopulairBoat((_reservationService.GetReservations()))[0].Name, true));
         AllStatistics.Add(new Statistic(4, "Grootste evenement:", "Aan dit evenement deden de meeste mensen mee!",
-            "Anna", true));
-        AllStatistics.Add(new Statistic(5, "Actiefste lid:", "Dit lid heeft de meeste reseveringen!", "Pieter", true));
-        AllStatistics.Add(new Statistic(6, "Ongelukkiste lid:", "Dit lid heeft de meeste schade gemeld!", "Tygo",
+            "Les 1", true));
+        AllStatistics.Add(new Statistic(5, "Actiefste lid:", "Dit lid heeft de meeste reseveringen!",
+            _reservationService.GetMostAndLeastActiveMember(reservationsList)[1].FirstName, true));
+        AllStatistics.Add(new Statistic(7, "Minst actieve lid:", "Dit lid heeft de minste reserveringen staan.",
+            _reservationService.GetMostAndLeastActiveMember(reservationsList)[0].FirstName,
             true));
-        AllStatistics.Add(new Statistic(7, "Aantal leden:", "Dit is het totale aantal leden.", "150 leden", true));
-        AllStatistics.Add(new Statistic(8, "Totaal aantal reserveringen:",
-            "Dit is het totale aantal reserveringen dat is gemaakt.", "300 reserveringen", true));
-        AllStatistics.Add(new Statistic(9, "Open schademeldingen:",
-            "Dit is de hoeveelheid schademeldingen die momenteel open staan", "20 meldingen", true));
-        AllStatistics.Add(new Statistic(10, "Aantal boten", "Dit is het aantal boten dat de vereniging heeft!",
+        AllStatistics.Add(new Statistic(8, "Ongelukkiste lid:", "Dit lid heeft de meeste schade gemeld!",
+            _damageService.MemberWithMostDamage(damageList).FirstName,
+            true));
+        AllStatistics.Add(new Statistic(9, "Aantal leden:", "Dit is het totale aantal leden.",
+            memberList.Count.ToString(), true));
+        AllStatistics.Add(new Statistic(10, "Totaal aantal reserveringen:",
+            "Dit is het totale aantal reserveringen dat is gemaakt.", reservationsList.Count().ToString(), true));
+        AllStatistics.Add(new Statistic(11, "Open schademeldingen:",
+            "Dit is de hoeveelheid schademeldingen die momenteel open staan",
+            _damageService.AmountOfOpenDamageReports(damageList).ToString(), true));
+        AllStatistics.Add(new Statistic(12, boatList.Count().ToString(),
+            "Dit is het aantal boten dat de vereniging heeft!",
             "20 boten", true));
 
         foreach (Statistic statistic in AllStatistics)

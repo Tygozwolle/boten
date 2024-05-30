@@ -194,9 +194,11 @@ namespace RoeiVerenigingLibrary
             return timeAvailableList;
         }
 
-        public int GetTotalReservationTime(Member loggedInMember)
+        public int GetTotalReservationTime(Member loggedInMember, List<Reservation> reservations)
         {
-            List<Reservation> totalReservationTimeList = GetReservations(loggedInMember);
+            List<Reservation> totalReservationTimeList =
+                (List<Reservation>)reservations.Where(reservation => Equals(reservation.Member, loggedInMember));
+
             TimeSpan totalReservationTime = new TimeSpan();
 
             foreach (var reservation in totalReservationTimeList)
@@ -205,6 +207,47 @@ namespace RoeiVerenigingLibrary
             }
 
             return (int)totalReservationTime.TotalMinutes;
+        }
+
+        public List<Member> GetMostAndLeastActiveMember(List<Reservation> reservations)
+        {
+            Dictionary<Member, int> reservationDictionary = new Dictionary<Member, int>();
+
+            Member mostActiveMember = null;
+            foreach (Reservation reservation in reservations)
+            {
+                if (reservationDictionary.ContainsKey(reservation.Member))
+                {
+                    // Increment the count for the existing boat
+                    reservationDictionary[reservation.Member]++;
+                }
+                else
+                {
+                    // Add the boat to the dictionary with an initial count of 1
+                    reservationDictionary[reservation.Member] = 1;
+                }
+            }
+
+            Member mostPopularMember = null;
+            Member leastPopularMember = null;
+            int maxCount = 0;
+            int minCount = 100;
+
+            foreach (var entry in reservationDictionary)
+            {
+                if (entry.Value > maxCount)
+                {
+                    mostPopularMember = entry.Key;
+                    maxCount = entry.Value;
+                }
+                else if (entry.Value < minCount)
+                {
+                    leastPopularMember = entry.Key;
+                    minCount = entry.Value;
+                }
+            }
+
+            return new List<Member>() { leastPopularMember, mostPopularMember };
         }
     }
 }
