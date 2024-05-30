@@ -172,8 +172,7 @@ namespace RoeiVerenigingWPF.Frames
                 UseShellExecute = true,
                 CreateNoWindow = false,
             };
-           
-
+            
             using (Process process = new Process())
             {
                 process.StartInfo = startInfo;
