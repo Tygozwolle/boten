@@ -17,8 +17,6 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
 
         private readonly Member _loggedInMember;
         private MainWindow _mainWindow;
-
-        private readonly ReservationService _reservationService = new ReservationService(new ReservationRepository());
         private readonly BoatService _boatService = new BoatService(new BoatRepository());
         private readonly EventService _eventService = new EventService(new EventRepository());
         private List<Boat> _boatList;

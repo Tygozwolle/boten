@@ -140,7 +140,7 @@
                                         <RowDefinition Height="Auto"></RowDefinition>
                                         <RowDefinition Height="520" />
                                     </Grid.RowDefinitions>
-                                    <TextBlock Grid.Row="0" Text="Selecteer de boot waarmee je wil varen:"
+                                    <TextBlock Grid.Row="0" Text="Selecteer de boten van het evenement:"
                                                FontSize="24"
                                                HorizontalAlignment="Center"
                                                Foreground="{x:Static helpers:CustomColors.SubHeaderColor}" />
