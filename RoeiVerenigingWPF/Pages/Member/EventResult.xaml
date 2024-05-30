@@ -4,9 +4,113 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:RoeiVerenigingWPF.Pages.Member"
+      xmlns:helpers="clr-namespace:RoeiVerenigingWPF.helpers"
       mc:Ignorable="d"
-      Title="EventResult" Height="450" Width="800">
-    <Grid>
-        <TextBlock Text="{Binding EventResults.Name}"></TextBlock>
+      Title="EventResult" d:DesignHeight="900" d:DesignWidth="1550" Background="Transparent">
+    <Grid Height="900" Width="1550" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Grid.Effect>
+            <DropShadowEffect Color="Black" Direction="320" ShadowDepth="10" Opacity="0.3" />
+        </Grid.Effect>
+        <Border CornerRadius="30" BorderThickness="5" BorderBrush="{x:Static helpers:CustomColors.OutsideBorderColor}">
+            <Border CornerRadius="24" BorderThickness="8"
+                    BorderBrush="{x:Static helpers:CustomColors.MainBackgroundColor}"
+                    Background="{x:Static helpers:CustomColors.MainBackgroundColor}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Name="HeaderBoat"
+                               HorizontalAlignment="Center" VerticalAlignment="Top"
+                               Margin="0,15,0,0"
+                               Text="{Binding EventResults.Name, StringFormat='Uitslagen: {0}'}"
+                               FontFamily="Franklin Gothic Medium" FontSize="36"
+                               Foreground="{x:Static helpers:CustomColors.HeaderColor}" />
+                    <!-- left box -->
+                    <Border Grid.Row="1" Grid.Column="0" Margin="15,15,0,15" Width="450" CornerRadius="30"
+                            BorderThickness="5"
+                            BorderBrush="{x:Static helpers:CustomColors.OutsideBorderColor}">
+                        <Border CornerRadius="24" BorderThickness="8"
+                                BorderBrush="{x:Static helpers:CustomColors.MainBackgroundColor}"
+                                Background="{x:Static helpers:CustomColors.MainBackgroundColor}">
+                            <StackPanel Margin="15,15,15,15">
+                                <TextBlock
+                                    Text="Datum:"
+                                    FontFamily="Franklin Gothic Medium" FontSize="26"
+                                    Foreground="{x:Static helpers:CustomColors.SubHeaderColor}"
+                                    VerticalAlignment="Center" HorizontalAlignment="left" />
+                                <TextBlock
+                                    Text="{Binding Date}"
+                                    FontFamily="Franklin Gothic Medium" FontSize="21"
+                                    VerticalAlignment="Center" HorizontalAlignment="left" Margin="5,0,0,0" />
+                                <!-- times -->
+                                <Grid Margin="0,15,0,0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <!-- start -->
+                                    <TextBlock Grid.Row="0" Grid.Column="0"
+                                               Text="Begintijd:"
+                                               FontFamily="Franklin Gothic Medium" FontSize="26"
+                                               Foreground="{x:Static helpers:CustomColors.SubHeaderColor}"
+                                               VerticalAlignment="Center" HorizontalAlignment="left" />
+                                    <TextBlock Grid.Row="1" Grid.Column="0"
+                                               Text="{Binding StartTime}"
+                                               FontFamily="Franklin Gothic Medium" FontSize="21"
+                                               VerticalAlignment="Center" HorizontalAlignment="left" Margin="5,0,0,0" />
+                                    <!-- end -->
+                                    <TextBlock Grid.Row="0" Grid.Column="1"
+                                               Text="Eindtijd:"
+                                               FontFamily="Franklin Gothic Medium" FontSize="26"
+                                               Foreground="{x:Static helpers:CustomColors.SubHeaderColor}"
+                                               VerticalAlignment="Center" HorizontalAlignment="left" Margin="15,0,0,0" />
+                                    <TextBlock Grid.Row="1" Grid.Column="2"
+                                               Text="{Binding EndTime}"
+                                               FontFamily="Franklin Gothic Medium" FontSize="21"
+                                               VerticalAlignment="Center" HorizontalAlignment="left" Margin="20,0,0,0" />
+                                </Grid>
+                                <!-- ParticipantsCount -->
+                                <TextBlock
+                                    Margin="0,15,0,0"
+                                    Text="Aantal deelnemers:"
+                                    FontFamily="Franklin Gothic Medium" FontSize="26"
+                                    Foreground="{x:Static helpers:CustomColors.SubHeaderColor}"
+                                    VerticalAlignment="Center" HorizontalAlignment="left" />
+                                <TextBlock
+                                    Text="{Binding ParticipantsCount}"
+                                    FontFamily="Franklin Gothic Medium" FontSize="21"
+                                    VerticalAlignment="Center" HorizontalAlignment="left" Margin="5,0,0,0" />
+                                <!-- Description -->
+                                <TextBlock
+                                    Margin="0,15,0,0"
+                                    Text="Omschrijving:"
+                                    FontFamily="Franklin Gothic Medium" FontSize="26"
+                                    Foreground="{x:Static helpers:CustomColors.SubHeaderColor}"
+                                    VerticalAlignment="Center" HorizontalAlignment="left" />
+                                <TextBlock
+                                    Text="{Binding EventResults.Description}"
+                                    FontFamily="Franklin Gothic Medium" FontSize="21" TextWrapping="Wrap"
+                                    VerticalAlignment="Center" HorizontalAlignment="left" Margin="5,0,0,0" />
+
+                            </StackPanel>
+                        </Border>
+                    </Border>
+
+
+                </Grid>
+
+            </Border>
+        </Border>
+
     </Grid>
 </Page>
