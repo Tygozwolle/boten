@@ -60,5 +60,10 @@ namespace RoeiVerenigingWPF.Components
                 }
             }
         }
+
+        private void HomeButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            MainWindow.MainContent.Navigate(new MainPage(MainWindow));
+        }
     }
 }

@@ -66,6 +66,10 @@
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
         <None Remove="Images\Icons\search.png" />
+        <None Remove="Images\Icons\home.png" />
+        <Content Include="Images\Icons\home.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
     </ItemGroup>
 
   <ItemGroup>
