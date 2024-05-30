@@ -45,7 +45,6 @@ namespace DataAccessLibrary
                                    "INNER JOIN `members` AS m ON d.member_id = m.member_id " +
                                    "INNER JOIN `boats` AS b ON d.boat_id = b.id " +
                                    "ORDER BY d.`fixed`, d.`report_time` DESC";
-                    //"SELECT * FROM `damage_reports` ORDER BY `fixed`, `report_time` DESC";
 
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {
@@ -88,7 +87,11 @@ namespace DataAccessLibrary
                 connection.Open();
 
                 const string sql =
-                    "SELECT * FROM `damage_reports` WHERE `member_id` = @memberId ORDER BY `fixed`, `report_time` DESC";
+                    "SELECT d.*, b.* " +
+                    "FROM `damage_reports` AS d " +
+                    "INNER JOIN `boats` AS b ON d.boat_id = b.id " +
+                    "WHERE d.`member_id` = @memberId " +
+                    "ORDER BY `fixed`, `report_time` DESC";
 
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {
@@ -101,35 +104,28 @@ namespace DataAccessLibrary
                         while (reader.Read())
                         {
                             //get member
+                            var boat = new Boat(reader.GetInt32("boat_id"),
+                                reader.GetBoolean("captain_seat_available"), reader.GetInt32("seats"),
+                                reader.GetInt32("level"), reader.GetString(11),
+                                reader.GetString("name"));
                             var boatid = reader.GetInt32("boat_id");
                             var id = reader.GetInt32("id");
-                            var description = reader.GetString("description");
+                            var description = reader.GetString(2);
                             var fixedboat = reader.GetBoolean("fixed");
                             var usable = reader.GetBoolean("usable");
                             var reporttime = reader.GetDateTime("report_time");
                             //get boat
-                            Task task = new Task(() =>
-                            {
-                                //get boat
-                                Boat boat = boatRepository.GetBoatById(boatid);
-                                Damage damageReport = new Damage(id, member, boat, description, fixedboat, usable,
-                                    reporttime);
-                                lock (damageReports)
-                                {
-                                    damageReports.Add(damageReport);
-                                }
-                            });
-                            task.Start();
-                            tasks.Add(task);
-                        }
 
-                        Task.WaitAll(tasks.ToArray());
+                            Damage damageReport = new Damage(id, member, boat, description, fixedboat, usable,
+                                reporttime);
+                            damageReports.Add(damageReport);
+                        }
                     }
                 }
-            }
 
-            return damageReports.OrderBy(damageReport => damageReport.BoatFixed)
-                .ThenByDescending(damageReport => damageReport.ReportTime).ToList();
+                return damageReports.OrderBy(damageReport => damageReport.BoatFixed)
+                    .ThenByDescending(damageReport => damageReport.ReportTime).ToList();
+            }
         }
 
         public Damage Update(int id, bool boatFixed, bool usable, string description)
