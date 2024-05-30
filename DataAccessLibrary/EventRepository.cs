@@ -258,14 +258,16 @@ namespace DataAccessLibrary
             }
             return new Event(events.Participants, startDate, endDate, description, name, events.Id, maxParticipants, events.Boats);
         }
-        private List<int> GetEventReservationsIds(Event events) 
+        public List<int> GetEventReservationsIds(Event events) 
         {
             var list = new List<int>();
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
             {
                 connection.Open();
 
-                const string sql = "SELECT `reservation_id` FROM `reservation` WHERE (SELECT `boat_id` FROM `event_reserved_boats` WHERE `event_id` = @id) = `boat_id` AND `start_time` = @start_time AND `end_time` = @end_time";
+                const string sql = "SELECT `reservation_id` FROM `reservation` WHERE `boat_id` IN (SELECT `boat_id` FROM `event_reserved_boats` WHERE `event_id` = @id) " +
+                                   "AND `start_time` = @start_time " +
+                                   "AND `end_time` = @end_time";
 
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {

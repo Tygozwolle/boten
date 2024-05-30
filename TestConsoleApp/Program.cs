@@ -1,6 +1,7 @@
 using DataAccessLibrary;
 using MySqlConnector;
 using RoeiVerenigingLibrary;
+using RoeiVerenigingLibrary.Model;
 using System.Diagnostics;
 
 namespace TestConsoleApp
@@ -9,6 +10,10 @@ namespace TestConsoleApp
     {
         private static void Main(string[] args)
         {
+            var EventRepository = new EventRepository();
+            var events = new Event(new List<Member>(), DateTime.Parse("2024-08-13 00:00:00"), DateTime.Parse("2024-08-13 23:59:59"), " ", "epic", 16, 35, new List<Boat>());
+            Console.WriteLine(EventRepository.GetEventReservationsIds(events));
+            
             //Config.DBAdress = "adress";
             //Config.SetDBPassword("secret");
             //Config.SetDBUsername("username");
