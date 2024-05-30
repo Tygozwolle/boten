@@ -12,7 +12,12 @@ namespace TestConsoleApp
         {
             var EventRepository = new EventRepository();
             var events = new Event(new List<Member>(), DateTime.Parse("2024-08-13 00:00:00"), DateTime.Parse("2024-08-13 23:59:59"), " ", "epic", 16, 35, new List<Boat>());
-            Console.WriteLine(EventRepository.GetEventReservationsIds(events));
+            var list = EventRepository.GetEventReservationsIds(events);
+            foreach (var VARIABLE in list)
+            {
+                Console.Write($"{VARIABLE},");
+            }
+            Console.WriteLine();
             
             //Config.DBAdress = "adress";
             //Config.SetDBPassword("secret");
