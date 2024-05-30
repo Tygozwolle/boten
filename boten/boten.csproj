@@ -8,4 +8,8 @@
     <UserSecretsId>fa54536f-2604-4298-8c6c-6f10271b7551</UserSecretsId>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="InteractiveDataDisplay.WPF" Version="1.0.0" />
+  </ItemGroup>
+
 </Project>

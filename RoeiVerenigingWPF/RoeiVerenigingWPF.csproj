@@ -81,7 +81,9 @@
   </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="avostres.InteractiveDataDisplay.WPF" Version="1.1.1" />
         <PackageReference Include="Extended.Wpf.Toolkit" Version="4.6.0" />
+        <PackageReference Include="InteractiveDataDisplay.WPF" Version="1.0.0" />
         <PackageReference Include="QRCoder" Version="1.5.1" />
         <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="8.0.0" />
     </ItemGroup>
