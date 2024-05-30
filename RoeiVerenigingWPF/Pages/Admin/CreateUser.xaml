@@ -60,7 +60,7 @@
                              BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}" FontSize="24"
                              FontFamily="Franklin Gothic Medium" />
 
-                    <Label Grid.Row="6" Content="*LastName:" Width="200" FontFamily="Franklin Gothic Medium"
+                    <Label Grid.Row="6" Content="*Achternaam:" Width="200" FontFamily="Franklin Gothic Medium"
                            FontSize="24" HorizontalContentAlignment="Center"
                            Foreground="{x:Static local:CustomColors.SubHeaderColor}" />
                     <TextBox Grid.Row="7" x:Name="LastName" Width="367" Height="40"
