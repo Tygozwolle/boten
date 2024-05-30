@@ -7,9 +7,9 @@ namespace RoeiVerenigingLibrary
     {
         // private readonly IReservationRepository _reservationRepository;
 
-        private readonly TimeSpan _maxReservationTime = new (2, 0, 0);
+        private readonly TimeSpan _maxReservationTime = new(2, 0, 0);
 
-        
+
         public bool TimeChecker(DateTime? start, DateTime? end)
         {
             if (start < end)
@@ -19,7 +19,7 @@ namespace RoeiVerenigingLibrary
 
             throw new InvalidTimeException();
         }
-        
+
         public Reservation Create(Member member, int boatId, DateTime startTime, DateTime endTime)
         {
             if (ReservationInThePast(startTime))
@@ -127,7 +127,6 @@ namespace RoeiVerenigingLibrary
         }
 
         public Reservation ChangeReservation(int reservationId, Member member, int boatId, DateTime start,
-
             DateTime end)
         {
             return reservationRepository.ChangeReservation(reservationId, member, boatId, start, end);
@@ -137,7 +136,7 @@ namespace RoeiVerenigingLibrary
         {
             return reservationRepository.GetReservation(reservationId);
         }
-        
+
         public DateTime Sunrise(DateTime selectedDate)
         {
             SolarTimes solarTimes = new SolarTimes(selectedDate.Date, 52.5125, 6.09444);
@@ -194,26 +193,18 @@ namespace RoeiVerenigingLibrary
 
             return timeAvailableList;
         }
+
+        public int GetTotalReservationTime(Member loggedInMember)
+        {
+            List<Reservation> totalReservationTimeList = GetReservations(loggedInMember);
+            TimeSpan totalReservationTime = new TimeSpan();
+
+            foreach (var reservation in totalReservationTimeList)
+            {
+                totalReservationTime += reservation.EndTime - reservation.StartTime;
+            }
+
+            return (int)totalReservationTime.TotalMinutes;
+        }
     }
 }
-
-/*
- *bool isAvailable = false;
-                foreach (var res in reservationsList)
-                {
-                    if (time == res.StartTime || time.AddHours(1) == res.EndTime && isAvailable == false)
-                    {
-                        isAvailable = false;
-                    }
-                    else
-                    {
-                        isAvailable = true;
-                    }
-                }
-
-                if (isAvailable)
-                {
-                    timeAvailableList.Add(time);
-                }
- *
- */

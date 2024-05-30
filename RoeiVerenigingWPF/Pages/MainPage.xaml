@@ -6,6 +6,6 @@
       mc:Ignorable="d"
       Title="MainPage" Height="900" Width="800">
     <Grid>
-        <Frame Source="ViewStatistics.xaml"></Frame>
+        <Frame Name="StatisticsFrame"></Frame>
     </Grid>
 </Page>

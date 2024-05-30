@@ -2,7 +2,10 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media.Imaging;
+using DataAccessLibrary;
+using RoeiVerenigingLibrary;
 using RoeiVerenigingLibrary.Model;
+using RoeiVerenigingWPF.Frames;
 using RoeiVerenigingWPF.helpers;
 
 namespace RoeiVerenigingWPF.Pages;
@@ -11,23 +14,26 @@ public partial class ViewStatistics : Page
 {
     public List<Statistic> SelectedStatistics { get; set; }
     public List<Statistic> AllStatistics { get; set; }
+    private ReservationService _reservationService = new ReservationService(new ReservationRepository());
+    private BoatService _boatService = new BoatService(new BoatRepository());
+    public MainWindow MainWindow;
 
-    public ViewStatistics()
+    public ViewStatistics(MainWindow mainWindow)
     {
         InitializeComponent();
+        MainWindow = mainWindow;
         FillAllStatistics();
     }
 
     private void FillAllStatistics()
     {
-        List<string> calculateStatistics = CalculateStatistics();
         AllStatistics = new List<Statistic>() { };
         SelectedStatistics = new List<Statistic>() { };
 
         AllStatistics.Add(new Statistic(1, "Totale reserveringstijd:",
-            "Dit is de totale tijd van al jouw eigen reserveringen!", "100 uur", true));
+            "Dit is de totale tijd van al jouw eigen reserveringen!", _reservationService.GetTotalReservationTime(MainWindow.LoggedInMember).ToString(), true));
         AllStatistics.Add(
-            new Statistic(2, "Populaiste boot:", "Deze boot wordt het meeste gereserveerd!", "Anna", true));
+            new Statistic(2, "Populaiste boot:", "Deze boot wordt het meeste gereserveerd!", _boatService.GetMostPopulairBoat(_reservationService.GetReservations()).Name, true));
         AllStatistics.Add(new Statistic(3, "Minst populaire boot:", "Deze boot wordt het minste gereserveerd!",
             "Anna 2.0", true));
         AllStatistics.Add(new Statistic(4, "Grootste evenement:", "Aan dit evenement deden de meeste mensen mee!",
@@ -54,11 +60,6 @@ public partial class ViewStatistics : Page
         PopulateStatisticsGrid();
     }
 
-    private List<string> CalculateStatistics()
-    {
-        List<string> calculatedList = [];
-        return calculatedList;
-    }
 
     public void PopulateStatisticsGrid()
     {
@@ -115,5 +116,13 @@ public partial class ViewStatistics : Page
 
             StatisticsPanel.Children.Add(border);
         }
+    }
+
+    private List<string> CalculateStatistics()
+    {
+        List<string> calculatedList = [];
+
+
+        return calculatedList;
     }
 }
