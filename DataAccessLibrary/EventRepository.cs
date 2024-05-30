@@ -151,7 +151,7 @@ namespace DataAccessLibrary
                             {
                                 infix = reader.GetString("infix");
                             }
-                            list.Add(new Member(reader.GetInt32("member_id"), reader.GetString("first_name"), reader.GetString("infix"), reader.GetString("last_name"),  reader.GetString("email"),reader.GetInt32("level")));
+                            list.Add(new Member(reader.GetInt32("member_id"), reader.GetString("first_name"), infix, reader.GetString("last_name"),  reader.GetString("email"),reader.GetInt32("level")));
                         }
                     }
                 }
