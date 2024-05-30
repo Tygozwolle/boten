@@ -2,11 +2,6 @@
 using RoeiVerenigingLibrary;
 using RoeiVerenigingLibrary.Interfaces;
 using RoeiVerenigingLibrary.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessLibrary
 {
@@ -196,7 +191,7 @@ namespace DataAccessLibrary
             }
             return new Event(events.Participants, startDate, endDate, description, name, events.Id, maxParticipants, events.Boats);
         }
-        private List<int> GetEventReservationsIds(Event events) 
+        private List<int> GetEventReservationsIds(Event events)
         {
             var list = new List<int>();
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
@@ -209,10 +204,10 @@ namespace DataAccessLibrary
                 {
                     command.Parameters.Add("@id", MySqlDbType.Int32);
                     command.Parameters["@id"].Value = events.Id;
-                    
+
                     command.Parameters.Add("@start_time", MySqlDbType.DateTime);
                     command.Parameters["@start_time"].Value = events.StartDate;
-                    
+
                     command.Parameters.Add("@end_time", MySqlDbType.DateTime);
                     command.Parameters["@end_time"].Value = events.EndDate;
 
@@ -227,6 +222,110 @@ namespace DataAccessLibrary
             }
             return list;
         }
-        
+
+        public List<Event> GetEvents()
+        {
+            using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
+            {
+                connection.Open();
+
+
+                const string sql =
+                    "SELECT * FROM 'events'";
+
+                using (MySqlCommand command = new MySqlCommand(sql, connection))
+                {
+                    var events = new List<Event>();
+
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            int eventId = reader.GetInt32(0);
+                            string name = reader.GetString(1);
+                            string description = reader.GetString(2);
+                            int maxParticipants = reader.GetInt32(3);
+                            DateTime startTime = reader.GetDateTime(4);
+                            DateTime endTime = reader.GetDateTime(5);
+
+                            Event addevent = new(GetEventMembersid(eventId), startTime, endTime, description, name, eventId,
+                                maxParticipants, GetEventBoatid(eventId));
+                            events.Add(addevent);
+                        }
+
+                    }
+
+                    return events;
+                }
+            }
+        }
+
+        public List<Member> GetEventMembersid(int eventid)
+        {
+            using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
+            {
+                connection.Open();
+
+                var member = new List<Member>();
+                MemberService _memberService = new MemberService(new MemberRepository());
+
+
+                const string sql =
+                    "SELECT * FROM 'event_participant' WHERE event_id = @event_id";
+
+                using (MySqlCommand command = new MySqlCommand(sql, connection))
+                {
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        command.Parameters.Add("@id", MySqlDbType.Int32);
+                        command.Parameters["@event_id"].Value = eventid;
+
+                        while (reader.Read())
+                        {
+                            int memberId = reader.GetInt32(1);
+                            member.Add(_memberService.GetById(memberId));
+                        }
+
+                    }
+
+                    return member;
+                }
+            }
+        }
+
+        public List<Boat> GetEventBoatid(int eventid)
+        {
+            using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
+            {
+                connection.Open();
+
+                var boat = new List<Boat>();
+                BoatService _boatService = new BoatService(new BoatRepository());
+
+
+                const string sql =
+                    "SELECT * FROM 'event_participant' WHERE event_id = @event_id";
+
+                using (MySqlCommand command = new MySqlCommand(sql, connection))
+                {
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        command.Parameters.Add("@id", MySqlDbType.Int32);
+                        command.Parameters["@event_id"].Value = eventid;
+
+                        while (reader.Read())
+                        {
+                            int memberId = reader.GetInt32(1);
+                            boat.Add(_boatService.GetBoatById(memberId));
+                        }
+
+                    }
+
+                    return boat;
+                }
+            }
+        }
+
     }
+
 }

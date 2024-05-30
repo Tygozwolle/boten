@@ -1,11 +1,6 @@
 ﻿using RoeiVerenigingLibrary.Exceptions;
 using RoeiVerenigingLibrary.Interfaces;
 using RoeiVerenigingLibrary.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RoeiVerenigingLibrary.Services
 {
@@ -48,6 +43,16 @@ namespace RoeiVerenigingLibrary.Services
             }
             //TODO: check if max participants is not less than the amount of participants
             return _eventRepository.Change(events, startDate, endDate, description, name, maxParticipants);
+        }
+
+        public List<Event> GetEvents(bool all)
+        {
+            if (all)
+            {
+                return _eventRepository.GetEvents();
+            }
+
+            return _eventRepository.GetEvents();
         }
     }
 }

@@ -40,10 +40,9 @@
                         </Button.Resources>
                     </Button>
                     <Grid Grid.Row="1">
-                        <ListView ItemsSource="{Binding boats}" Grid.IsSharedSizeScope="True"
+                        <ListView ItemsSource="{Binding _events}" Grid.IsSharedSizeScope="True"
                          d:ItemsSource="{d:SampleData ItemCount=5}" Name="ListView"
                          ScrollViewer.VerticalScrollBarVisibility="Auto" BorderBrush="Transparent" MaxHeight="750">
-                            <!--Loaded="ListView_Loaded voor in list view ophalen-->
                             <ListView.ItemContainerStyle>
                                 <Style TargetType="ListViewItem">
                                     <Setter Property="Template">
@@ -86,7 +85,7 @@
                                                     </Grid.RowDefinitions>
                                                     <!--left-->
                                                     <StackPanel Grid.Row="0" Grid.Column="0">
-                                                        <TextBlock Text="Naam" Foreground="{x:Static local:CustomColors.HeaderColor}" FontSize="32"></TextBlock>
+                                                        <TextBlock Text="{Binding Name }" Foreground="{x:Static local:CustomColors.HeaderColor}" FontSize="32"></TextBlock>
                                                     </StackPanel>
                                                     <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
                                                         <TextBlock Text="Beschrijving:" Foreground="{x:Static local:CustomColors.HeaderColor}" FontSize="20" TextWrapping="Wrap"></TextBlock>
