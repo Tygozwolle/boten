@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:RoeiVerenigingWPF.Pages.Admin"
       xmlns:helpers="clr-namespace:RoeiVerenigingWPF.helpers"
       mc:Ignorable="d"
-      Title="ManageBoat" Height="800" Width="900">
+      Title="ManageBoat" Height="800" Width="900" Background="Transparent">
     <Grid Height="800" Width="900" HorizontalAlignment="Center" VerticalAlignment="Center">
         <Grid.Effect>
             <DropShadowEffect Color="Black" Direction="320" ShadowDepth="10" Opacity="0.3" />
@@ -57,10 +57,6 @@
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
-                            <Label Grid.Row="0" Content="Foto:" Width="200" FontFamily="Franklin Gothic Medium"
-                                   Margin="0,10,0,0"
-                                   FontSize="24" HorizontalContentAlignment="Center"
-                                   Foreground="{x:Static helpers:CustomColors.SubHeaderColor}" />
                             <Image Grid.Row="1" Name="Image"
                                    Source="/Images/Image_not_available.png" Height="400px"
                                    Width="400px" HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -86,7 +82,7 @@
                             </Button>
                             <Button Grid.Row="3" Name="Delete_Button" Content="Boot verwijderen" Width="250"
                                     Height="50"
-                                    Margin="20,20,20,20" VerticalAlignment="Bottom"
+                                    Margin="20,20,10,20" VerticalAlignment="Bottom"
                                     FontFamily="Franklin Gothic Medium" FontSize="24"
                                     Foreground="{x:Static helpers:CustomColors.HeaderColor}"
                                     Background="{x:Static helpers:CustomColors.ButtonBackgroundColor}"

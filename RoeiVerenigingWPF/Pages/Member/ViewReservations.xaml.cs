@@ -59,7 +59,7 @@ namespace RoeiVerenigingWPF.Pages
                 object command = casted.Tag;
                 int id = Int32.Parse(command.ToString());
 
-                _MainWindow.MainContent.Navigate(new ManageBoat(_MainWindow, BService.GetBoatById(id)));
+                _MainWindow.MainContent.Navigate(new EditReservation(_MainWindow, id));
             }
         }
     }

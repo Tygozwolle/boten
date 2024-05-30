@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:RoeiVerenigingWPF.helpers"
       mc:Ignorable="d"
       d:DesignHeight="900" d:DesignWidth="1000"
-      Title="AdminEditUser">
+      Title="AdminEditUser" Background="Transparent">
     <Grid Height="900" Width="1000" HorizontalAlignment="Center" VerticalAlignment="Center">
         <Grid.Effect>
             <DropShadowEffect Color="Black" Direction="320" ShadowDepth="10" Opacity="0.3" />
@@ -63,7 +63,7 @@
                              BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}" FontSize="24"
                              FontFamily="Franklin Gothic Medium" />
 
-                    <Label Grid.Row="6" Content="LastName:" Width="200" FontFamily="Franklin Gothic Medium"
+                    <Label Grid.Row="6" Content="Achternaam:" Width="200" FontFamily="Franklin Gothic Medium"
                            Margin="0,10,0,0"
                            FontSize="24" HorizontalContentAlignment="Center"
                            Foreground="{x:Static local:CustomColors.SubHeaderColor}" />
