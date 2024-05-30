@@ -4,8 +4,8 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       mc:Ignorable="d"
-      Title="MainPage" Height="450" Width="800">
+      Title="MainPage" Height="900" Width="800">
     <Grid>
-        <TextBlock Text="Welkom, je bent ingelogd" FontSize="40" />
+        <Frame Source="ViewStatistics.xaml"></Frame>
     </Grid>
 </Page>
