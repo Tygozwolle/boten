@@ -105,7 +105,57 @@
                             </StackPanel>
                         </Border>
                     </Border>
-
+                    <!-- rightBox -->
+                    <Border Grid.Row="1" Grid.Column="2" Margin="15,15,15,15" CornerRadius="30"
+                            BorderThickness="5"
+                            BorderBrush="{x:Static helpers:CustomColors.OutsideBorderColor}">
+                        <Border CornerRadius="24" BorderThickness="8"
+                                BorderBrush="{x:Static helpers:CustomColors.MainBackgroundColor}"
+                                Background="{x:Static helpers:CustomColors.MainBackgroundColor}">
+                            <StackPanel Margin="15,15,15,15">
+                                <TextBlock
+                                    Text="Uitslagen:"
+                                    FontFamily="Franklin Gothic Medium" FontSize="26"
+                                    Foreground="{x:Static helpers:CustomColors.SubHeaderColor}"
+                                    VerticalAlignment="Center" HorizontalAlignment="left" />
+                                <!-- Table -->
+                                <Grid Margin="15,15,15,15">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="100" />
+                                        <ColumnDefinition Width="100" />
+                                        <ColumnDefinition Width="150" />
+                                        <ColumnDefinition Width="100" />
+                                        <ColumnDefinition Width="200" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Button Grid.Column="0" Content="Plaats" Foreground="#0e5172"
+                                            Background="#bbe3f7"
+                                            BorderBrush="#1892cd" FontFamily="Franklin Gothic Medium" FontSize="18" />
+                                    <Button Grid.Column="1" Content="Tijd" Foreground="#0e5172"
+                                            Background="#bbe3f7"
+                                            BorderBrush="#1892cd" FontFamily="Franklin Gothic Medium" FontSize="18" />
+                                    <Button Grid.Column="2" Name="FirstName" Content="Voornaam" Foreground="#0e5172"
+                                            Background="#bbe3f7"
+                                            BorderBrush="#1892cd" FontFamily="Franklin Gothic Medium" FontSize="18" />
+                                    <Button Grid.Column="3" Name="Infix" Content="Tussenv." Foreground="#0e5172"
+                                            Background="#bbe3f7"
+                                            BorderBrush="#1892cd" FontFamily="Franklin Gothic Medium" FontSize="18" />
+                                    <Button Grid.Column="4" Name="LastName" Content="Achternaam" Foreground="#0e5172"
+                                            Background="#bbe3f7"
+                                            BorderBrush="#1892cd" FontFamily="Franklin Gothic Medium" FontSize="18" />
+                                    <Button Grid.Column="5" Content="Omschrijving" Foreground="#0e5172"
+                                            Background="#bbe3f7"
+                                            BorderBrush="#1892cd" FontFamily="Franklin Gothic Medium" FontSize="18" />
+                                </Grid>
+                                <!-- Actual data -->
+                                <ScrollViewer Margin="15,0,15,15" VerticalScrollBarVisibility="Auto"
+                                              HorizontalAlignment="Left">
+                                    <StackPanel x:Name="ReportView" CanVerticallyScroll="True"
+                                                ScrollViewer.VerticalScrollBarVisibility="Visible" />
+                                </ScrollViewer>
+                            </StackPanel>
+                        </Border>
+                    </Border>
 
                 </Grid>
 
