@@ -107,8 +107,6 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
                 }
             }
         }
-
-
         private void DateIsSelected(object? sender, SelectionChangedEventArgs e)
         {
             var calendar = sender as Calendar;
