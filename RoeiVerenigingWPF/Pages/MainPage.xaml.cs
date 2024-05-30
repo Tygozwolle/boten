@@ -1,16 +1,19 @@
-using RoeiVerenigingWPF.Frames;
+#region
+
 using System.Windows.Controls;
+using RoeiVerenigingWPF.Frames;
 
-namespace RoeiVerenigingWPF.Pages
+#endregion
+
+namespace RoeiVerenigingWPF.Pages;
+
+public partial class MainPage : Page
 {
-    public partial class MainPage : Page
-    {
 
-        public MainPage(MainWindow mainWindow)
-        {
-            InitializeComponent();
-            MainWindow = mainWindow;
-        }
-        public MainWindow MainWindow { get; set; }
+    public MainPage(MainWindow mainWindow)
+    {
+        InitializeComponent();
+        MainWindow = mainWindow;
     }
+    public MainWindow MainWindow { get; set; }
 }

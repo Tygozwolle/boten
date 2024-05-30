@@ -1,74 +1,77 @@
-﻿using Aspose.Email;
+﻿#region
+
+using System.Diagnostics;
+using Aspose.Email;
 using Aspose.Email.Clients.Imap;
 using Aspose.Email.Mime;
 using Microsoft.Extensions.Configuration;
-using RoeiVerenigingLibrary;
-using System.Diagnostics;
+using RoeiVerenigingLibrary.Interfaces;
 using Attachment = Aspose.Email.Attachment;
 
-namespace RoeiVerenigingLibrary
+#endregion
+
+namespace RoeiVerenigingLibrary;
+
+public class EmailToDb
 {
-    public class EmailToDb
+    public static void GetImagesFromEmail(IImageRepository repository)
     {
-        public static void GetImagesFromEmail(IImageRepository repository)
+        try
         {
-            try
+            IConfigurationRoot config = new ConfigurationBuilder().AddUserSecrets<EmailToDb>().Build();
+            ImapClient client = new ImapClient("imap.gmail.com", 993, config["Mail:username"],
+                config["Mail:password"]);
+            client.SelectFolder("images");
+            ImapQueryBuilder builder = new ImapQueryBuilder();
+            builder.HasNoFlags(ImapMessageFlags.IsRead);
+            ImapMessageInfoCollection messages = client.ListMessages(builder.GetQuery());
+
+            var attachments = new List<Attachment>();
+            foreach (ImapMessageInfo messageInfo in messages)
             {
-                IConfigurationRoot config = new ConfigurationBuilder().AddUserSecrets<EmailToDb>().Build();
-                ImapClient client = new ImapClient("imap.gmail.com", 993, config["Mail:username"],
-                    config["Mail:password"]);
-                client.SelectFolder("images");
-                ImapQueryBuilder builder = new ImapQueryBuilder();
-                builder.HasNoFlags(ImapMessageFlags.IsRead);
-                ImapMessageInfoCollection messages = client.ListMessages(builder.GetQuery());
-
-                var attachments = new List<Attachment>();
-                foreach (ImapMessageInfo messageInfo in messages)
+                // Access the email message
+                string[] allowedFileTypes =
                 {
-                    // Access the email message
-                    string[] allowedFileTypes =
+                    MediaTypeNames.Image.Jpeg, MediaTypeNames.Image.Png, MediaTypeNames.Image.Gif,
+                    MediaTypeNames.Image.Bmp, MediaTypeNames.Image.Tiff
+                };
+                MailMessage message = client.FetchMessage(messageInfo.UniqueId);
+                var streams = new List<Stream>();
+                foreach (Attachment attachment in message.Attachments)
+                {
+                    if (allowedFileTypes.Contains(attachment.ContentType.MediaType))
                     {
-                        MediaTypeNames.Image.Jpeg, MediaTypeNames.Image.Png, MediaTypeNames.Image.Gif,
-                        MediaTypeNames.Image.Bmp, MediaTypeNames.Image.Tiff
-                    };
-                    MailMessage message = client.FetchMessage(messageInfo.UniqueId);
-                    var streams = new List<Stream>();
-                    foreach (Attachment attachment in message.Attachments)
-                    {
-                        if (allowedFileTypes.Contains(attachment.ContentType.MediaType))
-                        {
-                            streams.Add(attachment.ContentStream);
-                        }
+                        streams.Add(attachment.ContentStream);
                     }
+                }
 
-                    try
+                try
+                {
+                    repository.Add(int.Parse(messageInfo.Subject), streams);
+                    client.MoveMessage(messageInfo.UniqueId, "proccesed");
+                }
+                catch (Exception e)
+                {
+                    if (int.TryParse(messageInfo.Subject, out int result))
                     {
-                        repository.Add(Int32.Parse(messageInfo.Subject), streams);
-                        client.MoveMessage(messageInfo.UniqueId, "proccesed");
-                    }
-                    catch (Exception e)
-                    {
-                        if (Int32.TryParse(messageInfo.Subject, out int result))
-                        {
-                            client.RemoveMessageFlags(messageInfo.UniqueId, ImapMessageFlags.IsRead);
-                        }
+                        client.RemoveMessageFlags(messageInfo.UniqueId, ImapMessageFlags.IsRead);
                     }
                 }
             }
-            catch (ImapException ex)
-            {
-                Debug.WriteLine($"Unable to connect to the server: {ex.Message}");
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"An error occurred: {ex.Message}");
-            }
         }
-
-        public static string GetStringForEmail(int id)
+        catch (ImapException ex)
         {
-            IConfigurationRoot config = new ConfigurationBuilder().AddUserSecrets<EmailToDb>().Build();
-            return $"mailto:{config["Mail:username"]}?subject={id}";
+            Debug.WriteLine($"Unable to connect to the server: {ex.Message}");
         }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"An error occurred: {ex.Message}");
+        }
+    }
+
+    public static string GetStringForEmail(int id)
+    {
+        IConfigurationRoot config = new ConfigurationBuilder().AddUserSecrets<EmailToDb>().Build();
+        return $"mailto:{config["Mail:username"]}?subject={id}";
     }
 }

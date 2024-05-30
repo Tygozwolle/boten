@@ -3,13 +3,13 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:RoeiVerenigingWPF="clr-namespace:RoeiVerenigingWPF"
-    xmlns:local="clr-namespace:RoeiVerenigingWPF.helpers"
-    x:Class="RoeiVerenigingWPF.Pages.ManageDamageOverview"
+    xmlns:converters="clr-namespace:RoeiVerenigingWPF.Converters"
+    xmlns:local="clr-namespace:RoeiVerenigingWPF.Helpers"
+    x:Class="RoeiVerenigingWPF.Pages.MaterialCommissioner.ManageDamageOverview"
     mc:Ignorable="d" Background="Transparent"
     Title="ManageDamageOverview" d:DesignHeight="900" d:DesignWidth="1550">
     <Page.Resources>
-        <RoeiVerenigingWPF:ImageSourceConverter x:Key="ImageSourceConverter" />
+        <converters:ImageSourceConverter x:Key="ImageSourceConverter" />
     </Page.Resources>
     <Grid Height="900" Width="1550" HorizontalAlignment="Center" VerticalAlignment="Center">
         <Grid.Effect>

@@ -1,5 +1,10 @@
+#region
+
 using MySqlConnector;
-using RoeiVerenigingLibrary;
+using RoeiVerenigingLibrary.Interfaces;
+using RoeiVerenigingLibrary.Model;
+
+#endregion
 
 namespace DataAccessLibrary;
 

@@ -3,8 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:local="clr-namespace:RoeiVerenigingWPF.Pages.Admin"
-      xmlns:helpers="clr-namespace:RoeiVerenigingWPF.helpers"
+      xmlns:helpers="clr-namespace:RoeiVerenigingWPF.Helpers"
       mc:Ignorable="d" Background="Transparent"
       d:DesignHeight="800" d:DesignWidth="520"
       Title="ManageApp">

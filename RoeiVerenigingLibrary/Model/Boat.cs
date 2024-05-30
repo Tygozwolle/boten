@@ -1,59 +1,56 @@
-﻿using System.Text;
+﻿namespace RoeiVerenigingLibrary.Model;
 
-namespace RoeiVerenigingLibrary
+public class Boat
 {
-    public class Boat
+    public Boat(int id, bool captainSeat, int seats, int level, string description, string name, Stream image)
     {
-        public Boat(int id, bool captainSeat, int seats, int level, string description, string name, Stream image)
-        {
-            Id = id;
-            CaptainSeat = captainSeat;
-            Seats = seats;
-            Level = level;
-            Description = description;
-            Name = name;
-            Image = image;
-        }
+        Id = id;
+        CaptainSeat = captainSeat;
+        Seats = seats;
+        Level = level;
+        Description = description;
+        Name = name;
+        Image = image;
+    }
 
-        public Boat(int id, bool captainSeat, int seats, int level, string description, string name)
-        {
-            Id = id;
-            CaptainSeat = captainSeat;
-            Seats = seats;
-            Level = level;
-            Description = description;
-            Name = name;
-        }
+    public Boat(int id, bool captainSeat, int seats, int level, string description, string name)
+    {
+        Id = id;
+        CaptainSeat = captainSeat;
+        Seats = seats;
+        Level = level;
+        Description = description;
+        Name = name;
+    }
 
-        public int Id { get; set; }
-        public bool CaptainSeat { get; set; }
-        public int Seats { get; set; }
-        public int Level { get; set; }
-        public string Name { get; set; }
-        public Stream Image { get; set; }
-        private string _Description;
+    public int Id { get; set; }
+    public bool CaptainSeat { get; set; }
+    public int Seats { get; set; }
+    public int Level { get; set; }
+    public string Name { get; set; }
+    public Stream Image { get; set; }
+    private string _Description;
 
-        public string Description
-        {
-            get { return _Description; }
-            set => _Description = value;
-        }
+    public string Description
+    {
+        get { return _Description; }
+        set => _Description = value;
+    }
 
-        public String CaptainSeatToString()
+    public string CaptainSeatToString()
+    {
+        if (CaptainSeat)
         {
-            if (CaptainSeat)
-            {
-                return "Ja";
-            }
-            else
-            {
-                return "Nee";
-            }
+            return "Ja";
         }
+        else
+        {
+            return "Nee";
+        }
+    }
 
-        public String DescriptionNoEnter
-        {
-            get { return _Description; }
-        }
+    public string DescriptionNoEnter
+    {
+        get { return _Description; }
     }
 }

@@ -1,7 +1,6 @@
-﻿namespace RoeiVerenigingLibrary.Exceptions
+﻿namespace RoeiVerenigingLibrary.Exceptions;
+
+public class BoatAlreadyReservedException : Exception
 {
-    public class BoatAlreadyReservedException : Exception
-    {
-        public override string Message => "De boot is al gereserveerd op dit tijdstip";
-    }
+    public override string Message => "De boot is al gereserveerd op dit tijdstip";
 }

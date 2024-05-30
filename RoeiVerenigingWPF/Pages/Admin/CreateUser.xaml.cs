@@ -1,51 +1,54 @@
-﻿using DataAccessLibrary;
-using RoeiVerenigingLibrary;
-using RoeiVerenigingLibrary.Exceptions;
-using RoeiVerenigingWPF.Frames;
+﻿#region
+
 using System.Windows;
 using System.Windows.Controls;
+using DataAccessLibrary;
+using RoeiVerenigingLibrary.Exceptions;
+using RoeiVerenigingLibrary.Services;
+using RoeiVerenigingWPF.Frames;
 
-namespace RoeiVerenigingWPF.Pages
+#endregion
+
+namespace RoeiVerenigingWPF.Pages.Admin;
+
+/// <summary>
+///     Interaction logic for CreateUser.xaml
+/// </summary>
+public partial class CreateUser : Page
 {
-    /// <summary>
-    ///     Interaction logic for CreateUser.xaml
-    /// </summary>
-    public partial class CreateUser : Page
+    private readonly MainWindow _mainWindow;
+
+    public CreateUser(MainWindow mainWindow)
     {
-        private readonly MainWindow _mainWindow;
+        InitializeComponent();
+        _mainWindow = mainWindow;
+    }
 
-        public CreateUser(MainWindow mainWindow)
+    private void Button_Click(object sender, RoutedEventArgs e)
+    {
+        MemberService service = new MemberService(new MemberRepository());
+        try
         {
-            InitializeComponent();
-            _mainWindow = mainWindow;
+            string firstName = FirstName.Text;
+            string infix = Infix.Text;
+            string lastName = LastName.Text;
+            string email = Email.Text;
+            string password = Password.Password;
+            RoeiVerenigingLibrary.Model.Member createdMember = service.Create(_mainWindow.LoggedInMember, firstName, infix, lastName, email,
+                password);
+            if (createdMember != null)
+            {
+                MessageBox.Show(
+                    $"{createdMember.FirstName} {createdMember.Infix} {createdMember.LastName} is aangemaakt met lidnummer {createdMember.Id}");
+            }
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
+        catch (MemberAlreadyExistsException ex)
         {
-            MemberService service = new MemberService(new MemberRepository());
-            try
-            {
-                string firstName = FirstName.Text;
-                string infix = Infix.Text;
-                string lastName = LastName.Text;
-                string email = Email.Text;
-                string password = Password.Password;
-                Member createdMember = service.Create(_mainWindow.LoggedInMember, firstName, infix, lastName, email,
-                    password);
-                if (createdMember != null)
-                {
-                    MessageBox.Show(
-                        $"{createdMember.FirstName} {createdMember.Infix} {createdMember.LastName} is aangemaakt met lidnummer {createdMember.Id}");
-                }
-            }
-            catch (MemberAlreadyExistsException ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            catch (IncorrectRightsException ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            MessageBox.Show(ex.Message);
+        }
+        catch (IncorrectRightsException ex)
+        {
+            MessageBox.Show(ex.Message);
         }
     }
 }

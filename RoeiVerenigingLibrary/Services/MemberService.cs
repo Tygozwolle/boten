@@ -1,207 +1,212 @@
-﻿using RoeiVerenigingLibrary.Exceptions;
+﻿#region
+
 using System.Net.Mail;
 using System.Security.Cryptography;
 using System.Text;
+using RoeiVerenigingLibrary.Exceptions;
+using RoeiVerenigingLibrary.Interfaces;
+using RoeiVerenigingLibrary.Model;
 
-namespace RoeiVerenigingLibrary
+#endregion
+
+namespace RoeiVerenigingLibrary.Services;
+
+public class MemberService(IMemberRepository memberRepository)
 {
-    public class MemberService(IMemberRepository memberRepository)
+    public Member Login(string email, string password)
     {
-        public Member Login(string email, string password)
+        if (!IsValid(email))
         {
-            if (!IsValid(email))
-            {
-                throw new InvalidEmailException();
-            }
-
-            Member? member;
-            try
-            {
-                member = memberRepository.Get(email, CreatePasswordHash(password));
-            }
-            catch (Exception e)
-            {
-                throw new IncorrectEmailOrPasswordException();
-            }
-
-            if (member == null)
-            {
-                throw new IncorrectEmailOrPasswordException();
-            }
-
-            return member;
+            throw new InvalidEmailException();
         }
 
-        public Member GetById(int id)
+        Member? member;
+        try
         {
-            Member? member;
-            try
-            {
-                member = memberRepository.GetById(id);
-            }
-            catch (Exception)
-            {
-                //todo replace with new exception
-                throw new IncorrectEmailOrPasswordException();
-            }
-
-            if (member == null)
-            {
-                //todo replace with new exception
-                throw new IncorrectEmailOrPasswordException();
-            }
-
-            return member;
+            member = memberRepository.Get(email, CreatePasswordHash(password));
+        }
+        catch (Exception e)
+        {
+            throw new IncorrectEmailOrPasswordException();
         }
 
-        public Member Create(Member loggedInMember, string firstName, string infix, string lastName, string email,
-            string password)
+        if (member == null)
         {
-            return Create(loggedInMember, firstName, infix, lastName, email, password, 1);
+            throw new IncorrectEmailOrPasswordException();
         }
 
-        private Member Create(Member loggedInMember, string firstName, string infix, string lastName, string email,
-            string password, int level)
+        return member;
+    }
+
+    public Member GetById(int id)
+    {
+        Member? member;
+        try
         {
-            if (!loggedInMember.Roles.Contains("beheerder"))
-            {
-                throw new IncorrectRightsException();
-            }
-
-            if (!IsValid(email))
-            {
-                throw new InvalidEmailException();
-            }
-
-            Member? member;
-            try
-            {
-                member = memberRepository.Create(firstName, infix, lastName, email, CreatePasswordHash(password),
-                    level);
-            }
-            catch (Exception)
-            {
-                throw new MemberAlreadyExistsException();
-            }
-
-            if (member == null)
-            {
-                throw new MemberAlreadyExistsException();
-            }
-
-            return member;
+            member = memberRepository.GetById(id);
+        }
+        catch (Exception)
+        {
+            //todo replace with new exception
+            throw new IncorrectEmailOrPasswordException();
         }
 
-        public Member Update(Member loggedInMember, int id, string firstName, string infix, string lastName,
-            string email,
-            int level)
+        if (member == null)
         {
-            if (!loggedInMember.Roles.Contains("beheerder"))
-            {
-                throw new IncorrectRightsException();
-            }
-
-            if (!IsValid(email))
-            {
-                throw new Exception("Dit is geen email adres");
-            }
-
-            if (level > 10)
-            {
-                throw new Exception("Niveau mag maximaal 10 zijn");
-            }
-
-            Member? member;
-            try
-            {
-                member = memberRepository.Update(id, firstName, infix, lastName, email, level);
-            }
-            catch (Exception)
-            {
-                throw new CantAccesDatabaseException();
-            }
-
-            return member;
+            //todo replace with new exception
+            throw new IncorrectEmailOrPasswordException();
         }
+
+        return member;
+    }
+
+    public Member Create(Member loggedInMember, string firstName, string infix, string lastName, string email,
+        string password)
+    {
+        return Create(loggedInMember, firstName, infix, lastName, email, password, 1);
+    }
+
+    private Member Create(Member loggedInMember, string firstName, string infix, string lastName, string email,
+        string password, int level)
+    {
+        if (!loggedInMember.Roles.Contains("beheerder"))
+        {
+            throw new IncorrectRightsException();
+        }
+
+        if (!IsValid(email))
+        {
+            throw new InvalidEmailException();
+        }
+
+        Member? member;
+        try
+        {
+            member = memberRepository.Create(firstName, infix, lastName, email, CreatePasswordHash(password),
+                level);
+        }
+        catch (Exception)
+        {
+            throw new MemberAlreadyExistsException();
+        }
+
+        if (member == null)
+        {
+            throw new MemberAlreadyExistsException();
+        }
+
+        return member;
+    }
+
+    public Member Update(Member loggedInMember, int id, string firstName, string infix, string lastName,
+        string email,
+        int level)
+    {
+        if (!loggedInMember.Roles.Contains("beheerder"))
+        {
+            throw new IncorrectRightsException();
+        }
+
+        if (!IsValid(email))
+        {
+            throw new Exception("Dit is geen email adres");
+        }
+
+        if (level > 10)
+        {
+            throw new Exception("Niveau mag maximaal 10 zijn");
+        }
+
+        Member? member;
+        try
+        {
+            member = memberRepository.Update(id, firstName, infix, lastName, email, level);
+        }
+        catch (Exception)
+        {
+            throw new CantAccesDatabaseException();
+        }
+
+        return member;
+    }
         
-        public Member Update(Member loggedInMember, string firstName, string infix, string lastName, string email)
+    public Member Update(Member loggedInMember, string firstName, string infix, string lastName, string email)
+    {
+        if (!IsValid(email))
         {
-            if (!IsValid(email))
-            {
-                throw new Exception("Dit is geen email adres");
-            }
-
-            Member? member;
-            try
-            {
-                member = memberRepository.Update(loggedInMember.Id, firstName, infix, lastName, email);
-            }
-            catch (Exception)
-            {
-                throw new CantAccesDatabaseException();
-            }
-
-            return member;
+            throw new Exception("Dit is geen email adres");
         }
 
-        public void SetRoles(int memberId, List<string> roles)
+        Member? member;
+        try
         {
-            memberRepository.RemoveRoles(memberId);
-            foreach (string role in roles)
-            {
-                memberRepository.AddRole(memberId, role);
-            }
+            member = memberRepository.Update(loggedInMember.Id, firstName, infix, lastName, email);
+        }
+        catch (Exception)
+        {
+            throw new CantAccesDatabaseException();
         }
 
-        public List<string> GetAvailableRoles()
+        return member;
+    }
+
+    public void SetRoles(int memberId, List<string> roles)
+    {
+        memberRepository.RemoveRoles(memberId);
+        foreach (string role in roles)
         {
-            return memberRepository.GetAvailableRoles();
+            memberRepository.AddRole(memberId, role);
+        }
+    }
+
+    public List<string> GetAvailableRoles()
+    {
+        return memberRepository.GetAvailableRoles();
+    }
+
+    public void ChangePassword(Member loggedInMember, string currentPassword, string newPassword,
+        string newPasswordConfirm)
+    {
+        try
+        {
+            Login(loggedInMember.Email, currentPassword);
+        }
+        catch (IncorrectEmailOrPasswordException)
+        {
+            throw new IncorrectPasswordException();
         }
 
-        public void ChangePassword(Member loggedInMember, string currentPassword, string newPassword,
-            string newPasswordConfirm)
+        if (newPassword != newPasswordConfirm)
         {
-            try
-            {
-                Login(loggedInMember.Email, currentPassword);
-            }
-            catch (IncorrectEmailOrPasswordException)
-            {
-                throw new IncorrectPasswordException();
-            }
-
-            if (newPassword != newPasswordConfirm)
-            {
-                throw new PasswordsDontMatchException();
-            }
-
-            try
-            {
-                memberRepository.ChangePassword(loggedInMember.Email, CreatePasswordHash(newPassword));
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
+            throw new PasswordsDontMatchException();
         }
 
-        private static string CreatePasswordHash(string password)
+        try
         {
-            using (SHA256 sha256 = SHA256.Create())
-            {
-                byte[] hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
-                return Convert.ToBase64String(hashedBytes);
-            }
+            memberRepository.ChangePassword(loggedInMember.Email, CreatePasswordHash(newPassword));
         }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+        }
+    }
 
-        private static bool IsValid(string email)
+    private static string CreatePasswordHash(string password)
+    {
+        using (SHA256 sha256 = SHA256.Create())
         {
-            return MailAddress.TryCreate(email, out MailAddress? result);
+            byte[] hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
+            return Convert.ToBase64String(hashedBytes);
         }
+    }
 
-        public List<Member> GetMembers()
-        {
-            return memberRepository.GetMembers();
-        }
+    private static bool IsValid(string email)
+    {
+        return MailAddress.TryCreate(email, out MailAddress? result);
+    }
+
+    public List<Member> GetMembers()
+    {
+        return memberRepository.GetMembers();
     }
 }

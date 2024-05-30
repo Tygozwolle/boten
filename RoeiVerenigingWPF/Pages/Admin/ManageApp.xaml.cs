@@ -1,138 +1,141 @@
-﻿using System.Diagnostics;
+﻿#region
+
+using System.Diagnostics;
 using System.Security.Principal;
 using System.Windows;
 using System.Windows.Controls;
-using DataAccessLibary;
+using DataAccessLibrary;
 using RoeiVerenigingWPF.Frames;
 
-namespace RoeiVerenigingWPF.Pages.Admin
+#endregion
+
+namespace RoeiVerenigingWPF.Pages.Admin;
+
+/// <summary>
+/// Interaction logic for ManageApp.xaml
+/// </summary>
+public partial class ManageApp : Page
 {
-    /// <summary>
-    /// Interaction logic for ManageApp.xaml
-    /// </summary>
-    public partial class ManageApp : Page
+    private MainWindow _MainWindow;
+
+    public ManageApp(MainWindow mw)
     {
-        private MainWindow _MainWindow;
+        _MainWindow = mw;
+        _MainWindow.ManageApp.Content = "Afsluiten";
+        _MainWindow.ManageApp.IsEnabled = true;
+        _MainWindow.ManageApp.Visibility = Visibility.Visible;
+        InitializeComponent();
+        SetContent();
+        CheckCorrectRights();
+    }
 
-        public ManageApp(MainWindow mw)
+    private void SetContent()
+    {
+        if (Config.DBAdress != null)
         {
-            _MainWindow = mw;
-            _MainWindow.ManageApp.Content = "Afsluiten";
-            _MainWindow.ManageApp.IsEnabled = true;
-            _MainWindow.ManageApp.Visibility = Visibility.Visible;
-            InitializeComponent();
-            SetContent();
-            CheckCorrectRights();
+            DBAdress.Text = Config.DBAdress;
         }
 
-        private void SetContent()
+        if (Config.DBPort != null)
         {
-            if (Config.DBAdress != null)
-            {
-                DBAdress.Text = Config.DBAdress;
-            }
-
-            if (Config.DBPort != null)
-            {
-                DBPort.Text = Config.DBPort;
-            }
-
-            if (Config.DBPassword != null)
-            {
-                DBPassword.Password = Config.DBPassword;
-            }
-
-            if (Config.DBUsername != null)
-            {
-                DBUserName.Text = Config.DBUsername;
-            }
-
-            if (Config.ControlUsername != null)
-            {
-                Email.Text = Config.ControlUsername;
-            }
-
-            if (Config.ControlPassword != null)
-            {
-                Password.Password = Config.ControlPassword;
-            }
+            DBPort.Text = Config.DBPort;
         }
 
-        private void CheckCorrectRights()
+        if (Config.DBPassword != null)
         {
-            bool isElevated;
-            using (WindowsIdentity identity = WindowsIdentity.GetCurrent())
-            {
-                WindowsPrincipal principal = new WindowsPrincipal(identity);
-                isElevated = principal.IsInRole(WindowsBuiltInRole.Administrator);
-            }
-
-            if (!isElevated)
-            {
-                StartNewProcessAll();
-                Application.Current.Shutdown();
-            }
+            DBPassword.Password = Config.DBPassword;
         }
 
-        private void Change(object sender, RoutedEventArgs e)
+        if (Config.DBUsername != null)
         {
-            var valid = TestConnection.TestString(DBUserName.Text, DBPassword.Password, DBAdress.Text, DBPort.Text,
-                out string errorMassage);
-            if (valid)
+            DBUserName.Text = Config.DBUsername;
+        }
+
+        if (Config.ControlUsername != null)
+        {
+            Email.Text = Config.ControlUsername;
+        }
+
+        if (Config.ControlPassword != null)
+        {
+            Password.Password = Config.ControlPassword;
+        }
+    }
+
+    private void CheckCorrectRights()
+    {
+        bool isElevated;
+        using (WindowsIdentity identity = WindowsIdentity.GetCurrent())
+        {
+            WindowsPrincipal principal = new WindowsPrincipal(identity);
+            isElevated = principal.IsInRole(WindowsBuiltInRole.Administrator);
+        }
+
+        if (!isElevated)
+        {
+            StartNewProcessAll();
+            Application.Current.Shutdown();
+        }
+    }
+
+    private void Change(object sender, RoutedEventArgs e)
+    {
+        var valid = TestConnection.TestString(DBUserName.Text, DBPassword.Password, DBAdress.Text, DBPort.Text,
+            out string errorMassage);
+        if (valid)
+        {
+            MessageBoxResult messageBoxResult = MessageBox.Show(
+                "Weet je zeker dat u de instellingen wilt wijzigen?", "Bevestiging",
+                MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes)
             {
-                MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show(
-                    "Weet je zeker dat u de instellingen wilt wijzigen?", "Bevestiging",
-                    System.Windows.MessageBoxButton.YesNo);
-                if (messageBoxResult == MessageBoxResult.Yes)
-                {
-                    Config.SetDBAdress(DBAdress.Text);
-                    Config.SetDBPort(DBPort.Text);
-                    Config.SetDBPassword(DBPassword.Password);
-                    Config.SetDBUsername(DBUserName.Text);
-                    Config.SetControlUsername(Email.Text);
-                    Config.SetControlPassword(Password.Password);
-                }
-                else
-                {
-                    return;
-                }
+                Config.SetDBAdress(DBAdress.Text);
+                Config.SetDBPort(DBPort.Text);
+                Config.SetDBPassword(DBPassword.Password);
+                Config.SetDBUsername(DBUserName.Text);
+                Config.SetControlUsername(Email.Text);
+                Config.SetControlPassword(Password.Password);
             }
             else
             {
-                MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show(
-                    $"Database instelling kloppen niet. \n {errorMassage} \n Wil u u account instellingen wijzigen?",
-                    "Database instellingen incorrect", System.Windows.MessageBoxButton.YesNo);
-                if (messageBoxResult == MessageBoxResult.Yes)
-                {
-                    Config.SetControlUsername(Email.Text);
-                    Config.SetControlPassword(Password.Password);
-                }
-                else
-                {
-                    return;
-                }
+                return;
             }
         }
-
-        static void StartNewProcessAll()
+        else
         {
-            ProcessStartInfo startInfo = new ProcessStartInfo
+            MessageBoxResult messageBoxResult = MessageBox.Show(
+                $"Database instelling kloppen niet. \n {errorMassage} \n Wil u u account instellingen wijzigen?",
+                "Database instellingen incorrect", MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes)
             {
-                FileName = Process.GetCurrentProcess().MainModule.FileName,
-                Arguments = $"UpdateAll",
-                UseShellExecute = true,
-                CreateNoWindow = false,
-            };
-            startInfo.Verb = "runas";
-
-            using (Process process = new Process())
-            {
-                process.StartInfo = startInfo;
-                process.Start();
+                Config.SetControlUsername(Email.Text);
+                Config.SetControlPassword(Password.Password);
             }
-
-            Thread.Sleep(1000);
-            Application.Current.Shutdown();
+            else
+            {
+                return;
+            }
         }
+    }
+
+    static void StartNewProcessAll()
+    {
+        ProcessStartInfo startInfo = new ProcessStartInfo
+        {
+            FileName = Process.GetCurrentProcess().MainModule.FileName,
+            Arguments = $"UpdateAll",
+            UseShellExecute = true,
+            CreateNoWindow = false,
+        };
+        startInfo.Verb = "runas";
+
+        using (Process process = new Process())
+        {
+            process.StartInfo = startInfo;
+            process.Start();
+        }
+
+        Thread.Sleep(1000);
+        Application.Current.Shutdown();
     }
 }

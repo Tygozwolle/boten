@@ -1,291 +1,289 @@
-﻿using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
+﻿#region
+
 using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 using ConfigurationManager = System.Configuration.ConfigurationManager;
 
-namespace DataAccessLibary
+#endregion
+
+namespace DataAccessLibrary;
+
+public abstract class Config
 {
-    public abstract class Config
+    public static string DBAdress
     {
-        public static string DBAdress
+        get
         {
-            get
-            {
-                Configuration configManager = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-                KeyValueConfigurationCollection confCollection = configManager.AppSettings.Settings;
+            Configuration configManager = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            KeyValueConfigurationCollection confCollection = configManager.AppSettings.Settings;
 
-                if (confCollection["dbadress"] != null)
-                {
-                    return confCollection["dbadress"].Value;
-                }
-                else
-                {
-                    return null;
-                }
+            if (confCollection["dbadress"] != null)
+            {
+                return confCollection["dbadress"].Value;
             }
-            private set
+            else
             {
-                Configuration configManager = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-                KeyValueConfigurationCollection confCollection = configManager.AppSettings.Settings;
-
-                if (confCollection["dbadress"] != null)
-                {
-                    confCollection["dbadress"].Value = value;
-                }
-                else
-                {
-                    confCollection.Add("dbadress", value);
-                }
-
-
-                configManager.Save(ConfigurationSaveMode.Modified);
-                ConfigurationManager.RefreshSection(configManager.AppSettings.SectionInformation.Name);
+                return null;
             }
         }
-
-        public static void SetDBAdress(string dbAdress)
+        private set
         {
-            DBAdress = dbAdress;
-        }
+            Configuration configManager = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            KeyValueConfigurationCollection confCollection = configManager.AppSettings.Settings;
 
-        public static string DBUsername
-        {
-            get
+            if (confCollection["dbadress"] != null)
             {
-                Configuration configManager = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-                KeyValueConfigurationCollection confCollection = configManager.AppSettings.Settings;
-
-                if (confCollection["dbusername"] != null)
-                {
-                    return confCollection["dbusername"].Value;
-                }
-                else
-                {
-                    return null;
-                }
+                confCollection["dbadress"].Value = value;
             }
-            private set
+            else
             {
-                Configuration configManager = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-                KeyValueConfigurationCollection confCollection = configManager.AppSettings.Settings;
-
-                if (confCollection["dbusername"] != null)
-                {
-                    confCollection["dbusername"].Value = value;
-                }
-                else
-                {
-                    confCollection.Add("dbusername", value);
-                }
-
-                configManager.Save(ConfigurationSaveMode.Modified);
-                ConfigurationManager.RefreshSection(configManager.AppSettings.SectionInformation.Name);
+                confCollection.Add("dbadress", value);
             }
-        }
 
-        public static void SetDBUsername(string dbUsername)
-        {
-            DBUsername = dbUsername;
-        }
 
-        public static string DBPassword
+            configManager.Save(ConfigurationSaveMode.Modified);
+            ConfigurationManager.RefreshSection(configManager.AppSettings.SectionInformation.Name);
+        }
+    }
+
+    public static void SetDBAdress(string dbAdress)
+    {
+        DBAdress = dbAdress;
+    }
+
+    public static string DBUsername
+    {
+        get
         {
-            get
+            Configuration configManager = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            KeyValueConfigurationCollection confCollection = configManager.AppSettings.Settings;
+
+            if (confCollection["dbusername"] != null)
             {
-                Configuration configManager = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-                KeyValueConfigurationCollection confCollection = configManager.AppSettings.Settings;
-
-                if (confCollection["dbpassword"] != null)
-                {
-                    return confCollection["dbpassword"].Value;
-                }
-                else
-                {
-                    return null;
-                }
+                return confCollection["dbusername"].Value;
             }
-            private set
+            else
             {
-                Configuration configManager = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-                KeyValueConfigurationCollection confCollection = configManager.AppSettings.Settings;
-
-                if (confCollection["dbpassword"] != null)
-                {
-                    confCollection["dbpassword"].Value = value;
-                }
-                else
-                {
-                    confCollection.Add("dbpassword", value);
-                }
-
-                configManager.Save(ConfigurationSaveMode.Modified);
-                ConfigurationManager.RefreshSection(configManager.AppSettings.SectionInformation.Name);
+                return null;
             }
         }
-
-        public static void SetDBPassword(string password)
+        private set
         {
-            DBPassword = password;
-        }
+            Configuration configManager = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            KeyValueConfigurationCollection confCollection = configManager.AppSettings.Settings;
 
-        public static string DBPort
-        {
-            get
+            if (confCollection["dbusername"] != null)
             {
-                Configuration configManager = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-                KeyValueConfigurationCollection confCollection = configManager.AppSettings.Settings;
-
-                if (confCollection["dbport"] != null)
-                {
-                    return confCollection["dbport"].Value;
-                }
-                else
-                {
-                    return null;
-                }
+                confCollection["dbusername"].Value = value;
             }
-            private set
+            else
             {
-                Configuration configManager = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-                KeyValueConfigurationCollection confCollection = configManager.AppSettings.Settings;
+                confCollection.Add("dbusername", value);
+            }
 
-                if (confCollection["dbport"] != null)
-                {
-                    confCollection["dbport"].Value = value;
-                }
-                else
-                {
-                    confCollection.Add("dbport", value);
-                }
+            configManager.Save(ConfigurationSaveMode.Modified);
+            ConfigurationManager.RefreshSection(configManager.AppSettings.SectionInformation.Name);
+        }
+    }
 
-                configManager.Save(ConfigurationSaveMode.Modified);
-                ConfigurationManager.RefreshSection(configManager.AppSettings.SectionInformation.Name);
+    public static void SetDBUsername(string dbUsername)
+    {
+        DBUsername = dbUsername;
+    }
+
+    public static string DBPassword
+    {
+        get
+        {
+            Configuration configManager = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            KeyValueConfigurationCollection confCollection = configManager.AppSettings.Settings;
+
+            if (confCollection["dbpassword"] != null)
+            {
+                return confCollection["dbpassword"].Value;
+            }
+            else
+            {
+                return null;
             }
         }
-
-        public static UInt32 DBPortInt
+        private set
         {
-            get
-            {
-                Configuration configManager = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-                KeyValueConfigurationCollection confCollection = configManager.AppSettings.Settings;
+            Configuration configManager = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            KeyValueConfigurationCollection confCollection = configManager.AppSettings.Settings;
 
-                if (confCollection["dbport"] != null)
+            if (confCollection["dbpassword"] != null)
+            {
+                confCollection["dbpassword"].Value = value;
+            }
+            else
+            {
+                confCollection.Add("dbpassword", value);
+            }
+
+            configManager.Save(ConfigurationSaveMode.Modified);
+            ConfigurationManager.RefreshSection(configManager.AppSettings.SectionInformation.Name);
+        }
+    }
+
+    public static void SetDBPassword(string password)
+    {
+        DBPassword = password;
+    }
+
+    public static string DBPort
+    {
+        get
+        {
+            Configuration configManager = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            KeyValueConfigurationCollection confCollection = configManager.AppSettings.Settings;
+
+            if (confCollection["dbport"] != null)
+            {
+                return confCollection["dbport"].Value;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        private set
+        {
+            Configuration configManager = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            KeyValueConfigurationCollection confCollection = configManager.AppSettings.Settings;
+
+            if (confCollection["dbport"] != null)
+            {
+                confCollection["dbport"].Value = value;
+            }
+            else
+            {
+                confCollection.Add("dbport", value);
+            }
+
+            configManager.Save(ConfigurationSaveMode.Modified);
+            ConfigurationManager.RefreshSection(configManager.AppSettings.SectionInformation.Name);
+        }
+    }
+
+    public static uint DBPortInt
+    {
+        get
+        {
+            Configuration configManager = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            KeyValueConfigurationCollection confCollection = configManager.AppSettings.Settings;
+
+            if (confCollection["dbport"] != null)
+            {
+                try
                 {
-                    try
-                    {
-                        return UInt32.Parse(confCollection["dbport"].Value);
-                    }
-                    catch
-                    {
-                        return 0;
-                    }
+                    return uint.Parse(confCollection["dbport"].Value);
                 }
-                else
+                catch
                 {
                     return 0;
                 }
             }
-        }
-
-        public static void SetDBPort(string port)
-        {
-            DBPort = port;
-        }
-
-        public static string ControlUsername
-        {
-            get
+            else
             {
-                Configuration configManager = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-                KeyValueConfigurationCollection confCollection = configManager.AppSettings.Settings;
-
-                if (confCollection["controlusername"] != null)
-                {
-                    return confCollection["controlusername"].Value;
-                }
-                else
-                {
-                    return null;
-                }
-            }
-            private set
-            {
-                Configuration configManager = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-                KeyValueConfigurationCollection confCollection = configManager.AppSettings.Settings;
-
-                if (confCollection["controlusername"] != null)
-                {
-                    confCollection["controlusername"].Value = value;
-                }
-                else
-                {
-                    confCollection.Add("controlusername", value);
-                }
-
-                configManager.Save(ConfigurationSaveMode.Modified);
-                ConfigurationManager.RefreshSection(configManager.AppSettings.SectionInformation.Name);
+                return 0;
             }
         }
+    }
 
-        public static void SetControlUsername(string username)
-        {
-            ControlUsername = username;
-        }
+    public static void SetDBPort(string port)
+    {
+        DBPort = port;
+    }
 
-        public static string ControlPassword
+    public static string ControlUsername
+    {
+        get
         {
-            get
+            Configuration configManager = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            KeyValueConfigurationCollection confCollection = configManager.AppSettings.Settings;
+
+            if (confCollection["controlusername"] != null)
             {
-                Configuration configManager = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-                KeyValueConfigurationCollection confCollection = configManager.AppSettings.Settings;
-
-                if (confCollection["controlpassword"] != null)
-                {
-                    return confCollection["controlpassword"].Value;
-                }
-                else
-                {
-                    return null;
-                }
+                return confCollection["controlusername"].Value;
             }
-            private set
+            else
             {
-                Configuration configManager = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-                KeyValueConfigurationCollection confCollection = configManager.AppSettings.Settings;
-
-                if (confCollection["controlpassword"] != null)
-                {
-                    confCollection["controlpassword"].Value = value;
-                }
-                else
-                {
-                    confCollection.Add("controlpassword", value);
-                }
-
-                configManager.Save(ConfigurationSaveMode.Modified);
-                ConfigurationManager.RefreshSection(configManager.AppSettings.SectionInformation.Name);
+                return null;
             }
         }
-
-        public static void SetControlPassword(string password)
+        private set
         {
-            ControlPassword = password;
+            Configuration configManager = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            KeyValueConfigurationCollection confCollection = configManager.AppSettings.Settings;
+
+            if (confCollection["controlusername"] != null)
+            {
+                confCollection["controlusername"].Value = value;
+            }
+            else
+            {
+                confCollection.Add("controlusername", value);
+            }
+
+            configManager.Save(ConfigurationSaveMode.Modified);
+            ConfigurationManager.RefreshSection(configManager.AppSettings.SectionInformation.Name);
         }
+    }
+
+    public static void SetControlUsername(string username)
+    {
+        ControlUsername = username;
+    }
+
+    public static string ControlPassword
+    {
+        get
+        {
+            Configuration configManager = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            KeyValueConfigurationCollection confCollection = configManager.AppSettings.Settings;
+
+            if (confCollection["controlpassword"] != null)
+            {
+                return confCollection["controlpassword"].Value;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        private set
+        {
+            Configuration configManager = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            KeyValueConfigurationCollection confCollection = configManager.AppSettings.Settings;
+
+            if (confCollection["controlpassword"] != null)
+            {
+                confCollection["controlpassword"].Value = value;
+            }
+            else
+            {
+                confCollection.Add("controlpassword", value);
+            }
+
+            configManager.Save(ConfigurationSaveMode.Modified);
+            ConfigurationManager.RefreshSection(configManager.AppSettings.SectionInformation.Name);
+        }
+    }
+
+    public static void SetControlPassword(string password)
+    {
+        ControlPassword = password;
+    }
 
 #if !RELEASE
-        public static void FillFromSecrets()
-        {
-            IConfigurationRoot config = new ConfigurationBuilder().AddUserSecrets<Config>().Build();
-            DBUsername = config["DB:username"];
-            DBPassword = config["DB:password"];
-            DBPort = config["DB:port"];
-            DBAdress = config["DB:adress"];
-        }
-#endif
+    public static void FillFromSecrets()
+    {
+        IConfigurationRoot config = new ConfigurationBuilder().AddUserSecrets<Config>().Build();
+        DBUsername = config["DB:username"];
+        DBPassword = config["DB:password"];
+        DBPort = config["DB:port"];
+        DBAdress = config["DB:adress"];
     }
+#endif
 }

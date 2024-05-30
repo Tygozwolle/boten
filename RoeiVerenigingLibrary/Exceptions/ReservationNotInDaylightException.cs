@@ -1,7 +1,6 @@
-﻿namespace RoeiVerenigingLibrary.Exceptions
+﻿namespace RoeiVerenigingLibrary.Exceptions;
+
+public class ReservationNotInDaylightException : Exception
 {
-    public class ReservationNotInDaylightException : Exception
-    {
-        public override string Message => "De geselecteerde tijd moet tussen zonsopkomst en zonsondergang vallen.";
-    }
+    public override string Message => "De geselecteerde tijd moet tussen zonsopkomst en zonsondergang vallen.";
 }
