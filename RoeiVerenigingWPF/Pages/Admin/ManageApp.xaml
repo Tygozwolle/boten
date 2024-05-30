@@ -5,8 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:RoeiVerenigingWPF.Pages.Admin"
       xmlns:helpers="clr-namespace:RoeiVerenigingWPF.helpers"
-      mc:Ignorable="d"
-      d:DesignHeight="450" d:DesignWidth="800"
+      mc:Ignorable="d" Background="Transparent"
+      d:DesignHeight="800" d:DesignWidth="520"
       Title="ManageApp">
 
     <Grid Height="800" Width="520" HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -41,7 +41,7 @@
                            Content="Beheer App"
                            FontFamily="Franklin Gothic Medium" FontSize="38"
                            Foreground="{x:Static helpers:CustomColors.HeaderColor}" Margin="0,20,0,0" />
-                    <Label Grid.Row="2" Content="DataBase Adress:" HorizontalAlignment="Center"
+                    <Label Grid.Row="2" Content="DataBase Adres:" HorizontalAlignment="Center"
                            FontFamily="Franklin Gothic Medium" FontSize="24" Margin="0,20,0,0"
                            Foreground="{x:Static helpers:CustomColors.SubHeaderColor}" />
                     <TextBox Grid.Row="3" x:Name="DBAdress" Width="367" Height="40"
@@ -55,7 +55,7 @@
                              Foreground="{x:Static helpers:CustomColors.SubHeaderColor}"
                              BorderBrush="{x:Static helpers:CustomColors.OutsideBorderColor}"
                              Background="{x:Static helpers:CustomColors.TextBoxBackgroundColor}" FontSize="24" />
-                    <Label Grid.Row="6" Content="DataBase Username:" HorizontalAlignment="Center"
+                    <Label Grid.Row="6" Content="DataBase Gebruikersnaam:" HorizontalAlignment="Center"
                            FontFamily="Franklin Gothic Medium" FontSize="24" Margin="0,20,0,0"
                            Foreground="{x:Static helpers:CustomColors.SubHeaderColor}" />
                     <TextBox Grid.Row="7" x:Name="DBUserName" Width="367" Height="40"

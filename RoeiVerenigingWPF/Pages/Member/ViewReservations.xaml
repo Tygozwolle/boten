@@ -6,99 +6,123 @@
       xmlns:local="clr-namespace:RoeiVerenigingWPF.helpers"
       xmlns:roeiVerenigingWpf="clr-namespace:RoeiVerenigingWPF"
       mc:Ignorable="d"
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="900" d:DesignWidth="1550" Background="Transparent"
       Title="ViewReservations">
     <Page.Resources>
         <roeiVerenigingWpf:SingleStreamImageConverter x:Key="SingleStreamImageConverter" />
     </Page.Resources>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="1*" MaxHeight="100px" />
-            <RowDefinition Height="50" MaxHeight="100px" />
-            <RowDefinition Height="1*" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*" />
-            <ColumnDefinition Width="1*" />
-            <ColumnDefinition Width="1*" />
-        </Grid.ColumnDefinitions>
+    <Grid Height="900" Width="1550" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Grid.Effect>
+            <DropShadowEffect Color="Black" Direction="320" ShadowDepth="10" Opacity="0.3" />
+        </Grid.Effect>
+        <Border CornerRadius="30" BorderThickness="5" BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}">
+            <Border CornerRadius="24" BorderThickness="8"
+                    BorderBrush="{x:Static local:CustomColors.MainBackgroundColor}">
+                <Grid Background="{x:Static local:CustomColors.MainBackgroundColor}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*" MaxHeight="100px" />
+                        <RowDefinition Height="50" MaxHeight="100px" />
+                        <RowDefinition Height="1*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="1*" />
+                    </Grid.ColumnDefinitions>
 
-        <!-- Titel -->
-        <Label Content="Reserveringen" FontSize="30" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" />
+                    <!-- Titel -->
+                    <Label Content="Reserveringen" FontFamily="Franklin Gothic Medium" FontSize="38"
+                           Foreground="{x:Static local:CustomColors.HeaderColor}" HorizontalAlignment="Center"
+                           Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" />
 
-        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="4" MaxHeight="750px">
-            <ListView Name="ReservationListView" ItemsSource="{Binding ReservationList}" Loaded="ListView_Loaded" Grid.IsSharedSizeScope="True"
-                      d:ItemsSource="{d:SampleData ItemCount=8}" ScrollViewer.VerticalScrollBarVisibility="Auto">
-                <ListView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <UniformGrid Columns="2" />
-                    </ItemsPanelTemplate>
-                </ListView.ItemsPanel>
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid Background="Transparent" Margin="50 20 50 0" Width="650" Height="200"
-                              PreviewMouseLeftButtonDown="Grid_Click" Tag="{Binding Boat.Id}">
-                            <Grid.Resources>
-                                <Style TargetType="Border">
-                                    <Setter Property="CornerRadius" Value="15" />
-                                </Style>
-                            </Grid.Resources>
-                            <Border CornerRadius="30" BorderThickness="5"
-                                    BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}">
-                                <Border CornerRadius="24" BorderThickness="8"
-                                        BorderBrush="{x:Static local:CustomColors.MainBackgroundColor}">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition Width="*" />
-                                        </Grid.ColumnDefinitions>
-                                        <StackPanel Grid.Column="0" Margin="15,0,0,0">
-                                            <TextBlock Text="{Binding Boat.Id, StringFormat='Boot: {0}'}"
-                                                       VerticalAlignment="Center" HorizontalAlignment="Left"
-                                                       FontSize="25" />
-                                            <TextBlock Text="{Binding Boat.Seats, StringFormat='Aantal man: {0}'}"
-                                                       VerticalAlignment="Center" HorizontalAlignment="Right" />
-                                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right">
-                                                <TextBlock.Style>
-                                                    <Style TargetType="TextBlock">
-                                                        <Setter Property="Text"
-                                                                Value="{Binding Boat.CaptainSeat, StringFormat='Stuurman {0}'}" />
-                                                        <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding Boat.CaptainSeat}"
-                                                                         Value="True">
-                                                                <Setter Property="Text" Value="Stuurman aanwezig" />
-                                                            </DataTrigger>
-                                                            <DataTrigger Binding="{Binding Boat.CaptainSeat}"
-                                                                         Value="False">
-                                                                <Setter Property="Text" Value="Stuurman niet aanwezig" />
-                                                            </DataTrigger>
-                                                            <!-- Add more DataTriggers for other conditions if needed -->
-                                                        </Style.Triggers>
-                                                    </Style>
-                                                </TextBlock.Style>
-                                            </TextBlock>
-                                            
-                                            <TextBlock Text="{Binding Boat.Level, StringFormat='Niveau: {0}'}"
-                                                       VerticalAlignment="Center" HorizontalAlignment="Right" />
-                                            <TextBlock Text="{Binding StartTime, StringFormat='Starttijd: {0}'}"
-                                                       VerticalAlignment="Center" HorizontalAlignment="Left"
-                                                       FontSize="13" Margin="20,0,0,0" />
-                                            <TextBlock Text="{Binding EndTime, StringFormat='Eindtijd: {0}'}"
-                                                       VerticalAlignment="Center" HorizontalAlignment="Left"
-                                                       FontSize="13" Margin="20,0,0,0" />
-                                        </StackPanel>
-                                        <Image Grid.Row="1" Grid.Column="1"
-                                            Source="{Binding Boat.Image, Converter={StaticResource SingleStreamImageConverter}}"
-                                            MaxHeight="150px"
-                                            MaxWidth="150px"
-                                            HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="4" MaxHeight="750px">
+                        <ListView Name="ReservationListView" ItemsSource="{Binding ReservationList}"
+                                  Loaded="ListView_Loaded" Grid.IsSharedSizeScope="True" BorderBrush="Transparent"
+                                  d:ItemsSource="{d:SampleData ItemCount=8}"
+                                  ScrollViewer.VerticalScrollBarVisibility="Auto">
+                            <ListView.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <UniformGrid Columns="2" />
+                                </ItemsPanelTemplate>
+                            </ListView.ItemsPanel>
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Background="Transparent" Margin="50 20 50 0" Width="650" Height="200"
+                                          PreviewMouseLeftButtonDown="Grid_Click" Tag="{Binding Id}">
+                                        <Grid.Resources>
+                                            <Style TargetType="Border">
+                                                <Setter Property="CornerRadius" Value="15" />
+                                            </Style>
+                                        </Grid.Resources>
+                                        <Border CornerRadius="30" BorderThickness="5"
+                                                BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}">
+                                            <Border CornerRadius="24" BorderThickness="8"
+                                                    BorderBrush="{x:Static local:CustomColors.TextBoxBackgroundColor}">
+                                                <Grid Background="{x:Static local:CustomColors.TextBoxBackgroundColor}">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition Width="*" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <StackPanel Grid.Column="0" Margin="15,0,0,0">
+                                                        <TextBlock Text="{Binding Boat.Id, StringFormat='Boot: {0}'}"
+                                                                   VerticalAlignment="Center"
+                                                                   HorizontalAlignment="Left"
+                                                                   FontSize="25" />
+                                                        <TextBlock
+                                                            Text="{Binding Boat.Seats, StringFormat='Aantal man: {0}'}"
+                                                            VerticalAlignment="Center" HorizontalAlignment="Right" />
+                                                        <TextBlock VerticalAlignment="Center"
+                                                                   HorizontalAlignment="Right">
+                                                            <TextBlock.Style>
+                                                                <Style TargetType="TextBlock">
+                                                                    <Setter Property="Text"
+                                                                            Value="{Binding Boat.CaptainSeat, StringFormat='Stuurman {0}'}" />
+                                                                    <Style.Triggers>
+                                                                        <DataTrigger
+                                                                            Binding="{Binding Boat.CaptainSeat}"
+                                                                            Value="True">
+                                                                            <Setter Property="Text"
+                                                                                Value="Stuurman aanwezig" />
+                                                                        </DataTrigger>
+                                                                        <DataTrigger
+                                                                            Binding="{Binding Boat.CaptainSeat}"
+                                                                            Value="False">
+                                                                            <Setter Property="Text"
+                                                                                Value="Stuurman niet aanwezig" />
+                                                                        </DataTrigger>
+                                                                        <!-- Add more DataTriggers for other conditions if needed -->
+                                                                    </Style.Triggers>
+                                                                </Style>
+                                                            </TextBlock.Style>
+                                                        </TextBlock>
+
+                                                        <TextBlock
+                                                            Text="{Binding Boat.Level, StringFormat='Niveau: {0}'}"
+                                                            VerticalAlignment="Center" HorizontalAlignment="Right" />
+                                                        <TextBlock
+                                                            Text="{Binding StartTime, StringFormat='Starttijd: {0}'}"
+                                                            VerticalAlignment="Center" HorizontalAlignment="Left"
+                                                            FontSize="13" Margin="20,0,0,0" />
+                                                        <TextBlock
+                                                            Text="{Binding EndTime, StringFormat='Eindtijd: {0}'}"
+                                                            VerticalAlignment="Center" HorizontalAlignment="Left"
+                                                            FontSize="13" Margin="20,0,0,0" />
+                                                    </StackPanel>
+                                                    <Image Grid.Row="1" Grid.Column="1"
+                                                           Source="{Binding Boat.Image, Converter={StaticResource SingleStreamImageConverter}}"
+                                                           MaxHeight="150px"
+                                                           MaxWidth="150px"
+                                                           HorizontalAlignment="Right" VerticalAlignment="Center" />
+                                                </Grid>
+                                            </Border>
+                                        </Border>
                                     </Grid>
-                                </Border>
-                                </Border>
-                        </Grid>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </Grid>
+                </Grid>
+            </Border>
+        </Border>
     </Grid>
 </Page>
