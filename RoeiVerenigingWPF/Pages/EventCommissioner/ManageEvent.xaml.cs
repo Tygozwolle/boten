@@ -227,7 +227,6 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
                 else
                 {
                     SetExceptionText("Deze tijden zijn niet beschikbaar!");
-                    // ExceptionText.Text = "Deze tijden zijn niet beschikbaar!";
                 }
             }
             else
