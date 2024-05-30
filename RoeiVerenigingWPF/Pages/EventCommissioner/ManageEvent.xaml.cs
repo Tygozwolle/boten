@@ -119,15 +119,11 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
                 {
                     _selectedDate = (DateTime)calendar.SelectedDate;
 
-                    if (_selectedDate < DateTime.Today)
+                  
+                     if (_selectedDate < DateTime.Today.AddDays(14))
                     {
-                        //throw new ReservationInThePastException();
-                    }
-                    else if (_selectedDate > DateTime.Today.AddDays(14) &&
-                             (!_loggedInMember.Roles.Contains("beheerder") &&
-                              !_loggedInMember.Roles.Contains("evenementen_commissaris")))
-                    {
-                        throw new DateTooFarInTheFuture();
+                        SetExceptionText("Selecteer een datum minimaal 14 dagen in de toekomst!");
+                        return;
                     }
                     _availableTimes = _eventService.GetAvailableTimes(_selectedDate);
                     PopulateTimeContentGrid(_availableTimes);

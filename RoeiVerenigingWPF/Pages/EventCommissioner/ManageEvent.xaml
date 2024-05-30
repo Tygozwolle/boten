@@ -22,7 +22,7 @@
                         <ColumnDefinition Width="Auto" /> <!-- Timeboxes and boats -->
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="85" /> <!-- Header -->
+                        <RowDefinition Height="65" /> <!-- Header -->
                         <RowDefinition Height="Auto" /> <!-- Subheader -->
                         <RowDefinition Height="350" /> <!-- Content -->
                         <RowDefinition Height="250" />
@@ -30,11 +30,11 @@
                     </Grid.RowDefinitions>
 
                     <Label Grid.Column="0" Name="PageTitle" Grid.Row="0" Grid.ColumnSpan="2" Content="Evenement maken"
-                           Margin="0,10,0,0"
+                           Margin="0,0,0,0"
                            HorizontalContentAlignment="Center" VerticalAlignment="Top"
                            FontFamily="Franklin Gothic Medium" FontSize="48"
                            Foreground="{x:Static helpers:CustomColors.HeaderColor}" />
-                    <TextBlock Grid.Row="0" Grid.Column="1" Name="ExceptionText" HorizontalAlignment="Center" FontSize="24"
+                    <TextBlock Grid.Row="0" Grid.Column="1" Name="ExceptionText" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24"
                                TextWrapping="WrapWithOverflow" FontWeight="Bold"
                                Foreground="Red" Padding="0,0,0,5" Visibility="Collapsed">
                     </TextBlock>
@@ -69,24 +69,24 @@
                             </Grid.RowDefinitions> 
                             <StackPanel Grid.Row="0" Margin="10,0,10,10" >
                                 <Label Content="*Naam event:" Width="200" FontFamily="Franklin Gothic Medium"
-                                       FontSize="14" HorizontalContentAlignment="Center"
+                                       FontSize="20" HorizontalContentAlignment="Center"
                                        Foreground="{x:Static helpers:CustomColors.SubHeaderColor}" />
-                                <TextBox x:Name="Name" Width="367" Height="20"
+                                <TextBox x:Name="Name" Width="367" Height="24"
                                          Foreground="{x:Static helpers:CustomColors.SubHeaderColor}"
                                          Background="{x:Static helpers:CustomColors.TextBoxBackgroundColor}"
                                          BorderBrush="{x:Static helpers:CustomColors.OutsideBorderColor}"
-                                         TextWrapping="WrapWithOverflow" FontSize="14"
+                                         TextWrapping="WrapWithOverflow" FontSize="20"
                                          FontFamily="Franklin Gothic Medium" />
                             </StackPanel>
                             <StackPanel Grid.Row="1">
                                 <Label Content="*Max deelnemers:" Width="200" FontFamily="Franklin Gothic Medium"
-                                       FontSize="14" HorizontalContentAlignment="Center"
+                                       FontSize="20" HorizontalContentAlignment="Center"
                                        Foreground="{x:Static helpers:CustomColors.SubHeaderColor}" />
-                                <TextBox x:Name="MaxPartisipants" Width="367" Height="20"
+                                <TextBox x:Name="MaxPartisipants" Width="367" Height="24"
                                          Foreground="{x:Static helpers:CustomColors.SubHeaderColor}"
                                          Background="{x:Static helpers:CustomColors.TextBoxBackgroundColor}"
                                          BorderBrush="{x:Static helpers:CustomColors.OutsideBorderColor}"
-                                         TextWrapping="WrapWithOverflow" FontSize="14"
+                                         TextWrapping="WrapWithOverflow" FontSize="20"
                                          FontFamily="Franklin Gothic Medium" />
                             </StackPanel>
                         </Grid>
@@ -96,13 +96,13 @@
                             </Grid.RowDefinitions>
                             <StackPanel Grid.Row="0" Margin="10,0,10,10">
                                 <Label Content="*Beschrijving:" Width="200" FontFamily="Franklin Gothic Medium"
-                                       FontSize="14" HorizontalContentAlignment="Center"
+                                       FontSize="20" HorizontalContentAlignment="Center"
                                        Foreground="{x:Static helpers:CustomColors.SubHeaderColor}" />
-                                <TextBox x:Name="Description" Width="700" Height="75"
+                                <TextBox x:Name="Description" Width="750" Height="92"
                                          Foreground="{x:Static helpers:CustomColors.SubHeaderColor}"
                                          Background="{x:Static helpers:CustomColors.TextBoxBackgroundColor}"
                                          BorderBrush="{x:Static helpers:CustomColors.OutsideBorderColor}"
-                                         TextWrapping="WrapWithOverflow" FontSize="14"
+                                         TextWrapping="WrapWithOverflow" FontSize="20"
                                          FontFamily="Franklin Gothic Medium" />
                             </StackPanel>
                     </Grid>
@@ -167,7 +167,7 @@
                             <Border CornerRadius="24" BorderThickness="8"
                                     BorderBrush="{x:Static helpers:CustomColors.TextBoxBackgroundColor}">
                                 <Grid Background="{x:Static helpers:CustomColors.TextBoxBackgroundColor}">
-                                    <TextBlock  Text="Selecteer de tijd (max 2) hoelaat je wil varen."
+                                    <TextBlock  Text="Selecteer de tijd (max 2) hoelaat het evenement is."
                                                HorizontalAlignment="Center" FontSize="24"
                                                Foreground="{x:Static helpers:CustomColors.SubHeaderColor}" />
                                     <Grid Name="TimeContentGrid"  Margin="0,40,0,0" HorizontalAlignment="Center">
