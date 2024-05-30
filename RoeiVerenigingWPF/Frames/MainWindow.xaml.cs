@@ -8,6 +8,7 @@ using System.Windows.Navigation;
 using DataAccessLibary;
 using RoeiVerenigingWPF.Pages.Admin;
 using System.Diagnostics;
+using System.IO;
 using System.Security.Principal;
 
 namespace RoeiVerenigingWPF.Frames
@@ -167,8 +168,8 @@ namespace RoeiVerenigingWPF.Frames
         {
             ProcessStartInfo startInfo = new ProcessStartInfo
             {
-                FileName = Process.GetCurrentProcess().MainModule.FileName,
-                Arguments = $"",
+                FileName = Path.GetFullPath( Process.GetCurrentProcess().MainModule.FileName),
+                Arguments = string.Empty,
                 UseShellExecute = true,
                 CreateNoWindow = false,
             };
