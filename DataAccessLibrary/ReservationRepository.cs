@@ -180,7 +180,10 @@ public class ReservationRepository : IReservationRepository
         using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
         {
             connection.Open();
-            const string sql = "SELECT * FROM reservation WHERE `member_id` = @memberId";
+            const string sql = "SELECT r.*, b.* " +
+                               "FROM reservation AS r " +
+                               "INNER JOIN boats b ON r.boat_id = b.id " +
+                               "WHERE r.`member_id` = @memberId";
 
             using (MySqlCommand command = new MySqlCommand(sql, connection))
             {
@@ -191,15 +194,16 @@ public class ReservationRepository : IReservationRepository
                 {
                     while (reader.Read())
                     {
-                        int id = reader.GetInt32(0);
-                        int boatId = reader.GetInt32(1);
-                        int memberId = reader.GetInt32(2);
-                        DateTime creationDate = reader.GetDateTime(3);
-                        DateTime startTime = reader.GetDateTime(4);
-                        DateTime endTime = reader.GetDateTime(5);
+                        int id = reader.GetInt32("reservation_id");
+                        int boatId = reader.GetInt32("boat_id");
+                        DateTime creationDate = reader.GetDateTime("creation_date");
+                        DateTime startTime = reader.GetDateTime("start_time");
+                        DateTime endTime = reader.GetDateTime("end_time");
+                        var boat = new Boat(boatId, reader.GetBoolean("captain_seat_available"), reader.GetInt32("seats"),
+                            reader.GetInt32("level"), reader.GetString("description"), reader.GetString("name"));
 
                         reservations.Add(new Reservation(member, creationDate,
-                            startTime, endTime, GetBoatById(boatId), id));
+                            startTime, endTime, boat, id));
                     }
                 }
             }
