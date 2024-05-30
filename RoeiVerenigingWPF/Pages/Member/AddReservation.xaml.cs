@@ -21,7 +21,7 @@ namespace RoeiVerenigingWPF.Pages
     /// </summary>
     public partial class AddReservation : Page
     {
-        private readonly Member _loggedInMember;
+        private readonly RoeiVerenigingLibrary.Member _loggedInMember;
 
         private readonly ReservationService _reservationService = new ReservationService(new ReservationRepository());
         private readonly BoatService _boatService = new BoatService(new BoatRepository());
@@ -36,7 +36,7 @@ namespace RoeiVerenigingWPF.Pages
         private Boat _selectedBoat;
 
 
-        public AddReservation(Member loggedInMember)
+        public AddReservation(RoeiVerenigingLibrary.Member loggedInMember)
         {
             InitializeComponent();
             _loggedInMember = loggedInMember;

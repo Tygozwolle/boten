@@ -22,7 +22,7 @@ namespace RoeiVerenigingWPF.Pages
             _evenRowColor = new SolidColorBrush(Color.FromArgb(255, 232, 246, 252)); // Background color for even rows
 
         private readonly MainWindow _mainWindow;
-        private readonly List<Member> _memberList;
+        private readonly List<RoeiVerenigingLibrary.Member> _memberList;
 
         private readonly SolidColorBrush
             _oddRowColor = new SolidColorBrush(Color.FromArgb(255, 182, 227, 251)); // Background color for odd rows
@@ -40,14 +40,14 @@ namespace RoeiVerenigingWPF.Pages
             PopulateUserList(_memberList);
         }
 
-        public Member SelectedMember { get; set; }
+        public RoeiVerenigingLibrary.Member SelectedMember { get; set; }
 
-        public void PopulateUserList(List<Member> memberList)
+        public void PopulateUserList(List<RoeiVerenigingLibrary.Member> memberList)
         {
             UserStackPanel.Children.Clear();
             for (int i = 0; i < memberList.Count; i++)
             {
-                Member member = memberList[i];
+                RoeiVerenigingLibrary.Member member = memberList[i];
                 Grid grid = new Grid();
                 grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
                 grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(10) });
@@ -127,7 +127,7 @@ namespace RoeiVerenigingWPF.Pages
                     // Check if it's a double-click
                     if (lastClickedBorder == sender && (DateTime.Now - lastClickTime).TotalMilliseconds < 500)
                     {
-                        Member clickedUser = _memberList[UserStackPanel.Children.IndexOf((UIElement)sender)];
+                        RoeiVerenigingLibrary.Member clickedUser = _memberList[UserStackPanel.Children.IndexOf((UIElement)sender)];
 
                         // Open a new page with the selected user information
                         AdminEditUser userDetailsPage = new AdminEditUser(_mainWindow, clickedUser.Id);
@@ -157,7 +157,7 @@ namespace RoeiVerenigingWPF.Pages
         private void ButtonFilterUsers(object sender, RoutedEventArgs e)
         {
             Button clickedButton = sender as Button;
-            var selectedMemberList = new List<Member>();
+            var selectedMemberList = new List<RoeiVerenigingLibrary.Member>();
 
             if (clickedButton != null)
             {
@@ -191,7 +191,7 @@ namespace RoeiVerenigingWPF.Pages
         public void TextFilterUsers(object sender, RoutedEventArgs e)
         {
             TextBox selectedTextbox = sender as TextBox;
-            var selectedMemberList = new List<Member>();
+            var selectedMemberList = new List<RoeiVerenigingLibrary.Member>();
 
             if (selectedTextbox != null)
             {
@@ -238,7 +238,7 @@ namespace RoeiVerenigingWPF.Pages
 
                 catch (NullReferenceException exception)
                 {
-                    PopulateUserList(new List<Member>());
+                    PopulateUserList(new List<RoeiVerenigingLibrary.Member>());
                 }
             }
         }
