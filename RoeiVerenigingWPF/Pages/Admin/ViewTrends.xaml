@@ -5,19 +5,55 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:RoeiVerenigingWPF.Pages.Admin"
       xmlns:wpf="clr-namespace:InteractiveDataDisplay.WPF;assembly=InteractiveDataDisplay.WPF"
+      xmlns:helpers="clr-namespace:RoeiVerenigingWPF.helpers"
 
       mc:Ignorable="d"
-      Title="ViewTrends" Height="450" Width="800">
+      Title="ViewTrends">
+
     
-    <Grid>
-        <wpf:Chart Name="plotter">
-            <!-- <wpf:Chart.Title> -->
-            <!--     <TextBlock HorizontalAlignment="Center" FontSize="18" Margin="0,5,0,5">Trend voor {statistiek}</TextBlock>                 -->
-            <!-- </wpf:Chart.Title> -->
-            <!-- <wpf:LineGraph x:Name="linegraph" Description="speed" Stroke="Blue" StrokeThickness="3"> -->
-            <!-- </wpf:LineGraph> -->
-            <wpf:BarGraph x:Name="bars" BarsWidth="10"></wpf:BarGraph>
-        </wpf:Chart>
-    </Grid>
+    <Grid Height="900" Width="1550" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Grid.Effect>
+            <DropShadowEffect Color="Black" Direction="320" ShadowDepth="10" Opacity="0.3" />
+        </Grid.Effect>
+        <Border CornerRadius="30" BorderThickness="5" BorderBrush="{x:Static helpers:CustomColors.OutsideBorderColor}">
+            <Border CornerRadius="24" BorderThickness="8"
+                    BorderBrush="{x:Static helpers:CustomColors.MainBackgroundColor}"
+                    Background="{x:Static helpers:CustomColors.MainBackgroundColor}">
+                <Grid>
+                    <Label Name="Title" Content="Trends from {stat}" HorizontalAlignment="Center" VerticalAlignment="Top"
+                           FontFamily="Franklin Gothic Medium" FontSize="32" Foreground="{x:Static helpers:CustomColors.HeaderColor}"/>
+                        <wpf:Chart Name="Plotter"
+                                   HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                   MaxHeight="400" MaxWidth="900" 
+                                   Margin="50,0,0,0">
+                            <wpf:Chart.Title>
+                                <TextBlock HorizontalAlignment="Center" FontSize="18" Margin="0,5,0,5">Trend voor {statistiek}</TextBlock>
+                            </wpf:Chart.Title>
+                            <wpf:LineGraph x:Name="linegraph" Description="speed" Stroke="Blue" StrokeThickness="3">
+                            </wpf:LineGraph>
+                            <!-- <wpf:BarGraph x:Name="BarGraph" Description="brokenBoats" BarsWidth="10" Stroke="Red" ></wpf:BarGraph> -->
+                        </wpf:Chart>
+                    <Rectangle
+                        Width="400" Height="800" Fill="Transparent" Stroke="{x:Static helpers:CustomColors.OutsideBorderColor}" StrokeThickness="4"
+                        RadiusX="20" RadiusY="20" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,25,0"/>
+                    <Label Name="BesteLabel" Content="Beste:" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,50,180,0"
+                           FontFamily="Franklin Gothic Medium" FontSize="32" Foreground="{x:Static helpers:CustomColors.HeaderColor}"/>
+                    <Label Name="BestScore" Content="200" Visibility="Hidden" HorizontalAlignment="Right" Margin="0,150,200,0"
+                           FontFamily="Franklin Gothic Medium" FontSize="32" Foreground="{x:Static helpers:CustomColors.DropShadowColor}"/>
+                    <Label Content="Slechtste:" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,250,150,0"
+                           FontFamily="Franklin Gothic Medium" FontSize="32" Foreground="{x:Static helpers:CustomColors.HeaderColor}"/>
+                    <Label Name="WorstScore" Content="120" Visibility="Hidden" HorizontalAlignment="Right" Margin="0,350,180,0"
+                           FontFamily="Franklin Gothic Medium" FontSize="32" Foreground="{x:Static helpers:CustomColors.DropShadowColor}"/>
+                    <Label Content="Nieuwste:" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,450,150,0"
+                           FontFamily="Franklin Gothic Medium" FontSize="32" Foreground="{x:Static helpers:CustomColors.HeaderColor}"/>
+                    <Label Name="NewestScore" Content="160" HorizontalAlignment="Right" Visibility="Hidden" Margin="0,550,180,0"
+                           FontFamily="Franklin Gothic Medium" FontSize="32" Foreground="{x:Static helpers:CustomColors.DropShadowColor}"/>
+                        
+                </Grid>
+            </Border>
+        </Border>
+    </Grid>    
+    
+
 </Page>
 
