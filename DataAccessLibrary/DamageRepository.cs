@@ -33,50 +33,44 @@ namespace DataAccessLibrary
             }
         }
 
-        public List<Damage> GetAllDamageReports()
+         public List<Damage> GetAllDamageReports()
         {
             var damageReports = new List<Damage>();
-            MemberRepository memberRepository = new MemberRepository();
-            BoatRepository boatRepository = new BoatRepository();
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
             {
                 connection.Open();
 
-                const string sql =
-                    "SELECT * FROM `damage_reports` ORDER BY `fixed`, `report_time` DESC";
+                const string sql = "SELECT d.*, m.*, b.* " +
+                                   "FROM `damage_reports` AS d " +
+                                   "INNER JOIN `members` AS m ON d.member_id = m.member_id " +
+                                   "INNER JOIN `boats` AS b ON d.boat_id = b.id " +
+                                   "ORDER BY d.`fixed`, d.`report_time` DESC";
+                    //"SELECT * FROM `damage_reports` ORDER BY `fixed`, `report_time` DESC";
 
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
-                        List<Task> tasks = new List<Task>();
                         while (reader.Read())
                         {
-                            var memberid = reader.GetInt32("member_id");
-                            var boatid = reader.GetInt32("boat_id");
-                            var id = reader.GetInt32("id");
-                            var description = reader.GetString("description");
+                            string infix = string.Empty;
+                                if(!reader.IsDBNull(reader.GetOrdinal("infix")))
+                                {
+                                    infix = reader.GetString("infix");
+                                }
+                            var member = new Member(reader.GetInt32("member_id"), reader.GetString("first_name"),
+                                infix, reader.GetString("last_name"),
+                                reader.GetString("email"), reader.GetInt32(11));
+                            var boat = new Boat(reader.GetInt32("boat_id"), reader.GetBoolean("captain_seat_available"), reader.GetInt32("seats"),
+                                reader.GetInt32(17), reader.GetString(18), reader.GetString("name"));
+                            var id = reader.GetInt32(0);
+                            var description = reader.GetString(2);
                             var fixedboat = reader.GetBoolean("fixed");
                             var usable = reader.GetBoolean("usable");
                             var reporttime = reader.GetDateTime("report_time");
-                            //get member
-                            Task task = new Task(() =>
-                            {
-                                Member member = memberRepository.GetById(memberid);
-                                //get boat
-                                Boat boat = boatRepository.GetBoatById(boatid);
-                                Damage damageReport = new Damage(id, member, boat, description, fixedboat, usable,
-                                    reporttime);
-                                lock (damageReports)
-                                {
-                                    damageReports.Add(damageReport);
-                                }
-                            });
-                            task.Start();
-                            tasks.Add(task);
+                            //add report
+                            damageReports.Add(new Damage(id, member, boat, description, fixedboat, usable, reporttime));
                         }
-
-                        Task.WaitAll(tasks.ToArray());
                     }
                 }
             }
