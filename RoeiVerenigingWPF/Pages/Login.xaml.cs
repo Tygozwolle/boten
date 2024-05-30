@@ -6,6 +6,7 @@ using RoeiVerenigingLibrary;
 using RoeiVerenigingLibrary.Exceptions;
 using RoeiVerenigingWPF.Frames;
 using RoeiVerenigingWPF.Pages.Admin;
+using RoeiVerenigingWPF.Pages.EventCommissioner;
 using System.Windows;
 using System.Windows.Controls;
 
