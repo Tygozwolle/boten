@@ -119,14 +119,14 @@
                                     Foreground="{x:Static helpers:CustomColors.SubHeaderColor}"
                                     VerticalAlignment="Center" HorizontalAlignment="left" />
                                 <!-- Table -->
-                                <Grid Margin="15,15,15,15">
+                                <Grid Margin="15,15,15,0">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="100" />
                                         <ColumnDefinition Width="100" />
                                         <ColumnDefinition Width="150" />
                                         <ColumnDefinition Width="100" />
                                         <ColumnDefinition Width="200" />
-                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="295" />
                                     </Grid.ColumnDefinitions>
                                     <Button Grid.Column="0" Content="Plaats" Foreground="#0e5172"
                                             Background="#bbe3f7"

@@ -3,6 +3,7 @@
 public class EventParticipant : Member
 {
     public TimeSpan ResultTime;
+    public String Description;
     public int EventId;
 
     public EventParticipant(Member member, int eventId, TimeSpan time) : base(member.Id, member.FirstName, member.Infix,
@@ -11,6 +12,7 @@ public class EventParticipant : Member
     {
         ResultTime = time;
         EventId = eventId;
+        Description = "Goed gedaan"; //Todo replace with data
     }
 
     public void saveResultTime(IEventResultRepository repository)
