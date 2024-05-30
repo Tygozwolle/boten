@@ -3,8 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:local="clr-namespace:RoeiVerenigingWPF.Pages.Admin"
-      xmlns:helpers="clr-namespace:RoeiVerenigingWPF.helpers"
+      xmlns:helpers="clr-namespace:RoeiVerenigingWPF.Helpers"
       mc:Ignorable="d"
       Title="ManageBoat" Height="800" Width="900" Background="Transparent">
     <Grid Height="800" Width="900" HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -62,7 +61,7 @@
                                    Width="400px" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <Image.Resources>
                                     <Style TargetType="Border">
-                                        <Setter Property="CornerRadius" Value="15"></Setter>
+                                        <Setter Property="CornerRadius" Value="15" />
                                     </Style>
                                 </Image.Resources>
                             </Image>
@@ -148,8 +147,8 @@
                                 <Label Content="*Stuurman aanwezig:" Width="300" FontFamily="Franklin Gothic Medium"
                                        FontSize="24" HorizontalContentAlignment="Center"
                                        Foreground="{x:Static helpers:CustomColors.SubHeaderColor}" />
-                                <ToggleButton Grid.Column="0" Name="Captain"
-                                              Grid.Row="12" Content="Stuurman Afwezig" Width="250" Height="50"
+                                <ToggleButton Name="Captain"
+                                              Content="Stuurman Afwezig" Width="250" Height="50"
                                               Margin="20,0,20,20"
                                               FontFamily="Franklin Gothic Medium" FontSize="24"
                                               Foreground="{x:Static helpers:CustomColors.HeaderColor}"

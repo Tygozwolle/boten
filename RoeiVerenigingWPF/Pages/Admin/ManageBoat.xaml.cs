@@ -1,164 +1,145 @@
-﻿using System.Windows;
-using DataAccessLibrary;
-using RoeiVerenigingLibrary;
+﻿using System.IO;
+using System.Windows;
 using System.Windows.Controls;
+using DataAccessLibrary;
 using Microsoft.Win32;
 using RoeiVerenigingLibrary.Exceptions;
+using RoeiVerenigingLibrary.Model;
+using RoeiVerenigingLibrary.Services;
 using RoeiVerenigingWPF.Frames;
-using RoeiVerenigingWPF.helpers;
-using System.IO;
+using RoeiVerenigingWPF.Helpers;
 
-namespace RoeiVerenigingWPF.Pages.Admin
+namespace RoeiVerenigingWPF.Pages.Admin;
+
+public partial class ManageBoat : Page
 {
-    public partial class ManageBoat : Page
+    private Boat _boat;
+    private readonly bool _edit;
+    private bool _imageChanged;
+    private Stream _imageStream;
+    private readonly MainWindow _mainWindow;
+
+    public ManageBoat(MainWindow mainWindow, Boat boat)
     {
-        private MainWindow _mainWindow;
-        private bool _edit;
-        private Boat _boat;
-        private bool _imageChanged = false;
-        private Stream _imageStream;
+        _mainWindow = mainWindow;
+        InitializeComponent();
 
-        public ManageBoat(MainWindow mainWindow, Boat boat)
+        _boat = boat;
+        Name.Text = boat.Name;
+        Description.Text = boat.DescriptionNoEnter;
+        Seats.Text = boat.Seats.ToString();
+        Level.Text = boat.Level.ToString();
+        Delete_Button.Visibility = Visibility.Visible;
+        Captain.IsChecked = boat.CaptainSeat;
+
+        _edit = true;
+        ButtonEditCreate.Content = "Opslaan";
+        HeaderBoat.Content = "Boot aanpassen";
+        TextBlockBoat.Text = "Wijzig hier de informatie van de boot.";
+        if (boat.Image != null) Image.Source = ImageConverter.Convert(boat.Image);
+    }
+
+    public ManageBoat(MainWindow mainWindow)
+    {
+        _mainWindow = mainWindow;
+
+        InitializeComponent();
+        Delete_Button.Visibility = Visibility.Hidden;
+        Captain.IsChecked = false;
+    }
+
+    private void ToggleButtonClick(object sender, RoutedEventArgs e)
+    {
+        if (Captain.IsChecked == true)
+            Captain.Content = "Stuurman aanwezig";
+        else
+            Captain.Content = "Stuurman afwezig";
+    }
+
+    private void Button_Click(object sender, RoutedEventArgs e)
+    {
+        var service = new BoatService(new BoatRepository());
+        try
         {
-            _mainWindow = mainWindow;
-            InitializeComponent();
-            
-            _boat = boat;
-            Name.Text = boat.Name;
-            Description.Text = boat.DescriptionNoEnter;
-            Seats.Text = boat.Seats.ToString();
-            Level.Text = boat.Level.ToString();
-            Delete_Button.Visibility = Visibility.Visible;
-            Captain.IsChecked = boat.CaptainSeat;
-            
-            _edit = true;
-            ButtonEditCreate.Content = "Opslaan";
-            HeaderBoat.Content = "Boot aanpassen";
-            TextBlockBoat.Text = "Wijzig hier de informatie van de boot.";
-            if (boat.Image != null)
+            var name = Name.Text;
+            var description = Description.Text;
+            var seats = Seats.Text;
+            var level = Level.Text;
+            var captain = Captain.IsPressed;
+            Boat createdBoat;
+            if (_edit)
             {
-                Image.Source = ImageConverter.Convert(boat.Image);
-            }
-        }
+                _boat = service.Update(_mainWindow.LoggedInMember, _boat, name, description, int.Parse(seats),
+                    captain, int.Parse(level));
+                if (_imageChanged) service.UpdateImage(_mainWindow.LoggedInMember, _boat, _imageStream);
 
-        public ManageBoat(MainWindow mainWindow)
-        {
-            _mainWindow = mainWindow;
+                if (_boat != null)
+                    MessageBox.Show(
+                        $"{_boat.Name} {_boat.Description} {_boat.Level} is aangepast met bootnummer {_boat.Id}");
 
-            InitializeComponent();
-            Delete_Button.Visibility = Visibility.Hidden;
-            Captain.IsChecked = false;
-        }
-
-        private void ToggleButtonClick(object sender, RoutedEventArgs e)
-        {
-            if (Captain.IsChecked == true)
-            {
-                Captain.Content = "Stuurman aanwezig";
+                _mainWindow.MainContent.Navigate(new ManageBoatList(_mainWindow));
             }
             else
             {
-                Captain.Content = "Stuurman afwezig";
+                createdBoat = service.Create(_mainWindow.LoggedInMember, name, description, int.Parse(seats),
+                    captain, int.Parse(level));
+                if (_imageChanged) service.AddImage(_mainWindow.LoggedInMember, createdBoat, _imageStream);
+
+                if (createdBoat != null)
+                    MessageBox.Show(
+                        $"{createdBoat.Name} {createdBoat.Description} {createdBoat.Level} is aangemaakt met bootnummer {createdBoat.Id}");
+
+                _mainWindow.MainContent.Navigate(new ManageBoatList(_mainWindow));
             }
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
+        catch (IncorrectRightsException ex)
         {
-            BoatService service = new BoatService(new BoatRepository());
-            try
-            {
-                string name = Name.Text;
-                string description = Description.Text;
-                string seats = Seats.Text;
-                string level = Level.Text;
-                bool captain = Captain.IsPressed;
-                Boat createdBoat;
-                if (_edit)
-                {
-                    _boat = service.Update(_mainWindow.LoggedInMember, _boat, name, description, Int32.Parse(seats),
-                        captain, Int32.Parse(level));
-                    if (_imageChanged)
-                    {
-                        service.UpdateImage(_mainWindow.LoggedInMember, _boat, _imageStream);
-                    }
-
-                    if (_boat != null)
-                    {
-                        MessageBox.Show(
-                            $"{_boat.Name} {_boat.Description} {_boat.Level} is aangepast met bootnummer {_boat.Id}");
-                    }
-
-                    _mainWindow.MainContent.Navigate(new ManageBoatList(_mainWindow));
-                }
-                else
-                {
-                    createdBoat = service.Create(_mainWindow.LoggedInMember, name, description, Int32.Parse(seats),
-                        captain, Int32.Parse(level));
-                    if (_imageChanged)
-                    {
-                        service.AddImage(_mainWindow.LoggedInMember, createdBoat, _imageStream);
-                    }
-
-                    if (createdBoat != null)
-                    {
-                        MessageBox.Show(
-                            $"{createdBoat.Name} {createdBoat.Description} {createdBoat.Level} is aangemaakt met bootnummer {createdBoat.Id}");
-                    }
-
-                    _mainWindow.MainContent.Navigate(new ManageBoatList(_mainWindow));
-                }
-            }
-            catch (IncorrectRightsException ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            catch (System.FormatException)
-            {
-                MessageBox.Show("Vul alle velden correct in");
-            }
-            catch (IncorrectLevelException ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            catch (NameEmptyExeception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            MessageBox.Show(ex.Message);
         }
-
-        private void ButtonDelete_Click(object sender, RoutedEventArgs e)
+        catch (FormatException)
         {
-            BoatService service = new BoatService(new BoatRepository());
-            service.Delete(_mainWindow.LoggedInMember, _boat);
-            _mainWindow.MainContent.Navigate(new ManageBoatList(_mainWindow));
+            MessageBox.Show("Vul alle velden correct in");
         }
-
-        private void ButtonUpload_Click(object sender, RoutedEventArgs e)
+        catch (IncorrectLevelException ex)
         {
-            try
-            {
-                var fileDialog = new OpenFileDialog();
-                fileDialog.Filter = "Image files (*.png;*.jpeg;*.jpg)|*.png;*.jpeg;*.jpg";
-                fileDialog.Multiselect = false;
-                fileDialog.ShowDialog(_mainWindow);
-                if (fileDialog.CheckFileExists)
+            MessageBox.Show(ex.Message);
+        }
+        catch (NameEmptyExeception ex)
+        {
+            MessageBox.Show(ex.Message);
+        }
+    }
+
+    private void ButtonDelete_Click(object sender, RoutedEventArgs e)
+    {
+        var service = new BoatService(new BoatRepository());
+        service.Delete(_mainWindow.LoggedInMember, _boat);
+        _mainWindow.MainContent.Navigate(new ManageBoatList(_mainWindow));
+    }
+
+    private void ButtonUpload_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            var fileDialog = new OpenFileDialog();
+            fileDialog.Filter = "Image files (*.png;*.jpeg;*.jpg)|*.png;*.jpeg;*.jpg";
+            fileDialog.Multiselect = false;
+            fileDialog.ShowDialog(_mainWindow);
+            if (fileDialog.CheckFileExists)
+                using (var stream = fileDialog.OpenFile())
                 {
-                    using (Stream stream = fileDialog.OpenFile())
+                    if (stream != null)
                     {
-                        if (stream != null)
-                        {
-                            Stream compressedStream = ResizeImage.ResizeTheImage(stream, 500, 500);
-                            Image.Source = ImageConverter.Convert(compressedStream);
-                            _imageStream = compressedStream;
-                            _imageChanged = true;
-                        }
+                        var compressedStream = ResizeImage.ResizeTheImage(stream, 500, 500);
+                        Image.Source = ImageConverter.Convert(compressedStream);
+                        _imageStream = compressedStream;
+                        _imageChanged = true;
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                // ignored
-            }
+        }
+        catch (Exception ex)
+        {
+            // ignored
         }
     }
 }

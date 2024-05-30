@@ -1,9 +1,9 @@
-﻿<Page x:Class="RoeiVerenigingWPF.Pages.AddReservation"
+﻿<Page x:Class="RoeiVerenigingWPF.Pages.member.AddReservation"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      xmlns:local="clr-namespace:RoeiVerenigingWPF.helpers"
+      xmlns:local="clr-namespace:RoeiVerenigingWPF.Helpers"
       mc:Ignorable="d"
       d:DesignHeight="900" d:DesignWidth="1500"
       Title="Reservering Aanmaken" Background="Transparent">
@@ -36,8 +36,8 @@
 
                     <Grid Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
                         <TextBlock Grid.Row="0" Margin="0,0,0,10"
                                    Text="Maak hier je reservering aan! Selecteer eerst de dag waarop je wil varen, daarna de tijd en kies dan een boot."
@@ -45,9 +45,8 @@
                                    FontFamily="Franklin Gothic Medium" FontSize="32" Width="780"
                                    Foreground="{x:Static local:CustomColors.SubHeaderColor}" />
                         <TextBlock Grid.Row="1" Name="ExceptionText" HorizontalAlignment="Center" FontSize="24"
-                               TextWrapping="WrapWithOverflow" FontWeight="Bold"
-                               Foreground="Red" Padding="0,0,0,5">
-                        </TextBlock>
+                                   TextWrapping="WrapWithOverflow" FontWeight="Bold"
+                                   Foreground="Red" Padding="0,0,0,5" />
                     </Grid>
 
 

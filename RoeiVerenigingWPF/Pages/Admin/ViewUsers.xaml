@@ -1,4 +1,4 @@
-﻿<Page x:Class="RoeiVerenigingWPF.Pages.ViewUsers"
+﻿<Page x:Class="RoeiVerenigingWPF.Pages.Admin.ViewUsers"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -26,7 +26,7 @@
                            Foreground="#0e5172" />
                     <Grid Name="SearchBar" Grid.Row="1" Margin="0,0,0,10" Visibility="Hidden">
                         <Border BorderBrush="#1892cd" BorderThickness="1">
-                            <Grid Background="#bbe3f7"  >
+                            <Grid Background="#bbe3f7">
 
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="50" /> <!-- ID -->

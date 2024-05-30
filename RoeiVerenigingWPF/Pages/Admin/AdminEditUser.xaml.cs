@@ -1,114 +1,93 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using DataAccessLibrary;
-using RoeiVerenigingLibrary;
 using RoeiVerenigingLibrary.Exceptions;
+using RoeiVerenigingLibrary.Services;
 using RoeiVerenigingWPF.Frames;
-using System.Windows;
-using System.Windows.Controls;
 
-namespace RoeiVerenigingWPF.Pages
+namespace RoeiVerenigingWPF.Pages.Admin;
+
+public partial class AdminEditUser : Page
 {
-    public partial class AdminEditUser : Page
+    private readonly MainWindow _mainWindow;
+    private readonly int _memberId;
+    private readonly MemberService _service = new(new MemberRepository());
+    private Dictionary<string, CheckBox> _roleCheckBoxes = new();
+
+    public AdminEditUser(MainWindow mainWindow, int memberId)
     {
-        private readonly MainWindow _mainWindow;
-        private readonly int _memberId;
-        private Dictionary<string, CheckBox> _roleCheckBoxes = new Dictionary<string, CheckBox>();
-        private readonly MemberService _service = new MemberService(new MemberRepository());
+        InitializeComponent();
+        _mainWindow = mainWindow;
+        _memberId = memberId;
 
-        public AdminEditUser(MainWindow mainWindow, int memberId)
+        var selectedMember = _service.GetById(memberId);
+        FirstName.Text = selectedMember.FirstName;
+        Infix.Text = selectedMember.Infix;
+        LastName.Text = selectedMember.LastName;
+        Email.Text = selectedMember.Email;
+        Level.Text = selectedMember.Level.ToString();
+
+        var availableRoles = _service.GetAvailableRoles();
+
+        foreach (var role in selectedMember.Roles)
         {
-            InitializeComponent();
-            _mainWindow = mainWindow;
-            _memberId = memberId;
+            if (selectedMember.Roles.Contains("beheerder")) admin.IsChecked = true;
 
-            Member selectedMember = _service.GetById(memberId);
-            FirstName.Text = selectedMember.FirstName;
-            Infix.Text = selectedMember.Infix;
-            LastName.Text = selectedMember.LastName;
-            Email.Text = selectedMember.Email;
-            Level.Text = selectedMember.Level.ToString();
+            if (selectedMember.Roles.Contains("materiaal_commissaris")) material_comm.IsChecked = true;
 
-            var availableRoles = _service.GetAvailableRoles();
+            if (selectedMember.Roles.Contains("evenementen_commissaris")) event_comm.IsChecked = true;
+        }
+    }
 
-            foreach (string role in selectedMember.Roles)
+    private void Button_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            //get all data
+            var firstName = FirstName.Text;
+            var infix = Infix.Text;
+            var lastName = LastName.Text;
+            var email = Email.Text;
+            if (!int.TryParse(Level.Text, out var level))
             {
-                if (selectedMember.Roles.Contains("beheerder"))
-                {
-                    admin.IsChecked = true;
-                }
+                MessageBox.Show("Het niveau moet een nummer zijn");
+                return;
+            }
 
-                if (selectedMember.Roles.Contains("materiaal_commissaris"))
-                {
-                    material_comm.IsChecked = true;
-                }
+            var selectedRoles = new List<string>();
 
-                if (selectedMember.Roles.Contains("evenementen_commissaris"))
-                {
-                    event_comm.IsChecked = true;
-                }
+            if (admin.IsChecked == true) selectedRoles.Add("beheerder");
+
+            if (material_comm.IsChecked == true) selectedRoles.Add("materiaal_commissaris");
+
+            if (event_comm.IsChecked == true) selectedRoles.Add("evenementen_commissaris");
+
+
+            //run the update methods from the service
+            var updatedMember = _service.Update(_mainWindow.LoggedInMember, _memberId, firstName, infix,
+                lastName,
+                email, level
+            );
+            _service.SetRoles(_memberId, selectedRoles);
+            //check if updated
+            if (updatedMember != null)
+            {
+                MessageBox.Show(
+                    $"{updatedMember.FirstName} {updatedMember.Infix} {updatedMember.LastName} is gewijzigd");
+                _mainWindow.MainContent.Navigate(new ViewUsers(_mainWindow));
             }
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
+        catch (CantAccesDatabaseException ex)
         {
-            try
-            {
-                //get all data
-                string firstName = FirstName.Text;
-                string infix = Infix.Text;
-                string lastName = LastName.Text;
-                string email = Email.Text;
-                if (!Int32.TryParse(Level.Text, out int level))
-                {
-                    MessageBox.Show("Het niveau moet een nummer zijn");
-                    return;
-                }
-
-                var selectedRoles = new List<string>();
-
-                if (admin.IsChecked == true)
-                {
-                    selectedRoles.Add("beheerder");
-                }
-
-                if (material_comm.IsChecked == true)
-                {
-                    selectedRoles.Add("materiaal_commissaris");
-                }
-
-                if (event_comm.IsChecked == true)
-                {
-                    selectedRoles.Add("evenementen_commissaris");
-                }
-
-
-                //run the update methods from the service
-                Member updatedMember = _service.Update(_mainWindow.LoggedInMember, _memberId, firstName, infix,
-                    lastName,
-                    email, level
-                );
-                _service.SetRoles(_memberId, selectedRoles);
-                //check if updated
-                if (updatedMember != null)
-                {
-                    MessageBox.Show(
-                        $"{updatedMember.FirstName} {updatedMember.Infix} {updatedMember.LastName} is gewijzigd");
-                    _mainWindow.MainContent.Navigate(new ViewUsers(_mainWindow));
-                }
-            }
-            catch (CantAccesDatabaseException ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            catch (IncorrectRightsException ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            MessageBox.Show(ex.Message);
+        }
+        catch (IncorrectRightsException ex)
+        {
+            MessageBox.Show(ex.Message);
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(ex.Message);
         }
     }
 }

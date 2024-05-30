@@ -23,10 +23,10 @@ create table events
 (
     id          int auto_increment
         primary key,
-    title       varchar(50)                                  not null,
-    description text                                         not null,
-    start_time  datetime                                     not null,
-    end_time    datetime                                     not null,
+    title       varchar(50) not null,
+    description text        not null,
+    start_time  datetime    not null,
+    end_time    datetime    not null,
     category    enum ('wedstrijd', 'les', 'uitje', 'overig') not null
 );
 
@@ -51,7 +51,7 @@ create table members
     member_id  int auto_increment
         primary key,
     first_name varchar(50)       not null,
-    infix      varchar(10)       null,
+    infix      varchar(10) null,
     last_name  varchar(50)       not null,
     level      tinyint default 1 not null,
     email      varchar(50)       not null,
@@ -64,10 +64,10 @@ create table damage_reports
 (
     id          int auto_increment
         primary key,
-    boat_id     int                                    not null,
-    description text                                   not null,
-    member_id   int                                    not null,
-    report_time timestamp  default current_timestamp() not null,
+    boat_id     int                                   not null,
+    description text                                  not null,
+    member_id   int                                   not null,
+    report_time timestamp default current_timestamp() not null,
     fixed       tinyint(1) default 0                   not null,
     usable      tinyint(1) default 0                   not null,
     constraint damage_reports_ibfk_1
@@ -93,8 +93,8 @@ create index member_id
 
 create table event_participant
 (
-    event_id    int  not null,
-    member_id   int  not null,
+    event_id    int not null,
+    member_id   int not null,
     result_time time null,
     result      text null,
     primary key (event_id, member_id),
@@ -111,7 +111,7 @@ create index member_id
 
 create table member_roles
 (
-    member_id int                                                                        not null,
+    member_id int not null,
     role      enum ('materiaal_commissaris', 'evenementen_commissaris', 'beheerder', '') not null,
     primary key (member_id, role),
     constraint member_roles_ibfk_1

@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:RoeiVerenigingWPF.helpers"
+             xmlns:local="clr-namespace:RoeiVerenigingWPF.Helpers"
              mc:Ignorable="d"
              d:DesignHeight="924" d:DesignWidth="350"
              Background="Transparent">
@@ -53,7 +53,8 @@
                     <Button Grid.Column="1" x:Name="BotenButton" Grid.Row="3" Margin="20,20,20,20"
                             HorizontalContentAlignment="Left"
                             HorizontalAlignment="Left"
-                            FontFamily="Franklin Gothic Medium" Width="270" BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}" BorderThickness="3"
+                            FontFamily="Franklin Gothic Medium" Width="270"
+                            BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}" BorderThickness="3"
                             FontSize="32" Foreground="{x:Static local:CustomColors.HeaderColor}"
                             Background="{x:Static local:CustomColors.ButtonBackgroundColor}" Click="Button_Click">
                         <Grid HorizontalAlignment="Left">
@@ -71,7 +72,7 @@
                             </Style>
                         </Button.Resources>
                     </Button>
-                    
+
                     <Grid Grid.Row="4" Grid.Column="0" Name="ReservationRectangle" Height="60" Width="15"
                           Margin="5,0,0,0" Visibility="Hidden">
                         <Border CornerRadius="5" BorderThickness="2"
@@ -80,7 +81,8 @@
 
                     <Button Grid.Column="1" x:Name="ReserveButton" Grid.Row="4" Margin="20,20,20,20"
                             HorizontalContentAlignment="Left"
-                            HorizontalAlignment="Left" BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}" BorderThickness="3"
+                            HorizontalAlignment="Left" BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}"
+                            BorderThickness="3"
                             FontFamily="Franklin Gothic Medium" FontSize="32"
                             Foreground="{x:Static local:CustomColors.HeaderColor}"
                             Background="{x:Static local:CustomColors.ButtonBackgroundColor}"
@@ -101,7 +103,6 @@
                         </Button.Resources>
                     </Button>
 
-                    
 
                     <Grid Grid.Row="5" Grid.Column="0" Name="EventsRectangle" Height="60" Width="15" Margin="5,0,0,0"
                           Visibility="Hidden">
@@ -111,7 +112,8 @@
 
                     <Button Grid.Column="1" x:Name="EventsButton" Grid.Row="5" Margin="20,20,20,20"
                             HorizontalContentAlignment="Left"
-                            HorizontalAlignment="Left" Width="270" BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}" BorderThickness="3"
+                            HorizontalAlignment="Left" Width="270"
+                            BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}" BorderThickness="3"
                             FontFamily="Franklin Gothic Medium" FontSize="32"
                             Foreground="{x:Static local:CustomColors.HeaderColor}"
                             Background="{x:Static local:CustomColors.ButtonBackgroundColor}"
@@ -141,7 +143,8 @@
                     <Button Grid.Column="1" x:Name="DamageButton" Grid.Row="6" Margin="20,20,20,20"
                             HorizontalContentAlignment="Left"
                             HorizontalAlignment="Left" Width="270"
-                            FontFamily="Franklin Gothic Medium" BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}" BorderThickness="3"
+                            FontFamily="Franklin Gothic Medium"
+                            BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}" BorderThickness="3"
                             FontSize="32" Foreground="{x:Static local:CustomColors.HeaderColor}"
                             Background="{x:Static local:CustomColors.ButtonBackgroundColor}" Click="Button_Click">
                         <Grid HorizontalAlignment="Left">

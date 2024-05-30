@@ -19,13 +19,13 @@
         <PackageReference Include="NUnit3TestAdapter" Version="4.5.0"/>
     </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\DataAccessLibrary\DataAccessLibrary.csproj" />
-    <ProjectReference Include="..\RoeiVerenigingLibrary\RoeiVerenigingLibrary.csproj" />
-  </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\DataAccessLibrary\DataAccessLibrary.csproj"/>
+        <ProjectReference Include="..\RoeiVerenigingLibrary\RoeiVerenigingLibrary.csproj"/>
+    </ItemGroup>
 
     <ItemGroup>
-        <Using Include="NUnit.Framework" />
+        <Using Include="NUnit.Framework"/>
     </ItemGroup>
 
 </Project>
