@@ -395,11 +395,11 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
                     ExceptionText.Text = "Het Evenement is aangemaakt!";
                     ExceptionText.Foreground = Brushes.Lime;
                     ExceptionText.Visibility = Visibility.Visible;
+                    PageTitle.SetValue(Grid.ColumnSpanProperty, 1);
                 }
                 catch (Exception exception)
                 {
                     SetExceptionText(exception.Message);
-                    
                 }
             }
         }
