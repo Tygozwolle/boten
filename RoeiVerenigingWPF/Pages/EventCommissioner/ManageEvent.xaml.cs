@@ -444,12 +444,12 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
 
         private void SaveButton_OnClick(object sender, RoutedEventArgs e)
         {
-            if (_selectedBoats.Count >= 1)
+            if (_isEdit)
             {
                 try
                 {
-                    _eventService.CreateEvent(StartTime, EndTime, Description.Text, Name.Text, Int32.Parse(MaxPartisipants.Text), _selectedBoats, _loggedInMember);
-                    ExceptionText.Text = "Het Evenement is aangemaakt!";
+                    _eventService.UpdateEvent(_event, StartTime, EndTime, Description.Text, Name.Text, Int32.Parse(MaxPartisipants.Text), _loggedInMember, _selectedBoats);
+                    ExceptionText.Text = "Het Evenement is aangepast!";
                     ExceptionText.Foreground = Brushes.Lime;
                     ExceptionText.Visibility = Visibility.Visible;
                     PageTitle.SetValue(Grid.ColumnSpanProperty, 1);
@@ -457,6 +457,24 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
                 catch (Exception exception)
                 {
                     SetExceptionText(exception.Message);
+                }
+            }
+            else
+            {
+                if (_selectedBoats.Count >= 1)
+                {
+                    try
+                    {
+                        _eventService.CreateEvent(StartTime, EndTime, Description.Text, Name.Text, Int32.Parse(MaxPartisipants.Text), _selectedBoats, _loggedInMember);
+                        ExceptionText.Text = "Het Evenement is aangemaakt!";
+                        ExceptionText.Foreground = Brushes.Lime;
+                        ExceptionText.Visibility = Visibility.Visible;
+                        PageTitle.SetValue(Grid.ColumnSpanProperty, 1);
+                    }
+                    catch (Exception exception)
+                    {
+                        SetExceptionText(exception.Message);
+                    }
                 }
             }
         }

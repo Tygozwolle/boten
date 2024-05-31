@@ -25,12 +25,34 @@ namespace RoeiVerenigingLibrary.Services
             }
             return null;
         }
-        public Event UpdateEvent(Event events, DateTime startDate, DateTime endDate, string description, string name, int maxParticipants, Member loggedInMember)
+        public Event UpdateEvent(Event events, DateTime startDate, DateTime endDate, string description, string name, int maxParticipants, Member loggedInMember, List<Boat> boats)
         {
-            if (Eventcheck(startDate, endDate, description, name, maxParticipants, events.Boats, loggedInMember, events))
+            if (Eventcheck(startDate, endDate, description, name, maxParticipants, boats, loggedInMember, events))
             {
+                
+                
+                
+                var boatsToAdd = new List<Boat>();
+                var boatsToRemove = new List<Boat>();
+                foreach (var boat in boats)
+                {
+                    if (!events.Boats.Any(b => b.Id == boat.Id))
+                    {
+                        boatsToAdd.Add(boat);
+                    }
+                }
+                foreach (var boat in events.Boats)
+                {
+                    if (!boats.Any(b => b.Id == boat.Id))
+                    {
+                        boatsToRemove.Add(boat);
+                    }
+                }
+                
+                
+                
                 //TODO: check if max participants is not less than the amount of participants
-                return _eventRepository.Change(events, startDate, endDate, description, name, maxParticipants);
+                return _eventRepository.Change(events, startDate, endDate, description, name, maxParticipants , boatsToAdd, boatsToRemove);
             }
             return null;
         }
