@@ -229,6 +229,10 @@ public class MemberRepository : IMemberRepository
 
         return members.OrderBy(x => x.Id).ToList();
     }
+    /// <summary>
+    /// Add all rolls to the list with members
+    /// </summary>
+    /// <param name="members"></param>
     private void AddRolesToMembers(List<Member> members)
     {
         {
