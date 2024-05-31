@@ -13,6 +13,7 @@
                     <Border Grid.Row="0" Grid.Column="0" Background="{x:Static local:CustomColors.HeaderColor}">
                         <Grid>
                             <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="40" /> <!-- Header Column -->
                                 <ColumnDefinition Width="*" /> <!-- Header Column -->
                                 <ColumnDefinition Width="Auto" /> <!-- Dropdown Column -->
                             </Grid.ColumnDefinitions>
@@ -20,14 +21,19 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="60" /> <!-- Header -->
                             </Grid.RowDefinitions>
-                            <TextBlock Text="Roeivereniging Rivierstroom" FontFamily="Franklin Gothic Medium"
+                            <Button Grid.Column="0" Name="HomeButton" Background="Transparent" BorderBrush="Transparent" Click="HomeButton_OnClick">
+                                <Image Grid.Column="0" Source="../Images/Icons/home.png" VerticalAlignment="Center" Margin="0,0,0,10"/>
+
+                            </Button>
+                            <TextBlock Grid.Column="1" Text="Roeivereniging Rivierstroom" FontFamily="Franklin Gothic Medium"
                                        FontSize="40"
                                        VerticalAlignment="Center" HorizontalAlignment="Left"
                                        Foreground="{x:Static local:CustomColors.TextBoxBackgroundColor}"
                                        Margin="10,0,0,10" />
-                            <Grid Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center"
+                            <Grid Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center"
                                   Margin="0,0,10,0">
                                 <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60" />
                                     <ColumnDefinition Width="60" />
                                     <ColumnDefinition Width="60" />
                                     <ColumnDefinition Width="60" />
@@ -79,7 +85,17 @@
                                         </Style>
                                     </Button.Resources>
                                 </Button>
-                                <Button Grid.Column="4" Name="PasswordChange_Button" Background="Transparent"
+                                <Button Grid.Column="4" Name="Event_Button" Background="Transparent"
+                                        BorderBrush="Transparent"
+                                        Click="Button_OnClick" Padding="10,0">
+                                    <Image HorizontalAlignment="Left" Name="Event_Icon" Height="40" Width="40" />
+                                    <Button.Resources>
+                                        <Style TargetType="Border">
+                                            <Setter Property="CornerRadius" Value="15" />
+                                        </Style>
+                                    </Button.Resources>
+                                </Button>
+                                <Button Grid.Column="5" Name="PasswordChange_Button" Background="Transparent"
                                         BorderBrush="Transparent"
                                         Click="Button_OnClick" Padding="10,0">
                                     <Image HorizontalAlignment="Left" Name="PasswordChange_Icon" Height="40" Width="40" />
@@ -89,7 +105,7 @@
                                         </Style>
                                     </Button.Resources>
                                 </Button>
-                                <Button Grid.Column="5" Name="LogOut_Button" Background="Transparent"
+                                <Button Grid.Column="6" Name="LogOut_Button" Background="Transparent"
                                         BorderBrush="Transparent"
                                         Click="Button_OnClick" Padding="10,0">
                                     <Image HorizontalAlignment="Left" Name="LogOut_Icon" Height="40" Width="40" />
@@ -99,7 +115,7 @@
                                         </Style>
                                     </Button.Resources>
                                 </Button>
-                                <Grid Grid.Column="6">
+                                <Grid Grid.Column="7">
                                     <Label Name="LoggedInMemberName" Content="Uitgelogd"
                                            VerticalAlignment="Center" FontFamily="Franklin Gothic Medium" FontSize="24"
                                            Foreground="{x:Static local:CustomColors.TextBoxBackgroundColor}" />

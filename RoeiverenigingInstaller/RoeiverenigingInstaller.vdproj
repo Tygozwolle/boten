@@ -16,6 +16,12 @@
     {
         "Entry"
         {
+        "MsmKey" = "8:_09F6211541C04218AE841C1EBB9EF571"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_13366D12FA82431187EABB6C21935FC5"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -125,6 +131,12 @@
         "Entry"
         {
         "MsmKey" = "8:_F170105914084AE685F579EA6A4E4EDB"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_F29085C237AA41F29F8F8946E0F484F3"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -275,6 +287,26 @@
         }
         "File"
         {
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_09F6211541C04218AE841C1EBB9EF571"
+            {
+            "SourcePath" = "8:..\\RoeiVerenigingWPF\\Images\\Icons\\calendar-plus-2.png"
+            "TargetName" = "8:calendar-plus-2.png"
+            "Tag" = "8:"
+            "Folder" = "8:_4F547C56F1754CD4B1C9A462E64CC469"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_13366D12FA82431187EABB6C21935FC5"
             {
             "SourcePath" = "8:..\\RoeiVerenigingWPF\\Images\\Icons\\users.png"
@@ -635,6 +667,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F29085C237AA41F29F8F8946E0F484F3"
+            {
+            "SourcePath" = "8:..\\RoeiVerenigingWPF\\Images\\Icons\\home.png"
+            "TargetName" = "8:home.png"
+            "Tag" = "8:"
+            "Folder" = "8:_4F547C56F1754CD4B1C9A462E64CC469"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F5BE8591EC034A14B2D1DF7A4ED1BBB7"
             {
             "SourcePath" = "8:..\\RoeiVerenigingWPF\\Images\\logo.png"
@@ -774,7 +826,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Roeivereniging"
         "ProductCode" = "8:{D97929E4-2527-42A2-AAB9-91F8845C0033}"
-        "PackageCode" = "8:{685A00AD-3448-4490-A519-4E8E94657F68}"
+        "PackageCode" = "8:{F1BF9A8C-5F7D-43CA-8BDA-1ACC0C017BAA}"
         "UpgradeCode" = "8:{467758A9-9718-4C68-A001-9622005262B6}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"

@@ -66,6 +66,14 @@
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
         <None Remove="Images\Icons\search.png" />
+        <None Remove="Images\Icons\home.png" />
+        <Content Include="Images\Icons\home.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <None Remove="Images\Icons\calendar-plus-2.png" />
+        <Content Include="Images\Icons\calendar-plus-2.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
     </ItemGroup>
 
   <ItemGroup>
@@ -103,10 +111,6 @@
         <Content Include="Images\Icons\users.png">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
-    </ItemGroup>
-
-    <ItemGroup>
-        <Folder Include="Pages\MatchCommissioner\" />
     </ItemGroup>
 
     <ItemGroup>

@@ -7,240 +7,142 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DataReaderExtensions = System.Data.DataReaderExtensions;
 
 namespace DataAccessLibrary
 {
-    public class EventRepository : IEventRepository
+    public partial class EventRepository : IEventRepository
     {
-        public Event Create(DateTime startTime, DateTime endDate, string descriptions, string name, int maxParticipants,
-            List<Boat> boats, Member member)
+        public List<Event> GetAll()
         {
+            var list = new List<Event>();
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
             {
                 connection.Open();
-                using (MySqlTransaction transaction = connection.BeginTransaction())
+
+                const string sql = "SELECT * FROM `events`";
+
+                using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {
-                    try
+                    using (MySqlDataReader reader = command.ExecuteReader())
                     {
-                        const string sqlAutocommit = "SET autocommit=0";
-                        using (MySqlCommand command = new MySqlCommand(sqlAutocommit, connection))
+                        while (reader.Read())
                         {
-                            command.Transaction = transaction;
-                            command.ExecuteNonQuery();
+                            list.Add(new Event(new List<EventParticipant>(), reader.GetDateTime("start_time"),
+                                reader.GetDateTime("end_time"), reader.GetString("description"),
+                                reader.GetString("name"),
+                                reader.GetInt32("id"), reader.GetInt32("max_participants"), new List<Boat>()));
                         }
-
-                        Event eventTemp = CreateEvent(startTime, endDate, descriptions, name, maxParticipants, boats,
-                            connection, transaction);
-                        foreach (Boat boat in boats)
-                        {
-                            AddBoatsToEvent(eventTemp, boat, connection, transaction);
-                            MakeEventReservation(eventTemp, boat, member, connection, transaction);
-                        }
-
-                        transaction.Commit();
-                        return eventTemp;
-                    }
-                    catch (Exception ex)
-                    {
-                        transaction.Rollback();
-                        throw;
                     }
                 }
             }
+
+            return list;
         }
 
-        private void AddBoatsToEvent(Event events, Boat boat, MySqlConnection connection, MySqlTransaction transaction)
+        private int GetSystemId()
         {
-            const string sql =
-                "INSERT INTO `event_reserved_boats` (`event_id`, `boat_id`) VALUES (@event_id, @boat_id)";
-
-            using (MySqlCommand command = new MySqlCommand(sql, connection))
-            {
-                command.Parameters.Add("@event_id", MySqlDbType.Int32);
-                command.Parameters["@event_id"].Value = events.Id;
-
-                command.Parameters.Add("@boat_id", MySqlDbType.Int32);
-                command.Parameters["@boat_id"].Value = boat.Id;
-
-                command.Transaction = transaction;
-                command.ExecuteNonQuery();
-            }
-        }
-
-        private void MakeEventReservation(Event events, Boat boat, Member member, MySqlConnection connection,
-            MySqlTransaction transaction)
-        {
-            const string sql =
-                "INSERT INTO `reservation` (`boat_id`, `member_id`, `start_time`, `end_time`) VALUES (@boat_id, @member_id, @start_time, @end_time)";
-
-            using (MySqlCommand command = new MySqlCommand(sql, connection))
-            {
-                command.Parameters.Add("@boat_id", MySqlDbType.Int32);
-                command.Parameters["@boat_id"].Value = boat.Id;
-
-                command.Parameters.Add("@member_id", MySqlDbType.Int32);
-                command.Parameters["@member_id"].Value = member.Id;
-
-                command.Parameters.Add("@start_time", MySqlDbType.DateTime);
-                command.Parameters["@start_time"].Value = events.StartDate;
-
-                command.Parameters.Add("@end_time", MySqlDbType.DateTime);
-                command.Parameters["@end_time"].Value = events.EndDate;
-
-                command.Transaction = transaction;
-                command.ExecuteNonQuery();
-            }
-        }
-
-        private Event CreateEvent(DateTime startTime, DateTime endDate, string descriptions, string name,
-            int maxParticipants, List<Boat> boats, MySqlConnection connection, MySqlTransaction transaction)
-        {
-            const string sql =
-                "INSERT INTO `events` (`start_time`, `end_time`, `description`, `name`, `max_participants`) VALUES (@start_time, @end_time, @descriptions, @name, @max_participants)";
-
-            using (MySqlCommand command = new MySqlCommand(sql, connection))
-            {
-                command.Parameters.Add("@start_time", MySqlDbType.DateTime);
-                command.Parameters["@start_time"].Value = startTime;
-
-                command.Parameters.Add("@end_time", MySqlDbType.DateTime);
-                command.Parameters["@end_time"].Value = endDate;
-
-                command.Parameters.Add("@descriptions", MySqlDbType.VarChar);
-                command.Parameters["@descriptions"].Value = descriptions;
-
-                command.Parameters.Add("@name", MySqlDbType.VarChar);
-                command.Parameters["@name"].Value = name;
-
-                command.Parameters.Add("@max_participants", MySqlDbType.Int32);
-                command.Parameters["@max_participants"].Value = maxParticipants;
-
-                command.Transaction = transaction;
-                command.ExecuteNonQuery();
-                return new Event(new List<EventParticipant>(), startTime, endDate, descriptions, name,
-                    (int)command.LastInsertedId, maxParticipants, boats);
-            }
-        }
-
-        public Event Change(Event events, DateTime startDate, DateTime endDate, string description, String name,
-            int maxParticipants)
-        {
-            var reservations = GetEventReservationsIds(events);
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
             {
                 connection.Open();
-                using (MySqlTransaction transaction = connection.BeginTransaction())
+                const string sql = "SELECT member_id FROM members WHERE first_name = @system ";
+
+                using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {
-                    try
+                    command.Parameters.Add("@system", MySqlDbType.VarChar);
+                    command.Parameters["@system"].Value = "System";
+                    using (MySqlDataReader reader = command.ExecuteReader())
                     {
-                        const string sqlAutocommit = "SET autocommit=0";
-                        using (MySqlCommand command = new MySqlCommand(sqlAutocommit, connection))
+                        while (reader.Read())
                         {
-                            command.Transaction = transaction;
-                            command.ExecuteNonQuery();
+                            return reader.GetInt32("member_id");
                         }
-
-                        Event eventTemp = ChangeEvent(events, startDate, endDate, description, name, maxParticipants,
-                            connection, transaction);
-                        foreach (int reservation in reservations)
-                        {
-                            UpdateReservation(reservation, startDate, endDate, connection, transaction);
-                        }
-
-                        transaction.Commit();
-                        return eventTemp;
-                    }
-                    catch (Exception ex)
-                    {
-                        transaction.Rollback();
-                        throw;
                     }
                 }
             }
-        }
 
-        private void UpdateReservation(int reservation, DateTime startDate, DateTime endDate,
-            MySqlConnection connection, MySqlTransaction transaction)
-        {
-            const string sql =
-                "UPDATE `reservation` SET `start_time` = @start_time, `end_time` = @end_time WHERE `id` = @id";
-
-            using (MySqlCommand command = new MySqlCommand(sql, connection))
-            {
-                command.Parameters.Add("@start_time", MySqlDbType.DateTime);
-                command.Parameters["@start_time"].Value = startDate;
-
-                command.Parameters.Add("@end_time", MySqlDbType.DateTime);
-                command.Parameters["@end_time"].Value = endDate;
-
-                command.Parameters.Add("@id", MySqlDbType.Int32);
-                command.Parameters["@id"].Value = reservation;
-
-                command.Transaction = transaction;
-                command.ExecuteNonQuery();
-            }
-        }
-
-        private Event ChangeEvent(Event events, DateTime startDate, DateTime endDate, string description, string name,
-            int maxParticipants, MySqlConnection connection, MySqlTransaction transaction)
-        {
-            const string sql =
-                $"UPDATE `events` SET `max_participants` = @participants, `start_time` = @startTime, `end_time` = @endTime, `description` = @description, `name` = @name WHERE id = @id";
-
-            using (MySqlCommand command = new MySqlCommand(sql, connection))
-            {
-                command.Parameters.Add("@participants", MySqlDbType.Int32);
-                command.Parameters["@participants"].Value = maxParticipants;
-
-                command.Parameters.Add("@startTime", MySqlDbType.DateTime);
-                command.Parameters["@startTime"].Value = startDate;
-
-                command.Parameters.Add("@endTime", MySqlDbType.DateTime);
-                command.Parameters["@endTime"].Value = endDate;
-
-                command.Parameters.Add("@description", MySqlDbType.VarChar);
-                command.Parameters["@description"].Value = description;
-
-                command.Parameters.Add("@name", MySqlDbType.VarChar);
-                command.Parameters["@name"].Value = name;
-
-                command.Parameters.Add("@id", MySqlDbType.Int32);
-                command.Parameters["@id"].Value = events.Id;
-
-                command.Transaction = transaction;
-                command.ExecuteNonQuery();
-            }
-
-            return new Event(events.Participants, startDate, endDate, description, name, events.Id, maxParticipants,
-                events.Boats);
-        }
-
-        private List<int> GetEventReservationsIds(Event events)
-        {
-            var list = new List<int>();
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
             {
                 connection.Open();
-
                 const string sql =
-                    "SELECT `reservation_id` FROM `reservation` WHERE (SELECT `boat_id` FROM `event_reserved_boats` WHERE `event_id` = @id) = `boat_id` AND `start_time` = @start_time AND `end_time` = @end_time";
+                    " INSERT INTO boten_reservering.members (member_id, first_name, infix, last_name, level, email, password)\nVALUES (0, 'System', null, 'System', DEFAULT, 'System', 'System');";
+
+                using (MySqlCommand command = new MySqlCommand(sql, connection))
+                {
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            return reader.GetInt32("member_id");
+                        }
+                    }
+                }
+            }
+
+            throw new Exception("System member not found");
+        }
+
+        private List<Boat> GetBoats(int eventId)
+        {
+            var list = new List<Boat>();
+            using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
+            {
+                connection.Open();
+
+                const string sql = "SELECT b.* " +
+                                   "FROM event_reserved_boats erb " +
+                                   "INNER JOIN boats b ON erb.boat_id = b.id " +
+                                   "WHERE erb.event_id = @id";
 
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {
                     command.Parameters.Add("@id", MySqlDbType.Int32);
-                    command.Parameters["@id"].Value = events.Id;
-
-                    command.Parameters.Add("@start_time", MySqlDbType.DateTime);
-                    command.Parameters["@start_time"].Value = events.StartDate;
-
-                    command.Parameters.Add("@end_time", MySqlDbType.DateTime);
-                    command.Parameters["@end_time"].Value = events.EndDate;
+                    command.Parameters["@id"].Value = eventId;
 
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
                         while (reader.Read())
                         {
-                            list.Add(reader.GetInt32("reservation_id"));
+                            list.Add(new Boat(reader.GetInt32("id"), reader.GetBoolean("captain_seat_available"),
+                                reader.GetInt32("seats"), reader.GetInt32("level"), reader.GetString("description"),
+                                reader.GetString("name")));
+                        }
+                    }
+                }
+            }
+
+            return list;
+        }
+
+        private List<Member> getMembers(int eventId)
+        {
+            var list = new List<Member>();
+            using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
+            {
+                connection.Open();
+
+                const string sql = "SELECT m.* " +
+                                   "FROM event_participant p " +
+                                   "INNER JOIN members m ON p.member_id = m.member_id " +
+                                   "WHERE p.event_id = @id";
+
+                using (MySqlCommand command = new MySqlCommand(sql, connection))
+                {
+                    command.Parameters.Add("@id", MySqlDbType.Int32);
+                    command.Parameters["@id"].Value = eventId;
+
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var infix = "";
+                            if (!(reader.IsDBNull(reader.GetOrdinal("infix"))))
+                            {
+                                infix = reader.GetString("infix");
+                            }
+
+                            list.Add(new Member(reader.GetInt32("member_id"), reader.GetString("first_name"), infix,
+                                reader.GetString("last_name"), reader.GetString("email"), reader.GetInt32("level")));
                         }
                     }
                 }
