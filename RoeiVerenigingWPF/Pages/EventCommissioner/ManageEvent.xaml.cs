@@ -32,12 +32,15 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
         private Event _event;
         private bool _isEdit;
         private Dictionary<string, Button> _timeButtonDictionary;
+        private List<Boat> _reservedBoats;
+
+
         public ManageEvent(MainWindow mainWindow)
         {
             _mainWindow = mainWindow;
             InitializeComponent();
             _loggedInMember = mainWindow.LoggedInMember;
-            
+
             DataContext = this;
             BoatGrid.Visibility = Visibility.Hidden;
         }
@@ -50,15 +53,19 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
             DataContext = this;
             BoatGrid.Visibility = Visibility.Hidden;
             _event = events;
-            
+            _reservedBoats = _event.Boats.ToArray().ToList();
+            foreach (var boat in _reservedBoats)
+            {
+
+            }
         }
         public ManageEvent(MainWindow mainWindow, int eventID) : this(mainWindow, new EventService(new EventRepository()).GetEventById(eventID))
         {
-            
+
         }
         private void SetEdit()
         {
-            
+
             // _selectedTimes.Add(_event.StartDate);
             //_selectedTimes.Add(_event.EndDate);
             _selectedBoats = _event.Boats;
@@ -82,7 +89,7 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
                 }
                 else
                 {
-                     time2 = _event.EndDate.AddMinutes(-59).AddSeconds(-59);//.Subtract(new TimeSpan(0,0,59,59));
+                    time2 = _event.EndDate.AddMinutes(-59).AddSeconds(-59); //.Subtract(new TimeSpan(0,0,59,59));
                     _timeButtonDictionary.TryGetValue(time2.ToString("HH:mm"), out button2);
                 }
                 if (button2 != null)
@@ -90,13 +97,13 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
                     TimeButton_Click(button2, time2);
                 }
             }
-            
+
         }
 
         private void PopulateTimeContentGrid(List<DateTime> availableDates)
         {
             _timeButtonDictionary = new Dictionary<string, Button>();
-            
+
             BoatGrid.Visibility = Visibility.Hidden;
             TimeBlockGrid.Visibility = Visibility.Visible;
 
@@ -171,8 +178,8 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
                 {
                     _selectedDate = (DateTime)calendar.SelectedDate;
 
-                  
-                     if (_selectedDate < DateTime.Today.AddDays(14))
+
+                    if (_selectedDate < DateTime.Today.AddDays(14))
                     {
                         SetExceptionText("Selecteer een datum minimaal 14 dagen in de toekomst!");
                         return;
@@ -208,7 +215,7 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
         private void TimeButton_Click(Button clickedButton, DateTime dateTime)
         {
             ClearExceptionText();
-            
+
             if (_selectedTimes.Contains((dateTime)))
             {
                 // Deselect the button
@@ -238,7 +245,7 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
                 }
                 else
                 {
-                    SetExceptionText( "Selecteer het eerste en laatste tijdblok!");
+                    SetExceptionText("Selecteer het eerste en laatste tijdblok!");
                 }
             }
 
@@ -333,9 +340,9 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
                 grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(300) });
                 grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(200) });
 
-                var imageconverter = new SingleStreamImageConverter(); 
+                var imageconverter = new SingleStreamImageConverter();
                 var source = imageconverter.Convert(boat.Image, typeof(ImageSource), null, null);
-                                
+
 
                 grid.Children.Add(new Image
                 {
@@ -391,7 +398,10 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
                     Content = grid,
                     Resources = new ResourceDictionary()
                 };
-
+                if(_selectedBoats.Where(b => b.Id == boat.Id).Count() >= 1)
+                {
+                    button.Background = CustomColors.ButtonBackgroundColor;
+                }
                 button.Tag = boat.Id;
 
                 Style borderStyle = new Style(typeof(Border));
