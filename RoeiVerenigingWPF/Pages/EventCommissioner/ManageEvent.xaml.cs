@@ -119,7 +119,7 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
                 }
                 else
                 {
-                    time2 = _event.EndDate.AddMinutes(-59).AddSeconds(-59); //.Subtract(new TimeSpan(0,0,59,59));
+                    time2 = _event.EndDate.AddMinutes(-59).AddSeconds(-59); 
                     _timeButtonDictionary.TryGetValue(time2.ToString("HH:mm"), out button2);
                 }
                 if (button2 != null)
