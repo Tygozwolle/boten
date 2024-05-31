@@ -1,6 +1,7 @@
 using RoeiVerenigingWPF.Frames;
 using RoeiVerenigingWPF.Pages;
 using RoeiVerenigingWPF.Pages.Admin;
+using RoeiVerenigingWPF.Pages.EventCommissioner;
 using System.Drawing;
 using System.Windows;
 using System.Windows.Controls;
@@ -28,6 +29,7 @@ namespace RoeiVerenigingWPF.Components
                 new BitmapImage(new Uri("/Images/Icons/rectangle-ellipsis.png", UriKind.Relative));
             LogOut_Icon.Source = new BitmapImage(new Uri("/Images/Icons/log-out.png", UriKind.Relative));
             Boat_Icon.Source = new BitmapImage(new Uri("/Images/Icons/sailboatWhite.png", UriKind.Relative));
+            Event_Icon.Source = new BitmapImage(new Uri("/Images/Icons/calendar-plus-2.png", UriKind.Relative));
         }
 
         private void Button_OnClick(object sender, RoutedEventArgs e)
@@ -53,12 +55,20 @@ namespace RoeiVerenigingWPF.Components
                     case "Boat_Button":
                         MainWindow.MainContent.Navigate(new ManageBoatList(MainWindow));
                         break;
+                    case "Event_Button":
+                        MainWindow.MainContent.Navigate(new ManageEvent(MainWindow));
+                        break;
                     case "LogOut_Button":
                         MainWindow.LogOutMember();
                         MainWindow.LoginContent.Navigate(new Login(MainWindow));
                         break;
                 }
             }
+        }
+
+        private void HomeButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            MainWindow.MainContent.Navigate(new MainPage(MainWindow));
         }
     }
 }
