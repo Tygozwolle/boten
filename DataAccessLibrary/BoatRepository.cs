@@ -31,13 +31,11 @@ namespace DataAccessLibrary
                     }
                 }
             }
-
             return boat;
         }
 
         public Boat GetBoatById(int boatId)
         {
-
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
             {
                 connection.Open();
