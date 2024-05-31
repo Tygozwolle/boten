@@ -71,6 +71,8 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
             ReservationCalendar.SelectedDate = _event.StartDate.Date;
             _selectedDate = _event.StartDate.Date;
             _availableTimes = _eventService.GetAvailableTimes(_selectedDate, _event);
+            ReservationCalendar.SelectedDate = _event.StartDate.Date;
+            ReservationCalendar.DisplayDate = _event.StartDate.Date;
             PopulateTimeContentGrid(_availableTimes);
             _timeButtonDictionary.TryGetValue(_event.StartDate.ToString("HH:mm"), out Button button);
             TimeButton_Click(button, _event.StartDate);
