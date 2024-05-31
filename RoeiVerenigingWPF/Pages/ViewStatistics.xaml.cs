@@ -59,7 +59,7 @@ public partial class ViewStatistics : Page
             AllStatistics.Add(new Statistic(8, "Ongelukkiste lid:", "Dit lid heeft de meeste schade gemeld!",
                 _damageService.MemberWithMostDamage(damageList).FirstName,
                 true));
-            AllStatistics.Add(new Statistic(9, "Aantal leden:", "Dit is het totale aantal leden.",
+            AllStatistics.Add(new Statistic(9, "Aantal leden:", "Onze vereniging heeft zoveel leden!",
                 memberList.Count.ToString(), true));
             AllStatistics.Add(new Statistic(10, "Totaal aantal reserveringen:",
                 "Dit is het totale aantal reserveringen dat is gemaakt.", reservationsList.Count().ToString(), true));
