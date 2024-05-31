@@ -1,7 +1,9 @@
 ﻿using System.Drawing;
 using System.Runtime.InteropServices.JavaScript;
 using DataAccessLibrary;
-using RoeiVerenigingLibrary;
+using RoeiVerenigingLibrary.Model;
+using RoeiVerenigingLibrary.Services;
+using RoeiVerenigingLibrary.Exceptions;
 using RoeiVerenigingLibrary.Exceptions;
 using System.Windows;
 using System.Windows.Controls;
@@ -9,6 +11,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using Innovative.SolarCalculator;
+using RoeiVerenigingLibrary;
 using RoeiVerenigingWPF.helpers;
 using Brushes = System.Windows.Media.Brushes;
 using FontFamily = System.Windows.Media.FontFamily;
@@ -21,7 +24,7 @@ namespace RoeiVerenigingWPF.Pages
     /// </summary>
     public partial class AddReservation : Page
     {
-        private readonly Member _loggedInMember;
+        private readonly RoeiVerenigingLibrary.Member _loggedInMember;
 
         private readonly ReservationService _reservationService = new ReservationService(new ReservationRepository());
         private readonly BoatService _boatService = new BoatService(new BoatRepository());
@@ -36,7 +39,7 @@ namespace RoeiVerenigingWPF.Pages
         private Boat _selectedBoat;
 
 
-        public AddReservation(Member loggedInMember)
+        public AddReservation(RoeiVerenigingLibrary.Member loggedInMember)
         {
             InitializeComponent();
             _loggedInMember = loggedInMember;

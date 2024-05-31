@@ -33,7 +33,7 @@ public partial class ViewStatistics : Page
         AllStatistics = new List<Statistic>() { };
         SelectedStatistics = new List<Statistic>() { };
 
-        List<Member> memberList = _memberService.GetMembers();
+        List<RoeiVerenigingLibrary.Member> memberList = _memberService.GetMembers();
         List<Reservation> reservationsList = _reservationService.GetReservations();
         List<Damage> damageList = _damageService.GetAll();
         List<Boat> boatList = _boatService.GetBoats();

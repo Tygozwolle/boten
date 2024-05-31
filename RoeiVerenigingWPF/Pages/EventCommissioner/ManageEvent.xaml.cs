@@ -15,7 +15,7 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
     public partial class ManageEvent : Page
     {
 
-        private readonly Member _loggedInMember;
+        private RoeiVerenigingLibrary.Member _loggedInMember { get; }
         private MainWindow _mainWindow;
         private readonly BoatService _boatService = new BoatService(new BoatRepository());
         private readonly EventService _eventService = new EventService(new EventRepository());

@@ -25,7 +25,7 @@ namespace RoeiVerenigingWPF.Pages
             EndTime = reservation.EndTime;
         }
         public MainWindow Main { get; set; }
-        public Member member { get; set; }
+        public RoeiVerenigingLibrary.Member member { get; set; }
         public Reservation reservation { get; set; }
         public Boat boat { get; set; }
         private int reservationId { get; }

@@ -8,4 +8,5 @@ public class TrendService
     {
         return oldResult - newResult;
     }
+    
 }
