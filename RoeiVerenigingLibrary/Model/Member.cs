@@ -1,4 +1,6 @@
-﻿namespace RoeiVerenigingLibrary
+﻿using System.Reflection;
+
+namespace RoeiVerenigingLibrary
 {
     public class Member
     {
@@ -48,6 +50,11 @@
                 result = result.Trim();
                 return result;
             }
+        }
+
+        public string GetFullName()
+        {
+            return FirstName + " " + Infix + " " + LastName;
         }
         
         public override bool Equals(object obj)
