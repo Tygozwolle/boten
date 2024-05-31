@@ -29,9 +29,6 @@ namespace RoeiVerenigingLibrary.Services
         {
             if (Eventcheck(startDate, endDate, description, name, maxParticipants, boats, loggedInMember, events))
             {
-                
-                
-                
                 var boatsToAdd = new List<Boat>();
                 var boatsToRemove = new List<Boat>();
                 foreach (var boat in boats)
@@ -48,8 +45,6 @@ namespace RoeiVerenigingLibrary.Services
                         boatsToRemove.Add(boat);
                     }
                 }
-                
-                
                 
                 //TODO: check if max participants is not less than the amount of participants
                 return _eventRepository.Change(events, startDate, endDate, description, name, maxParticipants , boatsToAdd, boatsToRemove);
