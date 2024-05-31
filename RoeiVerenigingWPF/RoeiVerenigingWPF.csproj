@@ -114,10 +114,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="Pages\MatchCommissioner\" />
-    </ItemGroup>
-
-    <ItemGroup>
         <Page Update="Pages\Member\AddReservation.xaml">
             <Generator>MSBuild:Compile</Generator>
             <XamlRuntime>Wpf</XamlRuntime>

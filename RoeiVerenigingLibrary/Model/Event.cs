@@ -8,7 +8,7 @@ namespace RoeiVerenigingLibrary.Model
 {
     public class Event
     {
-        public List<Member> Participants { get; set; }
+        public List<EventParticipant> Participants { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public string Description { get; set; }
@@ -16,7 +16,9 @@ namespace RoeiVerenigingLibrary.Model
         public int Id { get; set; }
         public int MaxParticipants { get; set; }
         public List<Boat> Boats { get; set; }
-        public Event(List<Member> participants, DateTime startDate, DateTime endDate, string description, string name, int id, int maxParticipants, List<Boat> boats)
+
+        public Event(List<EventParticipant> participants, DateTime startDate, DateTime endDate, string description,
+            string name, int id, int maxParticipants, List<Boat> boats)
         {
             Participants = participants;
             StartDate = startDate;
@@ -26,6 +28,11 @@ namespace RoeiVerenigingLibrary.Model
             Id = id;
             MaxParticipants = maxParticipants;
             Boats = boats;
+        }
+
+        public void AddParticipantsFromDatabase(IEventResultRepository repository)
+        {
+            Participants = repository.GetParticipants(Id);
         }
     }
 }

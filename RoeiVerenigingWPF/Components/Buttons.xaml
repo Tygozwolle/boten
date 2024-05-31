@@ -103,13 +103,13 @@
 
                     
 
-                    <Grid Grid.Row="5" Grid.Column="0" Name="EventsRectangle" Height="60" Width="15" Margin="5,0,0,0"
+                    <Grid Grid.Row="5" Grid.Column="0" Name="EventResultRectangle" Height="60" Width="15" Margin="5,0,0,0"
                           Visibility="Hidden">
                         <Border CornerRadius="5" BorderThickness="2"
                                 Background="{x:Static local:CustomColors.OutsideBorderColor}" />
                     </Grid>
 
-                    <Button Grid.Column="1" x:Name="EventsButton" Grid.Row="5" Margin="20,20,20,20"
+                    <Button Grid.Column="1" x:Name="EventResultButton" Grid.Row="5" Margin="20,20,20,20"
                             HorizontalContentAlignment="Left"
                             HorizontalAlignment="Left" Width="270" BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}" BorderThickness="3"
                             FontFamily="Franklin Gothic Medium" FontSize="32"
