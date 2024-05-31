@@ -87,6 +87,16 @@ namespace RoeiVerenigingLibrary.Services
         public List<DateTime> GetAvailableTimes(DateTime selcetedDate, Event events)
         {
             var timeAvailableList = GetAvailableTimes(selcetedDate);
+            
+            // DateTime endtime;
+            //     if(events.EndDate.Minute != 0)
+            //     {
+            //         endtime = events.EndDate.AddMinutes(-59);
+            //     }
+            //     else
+            //     {
+            //         endtime = events.EndDate.AddHours(-1);
+            //     }
             var timesToAdd = Enumerable.Range(0, (events.EndDate - events.StartDate).Hours)
                 .Select(i => events.StartDate.AddHours(i)).ToList();
             foreach (var add in timesToAdd)

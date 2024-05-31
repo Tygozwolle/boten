@@ -50,7 +50,7 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
             DataContext = this;
             BoatGrid.Visibility = Visibility.Hidden;
             _event = events;
-            SetEdit();
+            
         }
         public ManageEvent(MainWindow mainWindow, int eventID) : this(mainWindow, new EventService(new EventRepository()).GetEventById(eventID))
         {
@@ -74,17 +74,20 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
             if (_event.EndDate.AddHours(-1) != _event.StartDate && _event.EndDate.AddMinutes(-59) != _event.StartDate)
             {
                 Button button2 = null;
+                DateTime time2 = new DateTime();
                 if (_event.EndDate.Minute == 0)
                 {
-                    _timeButtonDictionary.TryGetValue(_event.EndDate.AddHours(-1).ToString("HH:mm"), out button2);
+                    time2 = _event.EndDate.AddHours(-1);
+                    _timeButtonDictionary.TryGetValue(time2.ToString("HH:mm"), out button2);
                 }
                 else
                 {
-                    _timeButtonDictionary.TryGetValue(_event.EndDate.AddMinutes(-59).ToString("HH:mm"), out button2);
+                     time2 = _event.EndDate.AddMinutes(-59).AddSeconds(-59);//.Subtract(new TimeSpan(0,0,59,59));
+                    _timeButtonDictionary.TryGetValue(time2.ToString("HH:mm"), out button2);
                 }
                 if (button2 != null)
                 {
-                    TimeButton_Click(button2, _event.EndDate);
+                    TimeButton_Click(button2, time2);
                 }
             }
             
@@ -449,6 +452,10 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
         }
         private void FrameworkElement_OnLoaded(object sender, RoutedEventArgs e)
         {
+            if (_isEdit)
+            {
+                SetEdit();
+            }
             new Task(() =>
             {
                 _boatList = _boatService.GetBoats();
