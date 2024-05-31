@@ -84,7 +84,7 @@ namespace RoeiVerenigingLibrary.Services
         }
         public bool CheckIfEventIsPosibly(DateTime startTime, DateTime endTime, Event? currentEvent)
         {
-            List<Event> events = _eventRepository.GetAll();
+            List<Event> events = _eventRepository.GetAll(false, false);
             foreach (Event eventob in events)
             {
                 if (startTime < eventob.EndDate && endTime > eventob.StartDate)
@@ -115,7 +115,7 @@ namespace RoeiVerenigingLibrary.Services
         }
         public List<DateTime> GetAvailableTimes(DateTime selectedDate)
         {
-            List<Event> events = _eventRepository.GetAll();
+            List<Event> events = _eventRepository.GetAll(false, false);
 
             DateTime startTime = selectedDate.Date;
             

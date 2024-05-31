@@ -13,7 +13,7 @@ namespace DataAccessLibrary
 {
     public partial class EventRepository : IEventRepository
     {
-        public List<Event> GetAll()
+        public List<Event> GetAll(bool includeParticipants = true, bool includeBoats = true)
         {
             var list = new List<Event>();
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
@@ -36,8 +36,14 @@ namespace DataAccessLibrary
                     }
                 }
             }
-            AddParticipantToEvent(list);
-            AddBoatsToEvent(list);
+            if (includeParticipants)
+            {
+                AddParticipantToEvent(list);
+            }
+            if (includeBoats)
+            {
+                AddBoatsToEvent(list);
+            }
             return list;
         }
         private void AddParticipantToEvent(List<Event> events)
