@@ -18,14 +18,4 @@ public class Statistic
         Selected = selected;
         //todo remove
     }
-
-    public Statistic(int id, string name, string description, string value, bool selected, string query)
-    {
-        Id = id;
-        Name = name;
-        Description = description;
-        Value = value;
-        Selected = selected;
-        Query = query;
-    }
 }
