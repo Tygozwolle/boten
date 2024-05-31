@@ -196,8 +196,8 @@ namespace RoeiVerenigingLibrary
 
         public int GetTotalReservationTime(Member loggedInMember, List<Reservation> reservations)
         {
-            List<Reservation> totalReservationTimeList =
-                (List<Reservation>)reservations.Where(reservation => Equals(reservation.Member, loggedInMember));
+            IEnumerable<Reservation> totalReservationTimeList =
+                reservations.Where(reservation => Equals(reservation.Member, loggedInMember));
 
             TimeSpan totalReservationTime = new TimeSpan();
 
