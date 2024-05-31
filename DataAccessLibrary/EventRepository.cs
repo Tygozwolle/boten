@@ -138,9 +138,9 @@ namespace DataAccessLibrary
             return list;
         }
 
-        private List<Member> getMembers(int eventId)
+        private List<EventParticipant> getMembers(int eventId)
         {
-            var list = new List<Member>();
+            var list = new List<EventParticipant>();
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
             {
                 connection.Open();
@@ -165,7 +165,7 @@ namespace DataAccessLibrary
                                 infix = reader.GetString("infix");
                             }
 
-                            list.Add(new Member(reader.GetInt32("member_id"), reader.GetString("first_name"), infix,
+                            list.Add(new EventParticipant(reader.GetInt32("member_id"), reader.GetString("first_name"), infix,
                                 reader.GetString("last_name"), reader.GetString("email"), reader.GetInt32("level")));
                         }
                     }
