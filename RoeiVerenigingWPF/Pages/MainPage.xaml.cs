@@ -12,7 +12,8 @@ namespace RoeiVerenigingWPF.Pages
         {
             InitializeComponent();
             MainWindow = mainWindow;
-            StatisticsFrame.Content = new ViewStatistics(mainWindow);
+            // StatisticsFrame.Content = new ViewStatistics(mainWindow);
+            
         }
         public MainWindow MainWindow { get; set; }
 
