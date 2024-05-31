@@ -3,13 +3,6 @@ using RoeiVerenigingLibrary;
 using RoeiVerenigingLibrary.Interfaces;
 using RoeiVerenigingLibrary.Model;
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataReaderExtensions = System.Data.DataReaderExtensions;
-
 
 namespace DataAccessLibrary
 {
@@ -130,6 +123,7 @@ namespace DataAccessLibrary
 
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {
+                    command.Parameters.Add("@id", MySqlDbType.Int32);
                     command.Parameters["@id"].Value = eventId;
 
                     using (MySqlDataReader reader = command.ExecuteReader())
@@ -157,7 +151,7 @@ namespace DataAccessLibrary
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
             {
                 connection.Open();
-
+                List<EventParticipant> participants = new List<EventParticipant>(); // empty to fill later
 
                 const string sql =
                     "SELECT * FROM 'events'";
@@ -177,8 +171,8 @@ namespace DataAccessLibrary
                             DateTime startTime = reader.GetDateTime(4);
                             DateTime endTime = reader.GetDateTime(5);
 
-                            Event addevent = new(GetEventMembersid(eventId), startTime, endTime, description, name, eventId,
-                                maxParticipants, GetEventBoatid(eventId));
+                            Event addevent = new(participants, startTime, endTime, description, name, eventId,
+                                maxParticipants, GetBoats(eventId));
                             events.Add(addevent);
                         }
 
@@ -188,77 +182,6 @@ namespace DataAccessLibrary
                 }
             }
         }
-
-        public List<Member> GetEventMembersid(int eventid)
-        {
-            using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
-            {
-                connection.Open();
-
-                var member = new List<Member>();
-                MemberService _memberService = new MemberService(new MemberRepository());
-
-
-                const string sql =
-                    "SELECT * FROM 'event_participant' WHERE event_id = @event_id";
-
-                using (MySqlCommand command = new MySqlCommand(sql, connection))
-                {
-                    using (MySqlDataReader reader = command.ExecuteReader())
-                    {
-                        command.Parameters.Add("@id", MySqlDbType.Int32);
-                        command.Parameters["@event_id"].Value = eventid;
-
-                        while (reader.Read())
-                        {
-                            int memberId = reader.GetInt32(1);
-                            member.Add(_memberService.GetById(memberId));
-                        }
-
-                    }
-
-                    return member;
-                }
-            }
-        }
-
-        public List<Boat> GetEventBoatid(int eventid)
-        {
-            using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
-            {
-                connection.Open();
-
-                var boat = new List<Boat>();
-                BoatService _boatService = new BoatService(new BoatRepository());
-
-
-                const string sql =
-                    "SELECT * FROM 'event_participant' WHERE event_id = @event_id";
-
-                using (MySqlCommand command = new MySqlCommand(sql, connection))
-                {
-                    using (MySqlDataReader reader = command.ExecuteReader())
-                    {
-                        command.Parameters.Add("@id", MySqlDbType.Int32);
-                        command.Parameters["@event_id"].Value = eventid;
-
-                        while (reader.Read())
-                        {
-                            int memberId = reader.GetInt32(1);
-                            boat.Add(_boatService.GetBoatById(memberId));
-                        }
-
-                    }
-
-                    return boat;
-                }
-            }
-        }
-    }
-
-            return eventTemp;
-        }
-
         public List<Event> GetEventsFromPastMonths(int AmountOfMonths)
         {
             List<Event> events = new List<Event>();
