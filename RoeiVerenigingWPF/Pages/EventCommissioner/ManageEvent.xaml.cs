@@ -167,6 +167,7 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
         }
         private void DateIsSelected(object? sender, SelectionChangedEventArgs e)
         {
+            LoadBoats();
             var calendar = sender as Calendar;
             ClearExceptionText();
             TimeContentGrid.Children.Clear();
@@ -183,7 +184,14 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
                         SetExceptionText("Selecteer een datum minimaal 14 dagen in de toekomst!");
                         return;
                     }
-                    _availableTimes = _eventService.GetAvailableTimes(_selectedDate);
+                    if (_isEdit && (_selectedDate == _event.StartDate.Date))
+                    {
+                        _availableTimes = _eventService.GetAvailableTimes(_selectedDate, _event);
+                    }
+                    else
+                    {
+                        _availableTimes = _eventService.GetAvailableTimes(_selectedDate);
+                    }
                     PopulateTimeContentGrid(_availableTimes);
 
                     SelectedDateTextBlock.Text = _selectedDate.ToString("dd MMMM yyyy");
@@ -397,7 +405,7 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
                     Content = grid,
                     Resources = new ResourceDictionary()
                 };
-                if(_selectedBoats.Where(b => b.Id == boat.Id).Count() >= 1)
+                if (_selectedBoats.Where(b => b.Id == boat.Id).Count() >= 1)
                 {
                     button.Background = CustomColors.ButtonBackgroundColor;
                 }
@@ -452,6 +460,7 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
                     ExceptionText.Foreground = Brushes.Lime;
                     ExceptionText.Visibility = Visibility.Visible;
                     PageTitle.SetValue(Grid.ColumnSpanProperty, 1);
+                    SaveButton.IsEnabled = false;
                 }
                 catch (Exception exception)
                 {
@@ -469,6 +478,7 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
                         ExceptionText.Foreground = Brushes.Lime;
                         ExceptionText.Visibility = Visibility.Visible;
                         PageTitle.SetValue(Grid.ColumnSpanProperty, 1);
+                        SaveButton.IsEnabled = false;
                     }
                     catch (Exception exception)
                     {
@@ -477,12 +487,10 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
                 }
             }
         }
-        private void FrameworkElement_OnLoaded(object sender, RoutedEventArgs e)
+  
+        private void LoadBoats()
         {
-            if (_isEdit)
-            {
-                SetEdit();
-            }
+            NextButton.IsEnabled = false;
             new Task(() =>
             {
                 _boatList = _boatService.GetBoats();
@@ -492,6 +500,15 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
                     NextButton.IsEnabled = true;
                 });
             }).Start();
+        }
+        
+        private void FrameworkElement_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            if (_isEdit)
+            {
+                SetEdit();
+            }
+            LoadBoats();
         }
     }
 }
