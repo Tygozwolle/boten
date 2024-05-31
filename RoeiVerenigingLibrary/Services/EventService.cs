@@ -111,7 +111,7 @@ namespace RoeiVerenigingLibrary.Services
             {
                 timeAvailableList.Add(add);
             }
-            return timeAvailableList.OrderBy(x => x).ToList();;
+            return timeAvailableList.OrderBy(x => x).ToList();
         }
         public List<DateTime> GetAvailableTimes(DateTime selectedDate)
         {
