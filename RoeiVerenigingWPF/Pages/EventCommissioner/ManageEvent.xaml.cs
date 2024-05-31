@@ -95,7 +95,7 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
         }
         private void SetEdit()
         {
-            _selectedBoats = _event.Boats.ToArray().ToList();
+            _selectedBoats = _event.Boats.ToArray().ToList(); // Copy the list first to array and then to list so it is not a reference
             Description.Text = _event.Description;
             Name.Text = _event.Name;
             MaxPartisipants.Text = _event.MaxParticipants.ToString();
