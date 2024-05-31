@@ -33,6 +33,7 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
         private bool _isEdit;
         private Dictionary<string, Button> _timeButtonDictionary;
         private List<Boat> _reservedBoats;
+        private List<Button> _boatButtons = new List<Button>();
 
 
         public ManageEvent(MainWindow mainWindow)
@@ -58,6 +59,36 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
         public ManageEvent(MainWindow mainWindow, int eventID) : this(mainWindow, new EventService(new EventRepository()).GetEventById(eventID))
         {
 
+        }
+        private void CheckIfEdditable()
+        {
+            if (_event.StartDate < DateTime.Now.AddDays(14))
+            {
+                DisableAll();
+                ExceptionText.Text = "Dit evenement begint over minder dan 2 weken!";
+                ExceptionText.Foreground = Brushes.Red;
+                ExceptionText.Visibility = Visibility.Visible;
+                PageTitle.SetValue(Grid.ColumnSpanProperty, 1);
+            }
+        }
+        private void DisableAll()
+        {
+            Name.IsEnabled = false;
+            Description.IsEnabled = false;
+            MaxPartisipants.IsEnabled = false;
+            ReservationCalendar.IsEnabled = false;
+            TimeContentGrid.IsEnabled = false;
+            BoatContentStackPanel.IsEnabled = false;
+            SaveButton.IsEnabled = false;
+            foreach (var key in _timeButtonDictionary)
+            {
+                key.Value.IsEnabled = false;
+            }
+            foreach (var button in _boatButtons)
+            {
+                button.IsEnabled = false;
+            }
+            
         }
         private void SetEdit()
         {
@@ -93,7 +124,7 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
                     TimeButton_Click(button2, time2);
                 }
             }
-
+            CheckIfEdditable();
         }
 
         private void PopulateTimeContentGrid(List<DateTime> availableDates)
@@ -325,12 +356,13 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
 
             NextButton.Visibility = Visibility.Hidden;
             SaveButton.Visibility = Visibility.Visible;
+            CheckIfEdditable();
         }
 
         private void PopulateBoatGrid(DateTime selectedDate, DateTime startTime, DateTime endTime)
         {
             List<Boat> availableBoatList = _boatList;
-
+            _boatButtons = new List<Button>();
             BoatContentStackPanel.Children.Clear();
             foreach (var boat in availableBoatList)
             {
@@ -442,6 +474,7 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
                 };
 
                 BoatContentStackPanel.Children.Add(button);
+                _boatButtons.Add(button);
             }
             ScrollViewerBoat.UpdateLayout();
         }
