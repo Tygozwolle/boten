@@ -61,9 +61,6 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
         }
         private void SetEdit()
         {
-
-            // _selectedTimes.Add(_event.StartDate);
-            //_selectedTimes.Add(_event.EndDate);
             _selectedBoats = _event.Boats.ToArray().ToList();
             Description.Text = _event.Description;
             Name.Text = _event.Name;
