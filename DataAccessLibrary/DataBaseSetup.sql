@@ -142,6 +142,9 @@ create index boat_id
 create index member_id
     on reservation (member_id);
 
+INSERT INTO boten_reservering.members (member_id, first_name, infix, last_name, level, email, password)
+VALUES (0, 'System', null, 'System', DEFAULT, 'System', 'System');
+
 INSERT INTO `members`(`member_id`, `first_name`, `infix`, `last_name`, `level`, `email`, `password`)
 VALUES (1, 'Admin', ' ', ' ', 1, 'admin', 'ChangeMe');
 

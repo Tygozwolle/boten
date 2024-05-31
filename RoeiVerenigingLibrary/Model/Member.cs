@@ -13,6 +13,17 @@
             Roles = roles;
             Level = level;
         }
+        public Member(int id, string firstName, string infix, string lastName, string email, 
+            int level)
+        {
+            Id = id;
+            FirstName = firstName;
+            Infix = infix;
+            LastName = lastName;
+            Email = email;
+            Roles = new List<string>();
+            Level = level;
+        }
 
         public int Id { get; set; }
         public string FirstName { get; set; }
@@ -37,6 +48,19 @@
                 result = result.Trim();
                 return result;
             }
+        }
+        
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+                return false;
+
+            Member other = (Member)obj;
+            return Id == other.Id;
+        }
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
         }
     }
 }

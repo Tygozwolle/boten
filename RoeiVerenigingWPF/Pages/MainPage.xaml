@@ -7,7 +7,5 @@
       Title="MainPage" Height="450" Width="800">
     <Grid>
         <TextBlock Text="Welkom, je bent ingelogd" FontSize="40" />
-        
-        <Button Name="TrendButton" Content="Trends" Foreground="Red" MaxHeight="50" MaxWidth="100" Click="TrendButtonClick"></Button>
     </Grid>
 </Page>
