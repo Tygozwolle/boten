@@ -7,9 +7,9 @@ namespace RoeiVerenigingLibrary
     {
         // private readonly IReservationRepository _reservationRepository;
 
-        private readonly TimeSpan _maxReservationTime = new (2, 0, 0);
+        private readonly TimeSpan _maxReservationTime = new(2, 0, 0);
 
-        
+
         public bool TimeChecker(DateTime? start, DateTime? end)
         {
             if (start < end)
@@ -19,7 +19,7 @@ namespace RoeiVerenigingLibrary
 
             throw new InvalidTimeException();
         }
-        
+
         public Reservation Create(Member member, int boatId, DateTime startTime, DateTime endTime)
         {
             if (ReservationInThePast(startTime))
@@ -127,7 +127,6 @@ namespace RoeiVerenigingLibrary
         }
 
         public Reservation ChangeReservation(int reservationId, Member member, int boatId, DateTime start,
-
             DateTime end)
         {
             return reservationRepository.ChangeReservation(reservationId, member, boatId, start, end);
@@ -137,7 +136,7 @@ namespace RoeiVerenigingLibrary
         {
             return reservationRepository.GetReservation(reservationId);
         }
-        
+
         public DateTime Sunrise(DateTime selectedDate)
         {
             SolarTimes solarTimes = new SolarTimes(selectedDate.Date, 52.5125, 6.09444);
@@ -194,26 +193,61 @@ namespace RoeiVerenigingLibrary
 
             return timeAvailableList;
         }
+
+        public int GetTotalReservationTime(Member loggedInMember, List<Reservation> reservations)
+        {
+            IEnumerable<Reservation> totalReservationTimeList =
+                reservations.Where(reservation => Equals(reservation.Member, loggedInMember));
+
+            TimeSpan totalReservationTime = new TimeSpan();
+
+            foreach (var reservation in totalReservationTimeList)
+            {
+                totalReservationTime += reservation.EndTime - reservation.StartTime;
+            }
+
+            return (int)totalReservationTime.TotalMinutes;
+        }
+
+        public List<Member> GetMostAndLeastActiveMember(List<Reservation> reservations)
+        {
+            Dictionary<Member, int> reservationDictionary = new Dictionary<Member, int>();
+
+            Member mostActiveMember = null;
+            foreach (Reservation reservation in reservations)
+            {
+                if (reservationDictionary.ContainsKey(reservation.Member))
+                {
+                    // Increment the count for the existing boat
+                    reservationDictionary[reservation.Member]++;
+                }
+                else
+                {
+                    // Add the boat to the dictionary with an initial count of 1
+                    reservationDictionary[reservation.Member] = 1;
+                }
+            }
+
+            Member mostPopularMember = null;
+            Member leastPopularMember = null;
+            int maxCount = 0;
+            int minCount = 100;
+
+            foreach (var entry in reservationDictionary)
+            {
+                if (entry.Value > maxCount)
+                {
+                    mostPopularMember = entry.Key;
+                    maxCount = entry.Value;
+                }
+                else if (entry.Value < minCount)
+                {
+                    leastPopularMember = entry.Key;
+                    minCount = entry.Value;
+                }
+            }
+
+            return new List<Member>() { leastPopularMember, mostPopularMember };
+        }
     }
 }
-
-/*
- *bool isAvailable = false;
-                foreach (var res in reservationsList)
-                {
-                    if (time == res.StartTime || time.AddHours(1) == res.EndTime && isAvailable == false)
-                    {
-                        isAvailable = false;
-                    }
-                    else
-                    {
-                        isAvailable = true;
-                    }
-                }
-
-                if (isAvailable)
-                {
-                    timeAvailableList.Add(time);
-                }
- *
- */

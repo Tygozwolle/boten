@@ -59,7 +59,6 @@ namespace RoeiVerenigingWPF.Pages
             }
         }
 
-
         private void PopulateTimeContentGrid(List<DateTime> availableDates)
         {
             BoatGrid.Visibility = Visibility.Hidden;
@@ -123,7 +122,6 @@ namespace RoeiVerenigingWPF.Pages
                 }
             }
         }
-
 
         private void DateIsSelected(object? sender, SelectionChangedEventArgs e)
         {

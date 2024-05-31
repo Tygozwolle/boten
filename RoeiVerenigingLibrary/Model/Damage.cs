@@ -44,5 +44,19 @@
         public bool Usable { get; set; }
         public DateTime ReportTime { get; set; }
         public List<Stream> Images { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+                return false;
+
+            Damage other = (Damage)obj;
+            return Id == other.Id;
+        }
+
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
+        }
     }
 }
