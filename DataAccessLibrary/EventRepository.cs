@@ -81,10 +81,12 @@ namespace DataAccessLibrary
             {
                 connection.Open();
 
-                const string sql = "SELECT * FROM `events`";
+                const string sql = "SELECT * FROM `events` WHERE id = @id";
 
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {
+                    command.Parameters.Add("@id", MySqlDbType.Int32);
+                    command.Parameters["@id"].Value = Id;
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
                         while (reader.Read())

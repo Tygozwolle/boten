@@ -13,5 +13,6 @@ namespace RoeiVerenigingLibrary.Interfaces
        public List<Event> GetAll();
        public Event Change(Event events, DateTime startDate, DateTime endDate, string description, String name, int maxParticipants);
        public List<int> GetEventReservationsIds(Event events);
+       public Event Get(int id);
     }
 }

@@ -72,7 +72,7 @@ namespace RoeiVerenigingLibrary.Services
             {
                 if (startTime < eventob.EndDate && endTime > eventob.StartDate)
                 {
-                    if(currentEvent == null)
+                    if (currentEvent == null)
                     {
                         return false;
                     }
@@ -83,6 +83,17 @@ namespace RoeiVerenigingLibrary.Services
                 }
             }
             return true;
+        }
+        public List<DateTime> GetAvailableTimes(DateTime selcetedDate, Event events)
+        {
+            var timeAvailableList = GetAvailableTimes(selcetedDate);
+            var timesToAdd = Enumerable.Range(0, (events.EndDate - events.StartDate).Hours)
+                .Select(i => events.StartDate.AddHours(i)).ToList();
+            foreach (var add in timesToAdd)
+            {
+                timeAvailableList.Add(add);
+            }
+            return timeAvailableList.OrderBy(x => x).ToList();;
         }
         public List<DateTime> GetAvailableTimes(DateTime selectedDate)
         {
@@ -103,6 +114,10 @@ namespace RoeiVerenigingLibrary.Services
                 .ToList();
 
             return timeAvailableList;
+        }
+        public Event GetEventById(int id)
+        {
+            return _eventRepository.Get(id);
         }
     }
 

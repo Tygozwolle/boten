@@ -1,6 +1,7 @@
 ﻿using DataAccessLibrary;
 using RoeiVerenigingLibrary;
 using RoeiVerenigingLibrary.Exceptions;
+using RoeiVerenigingLibrary.Model;
 using RoeiVerenigingLibrary.Services;
 using RoeiVerenigingWPF.Frames;
 using RoeiVerenigingWPF.helpers;
@@ -28,8 +29,8 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
         private DateTime EndTime { get; set; }
         private DateTime _selectedDate;
         private Boat _selectedBoat;
-
-
+        private Event _event;
+        private bool _isEdit;
         public ManageEvent(MainWindow mainWindow)
         {
             _mainWindow = mainWindow;
@@ -39,9 +40,34 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
             DataContext = this;
             BoatGrid.Visibility = Visibility.Hidden;
         }
-
-
-
+        public ManageEvent(MainWindow mainWindow, Event events)
+        {
+            _mainWindow = mainWindow;
+            InitializeComponent();
+            _loggedInMember = _mainWindow.LoggedInMember;
+            _isEdit = true;
+            DataContext = this;
+            BoatGrid.Visibility = Visibility.Hidden;
+            _event = events;
+            SetEdit();
+        }
+        public ManageEvent(MainWindow mainWindow, int eventID) : this(mainWindow, new EventService(new EventRepository()).GetEventById(eventID))
+        {
+            
+        }
+        private void SetEdit()
+        {
+            _selectedDate = _event.StartDate.Date;
+            _selectedTimes.Add(_event.StartDate);
+            _selectedTimes.Add(_event.EndDate);
+            _selectedBoats = _event.Boats;
+            Description.Text = _event.Description;
+            Name.Text = _event.Name;
+            MaxPartisipants.Text = _event.MaxParticipants.ToString();
+            _availableTimes = _eventService.GetAvailableTimes(_selectedDate, _event);
+            PopulateTimeContentGrid(_availableTimes);
+        }
+        
         private void PopulateTimeContentGrid(List<DateTime> availableDates)
         {
             BoatGrid.Visibility = Visibility.Hidden;
