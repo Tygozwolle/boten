@@ -90,7 +90,7 @@ namespace RoeiVerenigingLibrary
 
             return images;
         }
-        
+
         public void GetImageBoat(Boat boat)
         {
             boat.Image = repository.GetImage(boat);
@@ -142,6 +142,46 @@ namespace RoeiVerenigingLibrary
             {
                 throw new IncorrectRightsException();
             }
+        }
+
+        public List<Boat> GetMostANdLeastPopulairBoat(List<Reservation> reservations)
+        {
+            Dictionary<Boat, int> boatDictionary = new Dictionary<Boat, int>();
+
+            foreach (Reservation res in reservations)
+            {
+                if (boatDictionary.ContainsKey(res.Boat))
+                {
+                    // Increment the count for the existing boat
+                    boatDictionary[res.Boat]++;
+                }
+                else
+                {
+                    // Add the boat to the dictionary with an initial count of 1
+                    boatDictionary[res.Boat] = 1;
+                }
+            }
+
+            // Find the boat with the highest count
+            Boat mostPopularBoat = null;
+            Boat leastPopularBoat = null;
+            int maxCount = 0;
+            int minCount = 100;
+
+            foreach (var entry in boatDictionary)
+            {
+                if (entry.Value > maxCount)
+                {
+                    mostPopularBoat = entry.Key;
+                    maxCount = entry.Value;
+                } else if (entry.Value < minCount)
+                {
+                    leastPopularBoat = entry.Key;
+                    minCount = entry.Value;
+                }
+            }
+
+            return new List<Boat>() { leastPopularBoat, mostPopularBoat };
         }
     }
 }
