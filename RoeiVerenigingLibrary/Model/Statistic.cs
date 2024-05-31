@@ -16,6 +16,5 @@ public class Statistic
         Description = description;
         Value = value;
         Selected = selected;
-        //todo remove
     }
 }
