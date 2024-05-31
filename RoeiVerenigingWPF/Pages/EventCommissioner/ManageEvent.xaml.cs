@@ -58,13 +58,15 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
         }
         private void SetEdit()
         {
-            _selectedDate = _event.StartDate.Date;
+            
             // _selectedTimes.Add(_event.StartDate);
             //_selectedTimes.Add(_event.EndDate);
             _selectedBoats = _event.Boats;
             Description.Text = _event.Description;
             Name.Text = _event.Name;
             MaxPartisipants.Text = _event.MaxParticipants.ToString();
+            ReservationCalendar.SelectedDate = _event.StartDate.Date;
+            _selectedDate = _event.StartDate.Date;
             _availableTimes = _eventService.GetAvailableTimes(_selectedDate, _event);
             PopulateTimeContentGrid(_availableTimes);
             _timeButtonDictionary.TryGetValue(_event.StartDate.ToString("HH:mm"), out Button button);
