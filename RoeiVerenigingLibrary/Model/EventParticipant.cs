@@ -1,9 +1,25 @@
-﻿namespace RoeiVerenigingLibrary.Model;
+﻿using System.ComponentModel;
 
-public class EventParticipant : Member
+namespace RoeiVerenigingLibrary.Model;
+
+public class EventParticipant : Member, INotifyPropertyChanged
 {
+    public event PropertyChangedEventHandler PropertyChanged;
     public TimeSpan ResultTime;
-    public String Description;
+    private string _description;
+
+    public string Description
+    {
+        get => _description;
+        set
+        {
+            if (_description != value)
+            {
+                _description = value;
+                OnPropertyChanged(nameof(Description));
+            }
+        }
+    }
     public int EventId;
 
     public EventParticipant(Member member, int eventId, TimeSpan time) : base(member.Id, member.FirstName, member.Infix,
@@ -18,5 +34,10 @@ public class EventParticipant : Member
     public void saveResultTime(IEventResultRepository repository)
     {
         repository.SaveTime(this);
+    }
+    
+    protected void OnPropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

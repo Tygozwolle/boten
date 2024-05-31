@@ -154,6 +154,12 @@
                                     <StackPanel x:Name="ReportView" CanVerticallyScroll="True"
                                                 ScrollViewer.VerticalScrollBarVisibility="Visible" />
                                 </ScrollViewer>
+                                <Button Grid.Row="4" Grid.Column="1" Height="50" Width="150" FontFamily="Franklin Gothic Medium"
+                                        FontSize="24" HorizontalAlignment="Right" Margin="0,10,0,0" VerticalAlignment="Top"
+                                        Foreground="{x:Static helpers:CustomColors.HeaderColor}"
+                                        Background="{x:Static helpers:CustomColors.ButtonBackgroundColor}"
+                                        BorderBrush="{x:Static helpers:CustomColors.OutsideBorderColor}"
+                                        Content="Opslaan" Click="SaveResults" Name="SaveResult"/>
                             </StackPanel>
                         </Border>
                     </Border>

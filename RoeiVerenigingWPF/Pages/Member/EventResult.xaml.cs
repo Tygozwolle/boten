@@ -1,5 +1,7 @@
-﻿using System.Windows;
+﻿using System.Diagnostics;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Media;
 using DataAccessLibrary;
 using RoeiVerenigingLibrary;
@@ -130,13 +132,21 @@ public partial class EventResult : Page
 
             if (enableEdit)
             {
-                grid.Children.Add(new TextBox
+                TextBox descriptionTextBox = new TextBox
                 {
-                    Text = member.Description,
                     VerticalAlignment = VerticalAlignment.Center,
                     FontSize = 16,
                     Foreground = _textColor
-                });
+                };
+
+                grid.Children.Add(descriptionTextBox);
+
+                descriptionTextBox.DataContext = member;
+
+                Binding binding = new Binding("Description");
+                binding.Mode = BindingMode.TwoWay;
+                binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
+                descriptionTextBox.SetBinding(TextBox.TextProperty, binding);
             }
             else
             {
@@ -161,6 +171,15 @@ public partial class EventResult : Page
             };
 
             ReportView.Children.Add(border);
+        }
+    }
+
+    public void SaveResults(object sender, RoutedEventArgs e)
+    {
+        foreach (var participant in EventResults.Participants)
+        {
+            Console.WriteLine(participant.Description);
+            participant.saveResultTime(_EventReportsRepository);
         }
     }
 }
