@@ -31,6 +31,7 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
         private Boat _selectedBoat;
         private Event _event;
         private bool _isEdit;
+        private Dictionary<string, Button> _timeButtonDictionary;
         public ManageEvent(MainWindow mainWindow)
         {
             _mainWindow = mainWindow;
@@ -58,18 +59,39 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
         private void SetEdit()
         {
             _selectedDate = _event.StartDate.Date;
-            _selectedTimes.Add(_event.StartDate);
-            _selectedTimes.Add(_event.EndDate);
+            // _selectedTimes.Add(_event.StartDate);
+            //_selectedTimes.Add(_event.EndDate);
             _selectedBoats = _event.Boats;
             Description.Text = _event.Description;
             Name.Text = _event.Name;
             MaxPartisipants.Text = _event.MaxParticipants.ToString();
             _availableTimes = _eventService.GetAvailableTimes(_selectedDate, _event);
             PopulateTimeContentGrid(_availableTimes);
+            _timeButtonDictionary.TryGetValue(_event.StartDate.ToString("HH:mm"), out Button button);
+            TimeButton_Click(button, _event.StartDate);
+            if (_event.EndDate.AddHours(-1) != _event.StartDate && _event.EndDate.AddMinutes(-59) != _event.StartDate)
+            {
+                Button button2 = null;
+                if (_event.EndDate.Minute == 0)
+                {
+                    _timeButtonDictionary.TryGetValue(_event.EndDate.AddHours(-1).ToString("HH:mm"), out button2);
+                }
+                else
+                {
+                    _timeButtonDictionary.TryGetValue(_event.EndDate.AddMinutes(-59).ToString("HH:mm"), out button2);
+                }
+                if (button2 != null)
+                {
+                    TimeButton_Click(button2, _event.EndDate);
+                }
+            }
+            
         }
-        
+
         private void PopulateTimeContentGrid(List<DateTime> availableDates)
         {
+            _timeButtonDictionary = new Dictionary<string, Button>();
+            
             BoatGrid.Visibility = Visibility.Hidden;
             TimeBlockGrid.Visibility = Visibility.Visible;
 
@@ -129,6 +151,7 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
                 {
                     TimeContentGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
                 }
+                _timeButtonDictionary.Add(dateTime.ToString("HH:mm"), timeButton);
             }
         }
         private void DateIsSelected(object? sender, SelectionChangedEventArgs e)
