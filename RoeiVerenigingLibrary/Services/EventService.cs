@@ -104,6 +104,16 @@ namespace RoeiVerenigingLibrary.Services
 
             return timeAvailableList;
         }
+
+        public Event GetEventById(int id)
+        {
+           return _eventRepository.GetEventById(id);
+        }
+
+        public List<Event> GetEventsFromPastMonths(int AmountOfMonths)
+        {
+            return _eventRepository.GetEventsFromPastMonths(AmountOfMonths);
+        }
     }
 
 }

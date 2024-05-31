@@ -95,8 +95,8 @@ public class MemberRepository : IMemberRepository
                 command.Parameters["@level"].Value = level;
 
                 command.ExecuteNonQuery();
-                //todo: add level
-                return new Member(id, firstName, infix, lastName, email, GetRoles(id), 1);
+                
+                return new Member(id, firstName, infix, lastName, email, GetRoles(id), level);
             }
         }
     }
@@ -205,39 +205,56 @@ public class MemberRepository : IMemberRepository
             {
                 using (MySqlDataReader reader = command.ExecuteReader())
                 {
-                    var tasks = new List<Task>(reader.FieldCount);
                     members = new List<Member>(reader.FieldCount);
                     while (reader.Read())
                     {
-                        int id = reader.GetInt32(0);
-                        string firstName = reader.GetString(1);
+                        int id = reader.GetInt32("member_id");
+                        string firstName = reader.GetString("first_name");
                         string? infix = null;
-                        if (!reader.IsDBNull(2))
+                        if (!reader.IsDBNull(reader.GetOrdinal("infix")))
                         {
-                            infix = reader.GetString(2);
+                            infix = reader.GetString("infix");
                         }
 
-                        string lastName = reader.GetString(3);
-                        string email = reader.GetString(5);
-                        int level = reader.GetInt32(4);
-                        Task task = new Task(() =>
-                        {
-                            Member memberToAdd = new Member(id, firstName, infix, lastName, email, GetRoles(id), level);
-                            lock (members)
-                            {
-                                members.Add(memberToAdd);
-                            }
-                        });
-                        task.Start();
-                        tasks.Add(task);
+                        string lastName = reader.GetString("last_name");
+                        string email = reader.GetString("email");
+                        int level = reader.GetInt32("level");
+                        Member memberToAdd = new Member(id, firstName, infix, lastName, email, new List<string>(), level);
+                        members.Add(memberToAdd);
                     }
-
-                    Task.WaitAll(tasks.ToArray());
+                    AddRolesToMembers(members);
                 }
             }
         }
 
         return members.OrderBy(x => x.Id).ToList();
+    }
+    /// <summary>
+    /// Add all rolls to the list with members
+    /// </summary>
+    /// <param name="members"></param>
+    private void AddRolesToMembers(List<Member> members)
+    {
+        {
+            using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
+            {
+                connection.Open();
+                const string sql = "SELECT * FROM member_roles";
+
+                using (MySqlCommand command = new MySqlCommand(sql, connection))
+                {
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var id = reader.GetInt32("member_id");
+                            var role = reader.GetString("role");
+                            members.Find(x => x.Id == id)?.Roles.Add(role);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     public void AddRole(int memberId, string role)

@@ -22,7 +22,7 @@ namespace RoeiVerenigingWPF.Pages
             _mainWindow = mainWindow;
             _memberId = memberId;
 
-            Member selectedMember = _service.GetById(memberId);
+            RoeiVerenigingLibrary.Member selectedMember = _service.GetById(memberId);
             FirstName.Text = selectedMember.FirstName;
             Infix.Text = selectedMember.Infix;
             LastName.Text = selectedMember.LastName;
@@ -84,7 +84,7 @@ namespace RoeiVerenigingWPF.Pages
 
 
                 //run the update methods from the service
-                Member updatedMember = _service.Update(_mainWindow.LoggedInMember, _memberId, firstName, infix,
+                RoeiVerenigingLibrary.Member updatedMember = _service.Update(_mainWindow.LoggedInMember, _memberId, firstName, infix,
                     lastName,
                     email, level
                 );

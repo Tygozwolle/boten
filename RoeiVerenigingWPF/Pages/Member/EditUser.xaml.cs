@@ -32,7 +32,7 @@ namespace RoeiVerenigingWPF.Pages
                 string infix = Infix.Text;
                 string lastName = LastName.Text;
                 string email = Email.Text;
-                Member updatedMember = service.Update(_mainWindow.LoggedInMember, firstName, infix, lastName, email
+                RoeiVerenigingLibrary.Member updatedMember = service.Update(_mainWindow.LoggedInMember, firstName, infix, lastName, email
                 );
                 if (updatedMember != null)
                 {
