@@ -36,8 +36,68 @@ namespace DataAccessLibrary
                     }
                 }
             }
-
+            AddParticipantToEvent(list);
+            AddBoatsToEvent(list);
             return list;
+        }
+        private void AddParticipantToEvent(List<Event> events)
+        {
+            using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
+            {
+                connection.Open();
+                const string sql = "SELECT * FROM event_participant " +
+                                   "INNER JOIN members ON event_participant.member_id = members.member_id";
+
+                using (MySqlCommand command = new MySqlCommand(sql, connection))
+                {
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var id = reader.GetInt32("event_id");
+                            string infix = "";
+                            if(!reader.IsDBNull(reader.GetOrdinal("infix")))
+                            {
+                                infix = reader.GetString("infix");
+                            }
+                            var member = new EventParticipant(new Member(reader.GetInt32("member_id"), reader.GetString("first_name"),
+                                infix, reader.GetString("last_name"), reader.GetString("email"),
+                                reader.GetInt32("level")), id, reader.GetTimeSpan("result_time"));
+                            events.Find(x => x.Id == id)?.Participants.Add(member);
+                        }
+                    }
+                }
+            }
+        }
+        private void AddBoatsToEvent(List<Event> events)
+        {
+            using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
+            {
+                connection.Open();
+                const string sql = "SELECT * FROM event_reserved_boats " +
+                                   "INNER JOIN boats ON event_reserved_boats.boat_id = boats.id";
+
+                using (MySqlCommand command = new MySqlCommand(sql, connection))
+                {
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var id = reader.GetInt32("event_id");
+                            var boatId = reader.GetInt32("boat_id");
+                            string description = "";
+                            if(!reader.IsDBNull(reader.GetOrdinal("description")))
+                            {
+                                description = reader.GetString("description");
+                            }
+                            var boat = new Boat(boatId, reader.GetBoolean("captain_seat_available"),
+                                reader.GetInt32("seats"), reader.GetInt32("level"), description,
+                                reader.GetString("name"));
+                            events.Find(x => x.Id == id)?.Boats.Add(boat);
+                        }
+                    }
+                }
+            }
         }
 
         private int GetSystemId()
