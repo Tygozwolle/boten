@@ -53,7 +53,7 @@ namespace RoeiVerenigingLibrary.Services
         }
         private bool Eventcheck(DateTime startDate, DateTime endDate, string description, string name, int maxParticipants, List<Boat> boats, Member loggedInMember, Event? events)
         {
-            if (!(loggedInMember.Roles.Contains("evenementen_connissaris") || loggedInMember.Roles.Contains("beheerder")))
+            if (!(loggedInMember.Roles.Contains("evenementen_commissaris") || loggedInMember.Roles.Contains("beheerder")))
             {
                 throw new IncorrectRightsException();
             }

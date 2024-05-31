@@ -65,10 +65,13 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
             if (_event.StartDate < DateTime.Now.AddDays(14))
             {
                 DisableAll();
-                ExceptionText.Text = "Dit evenement begint over minder dan 2 weken!";
-                ExceptionText.Foreground = Brushes.Red;
-                ExceptionText.Visibility = Visibility.Visible;
-                PageTitle.SetValue(Grid.ColumnSpanProperty, 1);
+                
+                SetExceptionText("Dit evenement begint over minder dan 2 weken!");
+            }
+            if (!_mainWindow.LoggedInMember.Roles.Contains("beheerder")||!_mainWindow.LoggedInMember.Roles.Contains("evenementen_commissaris"))
+            {
+                DisableAll();
+                SetExceptionText("U heeft niet de juiste rechten om dit evenement aan te passen!");
             }
         }
         private void DisableAll()
@@ -229,7 +232,7 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
             }
             catch (Exception ex)
             {
-                ExceptionText.Text = ex.Message;
+                SetExceptionText(ex.Message);
                 TimeContentGrid.Children.Clear();
             }
         }
