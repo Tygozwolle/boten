@@ -74,6 +74,18 @@
         <Content Include="Images\Icons\calendar-plus-2.png">
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
+        <None Remove="Images\Icons\minus.png" />
+        <Content Include="Images\Icons\minus.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <None Remove="Images\Icons\plus.png" />
+        <Content Include="Images\Icons\plus.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <None Remove="Images\Icons\scan.png" />
+        <Content Include="Images\Icons\scan.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
     </ItemGroup>
 
   <ItemGroup>
@@ -111,10 +123,6 @@
         <Content Include="Images\Icons\users.png">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
-    </ItemGroup>
-
-    <ItemGroup>
-        <Folder Include="Pages\MatchCommissioner\" />
     </ItemGroup>
 
     <ItemGroup>

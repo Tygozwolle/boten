@@ -4,6 +4,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using DataAccessLibrary;
+using RoeiVerenigingLibrary.Services;
+using RoeiVerenigingWPF.Pages.Member;
 
 namespace RoeiVerenigingWPF.Components
 {
@@ -66,11 +69,11 @@ namespace RoeiVerenigingWPF.Components
 
                     break;
 
-                case Button button when button == EventsButton:
+                case Button button when button == EventResultButton:
                     try
                     {
-                        ChangeColorOfRectangle(EventsRectangle);
-                        // MainWindow.MainContent.Navigate(new ViewReservations());
+                        ChangeColorOfRectangle(EventResultRectangle);
+                        MainWindow.MainContent.Navigate(new EventResult(MainWindow, new EventService(new EventRepository()).GetEventById(1)));
                     }
                     catch (Exception exception)
                     {
@@ -101,25 +104,25 @@ namespace RoeiVerenigingWPF.Components
                 case { } when rectangle == BoatRectangle:
                     BoatRectangle.Visibility = Visibility.Visible;
                     DamageRectangle.Visibility = Visibility.Hidden;
-                    EventsRectangle.Visibility = Visibility.Hidden;
+                    EventResultRectangle.Visibility = Visibility.Hidden;
                     ReservationRectangle.Visibility = Visibility.Hidden;
                     break;
                 case { } when rectangle == DamageRectangle:
                     BoatRectangle.Visibility = Visibility.Hidden;
                     DamageRectangle.Visibility = Visibility.Visible;
-                    EventsRectangle.Visibility = Visibility.Hidden;
+                    EventResultRectangle.Visibility = Visibility.Hidden;
                     ReservationRectangle.Visibility = Visibility.Hidden;
                     break;
-                case { } when rectangle == EventsRectangle:
+                case { } when rectangle == EventResultRectangle:
                     BoatRectangle.Visibility = Visibility.Hidden;
                     DamageRectangle.Visibility = Visibility.Hidden;
-                    EventsRectangle.Visibility = Visibility.Visible;
+                    EventResultRectangle.Visibility = Visibility.Visible;
                     ReservationRectangle.Visibility = Visibility.Hidden;
                     break;
                 case { } when rectangle == ReservationRectangle:
                     BoatRectangle.Visibility = Visibility.Hidden;
                     DamageRectangle.Visibility = Visibility.Hidden;
-                    EventsRectangle.Visibility = Visibility.Hidden;
+                    EventResultRectangle.Visibility = Visibility.Hidden;
                     ReservationRectangle.Visibility = Visibility.Visible;
                     break;
             }

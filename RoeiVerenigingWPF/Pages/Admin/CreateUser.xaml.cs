@@ -30,7 +30,7 @@ namespace RoeiVerenigingWPF.Pages
                 string lastName = LastName.Text;
                 string email = Email.Text;
                 string password = Password.Password;
-                Member createdMember = service.Create(_mainWindow.LoggedInMember, firstName, infix, lastName, email,
+                RoeiVerenigingLibrary.Member createdMember = service.Create(_mainWindow.LoggedInMember, firstName, infix, lastName, email,
                     password);
                 if (createdMember != null)
                 {
