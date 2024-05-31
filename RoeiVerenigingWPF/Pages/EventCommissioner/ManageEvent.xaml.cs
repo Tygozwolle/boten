@@ -76,6 +76,7 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
             PopulateTimeContentGrid(_availableTimes);
             _timeButtonDictionary.TryGetValue(_event.StartDate.ToString("HH:mm"), out Button button);
             TimeButton_Click(button, _event.StartDate);
+            PageTitle.Content = "Evenement Aanpassen";
             if (_event.EndDate.AddHours(-1) != _event.StartDate && _event.EndDate.AddMinutes(-59) != _event.StartDate)
             {
                 Button button2 = null;
