@@ -7,7 +7,6 @@ public class Statistic
     public string Description { get; set; }
     public string Value { get; set; }
     public bool Selected { get; set; }
-    public string Query { get; set; }
 
     public Statistic(int id, string name, string description, string value, bool selected)
     {
