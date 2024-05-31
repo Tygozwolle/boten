@@ -3,7 +3,6 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:local="clr-namespace:RoeiVerenigingWPF.Pages.Admin"
       xmlns:wpf="clr-namespace:InteractiveDataDisplay.WPF;assembly=InteractiveDataDisplay.WPF"
       xmlns:helpers="clr-namespace:RoeiVerenigingWPF.helpers"
 
@@ -29,7 +28,7 @@
                             <wpf:Chart.Title>
                                 <TextBlock HorizontalAlignment="Center" FontSize="18" Margin="0,5,0,5">Trend voor {statistiek}</TextBlock>
                             </wpf:Chart.Title>
-                            <wpf:LineGraph x:Name="linegraph" Description="speed" Stroke="Blue" StrokeThickness="3">
+                            <wpf:LineGraph x:Name="LineGraph" Description="speed" Stroke="Blue" StrokeThickness="3">
                             </wpf:LineGraph>
                             <!-- <wpf:BarGraph x:Name="BarGraph" Description="brokenBoats" BarsWidth="10" Stroke="Red" ></wpf:BarGraph> -->
                         </wpf:Chart>
