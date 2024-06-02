@@ -183,9 +183,20 @@ public partial class EventResult : Page
 
     public void SaveResults(object sender, RoutedEventArgs e)
     {
-        foreach (var participant in EventResults.Participants)
+        try
         {
-            participant.saveResultTime(_EventReportsRepository);
+            foreach (var participant in EventResults.Participants)
+            {
+                participant.saveResultTime(_EventReportsRepository);
+            }
+
+            ExceptionText.Text = "De resultaten zijn opgeslagen!";
+            ExceptionText.Foreground = Brushes.Lime;
+        }
+        catch (Exception exception)
+        {
+            ExceptionText.Text = exception.Message;
+            ExceptionText.Foreground = Brushes.Red;
         }
     }
 }
