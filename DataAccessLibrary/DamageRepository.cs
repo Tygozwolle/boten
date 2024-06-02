@@ -9,7 +9,7 @@ namespace DataAccessLibrary
         {
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
             {
-                connection.Open();
+                Retry.RetryConnectionOpen(connection);
 
                 const string sql =
                     "INSERT INTO `damage_reports`( `boat_id`, `description`, `member_id`) VALUES (@boat_id, @description, @member_id)";
@@ -38,7 +38,7 @@ namespace DataAccessLibrary
             var damageReports = new List<Damage>();
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
             {
-                connection.Open();
+                Retry.RetryConnectionOpen(connection);
 
                 const string sql = "SELECT d.*, m.*, b.* " +
                                    "FROM `damage_reports` AS d " +
@@ -84,7 +84,7 @@ namespace DataAccessLibrary
             BoatRepository boatRepository = new BoatRepository();
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
             {
-                connection.Open();
+                Retry.RetryConnectionOpen(connection);
 
                 const string sql =
                     "SELECT d.*, b.* " +
@@ -132,7 +132,7 @@ namespace DataAccessLibrary
         {
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
             {
-                connection.Open();
+                Retry.RetryConnectionOpen(connection);
 
                 const string sql =
                     "UPDATE `damage_reports` SET `fixed` = @boatFixed, `usable` = @usable, `description` = @description WHERE `id` = @id";
@@ -168,7 +168,7 @@ namespace DataAccessLibrary
 
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
             {
-                connection.Open();
+                Retry.RetryConnectionOpen(connection);
 
                 const string sql = "SELECT * FROM `damage_reports` WHERE `id` = @id";
 
