@@ -25,18 +25,35 @@ namespace RoeiVerenigingLibrary.Services
             }
             return null;
         }
-        public Event UpdateEvent(Event events, DateTime startDate, DateTime endDate, string description, string name, int maxParticipants, Member loggedInMember)
+        public Event UpdateEvent(Event events, DateTime startDate, DateTime endDate, string description, string name, int maxParticipants, Member loggedInMember, List<Boat> boats)
         {
-            if (Eventcheck(startDate, endDate, description, name, maxParticipants, events.Boats, loggedInMember, events))
+            if (Eventcheck(startDate, endDate, description, name, maxParticipants, boats, loggedInMember, events))
             {
+                var boatsToAdd = new List<Boat>();
+                var boatsToRemove = new List<Boat>();
+                foreach (var boat in boats)
+                {
+                    if (!events.Boats.Any(b => b.Id == boat.Id))
+                    {
+                        boatsToAdd.Add(boat);
+                    }
+                }
+                foreach (var boat in events.Boats)
+                {
+                    if (!boats.Any(b => b.Id == boat.Id))
+                    {
+                        boatsToRemove.Add(boat);
+                    }
+                }
+                
                 //TODO: check if max participants is not less than the amount of participants
-                return _eventRepository.Change(events, startDate, endDate, description, name, maxParticipants);
+                return _eventRepository.Change(events, startDate, endDate, description, name, maxParticipants , boatsToAdd, boatsToRemove);
             }
             return null;
         }
         private bool Eventcheck(DateTime startDate, DateTime endDate, string description, string name, int maxParticipants, List<Boat> boats, Member loggedInMember, Event? events)
         {
-            if (!(loggedInMember.Roles.Contains("evenementen_connissaris") || loggedInMember.Roles.Contains("beheerder")))
+            if (!(loggedInMember.Roles.Contains("evenementen_commissaris") || loggedInMember.Roles.Contains("beheerder")))
             {
                 throw new IncorrectRightsException();
             }
@@ -67,12 +84,12 @@ namespace RoeiVerenigingLibrary.Services
         }
         public bool CheckIfEventIsPosibly(DateTime startTime, DateTime endTime, Event? currentEvent)
         {
-            List<Event> events = _eventRepository.GetAll();
+            List<Event> events = _eventRepository.GetAll(false, false);
             foreach (Event eventob in events)
             {
                 if (startTime < eventob.EndDate && endTime > eventob.StartDate)
                 {
-                    if(currentEvent == null)
+                    if (currentEvent == null)
                     {
                         return false;
                     }
@@ -84,9 +101,21 @@ namespace RoeiVerenigingLibrary.Services
             }
             return true;
         }
+        public List<DateTime> GetAvailableTimes(DateTime selcetedDate, Event events)
+        {
+            var timeAvailableList = GetAvailableTimes(selcetedDate);
+            
+            var timesToAdd = Enumerable.Range(0, (events.EndDate - events.StartDate).Hours)
+                .Select(i => events.StartDate.AddHours(i)).ToList();
+            foreach (var add in timesToAdd)
+            {
+                timeAvailableList.Add(add);
+            }
+            return timeAvailableList.OrderBy(x => x).ToList();
+        }
         public List<DateTime> GetAvailableTimes(DateTime selectedDate)
         {
-            List<Event> events = _eventRepository.GetAll();
+            List<Event> events = _eventRepository.GetAll(false, false);
 
             DateTime startTime = selectedDate.Date;
             
@@ -104,15 +133,13 @@ namespace RoeiVerenigingLibrary.Services
 
             return timeAvailableList;
         }
-
-        public Event GetEventById(int id)
-        {
-           return _eventRepository.GetEventById(id);
-        }
-
         public List<Event> GetEventsFromPastMonths(int AmountOfMonths)
         {
             return _eventRepository.GetEventsFromPastMonths(AmountOfMonths);
+        }
+        public Event GetEventById(int id)
+        {
+            return _eventRepository.Get(id);
         }
     }
 

@@ -46,6 +46,9 @@ public class EventParticipant : Member, INotifyPropertyChanged
         Description = description;
     }
 
+    public EventParticipant(int id, string firstName, string infix, string lastName, string email,
+        int level) : base(id, firstName, infix, lastName, email, level){}
+
     public void saveResultTime(IEventResultRepository repository)
     {
         repository.SaveTime(this);

@@ -1,4 +1,5 @@
 ﻿using MySqlConnector;
+using RoeiVerenigingLibrary;
 using RoeiVerenigingLibrary.Interfaces;
 using RoeiVerenigingLibrary.Model;
 
@@ -6,7 +7,7 @@ namespace DataAccessLibrary
 {
     public partial class EventRepository : IEventRepository
     {
-        public Event Change(Event events, DateTime startDate, DateTime endDate, string description, String name, int maxParticipants)
+        public Event Change(Event events, DateTime startDate, DateTime endDate, string description, String name, int maxParticipants, List<Boat> boatsToAdd, List<Boat> boatsToRemove)
         {
             var reservations = GetEventReservationsIds(events);
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
@@ -22,10 +23,20 @@ namespace DataAccessLibrary
                             command.Transaction = transaction;
                             command.ExecuteNonQuery();
                         }
+                        foreach (var boat in boatsToRemove)
+                        {
+                            DeleteBoat(events, boat, connection, transaction);
+                        }
                         Event eventTemp = ChangeEvent(events, startDate, endDate, description, name, maxParticipants, connection, transaction);
                         foreach (int reservation in reservations)
                         {
                             UpdateReservation(reservation, startDate, endDate, connection, transaction);
+                        }
+                        int systemId = GetSystemId();
+                        foreach (var boat in boatsToAdd)
+                        {
+                            AddBoatsToEvent(eventTemp, boat, connection, transaction);
+                            MakeEventReservation(eventTemp, boat, systemId, connection, transaction);
                         }
                         transaction.Commit();
                         return eventTemp;
@@ -38,10 +49,50 @@ namespace DataAccessLibrary
                 }
             }
         }
+        
+        private void DeleteBoat(Event events, Boat boat, MySqlConnection connection, MySqlTransaction transaction)
+        {
+            DeleteReservation(events, boat, connection, transaction);
+            const string sql = "DELETE FROM `event_reserved_boats` WHERE `event_id` = @event_id AND `boat_id` = @boat_id";
+            
+                using (MySqlCommand command = new MySqlCommand(sql, connection))
+                {
+                    command.Parameters.Add("@event_id", MySqlDbType.Int32);
+                    command.Parameters["@event_id"].Value = events.Id;
+
+                    command.Parameters.Add("@boat_id", MySqlDbType.Int32);
+                    command.Parameters["@boat_id"].Value = boat.Id;
+
+                    command.Transaction = transaction;
+                    command.ExecuteNonQuery();
+                }
+            
+        }
+        private void DeleteReservation(Event events, Boat boat, MySqlConnection connection, MySqlTransaction transaction)
+        {
+            const string sql = "DELETE FROM `reservation` WHERE `boat_id` = @boat_id AND `start_time` = @start_time AND `end_time` = @end_time";
+            
+                using (MySqlCommand command = new MySqlCommand(sql, connection))
+                {
+                    command.Parameters.Add("@boat_id", MySqlDbType.Int32);
+                    command.Parameters["@boat_id"].Value = boat.Id;
+
+                    command.Parameters.Add("@start_time", MySqlDbType.DateTime);
+                    command.Parameters["@start_time"].Value = events.StartDate;
+
+                    command.Parameters.Add("@end_time", MySqlDbType.DateTime);
+                    command.Parameters["@end_time"].Value = events.EndDate;
+
+                    command.Transaction = transaction;
+                    command.ExecuteNonQuery();
+                }
+            
+        }
+        
         private void UpdateReservation(int reservation, DateTime startDate, DateTime endDate, MySqlConnection connection, MySqlTransaction transaction)
         {
             const string sql =
-                "UPDATE `reservation` SET `start_time` = @start_time, `end_time` = @end_time WHERE `id` = @id";
+                "UPDATE `reservation` SET `start_time` = @start_time, `end_time` = @end_time WHERE `reservation_id` = @id";
 
             using (MySqlCommand command = new MySqlCommand(sql, connection))
             {
