@@ -15,11 +15,11 @@ namespace RoeiVerenigingWPF.Pages.Member
     {
         public List<Event> EventsList { get; set; }
         private EventService _eventService = new(new EventRepository());
-        private MainWindow MainWindow;
+        private MainWindow _mainWindow;
         public ListEvents(MainWindow mainWindow)
         {
             InitializeComponent();
-            MainWindow = mainWindow;
+            _mainWindow = mainWindow;
             EventsList = _eventService.GetEvents(true);
             DataContext = this;
             InitializeComponent();
