@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:RoeiVerenigingWPF.Pages.Member"
       xmlns:helpers="clr-namespace:RoeiVerenigingWPF.helpers"
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       mc:Ignorable="d"
       Title="EventResult" d:DesignHeight="900" d:DesignWidth="1550" Background="Transparent">
     <Grid Height="900" Width="1550" HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -24,13 +25,19 @@
                         <ColumnDefinition Width="Auto"></ColumnDefinition>
                         <ColumnDefinition Width="*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+                        <TextBlock Name="HeaderBoat"
+                                   HorizontalAlignment="Center" VerticalAlignment="Top"
+                                   Margin="0,15,0,0"
+                                   Text="{Binding EventResults.Name, StringFormat='Uitslagen: {0}'}"
+                                   FontFamily="Franklin Gothic Medium" FontSize="36"
+                                   Foreground="{x:Static helpers:CustomColors.HeaderColor}" />
 
-                    <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Name="HeaderBoat"
-                               HorizontalAlignment="Center" VerticalAlignment="Top"
-                               Margin="0,15,0,0"
-                               Text="{Binding EventResults.Name, StringFormat='Uitslagen: {0}'}"
-                               FontFamily="Franklin Gothic Medium" FontSize="36"
-                               Foreground="{x:Static helpers:CustomColors.HeaderColor}" />
+                        <TextBlock Grid.Row="1" Name="ExceptionText" HorizontalAlignment="Center" FontSize="24"
+                                   TextWrapping="WrapWithOverflow" FontWeight="Bold"
+                                   Foreground="Red" Padding="0,0,0,5"/>
+                    </StackPanel>
+
                     <!-- left box -->
                     <Border Grid.Row="1" Grid.Column="0" Margin="15,15,0,15" Width="450" CornerRadius="30"
                             BorderThickness="5"
@@ -153,6 +160,14 @@
                                     <StackPanel x:Name="ReportView" CanVerticallyScroll="True"
                                                 ScrollViewer.VerticalScrollBarVisibility="Visible" />
                                 </ScrollViewer>
+                                <Button Grid.Row="4" Grid.Column="1" Height="50" Width="150"
+                                        FontFamily="Franklin Gothic Medium"
+                                        FontSize="24" HorizontalAlignment="Right" Margin="0,10,0,0"
+                                        VerticalAlignment="Top"
+                                        Foreground="{x:Static helpers:CustomColors.HeaderColor}"
+                                        Background="{x:Static helpers:CustomColors.ButtonBackgroundColor}"
+                                        BorderBrush="{x:Static helpers:CustomColors.OutsideBorderColor}"
+                                        Content="Opslaan" Click="SaveResults" Name="SaveResult" />
                             </StackPanel>
                         </Border>
                     </Border>

@@ -68,7 +68,7 @@ namespace DataAccessLibrary
                             }
                             var member = new EventParticipant(new Member(reader.GetInt32("member_id"), reader.GetString("first_name"),
                                 infix, reader.GetString("last_name"), reader.GetString("email"),
-                                reader.GetInt32("level")), id, reader.GetTimeSpan("result_time"));
+                                reader.GetInt32("level")), id, reader.GetTimeSpan("result_time"), reader.GetString("result"));
                             events.Find(x => x.Id == id)?.Participants.Add(member);
                         }
                     }
