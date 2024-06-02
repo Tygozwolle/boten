@@ -15,6 +15,9 @@ public class EventParticipant : Member
         Description = "Goed gedaan"; //Todo replace with data
     }
 
+    public EventParticipant(int id, string firstName, string infix, string lastName, string email,
+        int level) : base(id, firstName, infix, lastName, email, level){}
+
     public void saveResultTime(IEventResultRepository repository)
     {
         repository.SaveTime(this);
