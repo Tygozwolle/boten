@@ -22,13 +22,13 @@ public class EventParticipant : Member, INotifyPropertyChanged
     }
     public int EventId;
 
-    public EventParticipant(Member member, int eventId, TimeSpan time) : base(member.Id, member.FirstName, member.Infix,
+    public EventParticipant(Member member, int eventId, TimeSpan time, String description) : base(member.Id, member.FirstName, member.Infix,
         member.LastName, member.Email,
         member.Roles, member.Level)
     {
         ResultTime = time;
         EventId = eventId;
-        Description = "Goed gedaan"; //Todo replace with data
+        Description = description;
     }
 
     public void saveResultTime(IEventResultRepository repository)
