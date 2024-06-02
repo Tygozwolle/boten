@@ -57,7 +57,7 @@ namespace DataAccessLibrary
                         {
                             var id = reader.GetInt32("event_id");
                             string infix = "";
-                            if(!reader.IsDBNull(reader.GetOrdinal("infix")))
+                            if (!reader.IsDBNull(reader.GetOrdinal("infix")))
                             {
                                 infix = reader.GetString("infix");
                             }
@@ -87,7 +87,7 @@ namespace DataAccessLibrary
                             var id = reader.GetInt32("event_id");
                             var boatId = reader.GetInt32("boat_id");
                             string description = "";
-                            if(!reader.IsDBNull(reader.GetOrdinal("description")))
+                            if (!reader.IsDBNull(reader.GetOrdinal("description")))
                             {
                                 description = reader.GetString("description");
                             }
@@ -235,6 +235,47 @@ namespace DataAccessLibrary
             }
 
             return list;
+        }
+
+        public Event GetEventById(int id)
+        {
+            Event eventTemp = null;
+
+            using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
+            {
+                connection.Open();
+
+                const string sql = "SELECT * FROM `events` WHERE `id` = @id";
+
+                using (MySqlCommand command = new MySqlCommand(sql, connection))
+                {
+                    command.Parameters.Add("@id", MySqlDbType.Int32);
+                    command.Parameters["@id"].Value = id;
+
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            var participants =
+                                new List<EventParticipant>(); //Empty because the data can be retrieved when it is needed
+                            var boats = new List<Boat>(); //Empty because the data can be retrieved when it is needed
+
+                            eventTemp = new Event(
+                                participants,
+                                reader.GetDateTime("start_time"),
+                                reader.GetDateTime("end_time"),
+                                reader.GetString("description"),
+                                reader.GetString("name"),
+                                reader.GetInt32("id"),
+                                reader.GetInt32("max_participants"),
+                                boats
+                            );
+                        }
+                    }
+                }
+            }
+
+            return eventTemp;
         }
 
         public List<Event> GetEvents()
