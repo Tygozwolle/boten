@@ -2,7 +2,7 @@
 
 namespace RoeiVerenigingLibrary
 {
-    public class Retry
+    public abstract class Retry
     {
         public static  T RetryMethod<T>(Func<T> method, int maxRetries = 3, int delay = 500)
         {
