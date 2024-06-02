@@ -28,6 +28,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_2BBFADDBE01C49A19C81543EB19A8DE6"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_36461BEA3EB04D18A29C39534A4583B7"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -64,7 +70,19 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_672C0C0C12AF49D58BC166E01FF92176"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_6AD594559F02413EA6DE2CC12E4DF494"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_6B21DD7E0D9241E2AE699317E46C99B8"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -327,6 +345,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_2BBFADDBE01C49A19C81543EB19A8DE6"
+            {
+            "SourcePath" = "8:..\\RoeiVerenigingWPF\\Images\\Icons\\minus.png"
+            "TargetName" = "8:minus.png"
+            "Tag" = "8:"
+            "Folder" = "8:_4F547C56F1754CD4B1C9A462E64CC469"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_36461BEA3EB04D18A29C39534A4583B7"
             {
             "SourcePath" = "8:..\\RoeiVerenigingWPF\\Images\\Icons\\rectangle-ellipsis.png"
@@ -433,6 +471,46 @@
             "TargetName" = "8:Rightarrow.png"
             "Tag" = "8:"
             "Folder" = "8:_B1FABBB1F01947339F63F139434BBF19"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_672C0C0C12AF49D58BC166E01FF92176"
+            {
+            "SourcePath" = "8:..\\RoeiVerenigingWPF\\Images\\Icons\\plus.png"
+            "TargetName" = "8:plus.png"
+            "Tag" = "8:"
+            "Folder" = "8:_4F547C56F1754CD4B1C9A462E64CC469"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_6B21DD7E0D9241E2AE699317E46C99B8"
+            {
+            "SourcePath" = "8:..\\RoeiVerenigingWPF\\Images\\Icons\\scan.png"
+            "TargetName" = "8:scan.png"
+            "Tag" = "8:"
+            "Folder" = "8:_4F547C56F1754CD4B1C9A462E64CC469"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"

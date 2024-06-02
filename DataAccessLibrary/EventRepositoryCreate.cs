@@ -12,7 +12,7 @@ namespace DataAccessLibrary
             var systemId = GetSystemId();
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
             {
-                connection.Open();
+                Retry.RetryConnectionOpen(connection);
                 using (MySqlTransaction transaction = connection.BeginTransaction())
                 {
                     try
@@ -108,7 +108,7 @@ namespace DataAccessLibrary
 
                 command.Transaction = transaction;
                 command.ExecuteNonQuery();
-                return new Event(new List<Member>(), startTime, endDate, descriptions, name, (int)command.LastInsertedId, maxParticipants, boats);
+                return new Event(new List<EventParticipant>(), startTime, endDate, descriptions, name, (int)command.LastInsertedId, maxParticipants, boats);
             }
         }
         

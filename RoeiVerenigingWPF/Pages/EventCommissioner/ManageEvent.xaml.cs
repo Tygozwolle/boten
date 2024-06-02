@@ -1,6 +1,7 @@
 ﻿using DataAccessLibrary;
 using RoeiVerenigingLibrary;
 using RoeiVerenigingLibrary.Exceptions;
+using RoeiVerenigingLibrary.Model;
 using RoeiVerenigingLibrary.Services;
 using RoeiVerenigingWPF.Frames;
 using RoeiVerenigingWPF.helpers;
@@ -15,7 +16,7 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
     public partial class ManageEvent : Page
     {
 
-        private RoeiVerenigingLibrary.Member _loggedInMember { get; }
+        private readonly RoeiVerenigingLibrary.Member _loggedInMember;
         private MainWindow _mainWindow;
         private readonly BoatService _boatService = new BoatService(new BoatRepository());
         private readonly EventService _eventService = new EventService(new EventRepository());
@@ -28,6 +29,11 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
         private DateTime EndTime { get; set; }
         private DateTime _selectedDate;
         private Boat _selectedBoat;
+        private Event _event;
+        private bool _isEdit;
+        private Dictionary<string, Button> _timeButtonDictionary;
+        private List<Boat> _reservedBoats;
+        private List<Button> _boatButtons = new List<Button>();
 
 
         public ManageEvent(MainWindow mainWindow)
@@ -35,15 +41,102 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
             _mainWindow = mainWindow;
             InitializeComponent();
             _loggedInMember = mainWindow.LoggedInMember;
-            
+
             DataContext = this;
             BoatGrid.Visibility = Visibility.Hidden;
         }
+        public ManageEvent(MainWindow mainWindow, Event events)
+        {
+            _mainWindow = mainWindow;
+            InitializeComponent();
+            _loggedInMember = _mainWindow.LoggedInMember;
+            _isEdit = true;
+            DataContext = this;
+            BoatGrid.Visibility = Visibility.Hidden;
+            _event = events;
+            _reservedBoats = _event.Boats.ToArray().ToList();
+        }
+        public ManageEvent(MainWindow mainWindow, int eventID) : this(mainWindow, new EventService(new EventRepository()).GetEventById(eventID))
+        {
 
+        }
+        private void CheckIfEdditable()
+        {
+            if (_isEdit)
+            {
+                if (_event.StartDate < DateTime.Now.AddDays(14))
+                {
+                    DisableAll();
 
+                    SetExceptionText("Dit evenement begint over minder dan 2 weken!");
+                }
+                if (!_mainWindow.LoggedInMember.Roles.Contains("beheerder") || !_mainWindow.LoggedInMember.Roles.Contains("evenementen_commissaris"))
+                {
+                    DisableAll();
+                    SetExceptionText("U heeft niet de juiste rechten om dit evenement aan te passen!");
+                }
+            }
+        }
+        private void DisableAll()
+        {
+            Name.IsEnabled = false;
+            Description.IsEnabled = false;
+            MaxPartisipants.IsEnabled = false;
+            ReservationCalendar.IsEnabled = false;
+            TimeContentGrid.IsEnabled = false;
+            BoatContentStackPanel.IsEnabled = false;
+            SaveButton.IsEnabled = false;
+            foreach (var key in _timeButtonDictionary)
+            {
+                key.Value.IsEnabled = false;
+            }
+            foreach (var button in _boatButtons)
+            {
+                button.IsEnabled = false;
+            }
+            
+        }
+        private void SetEdit()
+        {
+            _selectedBoats = _event.Boats.ToArray().ToList(); // Copy the list first to array and then to list so it is not a reference
+            Description.Text = _event.Description;
+            Name.Text = _event.Name;
+            MaxPartisipants.Text = _event.MaxParticipants.ToString();
+            ReservationCalendar.SelectedDate = _event.StartDate.Date;
+            _selectedDate = _event.StartDate.Date;
+            _availableTimes = _eventService.GetAvailableTimes(_selectedDate, _event);
+            ReservationCalendar.SelectedDate = _event.StartDate.Date;
+            ReservationCalendar.DisplayDate = _event.StartDate.Date;
+            PopulateTimeContentGrid(_availableTimes);
+            _timeButtonDictionary.TryGetValue(_event.StartDate.ToString("HH:mm"), out Button button);
+            TimeButton_Click(button, _event.StartDate);
+            PageTitle.Content = "Evenement Aanpassen";
+            if (_event.EndDate.AddHours(-1) != _event.StartDate && _event.EndDate.AddMinutes(-59) != _event.StartDate)
+            {
+                Button button2 = null;
+                DateTime time2 = new DateTime();
+                if (_event.EndDate.Minute == 0)
+                {
+                    time2 = _event.EndDate.AddHours(-1);
+                    _timeButtonDictionary.TryGetValue(time2.ToString("HH:mm"), out button2);
+                }
+                else
+                {
+                    time2 = _event.EndDate.AddMinutes(-59).AddSeconds(-59); 
+                    _timeButtonDictionary.TryGetValue(time2.ToString("HH:mm"), out button2);
+                }
+                if (button2 != null)
+                {
+                    TimeButton_Click(button2, time2);
+                }
+            }
+            CheckIfEdditable();
+        }
 
         private void PopulateTimeContentGrid(List<DateTime> availableDates)
         {
+            _timeButtonDictionary = new Dictionary<string, Button>();
+
             BoatGrid.Visibility = Visibility.Hidden;
             TimeBlockGrid.Visibility = Visibility.Visible;
 
@@ -103,10 +196,12 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
                 {
                     TimeContentGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
                 }
+                _timeButtonDictionary.Add(dateTime.ToString("HH:mm"), timeButton);
             }
         }
         private void DateIsSelected(object? sender, SelectionChangedEventArgs e)
         {
+            LoadBoats();
             var calendar = sender as Calendar;
             ClearExceptionText();
             TimeContentGrid.Children.Clear();
@@ -117,13 +212,20 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
                 {
                     _selectedDate = (DateTime)calendar.SelectedDate;
 
-                  
-                     if (_selectedDate < DateTime.Today.AddDays(14))
+
+                    if (_selectedDate < DateTime.Today.AddDays(14))
                     {
                         SetExceptionText("Selecteer een datum minimaal 14 dagen in de toekomst!");
                         return;
                     }
-                    _availableTimes = _eventService.GetAvailableTimes(_selectedDate);
+                    if (_isEdit && (_selectedDate == _event.StartDate.Date))
+                    {
+                        _availableTimes = _eventService.GetAvailableTimes(_selectedDate, _event);
+                    }
+                    else
+                    {
+                        _availableTimes = _eventService.GetAvailableTimes(_selectedDate);
+                    }
                     PopulateTimeContentGrid(_availableTimes);
 
                     SelectedDateTextBlock.Text = _selectedDate.ToString("dd MMMM yyyy");
@@ -133,7 +235,7 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
             }
             catch (Exception ex)
             {
-                ExceptionText.Text = ex.Message;
+                SetExceptionText(ex.Message);
                 TimeContentGrid.Children.Clear();
             }
         }
@@ -154,7 +256,7 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
         private void TimeButton_Click(Button clickedButton, DateTime dateTime)
         {
             ClearExceptionText();
-            
+
             if (_selectedTimes.Contains((dateTime)))
             {
                 // Deselect the button
@@ -184,7 +286,7 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
                 }
                 else
                 {
-                    SetExceptionText( "Selecteer het eerste en laatste tijdblok!");
+                    SetExceptionText("Selecteer het eerste en laatste tijdblok!");
                 }
             }
 
@@ -239,7 +341,7 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
             {
                 DateTime startTime = _selectedTimes[0];
                 DateTime endTime = _selectedTimes[1];
-                var range = Enumerable.Range(startTime.Hour, endTime.Hour);
+                var range = Enumerable.Range(0, (endTime.Hour-startTime.Hour));
                 foreach (var start in range)
                 {
                     if (!(_availableTimes.Contains(startTime.AddHours(start))))
@@ -260,12 +362,13 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
 
             NextButton.Visibility = Visibility.Hidden;
             SaveButton.Visibility = Visibility.Visible;
+            CheckIfEdditable();
         }
 
         private void PopulateBoatGrid(DateTime selectedDate, DateTime startTime, DateTime endTime)
         {
             List<Boat> availableBoatList = _boatList;
-
+            _boatButtons = new List<Button>();
             BoatContentStackPanel.Children.Clear();
             foreach (var boat in availableBoatList)
             {
@@ -279,9 +382,9 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
                 grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(300) });
                 grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(200) });
 
-                var imageconverter = new SingleStreamImageConverter(); 
+                var imageconverter = new SingleStreamImageConverter();
                 var source = imageconverter.Convert(boat.Image, typeof(ImageSource), null, null);
-                                
+
 
                 grid.Children.Add(new Image
                 {
@@ -337,7 +440,10 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
                     Content = grid,
                     Resources = new ResourceDictionary()
                 };
-
+                if (_selectedBoats.Where(b => b.Id == boat.Id).Count() >= 1)
+                {
+                    button.Background = CustomColors.ButtonBackgroundColor;
+                }
                 button.Tag = boat.Id;
 
                 Style borderStyle = new Style(typeof(Border));
@@ -374,30 +480,53 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
                 };
 
                 BoatContentStackPanel.Children.Add(button);
+                _boatButtons.Add(button);
             }
             ScrollViewerBoat.UpdateLayout();
         }
 
         private void SaveButton_OnClick(object sender, RoutedEventArgs e)
         {
-            if (_selectedBoats.Count >= 1)
+            if (_isEdit)
             {
                 try
                 {
-                    _eventService.CreateEvent(StartTime, EndTime, Description.Text, Name.Text, Int32.Parse(MaxPartisipants.Text), _selectedBoats, _loggedInMember);
-                    ExceptionText.Text = "Het Evenement is aangemaakt!";
+                    _eventService.UpdateEvent(_event, StartTime, EndTime, Description.Text, Name.Text, Int32.Parse(MaxPartisipants.Text), _loggedInMember, _selectedBoats);
+                    ExceptionText.Text = "Het Evenement is aangepast!";
                     ExceptionText.Foreground = Brushes.Lime;
                     ExceptionText.Visibility = Visibility.Visible;
                     PageTitle.SetValue(Grid.ColumnSpanProperty, 1);
+                    SaveButton.IsEnabled = false;
                 }
                 catch (Exception exception)
                 {
                     SetExceptionText(exception.Message);
                 }
             }
+            else
+            {
+                if (_selectedBoats.Count >= 1)
+                {
+                    try
+                    {
+                        _eventService.CreateEvent(StartTime, EndTime, Description.Text, Name.Text, Int32.Parse(MaxPartisipants.Text), _selectedBoats, _loggedInMember);
+                        ExceptionText.Text = "Het Evenement is aangemaakt!";
+                        ExceptionText.Foreground = Brushes.Lime;
+                        ExceptionText.Visibility = Visibility.Visible;
+                        PageTitle.SetValue(Grid.ColumnSpanProperty, 1);
+                        SaveButton.IsEnabled = false;
+                    }
+                    catch (Exception exception)
+                    {
+                        SetExceptionText(exception.Message);
+                    }
+                }
+            }
         }
-        private void FrameworkElement_OnLoaded(object sender, RoutedEventArgs e)
+  
+        private void LoadBoats()
         {
+            NextButton.IsEnabled = false;
             new Task(() =>
             {
                 _boatList = _boatService.GetBoats();
@@ -407,6 +536,15 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
                     NextButton.IsEnabled = true;
                 });
             }).Start();
+        }
+        
+        private void FrameworkElement_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            if (_isEdit)
+            {
+                SetEdit();
+            }
+            LoadBoats();
         }
     }
 }

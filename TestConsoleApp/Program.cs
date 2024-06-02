@@ -3,6 +3,8 @@ using MySqlConnector;
 using RoeiVerenigingLibrary;
 using RoeiVerenigingLibrary.Model;
 using System.Diagnostics;
+using RoeiVerenigingLibrary.Model;
+using RoeiVerenigingLibrary.Services;
 
 namespace TestConsoleApp
 {
@@ -10,15 +12,39 @@ namespace TestConsoleApp
     {
         private static void Main(string[] args)
         {
-            var EventRepository = new EventRepository();
-            var events = EventRepository.Get(1);
-            var list = EventRepository.GetEventReservationsIds(events);
-            foreach (var VARIABLE in list)
-            {
-                Console.Write($"{VARIABLE},");
-            }
-            Console.WriteLine(events);
+
+            // EventService eventService = new EventService(new EventRepository());
+            // Event ev = eventService.GetEventById(1);
+            // List<Event> evs = eventService.GetEventsFromPastMonths(3);
+            // foreach (var e in evs)
+            // {
+            //     Console.WriteLine(e.Name);
+            // }
+            //
+            //
+            //
+            // ev.AddParticipantsFromDatabase(new EventResultRepository());
+            // foreach (var participant in ev.Participants)
+            // {
+            //     Console.WriteLine("Event: " + participant.EventId + ", " + participant.FirstName + " " +
+            //                       participant.Infix + " " + participant.LastName + ": " +
+            //                       participant.ResultTime);
+            //     participant.ResultTime = new TimeSpan(1, 8, 1);
+            //     participant.saveResultTime(new EventResultRepository());
+            // }
+
+
+            //
+            // var EventRepository = new EventRepository();
+            // var events = EventRepository.Get(1);
+            // var list = EventRepository.GetEventReservationsIds(events);
+            // foreach (var VARIABLE in list)
+            // {
+            //     Console.Write($"{VARIABLE},");
+            // }
+            // Console.WriteLine(events);
             
+
             //Config.DBAdress = "adress";
             //Config.SetDBPassword("secret");
             //Config.SetDBUsername("username");
