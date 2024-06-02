@@ -10,7 +10,7 @@ public class ReservationRepository : IReservationRepository
     {
         using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
         {
-            connection.Open();
+            Retry.RetryConnectionOpen(connection);
             string query =
                 "UPDATE reservation SET boat_id = @boatId, start_time = @startTime, end_time = @endTime WHERE member_id = @memberId AND boat_id = @boatId AND reservation_id = @reservationid";
             Console.WriteLine(query);
@@ -39,7 +39,7 @@ public class ReservationRepository : IReservationRepository
     {
         using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
         {
-            connection.Open();
+            Retry.RetryConnectionOpen(connection);
             string query = "INSERT INTO reservation(boat_id, member_id, start_time, end_time)" +
                            "VALUES(@BoatId, @UserID, @StartingTime, @EndTime)";
             Console.WriteLine(query);
@@ -79,7 +79,7 @@ public class ReservationRepository : IReservationRepository
 
         using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
         {
-            connection.Open();
+            Retry.RetryConnectionOpen(connection);
             const string sql = "SELECT r.*, m.*, b.* " +
                                "FROM reservation AS r " +
                                "INNER JOIN members AS m ON r.member_id = m.member_id " +
@@ -128,7 +128,7 @@ public class ReservationRepository : IReservationRepository
     {
         using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
         {
-            connection.Open();
+            Retry.RetryConnectionOpen(connection);
             const string sql =
                 "SELECT COUNT(reservation_id) FROM reservation WHERE member_id = @Id AND start_time > NOW()";
 
@@ -153,7 +153,7 @@ public class ReservationRepository : IReservationRepository
     {
         using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
         {
-            connection.Open();
+            Retry.RetryConnectionOpen(connection);
             string sql =
                 "SELECT COUNT(*) FROM reservation WHERE boat_id = @BoatId AND ((start_time < @EndTime AND end_time > @StartTime))";
 
@@ -179,7 +179,7 @@ public class ReservationRepository : IReservationRepository
 
         using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
         {
-            connection.Open();
+            Retry.RetryConnectionOpen(connection);
             const string sql = "SELECT r.*, b.* " +
                                "FROM reservation AS r " +
                                "INNER JOIN boats b ON r.boat_id = b.id " +
@@ -216,7 +216,7 @@ public class ReservationRepository : IReservationRepository
     {
         using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
         {
-            connection.Open();
+            Retry.RetryConnectionOpen(connection);
             const string sql = "SELECT * FROM reservation WHERE `reservation_id` = @reservation_id";
 
             using (MySqlCommand command = new MySqlCommand(sql, connection))
@@ -246,7 +246,7 @@ public class ReservationRepository : IReservationRepository
     {
         using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
         {
-            connection.Open();
+            Retry.RetryConnectionOpen(connection);
             const string sql = "SELECT * FROM boats WHERE id = @Id ";
 
             using (MySqlCommand command = new MySqlCommand(sql, connection))
