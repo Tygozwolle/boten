@@ -62,16 +62,19 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
         }
         private void CheckIfEdditable()
         {
-            if (_event.StartDate < DateTime.Now.AddDays(14))
+            if (_isEdit)
             {
-                DisableAll();
-                
-                SetExceptionText("Dit evenement begint over minder dan 2 weken!");
-            }
-            if (!_mainWindow.LoggedInMember.Roles.Contains("beheerder")||!_mainWindow.LoggedInMember.Roles.Contains("evenementen_commissaris"))
-            {
-                DisableAll();
-                SetExceptionText("U heeft niet de juiste rechten om dit evenement aan te passen!");
+                if (_event.StartDate < DateTime.Now.AddDays(14))
+                {
+                    DisableAll();
+
+                    SetExceptionText("Dit evenement begint over minder dan 2 weken!");
+                }
+                if (!_mainWindow.LoggedInMember.Roles.Contains("beheerder") || !_mainWindow.LoggedInMember.Roles.Contains("evenementen_commissaris"))
+                {
+                    DisableAll();
+                    SetExceptionText("U heeft niet de juiste rechten om dit evenement aan te passen!");
+                }
             }
         }
         private void DisableAll()
@@ -338,7 +341,7 @@ namespace RoeiVerenigingWPF.Pages.EventCommissioner
             {
                 DateTime startTime = _selectedTimes[0];
                 DateTime endTime = _selectedTimes[1];
-                var range = Enumerable.Range(startTime.Hour, endTime.Hour);
+                var range = Enumerable.Range(0, (endTime.Hour-startTime.Hour));
                 foreach (var start in range)
                 {
                     if (!(_availableTimes.Contains(startTime.AddHours(start))))
