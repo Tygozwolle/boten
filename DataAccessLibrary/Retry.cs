@@ -12,7 +12,7 @@ namespace RoeiVerenigingLibrary
                 {
                     return method();
                 }
-                catch (MySqlException e)
+                catch (Exception e)
                 {
                     if (i == maxRetries - 1)
                     {
