@@ -277,43 +277,6 @@ namespace DataAccessLibrary
 
             return eventTemp;
         }
-
-        public List<Event> GetEvents()
-        {
-            using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
-            {
-                connection.Open();
-                List<EventParticipant> participants = new List<EventParticipant>(); // empty to fill later
-
-                const string sql =
-                    "SELECT * FROM events";
-
-                using (MySqlCommand command = new MySqlCommand(sql, connection))
-                {
-                    var events = new List<Event>();
-
-                    using (MySqlDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            int eventId = reader.GetInt32(0);
-                            string name = reader.GetString(1);
-                            string description = reader.GetString(2);
-                            int max_participants = reader.GetInt32(3);
-                            DateTime start_time = reader.GetDateTime(4);
-                            DateTime end_time = reader.GetDateTime(5);
-
-                            Event addEvent = new(participants, start_time, end_time, description, name, eventId,
-                                max_participants, GetBoats(eventId));
-                            events.Add(addEvent);
-                        }
-
-                    }
-
-                    return events;
-                }
-            }
-        }
         public List<Event> GetEventsFuture()
         {
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))

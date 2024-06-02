@@ -29,7 +29,13 @@ namespace RoeiVerenigingWPF.Pages
 
         private void Grid_OnMouseDown(object sender, MouseButtonEventArgs e)
         {
+            if (sender is Grid)
+            {
+                object command = ((Grid)sender).Tag;
 
+                //TODO:Deelname page hiernaar toe
+                //MainWindow.MainContent.Navigate());
+            }
         }
     }
 }

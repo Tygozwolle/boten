@@ -29,11 +29,9 @@ namespace RoeiVerenigingWPF.Pages.Member
         {
             if (sender is Grid)
             {
-                Grid casted = sender as Grid;
-                object command = casted.Tag;
-                int id = Int32.Parse(command.ToString());
+                object command = ((Grid)sender).Tag;
 
-
+                //TODO:Deelname page hiernaar toe
                 //MainWindow.MainContent.Navigate());
             }
         }

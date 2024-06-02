@@ -39,9 +39,9 @@ namespace RoeiVerenigingLibrary.Services
                         boatsToRemove.Add(boat);
                     }
                 }
-                
+
                 //TODO: check if max participants is not less than the amount of participants
-                return _eventRepository.Change(events, startDate, endDate, description, name, maxParticipants , boatsToAdd, boatsToRemove);
+                return _eventRepository.Change(events, startDate, endDate, description, name, maxParticipants, boatsToAdd, boatsToRemove);
             }
             return null;
         }
@@ -98,7 +98,7 @@ namespace RoeiVerenigingLibrary.Services
         public List<DateTime> GetAvailableTimes(DateTime selcetedDate, Event events)
         {
             var timeAvailableList = GetAvailableTimes(selcetedDate);
-            
+
             var timesToAdd = Enumerable.Range(0, (events.EndDate - events.StartDate).Hours)
                 .Select(i => events.StartDate.AddHours(i)).ToList();
             foreach (var add in timesToAdd)
@@ -133,11 +133,11 @@ namespace RoeiVerenigingLibrary.Services
         {
             if (all)
             {
-                return _eventRepository.GetEvents();
+                return _eventRepository.GetAll();
             }
 
             return _eventRepository.GetEventsFuture();
-}
+        }
 
         public List<Event> GetEventsFromPastMonths(int AmountOfMonths)
         {
