@@ -10,7 +10,12 @@ namespace DataAccessLibrary
             var boat = new List<Boat>();
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
             {
-                connection.Open();
+                // Retry.RetryMethod(()=>
+                // {
+                //      connection.Open();
+                //      return true;
+                // });
+                Retry.RetryConnectionOpen(connection);
                 string sql = "SELECT * FROM boats";
 
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
@@ -38,8 +43,7 @@ namespace DataAccessLibrary
         {
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
             {
-                connection.Open();
-
+                Retry.RetryConnectionOpen(connection);
                 const string sql = "SELECT * FROM `boats` WHERE `id` = @boatId";
 
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
@@ -71,7 +75,7 @@ namespace DataAccessLibrary
         {
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
             {
-                connection.Open();
+                Retry.RetryConnectionOpen(connection);
 
                 const string sql =
                     $"INSERT INTO `boats`( `captain_seat_available`, `seats`, `level`, `description`, `name`) VALUES (@captainSeat,@seats,@level,@description,@name)";
@@ -102,7 +106,7 @@ namespace DataAccessLibrary
         {
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
             {
-                connection.Open();
+                Retry.RetryConnectionOpen(connection);
 
                 const string sql =
                     $"UPDATE `boats` SET `captain_seat_available` = @captainSeat, `seats` = @seats, `level` = @level, `description` = @description, `name` = @name WHERE id = @id";
@@ -136,7 +140,7 @@ namespace DataAccessLibrary
         {
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
             {
-                connection.Open();
+                Retry.RetryConnectionOpen(connection);
 
                 const string sql = "DELETE FROM `boats` WHERE `id` = @id";
 
@@ -153,7 +157,7 @@ namespace DataAccessLibrary
         {
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
             {
-                connection.Open();
+                Retry.RetryConnectionOpen(connection);
 
                 const string sql = "INSERT INTO `boat_images`(`id`, `image`) VALUES (@boatId, @image)";
 
@@ -177,7 +181,7 @@ namespace DataAccessLibrary
         {
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
             {
-                connection.Open();
+                Retry.RetryConnectionOpen(connection);
 
                 const string sql = "SELECT `image` FROM `boat_images` WHERE `id` = @boatId";
 
@@ -202,7 +206,7 @@ namespace DataAccessLibrary
         {
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
             {
-                connection.Open();
+                Retry.RetryConnectionOpen(connection);
 
                 const string sql = "UPDATE `boat_images` SET `image` = @image WHERE `id` = @boatId";
 

@@ -12,7 +12,7 @@ namespace DataAccessLibrary
             var reservations = GetEventReservationsIds(events);
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
             {
-                connection.Open();
+                Retry.RetryConnectionOpen(connection);
                 using (MySqlTransaction transaction = connection.BeginTransaction())
                 {
                     try
@@ -145,7 +145,7 @@ namespace DataAccessLibrary
             var list = new List<int>();
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
             {
-                connection.Open();
+                Retry.RetryConnectionOpen(connection);
 
                 const string sql = "SELECT `reservation_id` FROM `reservation` WHERE `boat_id` IN (SELECT `boat_id` FROM `event_reserved_boats` WHERE `event_id` = @id) " +
                                    "AND `start_time` = @start_time " +
