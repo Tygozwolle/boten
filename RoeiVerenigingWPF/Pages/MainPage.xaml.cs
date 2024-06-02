@@ -19,7 +19,7 @@ namespace RoeiVerenigingWPF.Pages
 
         public void TrendButtonClick(object sender, RoutedEventArgs e)
         {
-            MainWindow.MainContent.Navigate(new ViewTrends(new ViewStatistics(this.MainWindow)));
+            MainWindow.MainContent.Navigate(new ViewTrends(this.MainWindow));
         }
     }
 }

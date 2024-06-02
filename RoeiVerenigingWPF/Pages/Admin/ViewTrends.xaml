@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:wpf="clr-namespace:InteractiveDataDisplay.WPF;assembly=InteractiveDataDisplay.WPF"
       xmlns:helpers="clr-namespace:RoeiVerenigingWPF.helpers"
+      xmlns:oxy="http://oxyplot.org/wpf"
 
       mc:Ignorable="d"
       Title="ViewTrends">
@@ -14,6 +15,7 @@
         <Grid.Effect>
             <DropShadowEffect Color="Black" Direction="320" ShadowDepth="10" Opacity="0.3" />
         </Grid.Effect>
+        <oxy:PlotView Name="PlotView"></oxy:PlotView>
         <Border CornerRadius="30" BorderThickness="5" BorderBrush="{x:Static helpers:CustomColors.OutsideBorderColor}">
             <Border CornerRadius="24" BorderThickness="8"
                     BorderBrush="{x:Static helpers:CustomColors.MainBackgroundColor}"
@@ -30,8 +32,10 @@
                             </wpf:Chart.Title>
                             <wpf:LineGraph x:Name="LineGraph" Description="speed" Stroke="Blue" StrokeThickness="3">
                             </wpf:LineGraph>
-                            <!-- <wpf:BarGraph x:Name="BarGraph" Description="brokenBoats" BarsWidth="10" Stroke="Red" ></wpf:BarGraph> -->
+                            
                         </wpf:Chart>
+                    <wpf:BarGraph Name="BarPlotter" Visibility="Hidden"></wpf:BarGraph>
+                    
                     <Rectangle
                         Width="400" Height="800" Fill="Transparent" Stroke="{x:Static helpers:CustomColors.OutsideBorderColor}" StrokeThickness="4"
                         RadiusX="20" RadiusY="20" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,25,0"/>

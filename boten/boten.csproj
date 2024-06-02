@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <PackageReference Include="InteractiveDataDisplay.WPF" Version="1.0.0" />
+    <PackageReference Include="Oxyplot" Version="1.0.0" />
   </ItemGroup>
 
 </Project>
