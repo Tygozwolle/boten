@@ -12,7 +12,7 @@ namespace DataAccessLibrary
             var systemId = GetSystemId();
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
             {
-                connection.Open();
+                Retry.RetryConnectionOpen(connection);
                 using (MySqlTransaction transaction = connection.BeginTransaction())
                 {
                     try

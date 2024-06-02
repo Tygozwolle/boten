@@ -9,7 +9,7 @@ public class MemberRepository : IMemberRepository
     {
         using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
         {
-            connection.Open();
+            Retry.RetryConnectionOpen(connection);
             const string sql = $"SELECT * FROM members WHERE email = @email AND password = @passwordHash";
 
             using (MySqlCommand command = new MySqlCommand(sql, connection))
@@ -44,7 +44,7 @@ public class MemberRepository : IMemberRepository
     {
         using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
         {
-            connection.Open();
+            Retry.RetryConnectionOpen(connection);
             const string sql = "SELECT * FROM members WHERE member_id = @id";
 
             using (MySqlCommand command = new MySqlCommand(sql, connection))
@@ -70,7 +70,7 @@ public class MemberRepository : IMemberRepository
     {
         using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
         {
-            connection.Open();
+            Retry.RetryConnectionOpen(connection);
             const string sql =
                 "UPDATE `members` SET `first_name` = @firstName, `infix` = @infix, `last_name` = @lastName, `email` = @email, `level` = @level WHERE `member_id` = @id";
 
@@ -105,7 +105,7 @@ public class MemberRepository : IMemberRepository
     {
         using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
         {
-            connection.Open();
+            Retry.RetryConnectionOpen(connection);
             const string sql =
                 "UPDATE `members` SET `first_name` = @firstName, `infix` = @infix, `last_name` = @lastName, `email` = @email WHERE `member_id` = @id";
 
@@ -138,7 +138,7 @@ public class MemberRepository : IMemberRepository
     {
         using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
         {
-            connection.Open();
+            Retry.RetryConnectionOpen(connection);
 
             const string sql =
                 "INSERT INTO `members`( `first_name`,`infix`, `last_name`, `email`, `password`, `level`) VALUES (@firstName,@infix,@lastName,@email,@passwordHash, @level)";
@@ -175,7 +175,7 @@ public class MemberRepository : IMemberRepository
     {
         using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
         {
-            connection.Open();
+            Retry.RetryConnectionOpen(connection);
             const string sql =
                 "UPDATE `members` SET `password` = @passwordHash WHERE `email` = @email;";
 
@@ -198,7 +198,7 @@ public class MemberRepository : IMemberRepository
 
         using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
         {
-            connection.Open();
+            Retry.RetryConnectionOpen(connection);
             const string sql = "SELECT * FROM members";
 
             using (MySqlCommand command = new MySqlCommand(sql, connection))
@@ -238,7 +238,7 @@ public class MemberRepository : IMemberRepository
         {
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
             {
-                connection.Open();
+                Retry.RetryConnectionOpen(connection);
                 const string sql = "SELECT * FROM member_roles";
 
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
@@ -261,7 +261,7 @@ public class MemberRepository : IMemberRepository
     {
         using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
         {
-            connection.Open();
+            Retry.RetryConnectionOpen(connection);
             string insertSql = "INSERT INTO member_roles(member_id, role) VALUES (@memberId, @role)";
             using (MySqlCommand insertCommand = new MySqlCommand(insertSql, connection))
             {
@@ -278,7 +278,7 @@ public class MemberRepository : IMemberRepository
     {
         using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
         {
-            connection.Open();
+            Retry.RetryConnectionOpen(connection);
             string deleteSql = "DELETE FROM member_roles WHERE member_id = @memberId";
             using (MySqlCommand deleteCommand = new MySqlCommand(deleteSql, connection))
             {
@@ -294,7 +294,7 @@ public class MemberRepository : IMemberRepository
         var roles = new List<string>();
         using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
         {
-            connection.Open();
+            Retry.RetryConnectionOpen(connection);
             const string sql = "SELECT DISTINCT role FROM member_roles";
 
             using (MySqlCommand command = new MySqlCommand(sql, connection))
@@ -316,7 +316,7 @@ public class MemberRepository : IMemberRepository
     {
         using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
         {
-            connection.Open();
+            Retry.RetryConnectionOpen(connection);
             const string sql = "SELECT * FROM members WHERE member_id = @Id ";
 
             using (MySqlCommand command = new MySqlCommand(sql, connection))
@@ -349,7 +349,7 @@ public class MemberRepository : IMemberRepository
         var list = new List<string>();
         using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
         {
-            connection.Open();
+            Retry.RetryConnectionOpen(connection);
             const string sql = "SELECT * FROM member_roles WHERE member_id = @id";
 
             using (MySqlCommand command = new MySqlCommand(sql, connection))
