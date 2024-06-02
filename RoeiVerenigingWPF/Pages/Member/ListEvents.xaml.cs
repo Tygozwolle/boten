@@ -13,15 +13,14 @@ namespace RoeiVerenigingWPF.Pages.Member
 
     public partial class ListEvents : Page
     {
-
-        public List<Event> _events { get; set; }
+        public List<Event> EventsList { get; set; }
         private EventService _eventService = new(new EventRepository());
         private MainWindow MainWindow;
         public ListEvents(MainWindow mainWindow)
         {
             InitializeComponent();
             MainWindow = mainWindow;
-            _events = _eventService.GetEvents(true);
+            EventsList = _eventService.GetEvents(true);
             DataContext = this;
             InitializeComponent();
         }

@@ -1,12 +1,12 @@
+using DataAccessLibrary;
+using RoeiVerenigingLibrary.Services;
 using RoeiVerenigingWPF.Frames;
 using RoeiVerenigingWPF.Pages;
+using RoeiVerenigingWPF.Pages.Member;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using DataAccessLibrary;
-using RoeiVerenigingLibrary.Services;
-using RoeiVerenigingWPF.Pages.Member;
 
 namespace RoeiVerenigingWPF.Components
 {
@@ -73,7 +73,7 @@ namespace RoeiVerenigingWPF.Components
                     try
                     {
                         ChangeColorOfRectangle(EventResultRectangle);
-                        //MainWindow.MainContent.Navigate(new EventResult(MainWindow, new EventService(new EventRepository()).GetEventById(1)));
+                        MainWindow.MainContent.Navigate(new EventResult(MainWindow, new EventService(new EventRepository()).GetEventById(1)));
                     }
                     catch (Exception exception)
                     {

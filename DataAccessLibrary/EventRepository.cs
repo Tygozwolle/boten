@@ -299,13 +299,13 @@ namespace DataAccessLibrary
                             int eventId = reader.GetInt32(0);
                             string name = reader.GetString(1);
                             string description = reader.GetString(2);
-                            int maxParticipants = reader.GetInt32(3);
-                            DateTime startTime = reader.GetDateTime(4);
-                            DateTime endTime = reader.GetDateTime(5);
+                            int max_participants = reader.GetInt32(3);
+                            DateTime start_time = reader.GetDateTime(4);
+                            DateTime end_time = reader.GetDateTime(5);
 
-                            Event addevent = new(participants, startTime, endTime, description, name, eventId,
-                                maxParticipants, GetBoats(eventId));
-                            events.Add(addevent);
+                            Event addEvent = new(participants, start_time, end_time, description, name, eventId,
+                                max_participants, GetBoats(eventId));
+                            events.Add(addEvent);
                         }
 
                     }
@@ -335,13 +335,13 @@ namespace DataAccessLibrary
                             int eventId = reader.GetInt32(0);
                             string name = reader.GetString(1);
                             string description = reader.GetString(2);
-                            int maxParticipants = reader.GetInt32(3);
-                            DateTime startTime = reader.GetDateTime(4);
-                            DateTime endTime = reader.GetDateTime(5);
+                            int max_participants = reader.GetInt32(3);
+                            DateTime start_time = reader.GetDateTime(4);
+                            DateTime end_time = reader.GetDateTime(5);
 
-                            Event addevent = new(participants, startTime, endTime, description, name, eventId,
-                                maxParticipants, GetBoats(eventId));
-                            events.Add(addevent);
+                            Event addEvent = new(participants, start_time, end_time, description, name, eventId,
+                                max_participants, GetBoats(eventId));
+                            events.Add(addEvent);
                         }
 
                     }

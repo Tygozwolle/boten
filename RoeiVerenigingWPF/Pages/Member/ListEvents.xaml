@@ -27,7 +27,7 @@
                 Foreground="{x:Static local:CustomColors.HeaderColor}" Grid.ColumnSpan="2" />
 
                     <Grid Grid.Row="1">
-                        <ListView ItemsSource="{Binding _events}" Grid.IsSharedSizeScope="True"
+                        <ListView ItemsSource="{Binding EventsList}" Grid.IsSharedSizeScope="True"
                          d:ItemsSource="{d:SampleData ItemCount=5}" Name="ListView"
                          ScrollViewer.VerticalScrollBarVisibility="Auto" BorderBrush="Transparent" MaxHeight="750">
                             <ListView.ItemContainerStyle>

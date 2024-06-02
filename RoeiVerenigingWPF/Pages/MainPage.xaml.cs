@@ -10,19 +10,15 @@ namespace RoeiVerenigingWPF.Pages
 {
     public partial class MainPage : Page
     {
-        //TODO: dit aanpassen naar database ophalen, skylabs ligt eruit
-        public List<Event> _events { get; set; }
+        public List<Event> EventsList { get; set; }
         private EventService _eventService = new(new EventRepository());
-
-
-        public Event eEvent { get; set; }
         public MainPage(MainWindow mainWindow)
         {
             InitializeComponent();
             MainWindow = mainWindow;
-            _events = _eventService.GetEvents(false);
+            EventsList = _eventService.GetEvents(false);
             DataContext = this;
-            //StatisticsFrame.Content = new ViewStatistics(mainWindow);
+            StatisticsFrame.Content = new ViewStatistics(mainWindow);
         }
         public MainWindow MainWindow { get; set; }
 

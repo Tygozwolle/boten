@@ -5,15 +5,17 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:RoeiVerenigingWPF.helpers"
       mc:Ignorable="d"
-      Title="MainPage" Height="900" Width="1000">
+      Title="MainPage">
     <!--Events-->
     <Grid>
-        <Border CornerRadius="15" BorderThickness="5" BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="950"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Border Margin="10 0, 0, 0"  Height="900" Width="1000" Grid.Column="0" CornerRadius="15" BorderThickness="5" BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}">
             <Border CornerRadius="10" BorderThickness="8"
             BorderBrush="{x:Static local:CustomColors.MainBackgroundColor}">
-                <Grid Height="900" Width="1000" Background="{x:Static local:CustomColors.MainBackgroundColor}"
-              HorizontalAlignment="Center"
-              VerticalAlignment="Center">
+                <Grid Height="900" Width="1000" Background="{x:Static local:CustomColors.MainBackgroundColor}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
                         <RowDefinition/>
@@ -27,7 +29,7 @@
                     Foreground="{x:Static local:CustomColors.HeaderColor}" Grid.ColumnSpan="2" />
 
                     <Grid Grid.Row="1">
-                        <ListView ItemsSource="{Binding _events}" Grid.IsSharedSizeScope="True"
+                        <ListView ItemsSource="{Binding EventsList}" Grid.IsSharedSizeScope="True"
                              d:ItemsSource="{d:SampleData ItemCount=5}" Name="ListView"
                              ScrollViewer.VerticalScrollBarVisibility="Auto" BorderBrush="Transparent" MaxHeight="750">
                             <!--Loaded="ListView_Loaded voor in list view ophalen-->
@@ -99,5 +101,7 @@
                 </Grid>
             </Border>
         </Border>
+
+        <Frame Grid.Column="1" Name="StatisticsFrame"></Frame>
     </Grid>
 </Page>
