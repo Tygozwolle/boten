@@ -123,7 +123,7 @@ namespace RoeiVerenigingWPF.Frames
             MainContent.Visibility = Visibility.Hidden;
             LoginContent.Visibility = Visibility.Visible;
             _loggedInMember = null;
-            StartNewProcess();
+            
         }
 
         private void ManageApp_Click(object sender, RoutedEventArgs e)
