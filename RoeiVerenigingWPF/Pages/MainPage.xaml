@@ -27,7 +27,7 @@
                     Foreground="{x:Static local:CustomColors.HeaderColor}" Grid.ColumnSpan="2" />
 
                     <Grid Grid.Row="1">
-                        <ListView ItemsSource="{Binding eEvent}" Grid.IsSharedSizeScope="True"
+                        <ListView ItemsSource="{Binding _events}" Grid.IsSharedSizeScope="True"
                              d:ItemsSource="{d:SampleData ItemCount=5}" Name="ListView"
                              ScrollViewer.VerticalScrollBarVisibility="Auto" BorderBrush="Transparent" MaxHeight="750">
                             <!--Loaded="ListView_Loaded voor in list view ophalen-->
@@ -53,7 +53,7 @@
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <!--Grids that get repicated-->
-                                    <Grid Height="300" Width="900" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 10, 0, 10">
+                                    <Grid Height="300" Width="900" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 10, 0, 10"  MouseDown="Grid_OnMouseDown" Tag="{Binding Id}">
                                         <Grid.Effect>
                                             <DropShadowEffect Color="Black" Direction="320" ShadowDepth="10" Opacity="0.3" />
                                         </Grid.Effect>
@@ -73,17 +73,17 @@
                                                     </Grid.RowDefinitions>
                                                     <!--left-->
                                                     <StackPanel Grid.Row="0" Grid.Column="0">
-                                                        <TextBlock Text="{Binding Name}" Foreground="{x:Static local:CustomColors.HeaderColor}" FontSize="32"></TextBlock>
+                                                        <TextBlock Text="{Binding Name}" Foreground="{x:Static local:CustomColors.HeaderColor}" TextWrapping="Wrap" FontSize="32"></TextBlock>
                                                     </StackPanel>
                                                     <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
-                                                        <TextBlock x:Name="description" Text="{Binding Description}" Foreground="{x:Static local:CustomColors.HeaderColor}" FontSize="20" TextWrapping="Wrap"></TextBlock>
+                                                        <TextBlock x:Name="description" Text="{Binding Description}" Foreground="{x:Static local:CustomColors.HeaderColor}" FontSize="20" TextWrapping="Wrap" MaxWidth="850" MaxHeight="300"></TextBlock>
                                                     </StackPanel>
                                                     
                                                     <!--right-->
                                                     <StackPanel Grid.Row="0" Grid.Column="1">
-                                                        <TextBlock Text="{Binding StartDate}" HorizontalAlignment="Right" Margin="0, 0, 30 ,0" FontSize="20"></TextBlock>
-                                                        <TextBlock Text="{Binding EndDate}" HorizontalAlignment="Right" Margin="0, 0, 30 ,0" FontSize="20"></TextBlock>
-                                                        <TextBlock Text="{Binding MaxParticipants}" HorizontalAlignment="Right" Margin="0, 0, 30 ,0" FontSize="20"></TextBlock>
+                                                        <TextBlock Text="{Binding StartDate, StringFormat='Begint: {0}'}" HorizontalAlignment="Right" Margin="0, 0, 30 ,0" FontSize="20"></TextBlock>
+                                                        <TextBlock Text="{Binding EndDate, StringFormat='Eindigt: {0}'}" HorizontalAlignment="Right" Margin="0, 0, 30 ,0" FontSize="20"></TextBlock>
+                                                        <TextBlock Text="{Binding MaxParticipants , StringFormat='Maximaal: {0}'}" HorizontalAlignment="Right" Margin="0, 0, 30 ,0" FontSize="20"></TextBlock>
                                                     </StackPanel>
                                                 </Grid>
                                             </Border>

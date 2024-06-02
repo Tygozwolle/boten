@@ -154,7 +154,7 @@ namespace DataAccessLibrary
                 List<EventParticipant> participants = new List<EventParticipant>(); // empty to fill later
 
                 const string sql =
-                    "SELECT * FROM 'events'";
+                    "SELECT * FROM events";
 
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {

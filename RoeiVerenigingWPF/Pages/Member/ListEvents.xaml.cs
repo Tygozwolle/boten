@@ -1,7 +1,9 @@
-﻿using RoeiVerenigingLibrary.Model;
+﻿using DataAccessLibrary;
+using RoeiVerenigingLibrary.Model;
+using RoeiVerenigingLibrary.Services;
 using RoeiVerenigingWPF.Frames;
-using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace RoeiVerenigingWPF.Pages.Member
 {
@@ -11,26 +13,30 @@ namespace RoeiVerenigingWPF.Pages.Member
 
     public partial class ListEvents : Page
     {
-        //public List<Event> _events { get; set; }
-        //private EventService _eventService { get; set; }
 
-        private static RoeiVerenigingLibrary.Member member1 = new(5, "Pieter", "van", "huizen", "pieter@gmail.com", 2);
-        private static EventParticipant eventParticipant = new(member1, 4, TimeSpan.MaxValue);
-        private static List<EventParticipant> eventParticipantlist = new();
+        public List<Event> _events { get; set; }
+        private EventService _eventService = new(new EventRepository());
         private MainWindow MainWindow;
-        public Event eEvent { get; set; }
         public ListEvents(MainWindow mainWindow)
         {
+            InitializeComponent();
             MainWindow = mainWindow;
-            //_events = _eventService.GetEvents(true);
-
+            _events = _eventService.GetEvents(true);
+            DataContext = this;
             InitializeComponent();
         }
 
-        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        private void UIElement_OnMouseDown(object sender, MouseButtonEventArgs e)
         {
-            //MainWindow.MainContent.Navigate();
-            //TODO:navigate naar aanmaken evenement
+            if (sender is Grid)
+            {
+                Grid casted = sender as Grid;
+                object command = casted.Tag;
+                int id = Int32.Parse(command.ToString());
+
+
+                //MainWindow.MainContent.Navigate());
+            }
         }
     }
 }
