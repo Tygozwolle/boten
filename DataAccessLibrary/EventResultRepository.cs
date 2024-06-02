@@ -10,7 +10,7 @@ public class EventResultRepository : IEventResultRepository
     {
         using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
         {
-            connection.Open();
+            Retry.RetryConnectionOpen(connection);
 
             const string sql = @"
         UPDATE `event_participant`
@@ -42,7 +42,7 @@ public class EventResultRepository : IEventResultRepository
 
         using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
         {
-            connection.Open();
+            Retry.RetryConnectionOpen(connection);
 
             const string sql = @"
     SELECT m.*, ep.*
