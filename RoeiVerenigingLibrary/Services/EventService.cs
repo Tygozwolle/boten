@@ -1,12 +1,6 @@
 ﻿using RoeiVerenigingLibrary.Exceptions;
 using RoeiVerenigingLibrary.Interfaces;
 using RoeiVerenigingLibrary.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices.JavaScript;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RoeiVerenigingLibrary.Services
 {
@@ -60,7 +54,7 @@ namespace RoeiVerenigingLibrary.Services
         {
             return Eventcheck(startDate, endDate, description, name, maxParticipants, boats, loggedInMember, null);
         }
-        
+
         public bool CheckIfEventIsPosibly(DateTime startTime, DateTime endTime)
         {
             return CheckIfEventIsPosibly(startTime, endTime, null);
@@ -72,7 +66,7 @@ namespace RoeiVerenigingLibrary.Services
             {
                 if (startTime < eventob.EndDate && endTime > eventob.StartDate)
                 {
-                    if(currentEvent == null)
+                    if (currentEvent == null)
                     {
                         return false;
                     }
@@ -89,13 +83,13 @@ namespace RoeiVerenigingLibrary.Services
             List<Event> events = _eventRepository.GetAll();
 
             DateTime startTime = selectedDate.Date;
-            
+
             Dictionary<DateTime, int> reservationsPerTimeBlock = events
                 .SelectMany(eventob => Enumerable.Range(0, (eventob.EndDate - eventob.StartDate).Hours)
                     .Select(i => eventob.StartDate.AddHours(i)))
                 .GroupBy(time => time)
                 .ToDictionary(group => group.Key, group => group.Count());
-            
+
             List<DateTime> timeAvailableList = Enumerable.Range(0, 24)
                 .Select(i => startTime.AddHours(i))
                 .Where(time =>
@@ -112,7 +106,7 @@ namespace RoeiVerenigingLibrary.Services
                 return _eventRepository.GetEvents();
             }
 
-            return _eventRepository.GetEvents();
+            return _eventRepository.GetEventsFuture();
         }
     }
 

@@ -182,6 +182,42 @@ namespace DataAccessLibrary
                 }
             }
         }
+        public List<Event> GetEventsFuture()
+        {
+            using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
+            {
+                connection.Open();
+                List<EventParticipant> participants = new List<EventParticipant>(); // empty to fill later
+
+                const string sql =
+                    "SELECT * FROM events WHERE start_time > CURDATE()";
+
+                using (MySqlCommand command = new MySqlCommand(sql, connection))
+                {
+                    var events = new List<Event>();
+
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            int eventId = reader.GetInt32(0);
+                            string name = reader.GetString(1);
+                            string description = reader.GetString(2);
+                            int maxParticipants = reader.GetInt32(3);
+                            DateTime startTime = reader.GetDateTime(4);
+                            DateTime endTime = reader.GetDateTime(5);
+
+                            Event addevent = new(participants, startTime, endTime, description, name, eventId,
+                                maxParticipants, GetBoats(eventId));
+                            events.Add(addevent);
+                        }
+
+                    }
+
+                    return events;
+                }
+            }
+        }
         public List<Event> GetEventsFromPastMonths(int AmountOfMonths)
         {
             List<Event> events = new List<Event>();

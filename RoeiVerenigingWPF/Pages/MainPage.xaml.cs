@@ -12,7 +12,7 @@ namespace RoeiVerenigingWPF.Pages
     {
         //TODO: dit aanpassen naar database ophalen, skylabs ligt eruit
         public List<Event> _events { get; set; }
-        private EventService _eventService = new EventService(new EventRepository());
+        private EventService _eventService = new(new EventRepository());
 
 
         public Event eEvent { get; set; }
@@ -20,7 +20,7 @@ namespace RoeiVerenigingWPF.Pages
         {
             InitializeComponent();
             MainWindow = mainWindow;
-            _events = _eventService.GetEvents(true);
+            _events = _eventService.GetEvents(false);
             DataContext = this;
             //StatisticsFrame.Content = new ViewStatistics(mainWindow);
         }
