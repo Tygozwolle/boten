@@ -28,7 +28,7 @@
 
                     <Button Grid.Row="0" Grid.Column="1" Width="230" Height="70" HorizontalAlignment="Right" VerticalAlignment="Top"
                     Margin="0,20,20,0"
-                    Content="Evenement aanmaken"
+                    Content="Evenement aanmaken" Click="ButtonBase_OnClick"
                     FontFamily="Franklin Gothic Medium" FontSize="20"
                     Foreground="{x:Static local:CustomColors.HeaderColor}"
                     Background="{x:Static local:CustomColors.ButtonBackgroundColor}"
@@ -40,7 +40,7 @@
                         </Button.Resources>
                     </Button>
                     <Grid Grid.Row="1">
-                        <ListView ItemsSource="{Binding _events}" Grid.IsSharedSizeScope="True"
+                        <ListView ItemsSource="{Binding eEvent}" Grid.IsSharedSizeScope="True"
                          d:ItemsSource="{d:SampleData ItemCount=5}" Name="ListView"
                          ScrollViewer.VerticalScrollBarVisibility="Auto" BorderBrush="Transparent" MaxHeight="750">
                             <ListView.ItemContainerStyle>
@@ -88,14 +88,14 @@
                                                         <TextBlock Text="{Binding Name }" Foreground="{x:Static local:CustomColors.HeaderColor}" FontSize="32"></TextBlock>
                                                     </StackPanel>
                                                     <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
-                                                        <TextBlock Text="Beschrijving:" Foreground="{x:Static local:CustomColors.HeaderColor}" FontSize="20" TextWrapping="Wrap"></TextBlock>
+                                                        <TextBlock Text="{Binding Description}" Foreground="{x:Static local:CustomColors.HeaderColor}" FontSize="20" TextWrapping="Wrap"></TextBlock>
                                                     </StackPanel>
 
                                                     <!--right-->
                                                     <StackPanel Grid.Row="0" Grid.Column="1">
-                                                        <TextBlock Text="begin Datum" HorizontalAlignment="Right" Margin="0, 0, 30 ,0" FontSize="20"></TextBlock>
-                                                        <TextBlock Text="eind Datum" HorizontalAlignment="Right" Margin="0, 0, 30 ,0" FontSize="20"></TextBlock>
-                                                        <TextBlock Text="Aantal mensen" HorizontalAlignment="Right" Margin="0, 0, 30 ,0" FontSize="20"></TextBlock>
+                                                        <TextBlock Text="{Binding StartDate}" HorizontalAlignment="Right" Margin="0, 0, 30 ,0" FontSize="20"></TextBlock>
+                                                        <TextBlock Text="{Binding EndDate}" HorizontalAlignment="Right" Margin="0, 0, 30 ,0" FontSize="20"></TextBlock>
+                                                        <TextBlock Text="{Binding MaxParticipants}" HorizontalAlignment="Right" Margin="0, 0, 30 ,0" FontSize="20"></TextBlock>
                                                     </StackPanel>
                                                 </Grid>
                                             </Border>
