@@ -10,11 +10,6 @@ namespace DataAccessLibrary
             var boat = new List<Boat>();
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
             {
-                // Retry.RetryMethod(()=>
-                // {
-                //      connection.Open();
-                //      return true;
-                // });
                 Retry.RetryConnectionOpen(connection);
                 string sql = "SELECT * FROM boats";
 
