@@ -28,12 +28,6 @@ namespace RoeiVerenigingWPF.Components
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (MainWindow.LoggedInMember == null)
-            {
-                MessageBox.Show("Log eerst in");
-                return;
-            }
-
             switch (sender)
             {
                 case Button button when button == BotenButton:
@@ -44,14 +38,13 @@ namespace RoeiVerenigingWPF.Components
                     }
                     catch (Exception exception)
                     {
-                        Console.WriteLine(exception.Message);
+                        ExceptionTextBlock.Text = exception.Message;
                     }
 
                     break;
                 case Button button when button == DamageButton:
                     try
                     {
-
                         if (MainWindow.LoggedInMember.Roles.Contains("materiaal_commissaris"))
                         {
                             MainWindow.MainContent.Navigate(new ManageDamageOverview(MainWindow));
@@ -59,12 +52,13 @@ namespace RoeiVerenigingWPF.Components
 
                             break;
                         }
+
                         MainWindow.MainContent.Navigate(new DamageOverview(MainWindow));
                         ChangeColorOfRectangle(DamageRectangle);
                     }
                     catch (Exception exception)
                     {
-                        Console.WriteLine(exception.Message);
+                        ExceptionTextBlock.Text = exception.Message;
                     }
 
                     break;
@@ -73,12 +67,14 @@ namespace RoeiVerenigingWPF.Components
                     try
                     {
                         ChangeColorOfRectangle(EventResultRectangle);
-                        MainWindow.MainContent.Navigate(new EventResult(MainWindow, new EventService(new EventRepository()).GetEventById(1)));
+                        MainWindow.MainContent.Navigate(new EventResult(MainWindow,
+                            new EventService(new EventRepository()).GetEventById(1)));
                     }
                     catch (Exception exception)
                     {
-                        Console.WriteLine(exception);
+                        ExceptionTextBlock.Text = exception.Message;
                     }
+
                     break;
 
                 case Button button when button == ReserveButton:
@@ -89,16 +85,15 @@ namespace RoeiVerenigingWPF.Components
                     }
                     catch (Exception exception)
                     {
-                        Console.WriteLine(exception);
+                        ExceptionTextBlock.Text = exception.Message;
                     }
+
                     break;
             }
         }
 
         private void ChangeColorOfRectangle(Grid rectangle)
         {
-            Color reservationColor = Color.FromArgb(255, 122, 178, 178); // This represents the color #0e5172
-
             switch (rectangle)
             {
                 case { } when rectangle == BoatRectangle:

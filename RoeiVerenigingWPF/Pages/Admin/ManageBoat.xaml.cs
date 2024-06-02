@@ -7,6 +7,7 @@ using RoeiVerenigingLibrary.Exceptions;
 using RoeiVerenigingWPF.Frames;
 using RoeiVerenigingWPF.helpers;
 using System.IO;
+using System.Windows.Media;
 
 namespace RoeiVerenigingWPF.Pages.Admin
 {
@@ -48,6 +49,7 @@ namespace RoeiVerenigingWPF.Pages.Admin
             InitializeComponent();
             Delete_Button.Visibility = Visibility.Hidden;
             Captain.IsChecked = false;
+            ExceptionTextBlock.Foreground = Brushes.Red;
         }
 
         private void ToggleButtonClick(object sender, RoutedEventArgs e)
@@ -64,6 +66,7 @@ namespace RoeiVerenigingWPF.Pages.Admin
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            ExceptionTextBlock.Foreground = Brushes.Red;
             BoatService service = new BoatService(new BoatRepository());
             try
             {
@@ -84,8 +87,10 @@ namespace RoeiVerenigingWPF.Pages.Admin
 
                     if (_boat != null)
                     {
-                        MessageBox.Show(
-                            $"{_boat.Name} {_boat.Description} {_boat.Level} is aangepast met bootnummer {_boat.Id}");
+                        ExceptionTextBlock.Foreground = Brushes.MediumSeaGreen;
+                        ExceptionTextBlock.Text =
+                            $"{_boat.Name} {_boat.Description} {_boat.Level} is aangepast met bootnummer {_boat.Id}";
+                       
                     }
 
                     _mainWindow.MainContent.Navigate(new ManageBoatList(_mainWindow));
@@ -101,8 +106,9 @@ namespace RoeiVerenigingWPF.Pages.Admin
 
                     if (createdBoat != null)
                     {
-                        MessageBox.Show(
-                            $"{createdBoat.Name} {createdBoat.Description} {createdBoat.Level} is aangemaakt met bootnummer {createdBoat.Id}");
+                        ExceptionTextBlock.Foreground = Brushes.MediumSeaGreen;
+                        ExceptionTextBlock.Text =
+                            $"{createdBoat.Name} {createdBoat.Description} {createdBoat.Level} is aangemaakt met bootnummer {createdBoat.Id}";
                     }
 
                     _mainWindow.MainContent.Navigate(new ManageBoatList(_mainWindow));
@@ -110,19 +116,19 @@ namespace RoeiVerenigingWPF.Pages.Admin
             }
             catch (IncorrectRightsException ex)
             {
-                MessageBox.Show(ex.Message);
+                ExceptionTextBlock.Text = ex.Message;
             }
             catch (System.FormatException)
             {
-                MessageBox.Show("Vul alle velden correct in");
+                ExceptionTextBlock.Text = "Vul alle velden correct in";
             }
             catch (IncorrectLevelException ex)
             {
-                MessageBox.Show(ex.Message);
+                ExceptionTextBlock.Text = ex.Message;
             }
             catch (NameEmptyExeception ex)
             {
-                MessageBox.Show(ex.Message);
+                ExceptionTextBlock.Text = ex.Message;
             }
         }
 
