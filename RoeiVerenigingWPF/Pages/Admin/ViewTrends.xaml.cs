@@ -11,6 +11,12 @@ namespace RoeiVerenigingWPF.Pages.Admin;
 
 public partial class ViewTrends : Page
 {
+    public ViewTrends(MainWindow mainWindow)
+    {
+        InitializeComponent();
+        main = mainWindow;
+    }
+    
     private TrendService _trend = new TrendService();
     private ViewStatistics StatisticsWindow;
     public MainWindow main;
@@ -53,17 +59,7 @@ public partial class ViewTrends : Page
         return model;
     }
     
-    public ViewTrends(MainWindow mainWindow)
-    {
-        InitializeComponent();
-        main = mainWindow;
-    }
-    
-    public void GetBesteResultaat()
-    {
-        
-        BestScore.Visibility = Visibility.Visible;
-    }
+
 
     
     //make a function to make a bargraph and one for line graphs
