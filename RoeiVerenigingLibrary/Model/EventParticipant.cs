@@ -5,8 +5,21 @@ namespace RoeiVerenigingLibrary.Model;
 public class EventParticipant : Member, INotifyPropertyChanged
 {
     public event PropertyChangedEventHandler PropertyChanged;
-    public TimeSpan ResultTime;
+    private TimeSpan _resultTime;
     private string _description;
+
+    public TimeSpan ResultTime
+    {
+        get => _resultTime;
+        set
+        {
+            if (_resultTime != value)
+            {
+                _resultTime = value;
+                OnPropertyChanged(nameof(ResultTime));
+            }
+        }
+    }
 
     public string Description
     {
@@ -20,9 +33,11 @@ public class EventParticipant : Member, INotifyPropertyChanged
             }
         }
     }
+
     public int EventId;
 
-    public EventParticipant(Member member, int eventId, TimeSpan time, String description) : base(member.Id, member.FirstName, member.Infix,
+    public EventParticipant(Member member, int eventId, TimeSpan time, String description) : base(member.Id,
+        member.FirstName, member.Infix,
         member.LastName, member.Email,
         member.Roles, member.Level)
     {
@@ -35,7 +50,7 @@ public class EventParticipant : Member, INotifyPropertyChanged
     {
         repository.SaveTime(this);
     }
-    
+
     protected void OnPropertyChanged(string propertyName)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

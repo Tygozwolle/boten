@@ -84,17 +84,24 @@ public partial class EventResult : Page
 
             if (enableEdit)
             {
-                grid.Children.Add(
-                    new TimePicker
-                    {
-                        Value = new DateTime().Add(member.ResultTime),
-                        Format = DateTimeFormat.Custom,
-                        FormatString = "HH:mm:ss",
-                        ShowDropDownButton = false,
-                        Width = 80,
-                        HorizontalAlignment = HorizontalAlignment.Left
-                    }
-                );
+                TimePicker resultTimePicker = new TimePicker
+                {
+                    Value = new DateTime().Date + member.ResultTime,
+                    Format = DateTimeFormat.Custom,
+                    FormatString = "HH:mm:ss",
+                    ShowDropDownButton = false,
+                    Width = 80,
+                    HorizontalAlignment = HorizontalAlignment.Left
+                };
+
+                grid.Children.Add(resultTimePicker);
+
+                resultTimePicker.DataContext = member;
+
+                Binding binding = new Binding("ResultTime");
+                binding.Mode = BindingMode.TwoWay;
+                binding.Converter = new TimeSpanToDateTimeConverter();
+                resultTimePicker.SetBinding(TimePicker.ValueProperty, binding);
             }
             else
             {
@@ -178,7 +185,6 @@ public partial class EventResult : Page
     {
         foreach (var participant in EventResults.Participants)
         {
-            Console.WriteLine(participant.Description);
             participant.saveResultTime(_EventReportsRepository);
         }
     }
