@@ -2,12 +2,7 @@
 using RoeiVerenigingLibrary;
 using RoeiVerenigingLibrary.Interfaces;
 using RoeiVerenigingLibrary.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataReaderExtensions = System.Data.DataReaderExtensions;
+
 
 namespace DataAccessLibrary
 {
@@ -62,7 +57,7 @@ namespace DataAccessLibrary
                         {
                             var id = reader.GetInt32("event_id");
                             string infix = "";
-                            if(!reader.IsDBNull(reader.GetOrdinal("infix")))
+                            if (!reader.IsDBNull(reader.GetOrdinal("infix")))
                             {
                                 infix = reader.GetString("infix");
                             }
@@ -92,7 +87,7 @@ namespace DataAccessLibrary
                             var id = reader.GetInt32("event_id");
                             var boatId = reader.GetInt32("boat_id");
                             string description = "";
-                            if(!reader.IsDBNull(reader.GetOrdinal("description")))
+                            if (!reader.IsDBNull(reader.GetOrdinal("description")))
                             {
                                 description = reader.GetString("description");
                             }
@@ -282,7 +277,42 @@ namespace DataAccessLibrary
 
             return eventTemp;
         }
+        public List<Event> GetEventsFuture()
+        {
+            using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
+            {
+                Retry.RetryConnectionOpen(connection);
+                List<EventParticipant> participants = new List<EventParticipant>(); // empty to fill later
 
+                const string sql =
+                    "SELECT * FROM events WHERE start_time > CURDATE()";
+
+                using (MySqlCommand command = new MySqlCommand(sql, connection))
+                {
+                    var events = new List<Event>();
+
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            int eventId = reader.GetInt32("id");
+                            string name = reader.GetString("name");
+                            string description = reader.GetString("description");
+                            int max_participants = reader.GetInt32("max_participants");
+                            DateTime start_time = reader.GetDateTime("start_time");
+                            DateTime end_time = reader.GetDateTime("end_time");
+
+                            Event addEvent = new(participants, start_time, end_time, description, name, eventId,
+                                max_participants, GetBoats(eventId));
+                            events.Add(addEvent);
+                        }
+
+                    }
+
+                    return events;
+                }
+            }
+        }
         public List<Event> GetEventsFromPastMonths(int AmountOfMonths)
         {
             List<Event> events = new List<Event>();
