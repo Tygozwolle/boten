@@ -106,6 +106,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_A2911D876EDF473B9AFAE497364479BB"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_A8BC0F8B63934371BC8342B5D060B293"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -252,7 +258,7 @@
         "PackageFilesAs" = "3:2"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
-        "Compression" = "3:2"
+        "Compression" = "3:3"
         "SignOutput" = "11:FALSE"
         "CertificateFile" = "8:"
         "PrivateKeyFile" = "8:"
@@ -585,6 +591,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A2911D876EDF473B9AFAE497364479BB"
+            {
+            "SourcePath" = "8:..\\RoeiVerenigingWPF\\Sounds\\Het ontstaan van de rivierstroom.wav"
+            "TargetName" = "8:Het ontstaan van de rivierstroom.wav"
+            "Tag" = "8:"
+            "Folder" = "8:_EE5AF75775DE40B1BC1770B02F5875E9"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A8BC0F8B63934371BC8342B5D060B293"
             {
             "SourcePath" = "8:..\\RoeiVerenigingWPF\\Images\\Icons\\calendar-clock.png"
@@ -863,6 +889,17 @@
                             }
                         }
                     }
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_EE5AF75775DE40B1BC1770B02F5875E9"
+                    {
+                    "Name" = "8:Sounds"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_1A577DBCDA1D4FB588ECD37923B94A3B"
+                        "Folders"
+                        {
+                        }
+                    }
                 }
             }
             "{1525181F-901A-416C-8A58-119130FE478E}:_9CAAC0B546574320A68345AC8CEB6D1E"
@@ -904,7 +941,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Roeivereniging"
         "ProductCode" = "8:{D97929E4-2527-42A2-AAB9-91F8845C0033}"
-        "PackageCode" = "8:{F1BF9A8C-5F7D-43CA-8BDA-1ACC0C017BAA}"
+        "PackageCode" = "8:{D0008BF7-A57C-461D-BBDF-2A440F6B4AB5}"
         "UpgradeCode" = "8:{467758A9-9718-4C68-A001-9622005262B6}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
