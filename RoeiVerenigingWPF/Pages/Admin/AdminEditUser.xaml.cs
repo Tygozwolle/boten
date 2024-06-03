@@ -30,8 +30,6 @@ namespace RoeiVerenigingWPF.Pages
             Email.Text = selectedMember.Email;
             Level.Text = selectedMember.Level.ToString();
 
-            var availableRoles = _service.GetAvailableRoles();
-
             foreach (string role in selectedMember.Roles)
             {
                 if (selectedMember.Roles.Contains("beheerder"))
