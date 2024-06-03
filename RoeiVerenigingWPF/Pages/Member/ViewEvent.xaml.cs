@@ -4,6 +4,7 @@ using System.Windows.Media;
 using DataAccessLibrary;
 using RoeiVerenigingLibrary;
 using RoeiVerenigingLibrary.Model;
+using RoeiVerenigingLibrary.Services;
 using RoeiVerenigingWPF.Frames;
 
 namespace RoeiVerenigingWPF.Pages.Member;
@@ -50,10 +51,10 @@ public partial class ViewEvent : Page
         Events = _event;
         Events.AddParticipantsFromDatabase(_EventReportsRepository);
         InitializeComponent();
-        PopulateResultView();
+        PopulateParticipantsView();
     }
 
-    public void PopulateResultView()
+    public void PopulateParticipantsView()
     {
         bool enableEdit = (_MainWindow.LoggedInMember.Roles.Contains("materiaal_commissaris") ||
                            _MainWindow.LoggedInMember.Roles.Contains("beheerder"));
@@ -111,7 +112,11 @@ public partial class ViewEvent : Page
         try
         {
             //add participant
-            
+            new EventService(new EventRepository()).AddParticipant(Events, _MainWindow.LoggedInMember);
+            Events = new EventRepository().GetEventById(Events.Id);
+            Events.AddParticipantsFromDatabase(_EventReportsRepository);
+            PopulateParticipantsView();
+            AmountOfParticipants.Text = ParticipantsCount;
             ExceptionText.Text = "Je neemt nu deel";
             ExceptionText.Foreground = Brushes.Lime;
         }

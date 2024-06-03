@@ -94,6 +94,7 @@
                                     VerticalAlignment="Center" HorizontalAlignment="left" />
                                 <TextBlock
                                     Text="{Binding ParticipantsCount}"
+                                    Name="AmountOfParticipants"
                                     FontFamily="Franklin Gothic Medium" FontSize="21"
                                     VerticalAlignment="Center" HorizontalAlignment="left" Margin="5,0,0,0" />
                                 <!-- Description -->
@@ -121,7 +122,7 @@
                                 Background="{x:Static helpers:CustomColors.MainBackgroundColor}">
                             <StackPanel Margin="15,15,15,15">
                                 <TextBlock
-                                    Text="Uitslagen:"
+                                    Text="Deelnemers:"
                                     FontFamily="Franklin Gothic Medium" FontSize="26"
                                     Foreground="{x:Static helpers:CustomColors.SubHeaderColor}"
                                     VerticalAlignment="Center" HorizontalAlignment="left" />
