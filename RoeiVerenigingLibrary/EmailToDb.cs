@@ -21,8 +21,7 @@ namespace RoeiVerenigingLibrary
                 ImapQueryBuilder builder = new ImapQueryBuilder();
                 builder.HasNoFlags(ImapMessageFlags.IsRead);
                 ImapMessageInfoCollection messages = client.ListMessages(builder.GetQuery());
-
-                var attachments = new List<Attachment>();
+                
                 foreach (ImapMessageInfo messageInfo in messages)
                 {
                     // Access the email message
