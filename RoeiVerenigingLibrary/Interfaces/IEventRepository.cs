@@ -12,5 +12,8 @@ namespace RoeiVerenigingLibrary.Interfaces
         public List<Event> GetEventsFromPastMonths(int AmountOfMonths);
         public List<int> GetEventReservationsIds(Event events);
         public Event Get(int id);
+
+        public int GetParticipantCount(int eventId);
+        public void AddParticipant(Member loggedInMember, int eventId);
     }
 }

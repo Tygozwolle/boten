@@ -33,10 +33,10 @@ namespace RoeiVerenigingWPF.Pages
         {
             if (sender is Grid)
             {
-                //object command = ((Grid)sender).Tag;
-
-                //TODO:Deelname page hiernaar toe
-                //MainWindow.MainContent.Navigate());
+                object command = ((Grid)sender).Tag;
+                int id = Int32.Parse(command.ToString());
+                MainWindow.MainContent.Navigate(new ViewEvent(MainWindow,
+                    new EventService(new EventRepository()).GetEventById(id)));
             }
         }
     }
