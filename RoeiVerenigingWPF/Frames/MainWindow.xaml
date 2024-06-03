@@ -6,7 +6,7 @@
         xmlns:Components="clr-namespace:RoeiVerenigingWPF.Components"
         xmlns:local="clr-namespace:RoeiVerenigingWPF.helpers"
         mc:Ignorable="d"
-        Title="MainWindow" WindowState="Maximized">
+        Title="MainWindow" WindowState="Maximized" WindowStyle="None">
     <Grid>
         <Grid Name="LoginScreenGrid" Background="{x:Static local:CustomColors.TextBoxBackgroundColor}">
             <Grid.RowDefinitions>

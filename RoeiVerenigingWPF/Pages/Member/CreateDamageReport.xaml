@@ -68,7 +68,7 @@
                              Foreground="{x:Static local:CustomColors.SubHeaderColor}"
                              Background="{x:Static local:CustomColors.TextBoxBackgroundColor}"
                              BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}" FontSize="24"
-                             FontFamily="Franklin Gothic Medium"
+                             FontFamily="Franklin Gothic Medium" TextWrapping="Wrap" MaxWidth="1200"
                              Height="300" />
 
 
