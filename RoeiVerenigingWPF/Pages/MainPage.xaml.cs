@@ -12,6 +12,7 @@ namespace RoeiVerenigingWPF.Pages
     {
         public List<Event> EventsList { get; set; }
         private EventService _eventService = new(new EventRepository());
+
         public MainPage(MainWindow mainWindow)
         {
             InitializeComponent();
@@ -20,11 +21,12 @@ namespace RoeiVerenigingWPF.Pages
             DataContext = this;
             StatisticsFrame.Content = new ViewStatistics(mainWindow);
         }
+
         public MainWindow MainWindow { get; set; }
 
         private void UIElement_OnMouseDown(object sender, MouseButtonEventArgs e)
         {
-            MainWindow.MainContent.Navigate(new ListEvents(MainWindow));
+            MainWindow.MainContent.Navigate(new ListEvents(MainWindow, _eventService.GetEvents(), false));
         }
 
         private void Grid_OnMouseDown(object sender, MouseButtonEventArgs e)
