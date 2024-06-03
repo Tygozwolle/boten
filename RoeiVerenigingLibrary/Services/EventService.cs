@@ -1,12 +1,6 @@
 ﻿using RoeiVerenigingLibrary.Exceptions;
 using RoeiVerenigingLibrary.Interfaces;
 using RoeiVerenigingLibrary.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices.JavaScript;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RoeiVerenigingLibrary.Services
 {
@@ -45,9 +39,9 @@ namespace RoeiVerenigingLibrary.Services
                         boatsToRemove.Add(boat);
                     }
                 }
-                
+
                 //TODO: check if max participants is not less than the amount of participants
-                return _eventRepository.Change(events, startDate, endDate, description, name, maxParticipants , boatsToAdd, boatsToRemove);
+                return _eventRepository.Change(events, startDate, endDate, description, name, maxParticipants, boatsToAdd, boatsToRemove);
             }
             return null;
         }
@@ -77,7 +71,7 @@ namespace RoeiVerenigingLibrary.Services
         {
             return Eventcheck(startDate, endDate, description, name, maxParticipants, boats, loggedInMember, null);
         }
-        
+
         public bool CheckIfEventIsPosibly(DateTime startTime, DateTime endTime)
         {
             return CheckIfEventIsPosibly(startTime, endTime, null);
@@ -104,7 +98,7 @@ namespace RoeiVerenigingLibrary.Services
         public List<DateTime> GetAvailableTimes(DateTime selcetedDate, Event events)
         {
             var timeAvailableList = GetAvailableTimes(selcetedDate);
-            
+
             var timesToAdd = Enumerable.Range(0, (events.EndDate - events.StartDate).Hours)
                 .Select(i => events.StartDate.AddHours(i)).ToList();
             foreach (var add in timesToAdd)
@@ -118,13 +112,13 @@ namespace RoeiVerenigingLibrary.Services
             List<Event> events = _eventRepository.GetAll(false, false);
 
             DateTime startTime = selectedDate.Date;
-            
+
             Dictionary<DateTime, int> reservationsPerTimeBlock = events
                 .SelectMany(eventob => Enumerable.Range(0, (eventob.EndDate - eventob.StartDate).Hours)
                     .Select(i => eventob.StartDate.AddHours(i)))
                 .GroupBy(time => time)
                 .ToDictionary(group => group.Key, group => group.Count());
-            
+
             List<DateTime> timeAvailableList = Enumerable.Range(0, 24)
                 .Select(i => startTime.AddHours(i))
                 .Where(time =>
@@ -133,6 +127,19 @@ namespace RoeiVerenigingLibrary.Services
 
             return timeAvailableList;
         }
+
+
+        public List<Event> GetEvents()
+        {
+
+            return _eventRepository.GetAll();
+        }
+
+        public List<Event> GetEventsFuture()
+        {
+            return _eventRepository.GetEventsFuture();
+        }
+
         public List<Event> GetEventsFromPastMonths(int AmountOfMonths)
         {
             return _eventRepository.GetEventsFromPastMonths(AmountOfMonths);

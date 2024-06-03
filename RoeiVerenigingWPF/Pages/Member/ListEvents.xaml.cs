@@ -1,33 +1,31 @@
-using DataAccessLibrary;
+﻿using DataAccessLibrary;
 using RoeiVerenigingLibrary.Model;
 using RoeiVerenigingLibrary.Services;
 using RoeiVerenigingWPF.Frames;
-using RoeiVerenigingWPF.Pages.Member;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace RoeiVerenigingWPF.Pages
+namespace RoeiVerenigingWPF.Pages.Member
 {
-    public partial class MainPage : Page
+    /// <summary>
+    /// Interaction logic for ListEvents.xaml
+    /// </summary>
+
+    public partial class ListEvents : Page
     {
         public List<Event> EventsList { get; set; }
         private EventService _eventService = new(new EventRepository());
-        public MainPage(MainWindow mainWindow)
+        private MainWindow _mainWindow;
+        public ListEvents(MainWindow mainWindow)
         {
             InitializeComponent();
-            MainWindow = mainWindow;
-            EventsList = _eventService.GetEventsFuture();
+            _mainWindow = mainWindow;
+            EventsList = _eventService.GetEvents();
             DataContext = this;
-            StatisticsFrame.Content = new ViewStatistics(mainWindow);
+            InitializeComponent();
         }
-        public MainWindow MainWindow { get; set; }
 
         private void UIElement_OnMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            MainWindow.MainContent.Navigate(new ListEvents(MainWindow));
-        }
-
-        private void Grid_OnMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (sender is Grid)
             {

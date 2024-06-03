@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using Innovative.SolarCalculator;
 using RoeiVerenigingWPF.helpers;
+using System.Windows.Media;
 using Brushes = System.Windows.Media.Brushes;
 using FontFamily = System.Windows.Media.FontFamily;
 using Image = System.Windows.Controls.Image;
@@ -40,13 +41,25 @@ namespace RoeiVerenigingWPF.Pages
         {
             InitializeComponent();
             _loggedInMember = loggedInMember;
-            _boatList = _boatService.GetBoats();
+            LoadBoats();
             _reservationsList = _reservationService.GetReservations();
             DataContext = this;
             CheckIfMemberHas2Reservations();
             BoatGrid.Visibility = Visibility.Hidden;
         }
-
+        private void LoadBoats()
+        {
+            NextButton.IsEnabled = false;
+            new Task(() =>
+            {
+                _boatList = _boatService.GetBoats();
+                _boatService.GetImageBoats(_boatList);
+                this.Dispatcher.Invoke(() =>
+                {
+                    NextButton.IsEnabled = true;
+                });
+            }).Start();
+        }
         private void CheckIfMemberHas2Reservations()
         {
             if (_loggedInMember.Roles.Contains("beheerder"))
@@ -129,7 +142,7 @@ namespace RoeiVerenigingWPF.Pages
             ExceptionTextBlock.Text = "";
             ExceptionTextBlock.Foreground = Brushes.Red;
             TimeContentGrid.Children.Clear();
-
+            LoadBoats();
             try
             {
                 if (calendar.SelectedDate != null)
@@ -267,9 +280,12 @@ namespace RoeiVerenigingWPF.Pages
                 grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(300) });
                 grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(200) });
 
+                var imageconverter = new SingleStreamImageConverter();
+                var source = imageconverter.Convert(boat.Image, typeof(ImageSource), null, null);
+                
                 grid.Children.Add(new Image
                 {
-                    Source = new BitmapImage(new Uri("/Images/Image_not_available.png", UriKind.Relative)),
+                    Source = (BitmapImage)source,
                     Height = 150, Width = 300, VerticalAlignment = VerticalAlignment.Top
                 });
                 Grid.SetColumn(grid.Children[0], 0);

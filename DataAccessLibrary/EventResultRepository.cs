@@ -10,17 +10,20 @@ public class EventResultRepository : IEventResultRepository
     {
         using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
         {
-            connection.Open();
+            Retry.RetryConnectionOpen(connection);
 
             const string sql = @"
-            UPDATE `event_participant`
-            SET `result_time` = @resultTime
-            WHERE `event_id` = @eventId AND `member_id` = @memberId";
+        UPDATE `event_participant`
+        SET `result_time` = @resultTime, `result` = @result
+        WHERE `event_id` = @eventId AND `member_id` = @memberId";
 
             using (MySqlCommand command = new MySqlCommand(sql, connection))
             {
                 command.Parameters.Add("@resultTime", MySqlDbType.Time);
                 command.Parameters["@resultTime"].Value = eventParticipant.ResultTime;
+
+                command.Parameters.Add("@result", MySqlDbType.VarChar);
+                command.Parameters["@result"].Value = eventParticipant.Description;
 
                 command.Parameters.Add("@eventId", MySqlDbType.Int32);
                 command.Parameters["@eventId"].Value = eventParticipant.EventId;
@@ -39,13 +42,14 @@ public class EventResultRepository : IEventResultRepository
 
         using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
         {
-            connection.Open();
+            Retry.RetryConnectionOpen(connection);
 
             const string sql = @"
-        SELECT m.*, ep.`result_time`
-        FROM `event_participant` ep
-        JOIN `members` m ON ep.`member_id` = m.`member_id`
-        WHERE ep.`event_id` = @eventId";
+    SELECT m.*, ep.*
+    FROM `event_participant` ep
+    JOIN `members` m ON ep.`member_id` = m.`member_id`
+    WHERE ep.`event_id` = @eventId
+    ORDER BY ep.`result_time` ASC";
 
             using (MySqlCommand command = new MySqlCommand(sql, connection))
             {
@@ -72,13 +76,24 @@ public class EventResultRepository : IEventResultRepository
                         }
                         else
                         {
-                            resultTime = new TimeSpan(); // Default value
+                            resultTime = new TimeSpan();
+                        }
+
+                        String resultDesc;
+                        if (!reader.IsDBNull(reader.GetOrdinal("result")))
+                        {
+                            resultDesc = reader.GetString("result");
+                        }
+                        else
+                        {
+                            resultDesc = "";
                         }
 
                         EventParticipant participant = new EventParticipant(
                             member,
                             eventId,
-                            resultTime
+                            resultTime,
+                            resultDesc
                         );
 
                         participants.Add(participant);
