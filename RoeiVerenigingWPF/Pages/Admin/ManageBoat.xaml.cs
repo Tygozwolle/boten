@@ -18,6 +18,7 @@ namespace RoeiVerenigingWPF.Pages.Admin
         private Boat _boat;
         private bool _imageChanged = false;
         private Stream _imageStream;
+        private bool _captain;
 
         public ManageBoat(MainWindow mainWindow, Boat boat)
         {
@@ -57,10 +58,12 @@ namespace RoeiVerenigingWPF.Pages.Admin
             if (Captain.IsChecked == true)
             {
                 Captain.Content = "Stuurman aanwezig";
+                _captain = true;
             }
             else
             {
                 Captain.Content = "Stuurman afwezig";
+                _captain = false;
             }
         }
 
@@ -76,7 +79,7 @@ namespace RoeiVerenigingWPF.Pages.Admin
                     string description = Description.Text;
                     string seats = Seats.Text;
                     string level = Level.Text;
-                    bool captain = Captain.IsPressed;
+                    bool captain = _captain;
                     Boat createdBoat;
                     if (_edit)
                     {
