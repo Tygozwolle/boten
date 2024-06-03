@@ -3,6 +3,7 @@ using RoeiVerenigingLibrary;
 using RoeiVerenigingWPF.Frames;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace RoeiVerenigingWPF.Pages
 {
@@ -18,21 +19,31 @@ namespace RoeiVerenigingWPF.Pages
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            MemberService service = new MemberService(new MemberRepository());
-            try
+            if (ExceptionTextBlock.Foreground != Brushes.MediumSeaGreen)
             {
-                string password = CurrentPassword.Password;
-                string newPassword = NewPassword.Password;
-                string newPasswordConfirm = NewPasswordConfirm.Password;
-                service.ChangePassword(_mainWindow.LoggedInMember, password, newPassword, newPasswordConfirm);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return;
-            }
+                ExceptionTextBlock.Foreground = Brushes.Red;
+                MemberService service = new MemberService(new MemberRepository());
+                try
+                {
+                    string password = CurrentPassword.Password;
+                    string newPassword = NewPassword.Password;
+                    string newPasswordConfirm = NewPasswordConfirm.Password;
+                    service.ChangePassword(_mainWindow.LoggedInMember, password, newPassword, newPasswordConfirm);
+                }
+                catch (Exception ex)
+                {
+                    ExceptionTextBlock.Text = ex.Message;
+                    return;
+                }
 
-            MessageBox.Show("Wachtwoord is veranderd");
+                ExceptionTextBlock.Text = "Het wachtwoord is veranderd!";
+                ExceptionTextBlock.Foreground = Brushes.MediumSeaGreen;
+                ContinueButton.Content = "Verder";
+            }
+            else
+            {
+                _mainWindow.MainContent.Navigate(new MainPage(_mainWindow));
+            }
         }
     }
 }

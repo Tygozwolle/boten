@@ -6,6 +6,7 @@ using RoeiVerenigingLibrary.Exceptions;
 using RoeiVerenigingWPF.Frames;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace RoeiVerenigingWPF.Pages
 {
@@ -25,34 +26,44 @@ namespace RoeiVerenigingWPF.Pages
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            MemberService service = new MemberService(new MemberRepository());
-            try
+            if (ExceptionTextBlock.Foreground != Brushes.MediumSeaGreen)
             {
-                string firstName = FirstName.Text;
-                string infix = Infix.Text;
-                string lastName = LastName.Text;
-                string email = Email.Text;
-                RoeiVerenigingLibrary.Member updatedMember = service.Update(_mainWindow.LoggedInMember, firstName, infix, lastName, email
-                );
-                if (updatedMember != null)
+                MemberService service = new MemberService(new MemberRepository());
+                try
                 {
-                    _mainWindow.LoggedInMember = updatedMember;
-                    MessageBox.Show(
-                        $"{updatedMember.FirstName} {updatedMember.Infix} {updatedMember.LastName} is gewijzigd");
+                    string firstName = FirstName.Text;
+                    string infix = Infix.Text;
+                    string lastName = LastName.Text;
+                    string email = Email.Text;
+                    RoeiVerenigingLibrary.Member updatedMember = service.Update(_mainWindow.LoggedInMember, firstName, infix, lastName, email
+                    );
+                    if (updatedMember != null)
+                    {
+                        _mainWindow.LoggedInMember = updatedMember;
+                        ExceptionTextBlock.Text =
+                            $"{updatedMember.FirstName} {updatedMember.Infix} {updatedMember.LastName} is gewijzigd";
+                        ExceptionTextBlock.Foreground = Brushes.MediumSeaGreen;
+                        ContinueButton.Content = "Verder";
+                    }
+                }
+                catch (CantAccesDatabaseException ex)
+                {
+                    ExceptionTextBlock.Text = ex.Message;
+                }
+                catch (IncorrectRightsException ex)
+                {
+                    ExceptionTextBlock.Text = ex.Message;
+                }
+                catch (Exception ex)
+                {
+                    ExceptionTextBlock.Text = ex.Message;
                 }
             }
-            catch (CantAccesDatabaseException ex)
+            else
             {
-                MessageBox.Show(ex.Message);
+                _mainWindow.MainContent.Navigate(new MainPage(_mainWindow)); 
             }
-            catch (IncorrectRightsException ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            
         }
     }
 }
