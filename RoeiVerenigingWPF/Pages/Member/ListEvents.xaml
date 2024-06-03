@@ -21,7 +21,7 @@
                     </Grid.RowDefinitions>
 
                     <Label Grid.Row="0"
-                Content="Evenements" HorizontalContentAlignment="Center" VerticalAlignment="Top"
+                Content="Evenementen" HorizontalContentAlignment="Center" VerticalAlignment="Top"
                 Margin="0,30,0,0"
                 FontFamily="Franklin Gothic Medium" FontSize="36"
                 Foreground="{x:Static local:CustomColors.HeaderColor}" Grid.ColumnSpan="2" />
