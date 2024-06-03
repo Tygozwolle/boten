@@ -13,7 +13,8 @@ namespace RoeiVerenigingUnitTests
     private Mock<IEventRepository> _eventRepositoryMock;
     private EventService _eventService;
     private Member _loggedInMember = new Member(2, "test", "test", "last", "mail.test@windesheim.com", new List<string> { "evenementen_commissaris" }, 3 );
-
+    private List<Event> _eventsList;
+    
     [SetUp]
     public void SetUp()
     {
@@ -24,6 +25,7 @@ namespace RoeiVerenigingUnitTests
             new Event(new List<EventParticipant>(), DateTime.Now.AddDays(19), DateTime.Now.AddDays(20), "Test Event1", "Event1", 1, 10, new List<Boat>()),
             new Event(new List<EventParticipant>(), DateTime.Now.AddDays(18), DateTime.Now.AddDays(19), "Test Event2", "Event2", 2, 10, new List<Boat>())
         };
+        _eventsList = eventList;
         _eventRepositoryMock.Setup(getall => getall.GetAll(false, false)).Returns(eventList);
     }
 
@@ -136,6 +138,30 @@ namespace RoeiVerenigingUnitTests
         Assert.That((expectedEvent.Equals(result)));
         _eventRepositoryMock.Verify(repo => repo.Change(eventOld, startDate, endDate, description, name, maxParticipants, new List<Boat>(), new List<Boat>()), Times.Once);
     }
+    
+        [Test]
+        public void UpdateEvent_WhenEventCheckPasses_CallsCreateOnRepositoryAndReturnsResult_OverlappingTime()
+        {
+            // Arrange
+            var eventOld = _eventsList[0];
+            var startDate = eventOld.StartDate.AddHours(2);
+            var endDate = eventOld.EndDate.AddHours(3);
+            var description = "Test Event";
+            var name = "Event";
+            var maxParticipants = 10;
+            var boats = new List<Boat>();
+            var loggedInMember =_loggedInMember;
+            
+            var expectedEvent = new Event(new List<EventParticipant>(), startDate, endDate, description, name, eventOld.Id, maxParticipants ,boats);
+            _eventRepositoryMock.Setup(repo => repo.Change(It.IsAny<Event>(), It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<List<Boat>>(), It.IsAny<List<Boat>>())).Returns(expectedEvent);
+
+            // Act
+            var result = _eventService.UpdateEvent(eventOld, startDate, endDate, description, name, maxParticipants, loggedInMember, boats);
+
+            // Assert
+            Assert.That((expectedEvent.Equals(result)));
+            _eventRepositoryMock.Verify(repo => repo.Change(eventOld, startDate, endDate, description, name, maxParticipants, new List<Boat>(), new List<Boat>()), Times.Once);
+        }
 
     [Test]
     public void UpdateEvent_WhenEventCheckFails_LessThan14Days()
@@ -164,9 +190,9 @@ namespace RoeiVerenigingUnitTests
         var maxParticipants = 10;
         var boats = new List<Boat>();
         var loggedInMember = _loggedInMember;
-
+        var eventOld = new Event(new List<EventParticipant>(), startDate.AddHours(2), endDate.AddHours(3), description+"hoi", name+"s", 3, maxParticipants ,boats);
         // Assert
-        Assert.Throws<EventAlreadyOnThisTimeException>((() => _eventService.CreateEvent(startDate, endDate, description, name, maxParticipants, boats, loggedInMember)));
+        Assert.Throws<EventAlreadyOnThisTimeException>((() => _eventService.UpdateEvent(eventOld, startDate, endDate, description, name, maxParticipants, loggedInMember, boats)));
 
     }
     [Test]
@@ -180,9 +206,9 @@ namespace RoeiVerenigingUnitTests
         var maxParticipants = 10;
         var boats = new List<Boat>();
         var loggedInMember = new Member(2, "test", "test", "last", "email@email.com", 3); // incorrect rights, so Eventcheck should fail
-        
+        var eventOld = new Event(new List<EventParticipant>(), startDate.AddHours(2), endDate.AddHours(3), description+"hoi", name+"s", 3, maxParticipants ,boats);
         // Assert
-        Assert.Throws<IncorrectRightsException>((() => _eventService.CreateEvent(startDate, endDate, description, name, maxParticipants, boats, loggedInMember)));
+        Assert.Throws<IncorrectRightsException>((() => _eventService.UpdateEvent(eventOld, startDate, endDate, description, name, maxParticipants, loggedInMember, boats)));
         
     }
     [Test]
@@ -196,9 +222,9 @@ namespace RoeiVerenigingUnitTests
         var maxParticipants = 10;
         var boats = new List<Boat>();
         var loggedInMember = _loggedInMember;
-        
+        var eventOld = new Event(new List<EventParticipant>(), startDate.AddHours(2), endDate.AddHours(3), description+"hoi", name+"s", 3, maxParticipants ,boats);
         // Assert
-        Assert.Throws<InvalidTimeException>((() => _eventService.CreateEvent(startDate, endDate, description, name, maxParticipants, boats, loggedInMember)));
+        Assert.Throws<InvalidTimeException>((() => _eventService.UpdateEvent(eventOld, startDate, endDate, description, name, maxParticipants, loggedInMember, boats)));
         
     }
     
