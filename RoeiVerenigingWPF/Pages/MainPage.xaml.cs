@@ -21,6 +21,10 @@ namespace RoeiVerenigingWPF.Pages
             EventsList = _eventService.GetEventsFuture();
             DataContext = this;
             StatisticsFrame.Content = new ViewStatistics(mainWindow);
+            if (MainWindow.LoggedInMember.Roles.Contains("beheerder") || MainWindow.LoggedInMember.Roles.Contains("evenementen_commissaris"))
+            {
+                SubText.Text = "Klik met u rechter muisknop om een evenement te wijzigen";
+            }
         }
 
         public MainWindow MainWindow { get; set; }
