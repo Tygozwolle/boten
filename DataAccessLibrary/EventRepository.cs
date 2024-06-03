@@ -282,7 +282,7 @@ namespace DataAccessLibrary
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
             {
                 Retry.RetryConnectionOpen(connection);
-                List<EventParticipant> participants = new List<EventParticipant>(); // empty to fill later
+                
 
                 const string sql =
                     "SELECT * FROM events WHERE start_time > CURDATE()";
@@ -295,6 +295,7 @@ namespace DataAccessLibrary
                     {
                         while (reader.Read())
                         {
+                            List<EventParticipant> participants = new List<EventParticipant>(); // empty to fill later
                             int eventId = reader.GetInt32("id");
                             string name = reader.GetString("name");
                             string description = reader.GetString("description");
@@ -303,7 +304,7 @@ namespace DataAccessLibrary
                             DateTime end_time = reader.GetDateTime("end_time");
 
                             Event addEvent = new(participants, start_time, end_time, description, name, eventId,
-                                max_participants, GetBoats(eventId));
+                                max_participants, new List<Boat>());
                             events.Add(addEvent);
                         }
 
