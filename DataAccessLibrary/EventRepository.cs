@@ -281,7 +281,7 @@ namespace DataAccessLibrary
         {
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
             {
-                connection.Open();
+                Retry.RetryConnectionOpen(connection);
                 List<EventParticipant> participants = new List<EventParticipant>(); // empty to fill later
 
                 const string sql =
