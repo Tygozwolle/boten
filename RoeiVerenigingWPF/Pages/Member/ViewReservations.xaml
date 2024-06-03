@@ -11,7 +11,7 @@
     <Page.Resources>
         <roeiVerenigingWpf:SingleStreamImageConverter x:Key="SingleStreamImageConverter" />
     </Page.Resources>
-    <Grid Height="900" Width="1600" HorizontalAlignment="Center" VerticalAlignment="Center">
+    <Grid Height="900" Width="1550" HorizontalAlignment="Center" VerticalAlignment="Center">
         <Grid.Effect>
             <DropShadowEffect Color="Black" Direction="320" ShadowDepth="10" Opacity="0.3" />
         </Grid.Effect>
@@ -38,8 +38,8 @@
                     <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="4" MaxHeight="750px">
                         <ListView Name="ReservationListView" ItemsSource="{Binding ReservationList}"
                                   Loaded="ListView_Loaded" Grid.IsSharedSizeScope="True" BorderBrush="Transparent"
-                                  d:ItemsSource="{d:SampleData ItemCount=8}"
-                                  ScrollViewer.VerticalScrollBarVisibility="Auto">
+                                  d:ItemsSource="{d:SampleData ItemCount=8}" VerticalAlignment="Top"
+                                  ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                             <ListView.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <UniformGrid Columns="2" />
@@ -72,7 +72,7 @@
                                                             Source="{Binding Boat.Image, Converter={StaticResource SingleStreamImageConverter}}"
                                                             MaxHeight="150px"
                                                             MaxWidth="150px"
-                                                            HorizontalAlignment="Right" VerticalAlignment="Center" />
+                                                            HorizontalAlignment="Left" VerticalAlignment="Center" />
                                                     </StackPanel>
                                                     <StackPanel Margin="0,10,15,0" Grid.Row="1" Grid.Column="1">
                                                         <TextBlock

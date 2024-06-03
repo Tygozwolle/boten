@@ -14,6 +14,7 @@ using Innovative.SolarCalculator;
 using RoeiVerenigingLibrary;
 using RoeiVerenigingWPF.helpers;
 using System.Windows.Media;
+using RoeiVerenigingWPF.Frames;
 using Brushes = System.Windows.Media.Brushes;
 using FontFamily = System.Windows.Media.FontFamily;
 using Image = System.Windows.Controls.Image;
@@ -38,9 +39,10 @@ namespace RoeiVerenigingWPF.Pages
         private DateTime EndTime { get; set; }
         private DateTime _selectedDate;
         private Boat _selectedBoat;
+        private MainWindow _mainWindow;
 
 
-        public AddReservation(RoeiVerenigingLibrary.Member loggedInMember)
+        public AddReservation(RoeiVerenigingLibrary.Member loggedInMember, MainWindow mw)
         {
             InitializeComponent();
             _loggedInMember = loggedInMember;
@@ -49,7 +51,9 @@ namespace RoeiVerenigingWPF.Pages
             DataContext = this;
             CheckIfMemberHas2Reservations();
             BoatGrid.Visibility = Visibility.Hidden;
+            _mainWindow = mw;
         }
+
         private void LoadBoats()
         {
             NextButton.IsEnabled = false;
@@ -57,12 +61,10 @@ namespace RoeiVerenigingWPF.Pages
             {
                 _boatList = _boatService.GetBoats();
                 _boatService.GetImageBoats(_boatList);
-                this.Dispatcher.Invoke(() =>
-                {
-                    NextButton.IsEnabled = true;
-                });
+                this.Dispatcher.Invoke(() => { NextButton.IsEnabled = true; });
             }).Start();
         }
+
         private void CheckIfMemberHas2Reservations()
         {
             if (_loggedInMember.Roles.Contains("beheerder"))
@@ -142,8 +144,8 @@ namespace RoeiVerenigingWPF.Pages
         private void DateIsSelected(object? sender, SelectionChangedEventArgs e)
         {
             var calendar = sender as Calendar;
-            ExceptionText.Text = "";
-            ExceptionText.Foreground = Brushes.Red;
+            ExceptionTextBlock.Text = "";
+            ExceptionTextBlock.Foreground = Brushes.Red;
             TimeContentGrid.Children.Clear();
             LoadBoats();
             try
@@ -172,14 +174,14 @@ namespace RoeiVerenigingWPF.Pages
             }
             catch (Exception ex)
             {
-                ExceptionText.Text = ex.Message;
+                ExceptionTextBlock.Text = ex.Message;
                 TimeContentGrid.Children.Clear();
             }
         }
 
         private void TimeButton_Click(Button clickedButton, DateTime dateTime)
         {
-            ExceptionText.Text = "";
+            ExceptionTextBlock.Text = "";
 
             if (_selectedTimes.Contains((dateTime)))
             {
@@ -218,13 +220,13 @@ namespace RoeiVerenigingWPF.Pages
 
                             _selectedButtons.Clear();
                             _selectedTimes.Clear();
-                            ExceptionText.Text = "De tijdblokken moeten direct achter elkaar zijn!";
+                            ExceptionTextBlock.Text = "De tijdblokken moeten direct achter elkaar zijn!";
                         }
                     }
                 }
                 else
                 {
-                    ExceptionText.Text = "Je kan maar 2 uur achter elkaar selecteren!";
+                    ExceptionTextBlock.Text = "Je kan maar 2 uur achter elkaar selecteren!";
                 }
             }
 
@@ -285,7 +287,7 @@ namespace RoeiVerenigingWPF.Pages
 
                 var imageconverter = new SingleStreamImageConverter();
                 var source = imageconverter.Convert(boat.Image, typeof(ImageSource), null, null);
-                
+
                 grid.Children.Add(new Image
                 {
                     Source = (BitmapImage)source,
@@ -366,19 +368,28 @@ namespace RoeiVerenigingWPF.Pages
 
         private void SaveButton_OnClick(object sender, RoutedEventArgs e)
         {
-            if (_reservationService.GetReservations(_loggedInMember).Count < 2 ||
-                _loggedInMember.Roles.Contains("beheerder") || _loggedInMember.Roles.Contains("materiaal_commissaris"))
+            if (ExceptionTextBlock.Foreground != Brushes.MediumSeaGreen)
             {
-                try
+                if (_reservationService.GetReservations(_loggedInMember).Count < 2 ||
+                    _loggedInMember.Roles.Contains("beheerder") ||
+                    _loggedInMember.Roles.Contains("materiaal_commissaris"))
                 {
-                    _reservationService.Create(_loggedInMember, _selectedBoat.Id, StartTime, EndTime);
-                    ExceptionText.Text = "De reservering is aangemaakt!";
-                    ExceptionText.Foreground = Brushes.Lime;
+                    try
+                    {
+                        _reservationService.Create(_loggedInMember, _selectedBoat.Id, StartTime, EndTime);
+                        ExceptionTextBlock.Text = "De reservering is aangemaakt!";
+                        ExceptionTextBlock.Foreground = Brushes.MediumSeaGreen;
+                        SaveButton.Content = "Verder";
+                    }
+                    catch (Exception exception)
+                    {
+                        ExceptionTextBlock.Text = exception.Message;
+                    }
                 }
-                catch (Exception exception)
-                {
-                    ExceptionText.Text = exception.Message;
-                }
+            }
+            else
+            {
+                _mainWindow.MainContent.Navigate(new MainPage(_mainWindow));
             }
         }
     }

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using RoeiVerenigingLibrary.Exceptions;
 
 namespace RoeiVerenigingLibrary.Model;
 
@@ -49,9 +50,16 @@ public class EventParticipant : Member, INotifyPropertyChanged
     public EventParticipant(int id, string firstName, string infix, string lastName, string email,
         int level) : base(id, firstName, infix, lastName, email, level){}
 
-    public void saveResultTime(IEventResultRepository repository)
+    public void saveResultTime(IEventResultRepository repository , Member loggedInmember)
     {
-        repository.SaveTime(this);
+        if (loggedInmember.Roles.Contains("beheerder") || loggedInmember.Roles.Contains("materiaal_commissaris"))
+        {
+            repository.SaveTime(this);
+        }
+        else
+        {
+            throw new IncorrectRightsException();
+        }
     }
 
     protected void OnPropertyChanged(string propertyName)

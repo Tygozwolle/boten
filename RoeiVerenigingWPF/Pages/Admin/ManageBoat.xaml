@@ -57,6 +57,9 @@
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Name="ExceptionTextBlock" HorizontalAlignment="Center" FontSize="24"
+                                       TextWrapping="WrapWithOverflow" FontWeight="Bold"
+                                       Foreground="Red" Padding="0,0,0,5" />
                             <Image Grid.Row="1" Name="Image"
                                    Source="/Images/Image_not_available.png" Height="400px"
                                    Width="400px" HorizontalAlignment="Center" VerticalAlignment="Center">

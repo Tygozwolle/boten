@@ -30,7 +30,7 @@
 
                     <!-- Image -->
                     <Image Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Name="VerenigingsAfbeelding"
-                           VerticalAlignment="Top" />
+                           VerticalAlignment="Top" MouseUp="VerenigingsAfbeelding_OnMouseUp" />
 
                     <!-- Label 1 -->
                     <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Margin="10" VerticalAlignment="Center"
@@ -39,11 +39,11 @@
                                Foreground="{x:Static local:CustomColors.HeaderColor}" />
 
                     <!-- Label 2 -->
-                    <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" Margin="10 10"
+                    <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" Margin="10 10" Name="ExceptionTextBlock"
                                TextWrapping="WrapWithOverflow" FontFamily="Franklin Medium"
                                FontSize="13.5" Foreground="{x:Static local:CustomColors.SubHeaderColor}"
                                Text="Langs de kalme oevers van de rivier, gewiegd door het zachte ruisen van het water, ontstond de roeivereniging Rivier Stroom. Een groepje vrienden, betoverd door de serene schoonheid van de omgeving, besloot hun passie voor roeien te delen. Met zelfgemaakte boten en een ontembare geest van avontuur begonnen ze samen te trainen. Hun enthousiasme verspreidde zich als een golf door de gemeenschap, en al snel sloten anderen zich aan. Gedreven door hun liefde voor de sport en de natuur, groeide Rivier Stroom uit tot een bloeiende vereniging, waar vriendschap en passie samenvloeiden op het kabbelende water." />
-
+                    
                     <!-- Buttons -->
                     <Grid Name="BoatRectangle" Grid.Row="3" Grid.Column="0" Height="60" Width="15" Margin="5,0,0,0"
                           Visibility="Hidden">
@@ -57,7 +57,7 @@
                             FontSize="32" Foreground="{x:Static local:CustomColors.HeaderColor}"
                             Background="{x:Static local:CustomColors.ButtonBackgroundColor}" Click="Button_Click">
                         <Grid HorizontalAlignment="Left">
-                            <Image Source="../Images/Icons/calendar.png" Height="50" Width="50" Margin="10,0"
+                            <Image Source="../Images/Icons/sailboat.png" Height="50" Width="50" Margin="10,0"
                                    HorizontalAlignment="Left" />
                             <TextBlock Text="Ik wil roeien!" Padding="70,0,20,0" VerticalAlignment="Center" />
                         </Grid>

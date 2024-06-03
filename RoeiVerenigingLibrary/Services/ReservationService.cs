@@ -5,10 +5,8 @@ namespace RoeiVerenigingLibrary
 {
     public class ReservationService(IReservationRepository reservationRepository)
     {
-        // private readonly IReservationRepository _reservationRepository;
 
         private readonly TimeSpan _maxReservationTime = new(2, 0, 0);
-
 
         public bool TimeChecker(DateTime? start, DateTime? end)
         {
@@ -216,15 +214,18 @@ namespace RoeiVerenigingLibrary
             Member mostActiveMember = null;
             foreach (Reservation reservation in reservations)
             {
-                if (reservationDictionary.ContainsKey(reservation.Member))
+                if (reservation.Member.FirstName != "System")
                 {
-                    // Increment the count for the existing boat
-                    reservationDictionary[reservation.Member]++;
-                }
-                else
-                {
-                    // Add the boat to the dictionary with an initial count of 1
-                    reservationDictionary[reservation.Member] = 1;
+                    if (reservationDictionary.ContainsKey(reservation.Member))
+                    {
+                        // Increment the count for the existing boat
+                        reservationDictionary[reservation.Member]++;
+                    }
+                    else
+                    {
+                        // Add the boat to the dictionary with an initial count of 1
+                        reservationDictionary[reservation.Member] = 1;
+                    }
                 }
             }
 

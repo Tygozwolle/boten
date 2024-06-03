@@ -1,0 +1,100 @@
+﻿<Page x:Class="RoeiVerenigingWPF.Pages.Member.ListEvents"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:RoeiVerenigingWPF.helpers"
+      mc:Ignorable="d" 
+      Height="900" Width="1000"
+      Title="ListEvents">
+
+    <Grid>
+        <Border CornerRadius="15" BorderThickness="5" BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}">
+            <Border CornerRadius="10" BorderThickness="8"
+        BorderBrush="{x:Static local:CustomColors.MainBackgroundColor}">
+                <Grid Height="900" Width="1000" Background="{x:Static local:CustomColors.MainBackgroundColor}"
+          HorizontalAlignment="Center"
+          VerticalAlignment="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Row="0"
+                Content="Evenementen" HorizontalContentAlignment="Center" VerticalAlignment="Top"
+                Margin="0,30,0,0"
+                FontFamily="Franklin Gothic Medium" FontSize="36"
+                Foreground="{x:Static local:CustomColors.HeaderColor}" Grid.ColumnSpan="2" />
+
+                    <Grid Grid.Row="1">
+                        <ListView ItemsSource="{Binding EventsList}" Grid.IsSharedSizeScope="True"
+                         d:ItemsSource="{d:SampleData ItemCount=5}" Name="ListView"
+                         ScrollViewer.VerticalScrollBarVisibility="Auto" BorderBrush="Transparent" MaxHeight="750">
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="ListViewItem">
+                                                <Border Background="{TemplateBinding Background}">
+                                                    <ContentPresenter />
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+
+                            </ListView.ItemContainerStyle>
+                            <ListView.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <UniformGrid Columns="1"/>
+                                </ItemsPanelTemplate>
+                            </ListView.ItemsPanel>
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <!--Grids that get repicated-->
+                                    <Grid Height="300" Width="900" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 10, 0, 10" MouseDown="UIElement_OnMouseDown" Tag="{Binding Id}">
+                                        <Grid.Effect>
+                                            <DropShadowEffect Color="Black" Direction="320" ShadowDepth="10" Opacity="0.3" />
+                                        </Grid.Effect>
+                                        <Border CornerRadius="30" BorderThickness="5" BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}">
+                                            <Border CornerRadius="24" BorderThickness="8"
+                                                BorderBrush="{x:Static local:CustomColors.TextBoxBackgroundColor}"
+                                                Background="{x:Static local:CustomColors.TextBoxBackgroundColor}">
+
+                                                <Grid Height="400" Width="900" Background="{x:Static local:CustomColors.TextBoxBackgroundColor}">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="1*" />
+                                                        <ColumnDefinition Width="1*" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="80"/>
+                                                        <RowDefinition/>
+                                                    </Grid.RowDefinitions>
+                                                    <!--left-->
+                                                    <StackPanel Grid.Row="0" Grid.Column="0">
+                                                        <TextBlock Text="{Binding Name }" Foreground="{x:Static local:CustomColors.HeaderColor}" FontSize="32" TextWrapping="Wrap"></TextBlock>
+                                                    </StackPanel>
+                                                    <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+                                                        <TextBlock Text="{Binding Description}" Foreground="{x:Static local:CustomColors.HeaderColor}" FontSize="20" TextWrapping="Wrap" MaxWidth="850" MaxHeight="300"></TextBlock>
+                                                    </StackPanel>
+
+                                                    <!--right-->
+                                                    <StackPanel Grid.Row="0" Grid.Column="1">
+                                                        <TextBlock Text="{Binding StartDate, StringFormat='Begint: {0:dd-MM-yyyy HH:mm}'}" HorizontalAlignment="Right" Margin="0, 0, 30 ,0" FontSize="20"></TextBlock>
+                                                        <TextBlock Text="{Binding EndDate, StringFormat='Eindigt: {0:dd-MM-yyyy HH:mm}'}" HorizontalAlignment="Right" Margin="0, 0, 30 ,0" FontSize="20"></TextBlock>
+                                                        <TextBlock Text="{Binding MaxParticipants, StringFormat='Maximaal: {0}'}" HorizontalAlignment="Right" Margin="0, 0, 30 ,0" FontSize="20"></TextBlock>
+                                                    </StackPanel>
+                                                </Grid>
+                                            </Border>
+                                        </Border>
+                                    </Grid>
+
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </Grid>
+                </Grid>
+            </Border>
+        </Border>
+    </Grid>
+</Page>

@@ -2,12 +2,7 @@
 using RoeiVerenigingLibrary;
 using RoeiVerenigingLibrary.Interfaces;
 using RoeiVerenigingLibrary.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataReaderExtensions = System.Data.DataReaderExtensions;
+
 
 namespace DataAccessLibrary
 {
@@ -36,16 +31,20 @@ namespace DataAccessLibrary
                     }
                 }
             }
+
             if (includeParticipants)
             {
                 AddParticipantToEvent(list);
             }
+
             if (includeBoats)
             {
                 AddBoatsToEvent(list);
             }
+
             return list;
         }
+
         private void AddParticipantToEvent(List<Event> events)
         {
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
@@ -62,19 +61,38 @@ namespace DataAccessLibrary
                         {
                             var id = reader.GetInt32("event_id");
                             string infix = "";
-                            if(!reader.IsDBNull(reader.GetOrdinal("infix")))
+                            if (!reader.IsDBNull(reader.GetOrdinal("infix")))
                             {
                                 infix = reader.GetString("infix");
                             }
-                            var member = new EventParticipant(new Member(reader.GetInt32("member_id"), reader.GetString("first_name"),
-                                infix, reader.GetString("last_name"), reader.GetString("email"),
-                                reader.GetInt32("level")), id, reader.GetTimeSpan("result_time"), reader.GetString("result"));
+                            
+                            TimeSpan resultTime;
+                            if(!reader.IsDBNull(reader.GetOrdinal("result_time")))
+                            {
+                                resultTime = reader.GetTimeSpan("result_time");
+                            }
+                            else
+                            {
+                                resultTime = new TimeSpan();
+                            }
+                            string result = "";
+                            if (!reader.IsDBNull(reader.GetOrdinal("result")))
+                            {
+                                result = reader.GetString("result");
+                            }
+                            
+                            var member = new EventParticipant(new Member(reader.GetInt32("member_id"),
+                                    reader.GetString("first_name"),
+                                    infix, reader.GetString("last_name"), reader.GetString("email"),
+                                    reader.GetInt32("level")), id, resultTime,
+                                    result);
                             events.Find(x => x.Id == id)?.Participants.Add(member);
                         }
                     }
                 }
             }
         }
+
         private void AddBoatsToEvent(List<Event> events)
         {
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
@@ -92,10 +110,11 @@ namespace DataAccessLibrary
                             var id = reader.GetInt32("event_id");
                             var boatId = reader.GetInt32("boat_id");
                             string description = "";
-                            if(!reader.IsDBNull(reader.GetOrdinal("description")))
+                            if (!reader.IsDBNull(reader.GetOrdinal("description")))
                             {
                                 description = reader.GetString("description");
                             }
+
                             var boat = new Boat(boatId, reader.GetBoolean("captain_seat_available"),
                                 reader.GetInt32("seats"), reader.GetInt32("level"), description,
                                 reader.GetString("name"));
@@ -147,6 +166,7 @@ namespace DataAccessLibrary
 
             throw new Exception("System member not found");
         }
+
         public Event Get(int Id)
         {
             Event events = null;
@@ -164,15 +184,19 @@ namespace DataAccessLibrary
                     {
                         while (reader.Read())
                         {
-                            events = new Event(getMembers(reader.GetInt32("id")), reader.GetDateTime("start_time"), reader.GetDateTime("end_time"), reader.GetString("description"),
+                            events = new Event(getMembers(reader.GetInt32("id")), reader.GetDateTime("start_time"),
+                                reader.GetDateTime("end_time"), reader.GetString("description"),
                                 reader.GetString("name"),
-                                reader.GetInt32("id"), reader.GetInt32("max_participants"), GetBoats(reader.GetInt32("id")));
+                                reader.GetInt32("id"), reader.GetInt32("max_participants"),
+                                GetBoats(reader.GetInt32("id")));
                         }
                     }
                 }
             }
+
             return events;
         }
+
         private List<Boat> GetBoats(int eventId)
         {
             var list = new List<Boat>();
@@ -232,7 +256,8 @@ namespace DataAccessLibrary
                                 infix = reader.GetString("infix");
                             }
 
-                            list.Add(new EventParticipant(reader.GetInt32("member_id"), reader.GetString("first_name"), infix,
+                            list.Add(new EventParticipant(reader.GetInt32("member_id"), reader.GetString("first_name"),
+                                infix,
                                 reader.GetString("last_name"), reader.GetString("email"), reader.GetInt32("level")));
                         }
                     }
@@ -283,6 +308,42 @@ namespace DataAccessLibrary
             return eventTemp;
         }
 
+        public List<Event> GetEventsFuture()
+        {
+            using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
+            {
+                Retry.RetryConnectionOpen(connection);
+
+                const string sql =
+                    "SELECT * FROM events WHERE start_time > CURDATE()";
+
+                using (MySqlCommand command = new MySqlCommand(sql, connection))
+                {
+                    var events = new List<Event>();
+
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            List<EventParticipant> participants = new List<EventParticipant>(); // empty to fill later
+                            int eventId = reader.GetInt32("id");
+                            string name = reader.GetString("name");
+                            string description = reader.GetString("description");
+                            int max_participants = reader.GetInt32("max_participants");
+                            DateTime start_time = reader.GetDateTime("start_time");
+                            DateTime end_time = reader.GetDateTime("end_time");
+
+                            Event addEvent = new(participants, start_time, end_time, description, name, eventId,
+                                max_participants, new List<Boat>());
+                            events.Add(addEvent);
+                        }
+                    }
+
+                    return events;
+                }
+            }
+        }
+
         public List<Event> GetEventsFromPastMonths(int AmountOfMonths)
         {
             List<Event> events = new List<Event>();
@@ -327,6 +388,49 @@ namespace DataAccessLibrary
             }
 
             return events;
+        }
+
+        public int GetParticipantCount(int eventId)
+        {
+            int participantCount = 0;
+
+            using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
+            {
+                Retry.RetryConnectionOpen(connection);
+
+                const string sql = "SELECT COUNT(*) FROM event_participant WHERE event_id = @eventId";
+
+                using (MySqlCommand command = new MySqlCommand(sql, connection))
+                {
+                    command.Parameters.Add("@eventId", MySqlDbType.Int32);
+                    command.Parameters["@eventId"].Value = eventId;
+
+                    participantCount = Convert.ToInt32(command.ExecuteScalar());
+                }
+            }
+
+            return participantCount;
+        }
+
+        public void AddParticipant(Member loggedInMember, int eventId)
+        {
+            using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
+            {
+                Retry.RetryConnectionOpen(connection);
+
+                const string sql = "INSERT INTO event_participant (member_id, event_id) VALUES (@memberId, @eventId)";
+
+                using (MySqlCommand command = new MySqlCommand(sql, connection))
+                {
+                    command.Parameters.Add("@memberId", MySqlDbType.Int32);
+                    command.Parameters["@memberId"].Value = loggedInMember.Id;
+
+                    command.Parameters.Add("@eventId", MySqlDbType.Int32);
+                    command.Parameters["@eventId"].Value = eventId;
+
+                    command.ExecuteNonQuery();
+                }
+            }
         }
     }
 }

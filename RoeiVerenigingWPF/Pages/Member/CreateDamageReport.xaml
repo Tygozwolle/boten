@@ -64,15 +64,15 @@
                            FontSize="24" HorizontalContentAlignment="Center"
                            Foreground="{x:Static local:CustomColors.SubHeaderColor}" Grid.ColumnSpan="2" />
 
-                    <TextBox Margin="15,5,15,5" x:Name="___discription_" Grid.Row="5" Grid.ColumnSpan="2"
+                    <TextBox Margin="15,5,15,5" x:Name="DescriptionTextBox" Grid.Row="5" Grid.ColumnSpan="2"
                              Foreground="{x:Static local:CustomColors.SubHeaderColor}"
                              Background="{x:Static local:CustomColors.TextBoxBackgroundColor}"
                              BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}" FontSize="24"
-                             FontFamily="Franklin Gothic Medium"
+                             FontFamily="Franklin Gothic Medium" TextWrapping="Wrap" MaxWidth="1200"
                              Height="300" />
 
 
-                    <Button Margin="15,5,15,5" Grid.Column="2" HorizontalAlignment="Right" x:Name="___submit_"
+                    <Button Margin="15,5,15,5" Grid.Column="2" HorizontalAlignment="Right" x:Name="SubmitButton"
                             Grid.Row="6"
                             HorizontalContentAlignment="Center" Width="350" Height="100"
                             Content="Schade melden"

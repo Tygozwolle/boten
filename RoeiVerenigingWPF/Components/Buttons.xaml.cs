@@ -1,12 +1,15 @@
-using RoeiVerenigingWPF.Frames;
-using RoeiVerenigingWPF.Pages;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
+using System.IO;
+using System.Media;
 using DataAccessLibrary;
 using RoeiVerenigingLibrary.Services;
+using RoeiVerenigingWPF.Frames;
+using RoeiVerenigingWPF.Pages;
 using RoeiVerenigingWPF.Pages.Member;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace RoeiVerenigingWPF.Components
 {
@@ -28,23 +31,17 @@ namespace RoeiVerenigingWPF.Components
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (MainWindow.LoggedInMember == null)
-            {
-                MessageBox.Show("Log eerst in");
-                return;
-            }
-
             switch (sender)
             {
                 case Button button when button == BotenButton:
                     try
                     {
-                        MainWindow.MainContent.Navigate(new AddReservation(MainWindow.LoggedInMember));
+                        MainWindow.MainContent.Navigate(new AddReservation(MainWindow.LoggedInMember, MainWindow));
                         ChangeColorOfRectangle(BoatRectangle);
                     }
                     catch (Exception exception)
                     {
-                        Console.WriteLine(exception.Message);
+                        ExceptionTextBlock.Text = exception.Message;
                     }
 
                     break;
@@ -64,7 +61,7 @@ namespace RoeiVerenigingWPF.Components
                     }
                     catch (Exception exception)
                     {
-                        Console.WriteLine(exception.Message);
+                        ExceptionTextBlock.Text = exception.Message;
                     }
 
                     break;
@@ -73,12 +70,13 @@ namespace RoeiVerenigingWPF.Components
                     try
                     {
                         ChangeColorOfRectangle(EventResultRectangle);
-                        MainWindow.MainContent.Navigate(new EventResult(MainWindow,
-                            new EventService(new EventRepository()).GetEventById(1)));
+
+                        MainWindow.MainContent.Navigate(new ListEvents(MainWindow,
+                            new EventService(new EventRepository()).GetEventsFromPastMonths(3), true));
                     }
                     catch (Exception exception)
                     {
-                        Console.WriteLine(exception);
+                        ExceptionTextBlock.Text = exception.Message;
                     }
 
                     break;
@@ -91,7 +89,7 @@ namespace RoeiVerenigingWPF.Components
                     }
                     catch (Exception exception)
                     {
-                        Console.WriteLine(exception);
+                        ExceptionTextBlock.Text = exception.Message;
                     }
 
                     break;
@@ -100,8 +98,6 @@ namespace RoeiVerenigingWPF.Components
 
         private void ChangeColorOfRectangle(Grid rectangle)
         {
-            Color reservationColor = Color.FromArgb(255, 122, 178, 178); // This represents the color #0e5172
-
             switch (rectangle)
             {
                 case { } when rectangle == BoatRectangle:
@@ -129,6 +125,15 @@ namespace RoeiVerenigingWPF.Components
                     ReservationRectangle.Visibility = Visibility.Visible;
                     break;
             }
+        }
+
+        private void VerenigingsAfbeelding_OnMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            new Task(()=>{
+                       var player = new SoundPlayer("./Sounds/Het ontstaan van de rivierstroom.wav");
+                       player.PlaySync();
+                       player.Dispose();
+                   }).Start();
         }
     }
 }

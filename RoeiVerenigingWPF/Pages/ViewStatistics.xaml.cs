@@ -50,28 +50,109 @@ public partial class ViewStatistics : Page
                 "Dit is de totale tijd van al jouw eigen reserveringen!",
                 _reservationService.GetTotalReservationTime(MainWindow.LoggedInMember, reservationsList) + " uur",
                 true));
+        }
+        catch (Exception e)
+        {
+            ExceptionTextBlock.Text = e.Message;
+        }
+
+        try
+        {
             AllStatistics.Add(
                 new Statistic(2, "Populaiste boot:", "Deze boot wordt het meeste gereserveerd!",
                     _boatService.GetMostANdLeastPopulairBoat((_reservationService.GetReservations()))[1].Name, true));
+        }
+        catch (Exception e)
+        {
+            ExceptionTextBlock.Text = e.Message;
+        }
+
+        try
+        {
             AllStatistics.Add(new Statistic(3, "Minst populaire boot:", "Deze boot wordt het minste gereserveerd!",
                 _boatService.GetMostANdLeastPopulairBoat((_reservationService.GetReservations()))[0].Name, true));
+        }
+        catch (Exception e)
+        {
+            ExceptionTextBlock.Text = e.Message;
+        }
+
+        try
+        {
             AllStatistics.Add(new Statistic(4, "Grootste evenement:", "Aan dit evenement deden de meeste mensen mee!",
                 "Les 1", false));
+        }
+        catch (Exception e)
+        {
+            ExceptionTextBlock.Text = e.Message;
+        }
+
+        try
+        {
             AllStatistics.Add(new Statistic(5, "Actiefste lid:", "Dit lid heeft de meeste reseveringen!",
                 _reservationService.GetMostAndLeastActiveMember(reservationsList)[1].GetFullName(), true));
+        }
+        catch (Exception e)
+        {
+            ExceptionTextBlock.Text = e.Message;
+        }
+
+        try
+        {
             AllStatistics.Add(new Statistic(7, "Minst actieve lid:", "Dit lid heeft de minste reserveringen staan.",
                 _reservationService.GetMostAndLeastActiveMember(reservationsList)[0].GetFullName(),
                 true));
+        }
+        catch (Exception e)
+        {
+            ExceptionTextBlock.Text = e.Message;
+        }
+
+        try
+        {
             AllStatistics.Add(new Statistic(8, "Ongelukkiste lid:", "Dit lid heeft de meeste schade gemeld!",
                 _damageService.MemberWithMostDamage(damageList).GetFullName(),
                 true));
+        }
+        catch (Exception e)
+        {
+            ExceptionTextBlock.Text = e.Message;
+        }
+
+        try
+        {
             AllStatistics.Add(new Statistic(9, "Aantal leden:", "Onze vereniging heeft zoveel leden!",
                 memberList.Count + " leden", true));
+        }
+        catch (Exception e)
+        {
+            ExceptionTextBlock.Text = e.Message;
+        }
+
+        try
+        {
             AllStatistics.Add(new Statistic(10, "Totaal aantal reserveringen:",
-                "Dit is het totale aantal reserveringen dat is gemaakt.", reservationsList.Count() + " x reservering", true));
+                "Dit is het totale aantal reserveringen dat is gemaakt.", reservationsList.Count() + " x reservering",
+                true));
+        }
+        catch (Exception e)
+        {
+            ExceptionTextBlock.Text = e.Message;
+        }
+
+        try
+        {
             AllStatistics.Add(new Statistic(11, "Open schademeldingen:",
                 "Dit is de hoeveelheid schademeldingen die momenteel open staan",
                 _damageService.AmountOfOpenDamageReports(damageList) + " x melding", true));
+        }
+        catch (Exception e)
+        {
+            ExceptionTextBlock.Text = e.Message;
+        }
+
+        try
+        {
             AllStatistics.Add(new Statistic(12, "Aantal boten:",
                 "Dit is het aantal boten dat de vereniging heeft!",
                 boatList.Count() + " x boten", true));
@@ -93,10 +174,20 @@ public partial class ViewStatistics : Page
         PopulateStatisticsGrid();
     }
 
-
     public void PopulateStatisticsGrid()
     {
         StatisticsPanel.Children.Clear();
+        if (SelectedStatistics.Count == 0)
+        {
+            StatisticsPanel.Children.Add(new TextBlock
+            {
+                Text = "Er zijn geen statistieken geselecteerd!", VerticalAlignment = VerticalAlignment.Top,
+                FontSize = 24,
+                HorizontalAlignment = HorizontalAlignment.Right, TextWrapping = TextWrapping.Wrap,
+                Foreground = CustomColors.SubHeaderColor
+            });
+        }
+
         for (int i = 0; i < SelectedStatistics.Count; i++)
         {
             Statistic stat = SelectedStatistics[i];
@@ -212,7 +303,7 @@ public partial class ViewStatistics : Page
     private void UpdateSelectedList(object sender, RoutedEventArgs e, Statistic statistic)
     {
         Button clickedButton = sender as Button;
-        
+
         if (statistic.Selected)
         {
             statistic.Selected = false;

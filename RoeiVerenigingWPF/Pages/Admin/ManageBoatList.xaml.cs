@@ -47,7 +47,7 @@ namespace RoeiVerenigingWPF.Pages.Admin
             new Thread(async () =>
             {
                 _service.GetImageBoats(Boats);
-                this.Dispatcher.Invoke(() => { ListView.Items.Refresh(); });
+                Dispatcher.Invoke(() => { ListView.Items.Refresh(); });
             }).Start();
         }
     }

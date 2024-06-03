@@ -64,7 +64,6 @@ namespace DataAccessLibrary
         public List<Stream> Get(int id)
         {
             var list = new List<Stream>();
-            var ids = new List<int>();
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
             {
                 Retry.RetryConnectionOpen(connection);
