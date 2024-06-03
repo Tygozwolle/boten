@@ -38,6 +38,11 @@ namespace RoeiVerenigingWPF.Pages.Member
                     _mainWindow.MainContent.Navigate(new EventResult(_mainWindow,
                         new EventService(new EventRepository()).GetEventById(id)));
                 }
+                else
+                {
+                    _mainWindow.MainContent.Navigate(new ViewEvent(_mainWindow,
+                        new EventService(new EventRepository()).GetEventById(id)));
+                }
             }
         }
     }

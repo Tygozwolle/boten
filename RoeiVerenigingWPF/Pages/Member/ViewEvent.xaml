@@ -1,13 +1,12 @@
-﻿<Page x:Class="RoeiVerenigingWPF.Pages.Member.EventResult"
+﻿<Page x:Class="RoeiVerenigingWPF.Pages.Member.ViewEvent"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:RoeiVerenigingWPF.Pages.Member"
       xmlns:helpers="clr-namespace:RoeiVerenigingWPF.helpers"
-      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       mc:Ignorable="d"
-      Title="EventResult" d:DesignHeight="900" d:DesignWidth="1550" Background="Transparent">
+      Title="ViewEvent" d:DesignHeight="900" d:DesignWidth="1550" Background="Transparent">
     <Grid Height="900" Width="1550" HorizontalAlignment="Center" VerticalAlignment="Center">
         <Grid.Effect>
             <DropShadowEffect Color="Black" Direction="320" ShadowDepth="10" Opacity="0.3" />
@@ -29,7 +28,7 @@
                         <TextBlock Name="HeaderBoat"
                                    HorizontalAlignment="Center" VerticalAlignment="Top"
                                    Margin="0,15,0,0"
-                                   Text="{Binding EventResults.Name, StringFormat='Uitslagen: {0}'}"
+                                   Text="{Binding Events.Name, StringFormat='Evenement: {0}'}"
                                    FontFamily="Franklin Gothic Medium" FontSize="36"
                                    Foreground="{x:Static helpers:CustomColors.HeaderColor}" />
 
@@ -95,6 +94,7 @@
                                     VerticalAlignment="Center" HorizontalAlignment="left" />
                                 <TextBlock
                                     Text="{Binding ParticipantsCount}"
+                                    Name="AmountOfParticipants"
                                     FontFamily="Franklin Gothic Medium" FontSize="21"
                                     VerticalAlignment="Center" HorizontalAlignment="left" Margin="5,0,0,0" />
                                 <!-- Description -->
@@ -106,7 +106,7 @@
                                     VerticalAlignment="Center" HorizontalAlignment="left" />
                                 <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="400">
                                     <TextBlock
-                                        Text="{Binding EventResults.Description}"
+                                        Text="{Binding Events.Description}"
                                         FontFamily="Franklin Gothic Medium" FontSize="21" TextWrapping="Wrap"
                                         VerticalAlignment="Center" HorizontalAlignment="left" Margin="5,0,0,0" />
                                 </ScrollViewer>
@@ -122,42 +122,30 @@
                                 Background="{x:Static helpers:CustomColors.MainBackgroundColor}">
                             <StackPanel Margin="15,15,15,15">
                                 <TextBlock
-                                    Text="Uitslagen:"
+                                    Text="Deelnemers:"
                                     FontFamily="Franklin Gothic Medium" FontSize="26"
                                     Foreground="{x:Static helpers:CustomColors.SubHeaderColor}"
                                     VerticalAlignment="Center" HorizontalAlignment="left" />
                                 <!-- Table -->
-                                <Grid Margin="15,15,15,0">
+                                <Grid Margin="15,15,15,0" HorizontalAlignment="Center">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="100" />
-                                        <ColumnDefinition Width="100" />
-                                        <ColumnDefinition Width="150" />
-                                        <ColumnDefinition Width="100" />
+                                        <ColumnDefinition Width="260" />
                                         <ColumnDefinition Width="200" />
-                                        <ColumnDefinition Width="295" />
+                                        <ColumnDefinition Width="310" />
                                     </Grid.ColumnDefinitions>
-                                    <Button Grid.Column="0" Content="Plaats" Foreground="#0e5172"
+                                    <Button Grid.Column="0" Name="FirstName" Content="Voornaam" Foreground="#0e5172"
                                             Background="#bbe3f7"
                                             BorderBrush="#1892cd" FontFamily="Franklin Gothic Medium" FontSize="18" />
-                                    <Button Grid.Column="1" Content="Tijd" Foreground="#0e5172"
+                                    <Button Grid.Column="1" Name="Infix" Content="Tussenv." Foreground="#0e5172"
                                             Background="#bbe3f7"
                                             BorderBrush="#1892cd" FontFamily="Franklin Gothic Medium" FontSize="18" />
-                                    <Button Grid.Column="2" Name="FirstName" Content="Voornaam" Foreground="#0e5172"
-                                            Background="#bbe3f7"
-                                            BorderBrush="#1892cd" FontFamily="Franklin Gothic Medium" FontSize="18" />
-                                    <Button Grid.Column="3" Name="Infix" Content="Tussenv." Foreground="#0e5172"
-                                            Background="#bbe3f7"
-                                            BorderBrush="#1892cd" FontFamily="Franklin Gothic Medium" FontSize="18" />
-                                    <Button Grid.Column="4" Name="LastName" Content="Achternaam" Foreground="#0e5172"
-                                            Background="#bbe3f7"
-                                            BorderBrush="#1892cd" FontFamily="Franklin Gothic Medium" FontSize="18" />
-                                    <Button Grid.Column="5" Content="Omschrijving" Foreground="#0e5172"
+                                    <Button Grid.Column="2" Name="LastName" Content="Achternaam" Foreground="#0e5172"
                                             Background="#bbe3f7"
                                             BorderBrush="#1892cd" FontFamily="Franklin Gothic Medium" FontSize="18" />
                                 </Grid>
                                 <!-- Actual data -->
                                 <ScrollViewer Margin="15,0,15,15" VerticalScrollBarVisibility="Auto"
-                                              HorizontalAlignment="Left">
+                                              HorizontalAlignment="Center">
                                     <StackPanel x:Name="ReportView" CanVerticallyScroll="True"
                                                 ScrollViewer.VerticalScrollBarVisibility="Visible" />
                                 </ScrollViewer>
@@ -168,7 +156,7 @@
                                         Foreground="{x:Static helpers:CustomColors.HeaderColor}"
                                         Background="{x:Static helpers:CustomColors.ButtonBackgroundColor}"
                                         BorderBrush="{x:Static helpers:CustomColors.OutsideBorderColor}"
-                                        Content="Opslaan" Click="SaveResults" Name="SaveResult">
+                                        Content="Deelnemen" Click="Participate" Name="SaveResult">
                                     <Button.Resources>
                                         <Style TargetType="Border">
                                             <Setter Property="CornerRadius" Value="15" />
