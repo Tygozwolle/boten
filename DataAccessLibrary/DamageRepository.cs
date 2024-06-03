@@ -100,7 +100,6 @@ namespace DataAccessLibrary
 
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
-                        List<Task> tasks = new List<Task>();
                         while (reader.Read())
                         {
                             //get member
