@@ -138,7 +138,7 @@ namespace RoeiVerenigingWPF.Components
         private void VerenigingsAfbeelding_OnMouseUp(object sender, MouseButtonEventArgs e)
         {
             new Task(()=>{
-                       var player = new SoundPlayer("./Sounds/Ontstaan van de rivieerstroom.wav");
+                       var player = new SoundPlayer("./Sounds/Het ontstaan van de rivierstroom.wav");
                        player.PlaySync();
                        player.Dispose();
                    }).Start();
