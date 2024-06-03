@@ -154,7 +154,7 @@ namespace RoeiVerenigingLibrary.Services
 
         public List<Event> GetEvents()
         {
-            return _eventRepository.GetAll();
+            return _eventRepository.GetAll(false, false);
         }
 
         public List<Event> GetEventsFuture()
@@ -177,6 +177,11 @@ namespace RoeiVerenigingLibrary.Services
             if (eventData.MaxParticipants <= _eventRepository.GetParticipantCount(eventData.Id))
             {
                 throw new Exception("Het evenement zit al vol");
+            }
+
+            if (eventData.StartDate < DateTime.Now)
+            {
+                throw new Exception("Je kan je niet meer inschrijven");
             }
 
             try
