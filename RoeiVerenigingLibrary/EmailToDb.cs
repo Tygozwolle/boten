@@ -8,7 +8,7 @@ using Attachment = Aspose.Email.Attachment;
 
 namespace RoeiVerenigingLibrary
 {
-    public class EmailToDb
+    public abstract class EmailToDb
     {
         public static void GetImagesFromEmail(IImageRepository repository)
         {
