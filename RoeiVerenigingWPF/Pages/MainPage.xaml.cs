@@ -16,7 +16,7 @@ namespace RoeiVerenigingWPF.Pages
         {
             InitializeComponent();
             MainWindow = mainWindow;
-            EventsList = _eventService.GetEvents(false);
+            EventsList = _eventService.GetEventsFuture();
             DataContext = this;
             StatisticsFrame.Content = new ViewStatistics(mainWindow);
         }

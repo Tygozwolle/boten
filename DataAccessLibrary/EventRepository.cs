@@ -295,12 +295,12 @@ namespace DataAccessLibrary
                     {
                         while (reader.Read())
                         {
-                            int eventId = reader.GetInt32(0);
-                            string name = reader.GetString(1);
-                            string description = reader.GetString(2);
-                            int max_participants = reader.GetInt32(3);
-                            DateTime start_time = reader.GetDateTime(4);
-                            DateTime end_time = reader.GetDateTime(5);
+                            int eventId = reader.GetInt32("id");
+                            string name = reader.GetString("name");
+                            string description = reader.GetString("description");
+                            int max_participants = reader.GetInt32("max_participants");
+                            DateTime start_time = reader.GetDateTime("start_time");
+                            DateTime end_time = reader.GetDateTime("end_time");
 
                             Event addEvent = new(participants, start_time, end_time, description, name, eventId,
                                 max_participants, GetBoats(eventId));

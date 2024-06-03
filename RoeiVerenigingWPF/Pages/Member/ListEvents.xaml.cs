@@ -20,7 +20,7 @@ namespace RoeiVerenigingWPF.Pages.Member
         {
             InitializeComponent();
             _mainWindow = mainWindow;
-            EventsList = _eventService.GetEvents(true);
+            EventsList = _eventService.GetEvents();
             DataContext = this;
             InitializeComponent();
         }

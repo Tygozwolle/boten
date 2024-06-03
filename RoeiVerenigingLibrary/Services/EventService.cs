@@ -129,13 +129,14 @@ namespace RoeiVerenigingLibrary.Services
         }
 
 
-        public List<Event> GetEvents(bool all)
+        public List<Event> GetEvents()
         {
-            if (all)
-            {
-                return _eventRepository.GetAll();
-            }
 
+            return _eventRepository.GetAll();
+        }
+
+        public List<Event> GetEventsFuture()
+        {
             return _eventRepository.GetEventsFuture();
         }
 
