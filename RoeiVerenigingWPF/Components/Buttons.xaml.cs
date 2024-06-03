@@ -1,3 +1,4 @@
+using System.Media;
 using DataAccessLibrary;
 using RoeiVerenigingLibrary.Services;
 using RoeiVerenigingWPF.Frames;
@@ -5,6 +6,7 @@ using RoeiVerenigingWPF.Pages;
 using RoeiVerenigingWPF.Pages.Member;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -130,6 +132,11 @@ namespace RoeiVerenigingWPF.Components
                     ReservationRectangle.Visibility = Visibility.Visible;
                     break;
             }
+        }
+
+        private void VerenigingsAfbeelding_OnKeyUp(object sender, KeyEventArgs e)
+        {
+            var player = new SoundPlayer("Sounds/roeien.wav");
         }
     }
 }
