@@ -57,6 +57,13 @@ namespace RoeiVerenigingWPF.Frames
                 {
                     HeaderClass.Boat_Button.Visibility = Visibility.Visible;
                 }
+                else
+                {
+                    HeaderClass.Users_Button.Visibility = Visibility.Hidden;
+                    HeaderClass.UserAdd_Button.Visibility = Visibility.Hidden;
+                    HeaderClass.Boat_Button.Visibility = Visibility.Hidden;
+                    HeaderClass.Event_Button.Visibility = Visibility.Hidden;
+                }
 
                 if (_loggedInMember != null)
                 {
