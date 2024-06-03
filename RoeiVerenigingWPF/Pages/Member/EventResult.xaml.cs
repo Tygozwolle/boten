@@ -192,7 +192,7 @@ public partial class EventResult : Page
         {
             foreach (var participant in EventResults.Participants)
             {
-                participant.saveResultTime(_EventReportsRepository);
+                participant.saveResultTime(_EventReportsRepository, _MainWindow.LoggedInMember);
             }
 
             ExceptionText.Text = "De resultaten zijn opgeslagen!";
