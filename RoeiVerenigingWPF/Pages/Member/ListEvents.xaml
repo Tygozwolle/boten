@@ -58,10 +58,10 @@
                                         </Grid.Effect>
                                         <Border CornerRadius="30" BorderThickness="5" BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}">
                                             <Border CornerRadius="24" BorderThickness="8"
-                                                BorderBrush="{x:Static local:CustomColors.MainBackgroundColor}"
-                                                Background="{x:Static local:CustomColors.MainBackgroundColor}">
+                                                BorderBrush="{x:Static local:CustomColors.TextBoxBackgroundColor}"
+                                                Background="{x:Static local:CustomColors.TextBoxBackgroundColor}">
 
-                                                <Grid Height="400" Width="900">
+                                                <Grid Height="400" Width="900" Background="{x:Static local:CustomColors.TextBoxBackgroundColor}">
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="1*" />
                                                         <ColumnDefinition Width="1*" />

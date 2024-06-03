@@ -55,16 +55,16 @@
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <!--Grids that get repicated-->
-                                    <Grid Height="300" Width="900" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 10, 0, 10"  MouseDown="Grid_OnMouseDown" Tag="{Binding Id}">
+                                    <Grid Height="300" Width="900" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 10, 0, 10"  MouseDown="Grid_OnMouseDown" Tag="{Binding Id}" >
                                         <Grid.Effect>
                                             <DropShadowEffect Color="Black" Direction="320" ShadowDepth="10" Opacity="0.3" />
                                         </Grid.Effect>
                                         <Border CornerRadius="30" BorderThickness="5" BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}">
                                             <Border CornerRadius="24" BorderThickness="8"
-                                                    BorderBrush="{x:Static local:CustomColors.MainBackgroundColor}"
-                                                    Background="{x:Static local:CustomColors.MainBackgroundColor}">
-                                                
-                                                <Grid Height="400" Width="900">
+                                                    BorderBrush="{x:Static local:CustomColors.TextBoxBackgroundColor}"
+                                                    Background="{x:Static local:CustomColors.TextBoxBackgroundColor}">
+
+                                                <Grid Height="400" Width="900" Background="{x:Static local:CustomColors.TextBoxBackgroundColor}">
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="1*" />
                                                         <ColumnDefinition Width="1*" />
