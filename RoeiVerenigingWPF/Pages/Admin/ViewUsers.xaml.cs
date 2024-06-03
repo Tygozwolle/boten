@@ -142,18 +142,6 @@ namespace RoeiVerenigingWPF.Pages
             }
         }
 
-        private void EditMember_Click(object sender, RoutedEventArgs e)
-        {
-            if (SelectedMember == null)
-            {
-                MessageBox.Show("Selecteer een lid");
-                return;
-            }
-
-            _mainWindow.MainContent.Navigate(new AdminEditUser(_mainWindow, SelectedMember.Id));
-        }
-
-
         private void ButtonFilterUsers(object sender, RoutedEventArgs e)
         {
             Button clickedButton = sender as Button;

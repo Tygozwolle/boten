@@ -7,6 +7,7 @@ using RoeiVerenigingLibrary.Exceptions;
 using RoeiVerenigingWPF.Frames;
 using RoeiVerenigingWPF.helpers;
 using System.IO;
+using System.Windows.Media;
 
 namespace RoeiVerenigingWPF.Pages.Admin
 {
@@ -17,12 +18,13 @@ namespace RoeiVerenigingWPF.Pages.Admin
         private Boat _boat;
         private bool _imageChanged = false;
         private Stream _imageStream;
+        private bool _captain;
 
         public ManageBoat(MainWindow mainWindow, Boat boat)
         {
             _mainWindow = mainWindow;
             InitializeComponent();
-            
+
             _boat = boat;
             Name.Text = boat.Name;
             Description.Text = boat.DescriptionNoEnter;
@@ -30,7 +32,7 @@ namespace RoeiVerenigingWPF.Pages.Admin
             Level.Text = boat.Level.ToString();
             Delete_Button.Visibility = Visibility.Visible;
             Captain.IsChecked = boat.CaptainSeat;
-            
+
             _edit = true;
             ButtonEditCreate.Content = "Opslaan";
             HeaderBoat.Content = "Boot aanpassen";
@@ -48,6 +50,7 @@ namespace RoeiVerenigingWPF.Pages.Admin
             InitializeComponent();
             Delete_Button.Visibility = Visibility.Hidden;
             Captain.IsChecked = false;
+            ExceptionTextBlock.Foreground = Brushes.Red;
         }
 
         private void ToggleButtonClick(object sender, RoutedEventArgs e)
@@ -55,74 +58,91 @@ namespace RoeiVerenigingWPF.Pages.Admin
             if (Captain.IsChecked == true)
             {
                 Captain.Content = "Stuurman aanwezig";
+                _captain = true;
             }
             else
             {
                 Captain.Content = "Stuurman afwezig";
+                _captain = false;
             }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            BoatService service = new BoatService(new BoatRepository());
-            try
+            if (ExceptionTextBlock.Foreground != Brushes.MediumSeaGreen)
             {
-                string name = Name.Text;
-                string description = Description.Text;
-                string seats = Seats.Text;
-                string level = Level.Text;
-                bool captain = Captain.IsPressed;
-                Boat createdBoat;
+                ExceptionTextBlock.Foreground = Brushes.Red;
+                BoatService service = new BoatService(new BoatRepository());
+                try
+                {
+                    string name = Name.Text;
+                    string description = Description.Text;
+                    string seats = Seats.Text;
+                    string level = Level.Text;
+                    bool captain = _captain;
+                    Boat createdBoat;
+                    if (_edit)
+                    {
+                        _boat = service.Update(_mainWindow.LoggedInMember, _boat, name, description, Int32.Parse(seats),
+                            captain, Int32.Parse(level));
+                        if (_imageChanged)
+                        {
+                            service.UpdateImage(_mainWindow.LoggedInMember, _boat, _imageStream);
+                        }
+
+                        if (_boat != null)
+                        {
+                            ExceptionTextBlock.Foreground = Brushes.MediumSeaGreen;
+                            ExceptionTextBlock.Text =
+                                $"{_boat.Name} is aangepast met bootnummer {_boat.Id}";
+                            ButtonEditCreate.Content = "Verder";
+                        }
+                    }
+                    else
+                    {
+                        createdBoat = service.Create(_mainWindow.LoggedInMember, name, description, Int32.Parse(seats),
+                            captain, Int32.Parse(level));
+                        if (_imageChanged)
+                        {
+                            service.AddImage(_mainWindow.LoggedInMember, createdBoat, _imageStream);
+                        }
+
+                        if (createdBoat != null)
+                        {
+                            ExceptionTextBlock.Foreground = Brushes.MediumSeaGreen;
+                            ExceptionTextBlock.Text =
+                                $"{createdBoat.Name} is aangemaakt met bootnummer {createdBoat.Id}";
+                            ButtonEditCreate.Content = "Verder";
+                        }
+                    }
+                }
+                catch (IncorrectRightsException ex)
+                {
+                    ExceptionTextBlock.Text = ex.Message;
+                }
+                catch (System.FormatException)
+                {
+                    ExceptionTextBlock.Text = "Vul alle velden correct in";
+                }
+                catch (IncorrectLevelException ex)
+                {
+                    ExceptionTextBlock.Text = ex.Message;
+                }
+                catch (NameEmptyExeception ex)
+                {
+                    ExceptionTextBlock.Text = ex.Message;
+                }
+            }
+            else
+            {
                 if (_edit)
                 {
-                    _boat = service.Update(_mainWindow.LoggedInMember, _boat, name, description, Int32.Parse(seats),
-                        captain, Int32.Parse(level));
-                    if (_imageChanged)
-                    {
-                        service.UpdateImage(_mainWindow.LoggedInMember, _boat, _imageStream);
-                    }
-
-                    if (_boat != null)
-                    {
-                        MessageBox.Show(
-                            $"{_boat.Name} {_boat.Description} {_boat.Level} is aangepast met bootnummer {_boat.Id}");
-                    }
-
                     _mainWindow.MainContent.Navigate(new ManageBoatList(_mainWindow));
                 }
                 else
                 {
-                    createdBoat = service.Create(_mainWindow.LoggedInMember, name, description, Int32.Parse(seats),
-                        captain, Int32.Parse(level));
-                    if (_imageChanged)
-                    {
-                        service.AddImage(_mainWindow.LoggedInMember, createdBoat, _imageStream);
-                    }
-
-                    if (createdBoat != null)
-                    {
-                        MessageBox.Show(
-                            $"{createdBoat.Name} {createdBoat.Description} {createdBoat.Level} is aangemaakt met bootnummer {createdBoat.Id}");
-                    }
-
                     _mainWindow.MainContent.Navigate(new ManageBoatList(_mainWindow));
                 }
-            }
-            catch (IncorrectRightsException ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            catch (System.FormatException)
-            {
-                MessageBox.Show("Vul alle velden correct in");
-            }
-            catch (IncorrectLevelException ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            catch (NameEmptyExeception ex)
-            {
-                MessageBox.Show(ex.Message);
             }
         }
 

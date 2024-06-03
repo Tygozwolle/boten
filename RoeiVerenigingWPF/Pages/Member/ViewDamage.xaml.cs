@@ -82,19 +82,29 @@ namespace RoeiVerenigingWPF.Pages
             new Thread(() =>
             {
                 EmailToDb.GetImagesFromEmail(_imageRepository);
-                Damage UpdatedDamage = _service.GetById(Damage.Id);
+                Damage updatedDamage = _service.GetById(Damage.Id);
                 Dispatcher.Invoke(() =>
                 {
                     Mouse.OverrideCursor = null;
-                    _mainWindow.MainContent.Navigate(new ViewDamage(_mainWindow, UpdatedDamage));
+                    _mainWindow.MainContent.Navigate(new ViewDamage(_mainWindow, updatedDamage));
                 });
             }).Start();
         }
         private void update_content(object sender, RoutedEventArgs e)
         {
-            Damage.Description = Description.Text;
-            _service.Update(Damage.Id, Damage.BoatFixed, Damage.Usable, Description.Text);
-            MessageBox.Show("Beschrijving is aangepast");
+            if (ExceptionTextBlock.Foreground != Brushes.MediumSeaGreen)
+            {
+                Damage.Description = Description.Text;
+                _service.Update(Damage.Id, Damage.BoatFixed, Damage.Usable, Description.Text);
+                ExceptionTextBlock.Text = "Beschrijving is aangepast!";
+                ExceptionTextBlock.Foreground = Brushes.MediumSeaGreen;
+                ContinueButton.Content = "Verder";
+            }
+            else
+            {
+                _mainWindow.MainContent.Navigate(new MainPage(_mainWindow));
+            }
+            
         }
     }
 }

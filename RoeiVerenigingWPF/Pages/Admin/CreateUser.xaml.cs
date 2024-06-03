@@ -4,6 +4,7 @@ using RoeiVerenigingLibrary.Exceptions;
 using RoeiVerenigingWPF.Frames;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace RoeiVerenigingWPF.Pages
 {
@@ -22,29 +23,43 @@ namespace RoeiVerenigingWPF.Pages
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            MemberService service = new MemberService(new MemberRepository());
-            try
+            if (ExceptionText.Foreground != Brushes.MediumSeaGreen)
             {
-                string firstName = FirstName.Text;
-                string infix = Infix.Text;
-                string lastName = LastName.Text;
-                string email = Email.Text;
-                string password = Password.Password;
-                RoeiVerenigingLibrary.Member createdMember = service.Create(_mainWindow.LoggedInMember, firstName, infix, lastName, email,
-                    password);
-                if (createdMember != null)
+                MemberService service = new MemberService(new MemberRepository());
+                try
                 {
-                    MessageBox.Show(
-                        $"{createdMember.FirstName} {createdMember.Infix} {createdMember.LastName} is aangemaakt met lidnummer {createdMember.Id}");
+                    string firstName = FirstName.Text;
+                    string infix = Infix.Text;
+                    string lastName = LastName.Text;
+                    string email = Email.Text;
+                    string password = Password.Password;
+                    RoeiVerenigingLibrary.Member createdMember = service.Create(_mainWindow.LoggedInMember, firstName,
+                        infix, lastName, email,
+                        password);
+                    if (createdMember != null)
+                    {
+                        ExceptionText.Foreground = Brushes.MediumSeaGreen;
+                        ExceptionText.Text =
+                            $"{createdMember.FirstName} {createdMember.Infix} {createdMember.LastName} is aangemaakt met lidnummer {createdMember.Id}";
+                        ContinueButton.Content = "Verder";
+                    }
+                }
+                catch (MemberAlreadyExistsException ex)
+                {
+                    ExceptionText.Text = ex.Message;
+                }
+                catch (IncorrectRightsException ex)
+                {
+                    ExceptionText.Text = ex.Message;
+                }
+                catch (InvalidEmailException ex)
+                {
+                    ExceptionText.Text = ex.Message;
                 }
             }
-            catch (MemberAlreadyExistsException ex)
+            else
             {
-                MessageBox.Show(ex.Message);
-            }
-            catch (IncorrectRightsException ex)
-            {
-                MessageBox.Show(ex.Message);
+                _mainWindow.MainContent.Navigate(new MainPage(_mainWindow));
             }
         }
     }
