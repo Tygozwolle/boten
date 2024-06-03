@@ -54,6 +54,11 @@ public partial class EventResult : Page
         EventResults.AddParticipantsFromDatabase(_EventReportsRepository);
         InitializeComponent();
         PopulateResultView();
+        if (!_MainWindow.LoggedInMember.Roles.Contains("materiaal_commissaris") &&
+            !_MainWindow.LoggedInMember.Roles.Contains("beheerder"))
+        {
+            SaveResult.Visibility = Visibility.Hidden;
+        }
     }
 
     public void PopulateResultView()
