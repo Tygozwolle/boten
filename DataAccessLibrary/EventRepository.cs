@@ -282,7 +282,6 @@ namespace DataAccessLibrary
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
             {
                 Retry.RetryConnectionOpen(connection);
-                
 
                 const string sql =
                     "SELECT * FROM events WHERE start_time > CURDATE()";
