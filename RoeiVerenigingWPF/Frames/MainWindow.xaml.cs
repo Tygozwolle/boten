@@ -49,13 +49,28 @@ namespace RoeiVerenigingWPF.Frames
                     HeaderClass.Boat_Button.Visibility = Visibility.Visible;
                     HeaderClass.Event_Button.Visibility = Visibility.Visible;
                 }
-                if (_loggedInMember.Roles.Contains("evenementen_commissaris"))
+                else if (_loggedInMember.Roles.Contains("evenementen_commissaris"))
                 {
                     HeaderClass.Event_Button.Visibility = Visibility.Visible;
+                    
+                    HeaderClass.Users_Button.Visibility = Visibility.Hidden;
+                    HeaderClass.UserAdd_Button.Visibility = Visibility.Hidden;
+                    HeaderClass.Boat_Button.Visibility = Visibility.Hidden;
                 }
-                if (_loggedInMember.Roles.Contains("materiaal_commissaris"))
+                else if (_loggedInMember.Roles.Contains("materiaal_commissaris"))
                 {
                     HeaderClass.Boat_Button.Visibility = Visibility.Visible;
+                    
+                    HeaderClass.Users_Button.Visibility = Visibility.Hidden;
+                    HeaderClass.UserAdd_Button.Visibility = Visibility.Hidden;
+                    HeaderClass.Event_Button.Visibility = Visibility.Hidden;
+                }
+                else
+                {
+                    HeaderClass.Users_Button.Visibility = Visibility.Hidden;
+                    HeaderClass.UserAdd_Button.Visibility = Visibility.Hidden;
+                    HeaderClass.Boat_Button.Visibility = Visibility.Hidden;
+                    HeaderClass.Event_Button.Visibility = Visibility.Hidden;
                 }
 
                 if (_loggedInMember != null)
