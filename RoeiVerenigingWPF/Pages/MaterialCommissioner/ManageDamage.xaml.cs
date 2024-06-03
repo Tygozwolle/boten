@@ -76,14 +76,24 @@ namespace RoeiVerenigingWPF.Pages
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            bool boatFixed = false;
-            bool usable = false;
-            if (Fixed.IsChecked == true)
-                boatFixed = true;
-            if (Usable.IsChecked == true)
-                usable = true;
-            _service.Update(Damage.Id, boatFixed, usable, Description.Text);
-            _mainWindow.MainContent.Navigate(new ManageDamageOverview(_mainWindow));
+            if (ExceptionTextBlock.Foreground != Brushes.MediumSeaGreen)
+            {
+                bool boatFixed = false;
+                bool usable = false;
+                if (Fixed.IsChecked == true)
+                    boatFixed = true;
+                if (Usable.IsChecked == true)
+                    usable = true;
+                _service.Update(Damage.Id, boatFixed, usable, Description.Text);
+                ExceptionTextBlock.Text = "De schademelding is aangepast!";
+                ExceptionTextBlock.Foreground = Brushes.MediumSeaGreen;
+                ContinueButton.Content = "Verder";
+            }
+            else
+            {
+                _mainWindow.MainContent.Navigate(new ManageDamageOverview(_mainWindow));
+            }
+            
         }
 
         private void update_images_Click(object sender, RoutedEventArgs e)

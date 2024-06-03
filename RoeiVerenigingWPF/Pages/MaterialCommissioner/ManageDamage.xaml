@@ -16,7 +16,7 @@
                 <Grid Margin="0,0,0,0" Background="{x:Static local:CustomColors.MainBackgroundColor}" Height="900"
                       Width="1165">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="50" />
+                        <RowDefinition Height="Auto" />
                         <RowDefinition Height="1*" />
                         <RowDefinition Height="1*" />
                         <RowDefinition Height="1*" />
@@ -31,6 +31,11 @@
                     <TextBlock Text="{Binding Damage.Boat.Name, StringFormat='Schade melding van {0}'}" FontSize="30"
                                Grid.Row="0"
                                Grid.Column="0" Grid.ColumnSpan="4" HorizontalAlignment="Center" />
+                    
+                    <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0"
+                               Name="ExceptionTextBlock" HorizontalAlignment="Center" FontSize="24"
+                               TextWrapping="WrapWithOverflow" FontWeight="Bold"
+                               Foreground="Red" Padding="0,0,0,5" Margin="0,50,0,0" />
                     <!--imageblock-->
                     <Grid Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"
                           Grid.RowSpan="4">
@@ -54,6 +59,7 @@
                                             <ColumnDefinition Width="1*" />
                                             <ColumnDefinition Width="1*" />
                                         </Grid.ColumnDefinitions>
+                                        
                                         <Image x:Name="DamageImage" Source="/Images/Image_not_available.png"
                                                Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" />
                                     </Grid>
@@ -193,19 +199,13 @@
                     </Grid>
                     <!--buttons-->
                     <Grid Grid.Row="3" Grid.Column="2">
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
                         <Button Grid.Column="0" Grid.Row="1" Margin="80,140,80, 80"
                                 HorizontalContentAlignment="Center"
                                 FontFamily="Franklin Gothic Medium" FontSize="32" BorderThickness="3"
                                 Foreground="{x:Static local:CustomColors.HeaderColor}"
                                 Background="{x:Static local:CustomColors.ButtonBackgroundColor}"
                                 BorderBrush="{x:Static local:CustomColors.OutsideBorderColor}" Click="Button_Click"
-                                Content="Opslaan">
+                                Content="Opslaan" Name="ContinueButton">
                             <Button.BitmapEffect>
                                 <DropShadowBitmapEffect Color="Black" Direction="320" Softness="1" ShadowDepth="10"
                                                         Opacity="0.5" />

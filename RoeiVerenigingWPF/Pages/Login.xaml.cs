@@ -44,12 +44,12 @@ namespace RoeiVerenigingWPF.Pages
             }
             catch (IncorrectEmailOrPasswordException e)
             {
-                MessageBox.Show(e.Message);
+                ExceptionTextBlock.Text = e.Message;
                 return;
             }
             catch (InvalidEmailException e)
             {
-                MessageBox.Show(e.Message);
+                ExceptionTextBlock.Text = e.Message;
                 return;
             }
 

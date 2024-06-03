@@ -44,7 +44,7 @@
                                    VerticalAlignment="Top" TextWrapping="WrapWithOverflow"
                                    FontFamily="Franklin Gothic Medium" FontSize="32" Width="780"
                                    Foreground="{x:Static local:CustomColors.SubHeaderColor}" />
-                        <TextBlock Grid.Row="1" Name="ExceptionText" HorizontalAlignment="Center" FontSize="24"
+                        <TextBlock Grid.Row="1" Name="ExceptionTextBlock" HorizontalAlignment="Center" FontSize="24"
                                TextWrapping="WrapWithOverflow" FontWeight="Bold"
                                Foreground="Red" Padding="0,0,0,5">
                         </TextBlock>
