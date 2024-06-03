@@ -1,3 +1,5 @@
+using System.IO;
+using System.Media;
 using DataAccessLibrary;
 using RoeiVerenigingLibrary.Services;
 using RoeiVerenigingWPF.Frames;
@@ -5,6 +7,7 @@ using RoeiVerenigingWPF.Pages;
 using RoeiVerenigingWPF.Pages.Member;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -122,6 +125,15 @@ namespace RoeiVerenigingWPF.Components
                     ReservationRectangle.Visibility = Visibility.Visible;
                     break;
             }
+        }
+
+        private void VerenigingsAfbeelding_OnMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            new Task(()=>{
+                       var player = new SoundPlayer("./Sounds/Het ontstaan van de rivierstroom.wav");
+                       player.PlaySync();
+                       player.Dispose();
+                   }).Start();
         }
     }
 }
