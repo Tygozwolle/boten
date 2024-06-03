@@ -126,8 +126,8 @@ namespace RoeiVerenigingWPF.Pages
         private void DateIsSelected(object? sender, SelectionChangedEventArgs e)
         {
             var calendar = sender as Calendar;
-            ExceptionText.Text = "";
-            ExceptionText.Foreground = Brushes.Red;
+            ExceptionTextBlock.Text = "";
+            ExceptionTextBlock.Foreground = Brushes.Red;
             TimeContentGrid.Children.Clear();
 
             try
@@ -156,14 +156,14 @@ namespace RoeiVerenigingWPF.Pages
             }
             catch (Exception ex)
             {
-                ExceptionText.Text = ex.Message;
+                ExceptionTextBlock.Text = ex.Message;
                 TimeContentGrid.Children.Clear();
             }
         }
 
         private void TimeButton_Click(Button clickedButton, DateTime dateTime)
         {
-            ExceptionText.Text = "";
+            ExceptionTextBlock.Text = "";
 
             if (_selectedTimes.Contains((dateTime)))
             {
@@ -202,13 +202,13 @@ namespace RoeiVerenigingWPF.Pages
 
                             _selectedButtons.Clear();
                             _selectedTimes.Clear();
-                            ExceptionText.Text = "De tijdblokken moeten direct achter elkaar zijn!";
+                            ExceptionTextBlock.Text = "De tijdblokken moeten direct achter elkaar zijn!";
                         }
                     }
                 }
                 else
                 {
-                    ExceptionText.Text = "Je kan maar 2 uur achter elkaar selecteren!";
+                    ExceptionTextBlock.Text = "Je kan maar 2 uur achter elkaar selecteren!";
                 }
             }
 
@@ -353,12 +353,12 @@ namespace RoeiVerenigingWPF.Pages
                 try
                 {
                     _reservationService.Create(_loggedInMember, _selectedBoat.Id, StartTime, EndTime);
-                    ExceptionText.Text = "De reservering is aangemaakt!";
-                    ExceptionText.Foreground = Brushes.Lime;
+                    ExceptionTextBlock.Text = "De reservering is aangemaakt!";
+                    ExceptionTextBlock.Foreground = Brushes.Lime;
                 }
                 catch (Exception exception)
                 {
-                    ExceptionText.Text = exception.Message;
+                    ExceptionTextBlock.Text = exception.Message;
                 }
             }
         }

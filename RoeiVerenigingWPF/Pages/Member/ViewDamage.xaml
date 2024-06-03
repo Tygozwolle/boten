@@ -29,14 +29,21 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" HorizontalAlignment="Center"
+                               Text="Schade melding" FontFamily="Franklin Gothic Medium" FontSize="48"
+                               Foreground="{x:Static local:CustomColors.HeaderColor}" />
+                    <TextBlock Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0"
+                               Name="ExceptionTextBlock" HorizontalAlignment="Center" FontSize="24"
+                               TextWrapping="WrapWithOverflow" FontWeight="Bold"
+                               Foreground="Red" Padding="0,0,0,5" />
 
                     <TextBlock Text="{Binding Damage.Boat.Name, StringFormat='Schade melding van {0}'}" Grid.Row="0"
-                               Grid.Column="0" Grid.ColumnSpan="4" HorizontalAlignment="Center"
+                               Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Center"
                                FontFamily="Franklin Gothic Medium" FontSize="36"
                                Foreground="{x:Static local:CustomColors.HeaderColor}" />
                     <!--imageblock-->
                     <Grid Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"
-                          Grid.RowSpan="4">
+                          Grid.RowSpan="3">
                         <Grid.Effect>
                             <DropShadowEffect Color="Black" Direction="320" ShadowDepth="10" Opacity="0.3" />
                         </Grid.Effect>
@@ -211,7 +218,7 @@
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
                         <Button Grid.Column="0" Grid.Row="1" Margin="80,140,80, 80"
-                                HorizontalContentAlignment="Center"
+                                HorizontalContentAlignment="Center" Name="ContinueButton"
                                 FontFamily="Franklin Gothic Medium" FontSize="32" BorderThickness="3"
                                 Foreground="{x:Static local:CustomColors.HeaderColor}"
                                 Background="{x:Static local:CustomColors.ButtonBackgroundColor}"
