@@ -140,6 +140,7 @@ namespace RoeiVerenigingWPF.Components
             new Task(()=>{
                        var player = new SoundPlayer("./Sounds/Ontstaan van de rivieerstroom.wav");
                        player.PlaySync();
+                       player.Dispose();
                    }).Start();
         }
     }
