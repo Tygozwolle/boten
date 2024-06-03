@@ -53,9 +53,10 @@ namespace RoeiVerenigingWPF.Pages
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            ExceptionTextBlock.Foreground = Brushes.Red;
+            
             if (ExceptionTextBlock.Foreground != Brushes.MediumSeaGreen)
             {
+                ExceptionTextBlock.Foreground = Brushes.Red;
                 try
                 {
                     //get all data

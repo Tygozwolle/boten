@@ -52,6 +52,10 @@ namespace RoeiVerenigingWPF.Pages
                 {
                     ExceptionText.Text = ex.Message;
                 }
+                catch (InvalidEmailException ex)
+                {
+                    ExceptionText.Text = ex.Message;
+                }
             }
             else
             {
