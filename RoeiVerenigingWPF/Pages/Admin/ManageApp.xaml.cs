@@ -80,7 +80,7 @@ namespace RoeiVerenigingWPF.Pages.Admin
                 out string errorMassage);
             if (valid)
             {
-                MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show(
+                MessageBoxResult messageBoxResult = MessageBox.Show(
                     "Weet je zeker dat u de instellingen wilt wijzigen?", "Bevestiging",
                     System.Windows.MessageBoxButton.YesNo);
                 if (messageBoxResult == MessageBoxResult.Yes)
@@ -99,7 +99,7 @@ namespace RoeiVerenigingWPF.Pages.Admin
             }
             else
             {
-                MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show(
+                MessageBoxResult messageBoxResult = MessageBox.Show(
                     $"Database instelling kloppen niet. \n {errorMassage} \n Wil u u account instellingen wijzigen?",
                     "Database instellingen incorrect", System.Windows.MessageBoxButton.YesNo);
                 if (messageBoxResult == MessageBoxResult.Yes)

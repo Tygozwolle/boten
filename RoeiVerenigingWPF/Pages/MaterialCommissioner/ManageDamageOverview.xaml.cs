@@ -52,7 +52,7 @@ namespace RoeiVerenigingWPF.Pages
             new Thread(async () =>
             {
                 _service.AddFirstImageToClass(Damages, _imageRepository);
-                this.Dispatcher.Invoke(() => { ListView.Items.Refresh(); });
+                Dispatcher.Invoke(() => { ListView.Items.Refresh(); });
             }).Start();
         }
 

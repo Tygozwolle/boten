@@ -28,23 +28,17 @@ namespace RoeiVerenigingWPF.Components
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (MainWindow.LoggedInMember == null)
-            {
-                MessageBox.Show("Log eerst in");
-                return;
-            }
-
             switch (sender)
             {
                 case Button button when button == BotenButton:
                     try
                     {
-                        MainWindow.MainContent.Navigate(new AddReservation(MainWindow.LoggedInMember));
+                        MainWindow.MainContent.Navigate(new AddReservation(MainWindow.LoggedInMember, MainWindow));
                         ChangeColorOfRectangle(BoatRectangle);
                     }
                     catch (Exception exception)
                     {
-                        Console.WriteLine(exception.Message);
+                        ExceptionTextBlock.Text = exception.Message;
                     }
 
                     break;
@@ -64,7 +58,7 @@ namespace RoeiVerenigingWPF.Components
                     }
                     catch (Exception exception)
                     {
-                        Console.WriteLine(exception.Message);
+                        ExceptionTextBlock.Text = exception.Message;
                     }
 
                     break;
@@ -79,7 +73,7 @@ namespace RoeiVerenigingWPF.Components
                     }
                     catch (Exception exception)
                     {
-                        Console.WriteLine(exception);
+                        ExceptionTextBlock.Text = exception.Message;
                     }
 
                     break;
@@ -92,7 +86,7 @@ namespace RoeiVerenigingWPF.Components
                     }
                     catch (Exception exception)
                     {
-                        Console.WriteLine(exception);
+                        ExceptionTextBlock.Text = exception.Message;
                     }
 
                     break;
@@ -101,8 +95,6 @@ namespace RoeiVerenigingWPF.Components
 
         private void ChangeColorOfRectangle(Grid rectangle)
         {
-            Color reservationColor = Color.FromArgb(255, 122, 178, 178); // This represents the color #0e5172
-
             switch (rectangle)
             {
                 case { } when rectangle == BoatRectangle:

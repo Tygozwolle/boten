@@ -68,7 +68,8 @@ public partial class ViewStatistics : Page
             AllStatistics.Add(new Statistic(9, "Aantal leden:", "Onze vereniging heeft zoveel leden!",
                 memberList.Count + " leden", true));
             AllStatistics.Add(new Statistic(10, "Totaal aantal reserveringen:",
-                "Dit is het totale aantal reserveringen dat is gemaakt.", reservationsList.Count() + " x reservering", true));
+                "Dit is het totale aantal reserveringen dat is gemaakt.", reservationsList.Count() + " x reservering",
+                true));
             AllStatistics.Add(new Statistic(11, "Open schademeldingen:",
                 "Dit is de hoeveelheid schademeldingen die momenteel open staan",
                 _damageService.AmountOfOpenDamageReports(damageList) + " x melding", true));
@@ -97,6 +98,17 @@ public partial class ViewStatistics : Page
     public void PopulateStatisticsGrid()
     {
         StatisticsPanel.Children.Clear();
+        if (SelectedStatistics.Count == 0)
+        {
+            StatisticsPanel.Children.Add(new TextBlock
+            {
+                Text = "Er zijn geen statistieken geselecteerd!", VerticalAlignment = VerticalAlignment.Top,
+                FontSize = 24,
+                HorizontalAlignment = HorizontalAlignment.Right, TextWrapping = TextWrapping.Wrap,
+                Foreground = CustomColors.SubHeaderColor
+            });
+        }
+
         for (int i = 0; i < SelectedStatistics.Count; i++)
         {
             Statistic stat = SelectedStatistics[i];
@@ -212,7 +224,7 @@ public partial class ViewStatistics : Page
     private void UpdateSelectedList(object sender, RoutedEventArgs e, Statistic statistic)
     {
         Button clickedButton = sender as Button;
-        
+
         if (statistic.Selected)
         {
             statistic.Selected = false;
