@@ -10,17 +10,19 @@ namespace RoeiVerenigingWPF.Pages.Member
     /// <summary>
     /// Interaction logic for ListEvents.xaml
     /// </summary>
-
     public partial class ListEvents : Page
     {
         public List<Event> EventsList { get; set; }
         private EventService _eventService = new(new EventRepository());
         private MainWindow _mainWindow;
-        public ListEvents(MainWindow mainWindow)
+        private bool _SendToResult;
+
+        public ListEvents(MainWindow mainWindow, List<Event> events, bool sendToResult)
         {
             InitializeComponent();
             _mainWindow = mainWindow;
-            EventsList = _eventService.GetEvents();
+            EventsList = events;
+            _SendToResult = sendToResult;
             DataContext = this;
             InitializeComponent();
         }
@@ -29,10 +31,13 @@ namespace RoeiVerenigingWPF.Pages.Member
         {
             if (sender is Grid)
             {
-                //object command = ((Grid)sender).Tag;
-
-                //TODO:Deelname page hiernaar toe
-                //MainWindow.MainContent.Navigate());
+                object command = ((Grid)sender).Tag;
+                int id = Int32.Parse(command.ToString());
+                if (_SendToResult)
+                {
+                    _mainWindow.MainContent.Navigate(new EventResult(_mainWindow,
+                        new EventService(new EventRepository()).GetEventById(id)));
+                }
             }
         }
     }

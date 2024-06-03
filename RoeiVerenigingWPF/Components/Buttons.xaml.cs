@@ -67,8 +67,9 @@ namespace RoeiVerenigingWPF.Components
                     try
                     {
                         ChangeColorOfRectangle(EventResultRectangle);
-                        MainWindow.MainContent.Navigate(new EventResult(MainWindow,
-                            new EventService(new EventRepository()).GetEventById(1)));
+
+                        MainWindow.MainContent.Navigate(new ListEvents(MainWindow,
+                            new EventService(new EventRepository()).GetEventsFromPastMonths(3), true));
                     }
                     catch (Exception exception)
                     {
