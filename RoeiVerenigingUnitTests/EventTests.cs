@@ -113,5 +113,94 @@ namespace RoeiVerenigingUnitTests
         Assert.Throws<InvalidTimeException>((() => _eventService.CreateEvent(startDate, endDate, description, name, maxParticipants, boats, loggedInMember)));
         
     }
+    
+        [Test]
+    public void UpdateEvent_WhenEventCheckPasses_CallsCreateOnRepositoryAndReturnsResult()
+    {
+        // Arrange
+        var startDate = DateTime.Now.AddDays(15);
+        var endDate = DateTime.Now.AddDays(16);
+        var description = "Test Event";
+        var name = "Event";
+        var maxParticipants = 10;
+        var boats = new List<Boat>();
+        var loggedInMember =_loggedInMember;
+        var eventOld = new Event(new List<EventParticipant>(), startDate.AddHours(2), endDate.AddHours(3), description+"hoi", name+"s", 3, maxParticipants ,boats);
+        var expectedEvent = new Event(new List<EventParticipant>(), startDate, endDate, description, name, 3, maxParticipants ,boats);
+        _eventRepositoryMock.Setup(repo => repo.Change(It.IsAny<Event>(), It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<List<Boat>>(), It.IsAny<List<Boat>>())).Returns(expectedEvent);
+
+        // Act
+        var result = _eventService.UpdateEvent(eventOld, startDate, endDate, description, name, maxParticipants, loggedInMember, boats);
+
+        // Assert
+        Assert.That((expectedEvent.Equals(result)));
+        _eventRepositoryMock.Verify(repo => repo.Change(eventOld, startDate, endDate, description, name, maxParticipants, new List<Boat>(), new List<Boat>()), Times.Once);
+    }
+
+    [Test]
+    public void UpdateEvent_WhenEventCheckFails_LessThan14Days()
+    {
+        // Arrange
+        var startDate = DateTime.Now.AddDays(10); // less than 14 days in the future, so Eventcheck should fail
+        var endDate = DateTime.Now.AddDays(11);
+        var description = "Test Event";
+        var name = "Event";
+        var maxParticipants = 10;
+        var boats = new List<Boat>();
+        var loggedInMember = _loggedInMember;
+        var eventOld = new Event(new List<EventParticipant>(), startDate.AddHours(2), endDate.AddHours(3), description+"hoi", name+"s", 3, maxParticipants ,boats);
+        // Assert
+        Assert.Throws<EventTimeException>((() => _eventService.UpdateEvent(eventOld, startDate, endDate, description, name, maxParticipants, loggedInMember, boats)));
+
+    }
+    [Test]
+    public void UpdateEvent_WhenEventCheckFails_AlreadyOnThisTime()
+    {
+        // Arrange
+        var startDate = DateTime.Now.AddDays(19); // there is already an event on this date, so Eventcheck should fail
+        var endDate = DateTime.Now.AddDays(20);
+        var description = "Test Event";
+        var name = "Event";
+        var maxParticipants = 10;
+        var boats = new List<Boat>();
+        var loggedInMember = _loggedInMember;
+
+        // Assert
+        Assert.Throws<EventAlreadyOnThisTimeException>((() => _eventService.CreateEvent(startDate, endDate, description, name, maxParticipants, boats, loggedInMember)));
+
+    }
+    [Test]
+    public void UpdateEvent_WhenEventCheckFailsIncorrectRights()
+    {
+        // Arrange
+        var startDate = DateTime.Now.AddDays(15); 
+        var endDate = DateTime.Now.AddDays(16);
+        var description = "Test Event";
+        var name = "Event";
+        var maxParticipants = 10;
+        var boats = new List<Boat>();
+        var loggedInMember = new Member(2, "test", "test", "last", "email@email.com", 3); // incorrect rights, so Eventcheck should fail
+        
+        // Assert
+        Assert.Throws<IncorrectRightsException>((() => _eventService.CreateEvent(startDate, endDate, description, name, maxParticipants, boats, loggedInMember)));
+        
+    }
+    [Test]
+    public void UpdateEvent_WhenEventCheckFailsInvalidTime()
+    {
+        // Arrange
+        var startDate = DateTime.Now.AddDays(17); // start date is after end date, so Eventcheck should fail
+        var endDate = DateTime.Now.AddDays(16);
+        var description = "Test Event";
+        var name = "Event";
+        var maxParticipants = 10;
+        var boats = new List<Boat>();
+        var loggedInMember = _loggedInMember;
+        
+        // Assert
+        Assert.Throws<InvalidTimeException>((() => _eventService.CreateEvent(startDate, endDate, description, name, maxParticipants, boats, loggedInMember)));
+        
+    }
+    
     }
 }
