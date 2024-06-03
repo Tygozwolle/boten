@@ -131,18 +131,20 @@ namespace RoeiVerenigingLibrary.Services
 
         public List<Event> GetEvents()
         {
-
-            return _eventRepository.GetAll();
+            var list = _eventRepository.GetAll();
+            return list.OrderBy(x => x.StartDate).ToList();
         }
 
         public List<Event> GetEventsFuture()
         {
-            return _eventRepository.GetEventsFuture();
+            var list = _eventRepository.GetEventsFuture();
+            return list.OrderBy(x => x.StartDate).ToList();
         }
 
         public List<Event> GetEventsFromPastMonths(int AmountOfMonths)
         {
-            return _eventRepository.GetEventsFromPastMonths(AmountOfMonths);
+            var list = _eventRepository.GetEventsFromPastMonths(AmountOfMonths);
+            return list.OrderBy(x => x.StartDate).ToList();
         }
         public Event GetEventById(int id)
         {
