@@ -107,7 +107,6 @@ namespace DataAccessLibrary
                                 reader.GetBoolean("captain_seat_available"), reader.GetInt32("seats"),
                                 reader.GetInt32("level"), reader.GetString(11),
                                 reader.GetString("name"));
-                            var boatid = reader.GetInt32("boat_id");
                             var id = reader.GetInt32("id");
                             var description = reader.GetString(2);
                             var fixedboat = reader.GetBoolean("fixed");
