@@ -25,6 +25,8 @@ namespace RoeiVerenigingUnitTests
             new Event(new List<EventParticipant>(), DateTime.Now.AddDays(19), DateTime.Now.AddDays(20), "Test Event1", "Event1", 1, 10, new List<Boat>()),
             new Event(new List<EventParticipant>(), DateTime.Now.AddDays(18), DateTime.Now.AddDays(19), "Test Event2", "Event2", 2, 10, new List<Boat>())
         };
+        eventList[0].Boats.Add(new Boat(1,true,2,3,"test1", "test1"));
+        eventList[0].Boats.Add(new Boat(2,true,3,4,"test2", "test2"));
         _eventsList = eventList;
         _eventRepositoryMock.Setup(getall => getall.GetAll(false, false)).Returns(eventList);
     }
@@ -149,7 +151,7 @@ namespace RoeiVerenigingUnitTests
             var description = "Test Event";
             var name = "Event";
             var maxParticipants = 10;
-            var boats = new List<Boat>();
+            var boats = eventOld.Boats;
             var loggedInMember =_loggedInMember;
             
             var expectedEvent = new Event(new List<EventParticipant>(), startDate, endDate, description, name, eventOld.Id, maxParticipants ,boats);
@@ -161,6 +163,52 @@ namespace RoeiVerenigingUnitTests
             // Assert
             Assert.That((expectedEvent.Equals(result)));
             _eventRepositoryMock.Verify(repo => repo.Change(eventOld, startDate, endDate, description, name, maxParticipants, new List<Boat>(), new List<Boat>()), Times.Once);
+        }
+        
+        [Test]
+        public void UpdateEvent_WhenEventCheckPasses_CallsCreateOnRepositoryAndReturnsResult_ChangeBoatsAdd()
+        {
+            // Arrange
+            var eventOld = _eventsList[0];
+            var startDate = eventOld.StartDate.AddHours(2);
+            var endDate = eventOld.EndDate.AddHours(3);
+            var description = "Test Event";
+            var name = "Event";
+            var maxParticipants = 10;
+            var boats = eventOld.Boats.ToArray().ToList();
+            var loggedInMember =_loggedInMember;
+            boats.Add(new Boat(3,true,4,3,"test", "test"));
+            boats.Add(new Boat(4,true,5,7,"test6", "test4"));
+            var expectedEvent = new Event(new List<EventParticipant>(), startDate, endDate, description, name, eventOld.Id, maxParticipants ,boats);
+            _eventRepositoryMock.Setup(repo => repo.Change(It.IsAny<Event>(), It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<List<Boat>>(), It.IsAny<List<Boat>>())).Returns(expectedEvent);
+
+            // Act
+            var result = _eventService.UpdateEvent(eventOld, startDate, endDate, description, name, maxParticipants, loggedInMember, boats);
+
+            // Assert
+            Assert.That((expectedEvent.Equals(result)));
+        }
+        [Test]
+        public void UpdateEvent_WhenEventCheckPasses_CallsCreateOnRepositoryAndReturnsResult_ChangeBoatsRemove()
+        {
+            // Arrange
+            var eventOld = _eventsList[0];
+            var startDate = eventOld.StartDate.AddHours(2);
+            var endDate = eventOld.EndDate.AddHours(3);
+            var description = "Test Event";
+            var name = "Event";
+            var maxParticipants = 10;
+            var boats = eventOld.Boats.ToArray().ToList();
+            var loggedInMember =_loggedInMember;
+            boats.Remove(_eventsList[0].Boats[0]);
+            var expectedEvent = new Event(new List<EventParticipant>(), startDate, endDate, description, name, eventOld.Id, maxParticipants ,boats);
+            _eventRepositoryMock.Setup(repo => repo.Change(It.IsAny<Event>(), It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<List<Boat>>(), It.IsAny<List<Boat>>())).Returns(expectedEvent);
+
+            // Act
+            var result = _eventService.UpdateEvent(eventOld, startDate, endDate, description, name, maxParticipants, loggedInMember, boats);
+
+            // Assert
+            Assert.That((expectedEvent.Equals(result)));
         }
 
     [Test]
