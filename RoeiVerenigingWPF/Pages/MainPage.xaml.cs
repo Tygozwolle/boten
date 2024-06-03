@@ -4,6 +4,7 @@ using RoeiVerenigingLibrary.Services;
 using RoeiVerenigingWPF.Frames;
 using RoeiVerenigingWPF.Pages.EventCommissioner;
 using RoeiVerenigingWPF.Pages.Member;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -24,6 +25,7 @@ namespace RoeiVerenigingWPF.Pages
             if (MainWindow.LoggedInMember.Roles.Contains("beheerder") || MainWindow.LoggedInMember.Roles.Contains("evenementen_commissaris"))
             {
                 SubText.Text = "Klik met u rechter muisknop om een evenement te wijzigen";
+                SubText.Visibility = Visibility.Visible;
             }
         }
 
