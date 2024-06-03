@@ -9,7 +9,7 @@ namespace DataAccessLibrary
         {
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
             {
-                connection.Open();
+                Retry.RetryConnectionOpen(connection);
                 using (MySqlTransaction transaction = connection.BeginTransaction())
                 {
                     try
@@ -41,7 +41,7 @@ namespace DataAccessLibrary
         {
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
             {
-                connection.Open();
+                Retry.RetryConnectionOpen(connection);
                 const string sql = "SELECT * FROM damage_report_fotos WHERE damage_report_id = @id  LIMIT 1";
 
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
@@ -67,7 +67,7 @@ namespace DataAccessLibrary
             var ids = new List<int>();
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
             {
-                connection.Open();
+                Retry.RetryConnectionOpen(connection);
                 const string sql = "SELECT * FROM damage_report_fotos WHERE damage_report_id = @id";
 
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
@@ -108,7 +108,7 @@ namespace DataAccessLibrary
         {
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
             {
-                connection.Open();
+                Retry.RetryConnectionOpen(connection);
                 const string sql = "SELECT * FROM damage_report_fotos WHERE damage_report_id = @id";
 
                 using (MySqlCommand command = new MySqlCommand(sql, connection))

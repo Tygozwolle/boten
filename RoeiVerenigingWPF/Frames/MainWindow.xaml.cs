@@ -123,7 +123,7 @@ namespace RoeiVerenigingWPF.Frames
             MainContent.Visibility = Visibility.Hidden;
             LoginContent.Visibility = Visibility.Visible;
             _loggedInMember = null;
-            StartNewProcess();
+            
         }
 
         private void ManageApp_Click(object sender, RoutedEventArgs e)
@@ -164,26 +164,6 @@ namespace RoeiVerenigingWPF.Frames
             {
                 LoginContent.Navigate(new ManageApp(this));
             }
-        }
-        /// <summary>
-        /// restarts the application
-        /// </summary>
-        static async void StartNewProcess()
-        {
-            ProcessStartInfo startInfo = new ProcessStartInfo
-            {
-                FileName = Path.GetFullPath( Process.GetCurrentProcess().MainModule.FileName),
-                UseShellExecute = true,
-                CreateNoWindow = false,
-            };
-            
-            using (Process process = new Process())
-            {
-                process.StartInfo = startInfo;
-                process.Start();
-            }
-            await Task.Delay(1000);
-            Application.Current.Shutdown();
         }
     }
 }

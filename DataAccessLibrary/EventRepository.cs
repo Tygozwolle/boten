@@ -13,7 +13,7 @@ namespace DataAccessLibrary
             var list = new List<Event>();
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
             {
-                connection.Open();
+                Retry.RetryConnectionOpen(connection);
 
                 const string sql = "SELECT * FROM `events`";
 
@@ -45,7 +45,7 @@ namespace DataAccessLibrary
         {
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
             {
-                connection.Open();
+                Retry.RetryConnectionOpen(connection);
                 const string sql = "SELECT * FROM event_participant " +
                                    "INNER JOIN members ON event_participant.member_id = members.member_id";
 
@@ -74,7 +74,7 @@ namespace DataAccessLibrary
         {
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
             {
-                connection.Open();
+                Retry.RetryConnectionOpen(connection);
                 const string sql = "SELECT * FROM event_reserved_boats " +
                                    "INNER JOIN boats ON event_reserved_boats.boat_id = boats.id";
 
@@ -105,7 +105,7 @@ namespace DataAccessLibrary
         {
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
             {
-                connection.Open();
+                Retry.RetryConnectionOpen(connection);
                 const string sql = "SELECT member_id FROM members WHERE first_name = @system ";
 
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
@@ -124,7 +124,7 @@ namespace DataAccessLibrary
 
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
             {
-                connection.Open();
+                Retry.RetryConnectionOpen(connection);
                 const string sql =
                     " INSERT INTO boten_reservering.members (member_id, first_name, infix, last_name, level, email, password)\nVALUES (0, 'System', null, 'System', DEFAULT, 'System', 'System');";
 
@@ -147,7 +147,7 @@ namespace DataAccessLibrary
             Event events = null;
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
             {
-                connection.Open();
+                Retry.RetryConnectionOpen(connection);
 
                 const string sql = "SELECT * FROM `events` WHERE id = @id";
 
@@ -173,7 +173,7 @@ namespace DataAccessLibrary
             var list = new List<Boat>();
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
             {
-                connection.Open();
+                Retry.RetryConnectionOpen(connection);
 
                 const string sql = "SELECT b.* " +
                                    "FROM event_reserved_boats erb " +
@@ -205,7 +205,7 @@ namespace DataAccessLibrary
             var list = new List<EventParticipant>();
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
             {
-                connection.Open();
+                Retry.RetryConnectionOpen(connection);
 
                 const string sql = "SELECT m.* " +
                                    "FROM event_participant p " +
@@ -243,7 +243,7 @@ namespace DataAccessLibrary
 
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
             {
-                connection.Open();
+                Retry.RetryConnectionOpen(connection);
 
                 const string sql = "SELECT * FROM `events` WHERE `id` = @id";
 
@@ -319,7 +319,7 @@ namespace DataAccessLibrary
 
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
             {
-                connection.Open();
+                Retry.RetryConnectionOpen(connection);
 
                 const string sql = @"
             SELECT *
