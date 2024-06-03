@@ -11,9 +11,9 @@ create table boats
 
 create table boat_images
 (
-    id    int  not null
+    id    int        not null
         primary key,
-    image blob not null,
+    image mediumblob not null,
     constraint boat_images_ibfk_1
         foreign key (id) references boats (id)
             on delete cascade
@@ -21,13 +21,14 @@ create table boat_images
 
 create table events
 (
-    id          int auto_increment
+    id               int auto_increment
         primary key,
-    title       varchar(50)                                  not null,
-    description text                                         not null,
-    start_time  datetime                                     not null,
-    end_time    datetime                                     not null,
-    category    enum ('wedstrijd', 'les', 'uitje', 'overig') not null
+    name             varchar(50)                                  not null,
+    description      text                                         not null,
+    max_participants int                                          not null,
+    start_time       datetime                                     not null,
+    end_time         datetime                                     not null,
+    category         enum ('wedstrijd', 'les', 'uitje', 'overig') not null
 );
 
 create table event_reserved_boats
@@ -88,6 +89,9 @@ create table damage_report_fotos
 create index damage_report_id
     on damage_report_fotos (damage_report_id);
 
+create index idx_damage_raports
+    on damage_reports (fixed, report_time);
+
 create index member_id
     on damage_reports (member_id);
 
@@ -141,6 +145,9 @@ create index boat_id
 
 create index member_id
     on reservation (member_id);
+
+create index time
+    on reservation (start_time, end_time);
 
 INSERT INTO boten_reservering.members (member_id, first_name, infix, last_name, level, email, password)
 VALUES (0, 'System', null, 'System', DEFAULT, 'System', 'System');
