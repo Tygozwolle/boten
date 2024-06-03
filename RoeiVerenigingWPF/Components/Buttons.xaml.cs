@@ -33,7 +33,7 @@ namespace RoeiVerenigingWPF.Components
                 case Button button when button == BotenButton:
                     try
                     {
-                        MainWindow.MainContent.Navigate(new AddReservation(MainWindow.LoggedInMember));
+                        MainWindow.MainContent.Navigate(new AddReservation(MainWindow.LoggedInMember, MainWindow));
                         ChangeColorOfRectangle(BoatRectangle);
                     }
                     catch (Exception exception)

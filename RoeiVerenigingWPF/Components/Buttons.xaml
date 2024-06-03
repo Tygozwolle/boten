@@ -57,7 +57,7 @@
                             FontSize="32" Foreground="{x:Static local:CustomColors.HeaderColor}"
                             Background="{x:Static local:CustomColors.ButtonBackgroundColor}" Click="Button_Click">
                         <Grid HorizontalAlignment="Left">
-                            <Image Source="../Images/Icons/calendar.png" Height="50" Width="50" Margin="10,0"
+                            <Image Source="../Images/Icons/sailboat.png" Height="50" Width="50" Margin="10,0"
                                    HorizontalAlignment="Left" />
                             <TextBlock Text="Ik wil roeien!" Padding="70,0,20,0" VerticalAlignment="Center" />
                         </Grid>

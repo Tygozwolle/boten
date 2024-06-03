@@ -23,7 +23,7 @@ namespace RoeiVerenigingWPF.Pages.Admin
         {
             _mainWindow = mainWindow;
             InitializeComponent();
-            
+
             _boat = boat;
             Name.Text = boat.Name;
             Description.Text = boat.DescriptionNoEnter;
@@ -31,7 +31,7 @@ namespace RoeiVerenigingWPF.Pages.Admin
             Level.Text = boat.Level.ToString();
             Delete_Button.Visibility = Visibility.Visible;
             Captain.IsChecked = boat.CaptainSeat;
-            
+
             _edit = true;
             ButtonEditCreate.Content = "Opslaan";
             HeaderBoat.Content = "Boot aanpassen";
@@ -66,69 +66,80 @@ namespace RoeiVerenigingWPF.Pages.Admin
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            ExceptionTextBlock.Foreground = Brushes.Red;
-            BoatService service = new BoatService(new BoatRepository());
-            try
+            if (ExceptionTextBlock.Foreground != Brushes.MediumSeaGreen)
             {
-                string name = Name.Text;
-                string description = Description.Text;
-                string seats = Seats.Text;
-                string level = Level.Text;
-                bool captain = Captain.IsPressed;
-                Boat createdBoat;
+                ExceptionTextBlock.Foreground = Brushes.Red;
+                BoatService service = new BoatService(new BoatRepository());
+                try
+                {
+                    string name = Name.Text;
+                    string description = Description.Text;
+                    string seats = Seats.Text;
+                    string level = Level.Text;
+                    bool captain = Captain.IsPressed;
+                    Boat createdBoat;
+                    if (_edit)
+                    {
+                        _boat = service.Update(_mainWindow.LoggedInMember, _boat, name, description, Int32.Parse(seats),
+                            captain, Int32.Parse(level));
+                        if (_imageChanged)
+                        {
+                            service.UpdateImage(_mainWindow.LoggedInMember, _boat, _imageStream);
+                        }
+
+                        if (_boat != null)
+                        {
+                            ExceptionTextBlock.Foreground = Brushes.MediumSeaGreen;
+                            ExceptionTextBlock.Text =
+                                $"{_boat.Name} is aangepast met bootnummer {_boat.Id}";
+                            ButtonEditCreate.Content = "Verder";
+                        }
+                    }
+                    else
+                    {
+                        createdBoat = service.Create(_mainWindow.LoggedInMember, name, description, Int32.Parse(seats),
+                            captain, Int32.Parse(level));
+                        if (_imageChanged)
+                        {
+                            service.AddImage(_mainWindow.LoggedInMember, createdBoat, _imageStream);
+                        }
+
+                        if (createdBoat != null)
+                        {
+                            ExceptionTextBlock.Foreground = Brushes.MediumSeaGreen;
+                            ExceptionTextBlock.Text =
+                                $"{createdBoat.Name} is aangemaakt met bootnummer {createdBoat.Id}";
+                            ButtonEditCreate.Content = "Verder";
+                        }
+                    }
+                }
+                catch (IncorrectRightsException ex)
+                {
+                    ExceptionTextBlock.Text = ex.Message;
+                }
+                catch (System.FormatException)
+                {
+                    ExceptionTextBlock.Text = "Vul alle velden correct in";
+                }
+                catch (IncorrectLevelException ex)
+                {
+                    ExceptionTextBlock.Text = ex.Message;
+                }
+                catch (NameEmptyExeception ex)
+                {
+                    ExceptionTextBlock.Text = ex.Message;
+                }
+            }
+            else
+            {
                 if (_edit)
                 {
-                    _boat = service.Update(_mainWindow.LoggedInMember, _boat, name, description, Int32.Parse(seats),
-                        captain, Int32.Parse(level));
-                    if (_imageChanged)
-                    {
-                        service.UpdateImage(_mainWindow.LoggedInMember, _boat, _imageStream);
-                    }
-
-                    if (_boat != null)
-                    {
-                        ExceptionTextBlock.Foreground = Brushes.MediumSeaGreen;
-                        ExceptionTextBlock.Text =
-                            $"{_boat.Name} {_boat.Description} {_boat.Level} is aangepast met bootnummer {_boat.Id}";
-                       
-                    }
-
                     _mainWindow.MainContent.Navigate(new ManageBoatList(_mainWindow));
                 }
                 else
                 {
-                    createdBoat = service.Create(_mainWindow.LoggedInMember, name, description, Int32.Parse(seats),
-                        captain, Int32.Parse(level));
-                    if (_imageChanged)
-                    {
-                        service.AddImage(_mainWindow.LoggedInMember, createdBoat, _imageStream);
-                    }
-
-                    if (createdBoat != null)
-                    {
-                        ExceptionTextBlock.Foreground = Brushes.MediumSeaGreen;
-                        ExceptionTextBlock.Text =
-                            $"{createdBoat.Name} {createdBoat.Description} {createdBoat.Level} is aangemaakt met bootnummer {createdBoat.Id}";
-                    }
-
                     _mainWindow.MainContent.Navigate(new ManageBoatList(_mainWindow));
                 }
-            }
-            catch (IncorrectRightsException ex)
-            {
-                ExceptionTextBlock.Text = ex.Message;
-            }
-            catch (System.FormatException)
-            {
-                ExceptionTextBlock.Text = "Vul alle velden correct in";
-            }
-            catch (IncorrectLevelException ex)
-            {
-                ExceptionTextBlock.Text = ex.Message;
-            }
-            catch (NameEmptyExeception ex)
-            {
-                ExceptionTextBlock.Text = ex.Message;
             }
         }
 

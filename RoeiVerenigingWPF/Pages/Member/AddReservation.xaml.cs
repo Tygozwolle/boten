@@ -11,6 +11,7 @@ using System.Windows.Media.Imaging;
 using Innovative.SolarCalculator;
 using RoeiVerenigingWPF.helpers;
 using System.Windows.Media;
+using RoeiVerenigingWPF.Frames;
 using Brushes = System.Windows.Media.Brushes;
 using FontFamily = System.Windows.Media.FontFamily;
 using Image = System.Windows.Controls.Image;
@@ -35,9 +36,10 @@ namespace RoeiVerenigingWPF.Pages
         private DateTime EndTime { get; set; }
         private DateTime _selectedDate;
         private Boat _selectedBoat;
+        private MainWindow _mainWindow;
 
 
-        public AddReservation(RoeiVerenigingLibrary.Member loggedInMember)
+        public AddReservation(RoeiVerenigingLibrary.Member loggedInMember, MainWindow mw)
         {
             InitializeComponent();
             _loggedInMember = loggedInMember;
@@ -46,7 +48,9 @@ namespace RoeiVerenigingWPF.Pages
             DataContext = this;
             CheckIfMemberHas2Reservations();
             BoatGrid.Visibility = Visibility.Hidden;
+            _mainWindow = mw;
         }
+
         private void LoadBoats()
         {
             NextButton.IsEnabled = false;
@@ -54,12 +58,10 @@ namespace RoeiVerenigingWPF.Pages
             {
                 _boatList = _boatService.GetBoats();
                 _boatService.GetImageBoats(_boatList);
-                this.Dispatcher.Invoke(() =>
-                {
-                    NextButton.IsEnabled = true;
-                });
+                this.Dispatcher.Invoke(() => { NextButton.IsEnabled = true; });
             }).Start();
         }
+
         private void CheckIfMemberHas2Reservations()
         {
             if (_loggedInMember.Roles.Contains("beheerder"))
@@ -282,7 +284,7 @@ namespace RoeiVerenigingWPF.Pages
 
                 var imageconverter = new SingleStreamImageConverter();
                 var source = imageconverter.Convert(boat.Image, typeof(ImageSource), null, null);
-                
+
                 grid.Children.Add(new Image
                 {
                     Source = (BitmapImage)source,
@@ -363,19 +365,28 @@ namespace RoeiVerenigingWPF.Pages
 
         private void SaveButton_OnClick(object sender, RoutedEventArgs e)
         {
-            if (_reservationService.GetReservations(_loggedInMember).Count < 2 ||
-                _loggedInMember.Roles.Contains("beheerder") || _loggedInMember.Roles.Contains("materiaal_commissaris"))
+            if (ExceptionTextBlock.Foreground != Brushes.MediumSeaGreen)
             {
-                try
+                if (_reservationService.GetReservations(_loggedInMember).Count < 2 ||
+                    _loggedInMember.Roles.Contains("beheerder") ||
+                    _loggedInMember.Roles.Contains("materiaal_commissaris"))
                 {
-                    _reservationService.Create(_loggedInMember, _selectedBoat.Id, StartTime, EndTime);
-                    ExceptionTextBlock.Text = "De reservering is aangemaakt!";
-                    ExceptionTextBlock.Foreground = Brushes.Lime;
+                    try
+                    {
+                        _reservationService.Create(_loggedInMember, _selectedBoat.Id, StartTime, EndTime);
+                        ExceptionTextBlock.Text = "De reservering is aangemaakt!";
+                        ExceptionTextBlock.Foreground = Brushes.MediumSeaGreen;
+                        SaveButton.Content = "Verder";
+                    }
+                    catch (Exception exception)
+                    {
+                        ExceptionTextBlock.Text = exception.Message;
+                    }
                 }
-                catch (Exception exception)
-                {
-                    ExceptionTextBlock.Text = exception.Message;
-                }
+            }
+            else
+            {
+                _mainWindow.MainContent.Navigate(new MainPage(_mainWindow));
             }
         }
     }
