@@ -12,22 +12,22 @@ namespace RoeiVerenigingWPF.Pages
     public partial class CreateDamageReport : Page
     {
         private readonly BoatService _serviceBoat = new BoatService(new BoatRepository());
-        private readonly Boat boat;
-        private Damage damage;
-        private readonly MainWindow mainWindow;
-        private readonly DamageService service = new DamageService(new DamageRepository());
+        private readonly Boat _boat;
+        private Damage _damage;
+        private readonly MainWindow _mainWindow;
+        private readonly DamageService _service = new DamageService(new DamageRepository());
         public CreateDamageReport(MainWindow mainWindow, int boatId)
         {
-            this.mainWindow = mainWindow;
-            boat = _serviceBoat.GetBoatById(boatId);
-            DataContext= boat;
+            this._mainWindow = mainWindow;
+            _boat = _serviceBoat.GetBoatById(boatId);
+            DataContext= _boat;
             InitializeComponent();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            damage = service.CreateReport(mainWindow.LoggedInMember, boat, ___discription_.Text);
-            mainWindow.MainContent.Navigate(new ViewDamage(mainWindow, damage));
+            _damage = _service.CreateReport(_mainWindow.LoggedInMember, _boat, DescriptionTextBox.Text);
+            _mainWindow.MainContent.Navigate(new ViewDamage(_mainWindow, _damage));
         }
     }
 }

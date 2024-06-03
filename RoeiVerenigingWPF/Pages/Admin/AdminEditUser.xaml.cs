@@ -23,8 +23,6 @@ namespace RoeiVerenigingWPF.Pages
             _mainWindow = mainWindow;
             _memberId = memberId;
             
-            ExceptionTextBlock.Foreground = Brushes.Red;
-
             RoeiVerenigingLibrary.Member selectedMember = _service.GetById(memberId);
             FirstName.Text = selectedMember.FirstName;
             Infix.Text = selectedMember.Infix;
