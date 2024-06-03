@@ -1,3 +1,4 @@
+using System.IO;
 using System.Media;
 using DataAccessLibrary;
 using RoeiVerenigingLibrary.Services;
@@ -134,9 +135,12 @@ namespace RoeiVerenigingWPF.Components
             }
         }
 
-        private void VerenigingsAfbeelding_OnKeyUp(object sender, KeyEventArgs e)
+        private void VerenigingsAfbeelding_OnMouseUp(object sender, MouseButtonEventArgs e)
         {
-            var player = new SoundPlayer("Sounds/roeien.wav");
+            new Task(()=>{
+                       var player = new SoundPlayer("./Sounds/Ontstaan van de rivieerstroom.wav");
+                       player.PlaySync();
+                   }).Start();
         }
     }
 }

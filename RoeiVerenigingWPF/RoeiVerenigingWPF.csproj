@@ -86,6 +86,10 @@
         <Content Include="Images\Icons\scan.png">
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
+        <None Remove="Sounds\Ontstaan van de rivieerstroom.wav" />
+        <Content Include="Sounds\Ontstaan van de rivieerstroom.wav">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
     </ItemGroup>
 
   <ItemGroup>
@@ -196,6 +200,10 @@
             <XamlRuntime>Wpf</XamlRuntime>
             <SubType>Designer</SubType>
         </Page>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Sounds\" />
     </ItemGroup>
 
 </Project>
