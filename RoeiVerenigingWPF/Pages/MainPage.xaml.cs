@@ -31,7 +31,7 @@ namespace RoeiVerenigingWPF.Pages
         {
             if (sender is Grid)
             {
-                object command = ((Grid)sender).Tag;
+                //object command = ((Grid)sender).Tag;
 
                 //TODO:Deelname page hiernaar toe
                 //MainWindow.MainContent.Navigate());
