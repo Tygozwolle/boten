@@ -35,7 +35,7 @@
 
                         <TextBlock Grid.Row="1" Name="ExceptionText" HorizontalAlignment="Center" FontSize="24"
                                    TextWrapping="WrapWithOverflow" FontWeight="Bold"
-                                   Foreground="Red" Padding="0,0,0,5"/>
+                                   Foreground="Red" Padding="0,0,0,5" />
                     </StackPanel>
 
                     <!-- left box -->
@@ -167,7 +167,13 @@
                                         Foreground="{x:Static helpers:CustomColors.HeaderColor}"
                                         Background="{x:Static helpers:CustomColors.ButtonBackgroundColor}"
                                         BorderBrush="{x:Static helpers:CustomColors.OutsideBorderColor}"
-                                        Content="Opslaan" Click="SaveResults" Name="SaveResult" />
+                                        Content="Opslaan" Click="SaveResults" Name="SaveResult">
+                                    <Button.Resources>
+                                        <Style TargetType="Border">
+                                            <Setter Property="CornerRadius" Value="15" />
+                                        </Style>
+                                    </Button.Resources>
+                                </Button>
                             </StackPanel>
                         </Border>
                     </Border>
