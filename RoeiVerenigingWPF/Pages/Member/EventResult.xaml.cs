@@ -1,10 +1,13 @@
-﻿using System.Windows;
+﻿using System.Diagnostics;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Media;
 using DataAccessLibrary;
 using RoeiVerenigingLibrary;
 using RoeiVerenigingLibrary.Model;
 using RoeiVerenigingWPF.Frames;
+using Xceed.Wpf.Toolkit;
 
 namespace RoeiVerenigingWPF.Pages.Member;
 
@@ -13,7 +16,7 @@ public partial class EventResult : Page
     private MainWindow _MainWindow;
     public Event EventResults { get; set; }
     private IEventResultRepository _EventReportsRepository = new EventResultRepository();
-    
+
     private readonly SolidColorBrush _textColor = new SolidColorBrush(Color.FromArgb(255, 4, 48, 73));
     private readonly SolidColorBrush _borderColor = new SolidColorBrush(Color.FromArgb(255, 19, 114, 160));
 
@@ -51,10 +54,17 @@ public partial class EventResult : Page
         EventResults.AddParticipantsFromDatabase(_EventReportsRepository);
         InitializeComponent();
         PopulateResultView();
+        if (!_MainWindow.LoggedInMember.Roles.Contains("materiaal_commissaris") &&
+            !_MainWindow.LoggedInMember.Roles.Contains("beheerder"))
+        {
+            SaveResult.Visibility = Visibility.Hidden;
+        }
     }
 
     public void PopulateResultView()
     {
+        bool enableEdit = (_MainWindow.LoggedInMember.Roles.Contains("materiaal_commissaris") ||
+                           _MainWindow.LoggedInMember.Roles.Contains("beheerder"));
         ReportView.Children.Clear();
         for (int i = 0; i < EventResults.Participants.Count; i++)
         {
@@ -77,12 +87,38 @@ public partial class EventResult : Page
             });
             Grid.SetColumn(grid.Children[0], 0);
 
-            grid.Children.Add(new TextBlock
+            if (enableEdit)
             {
-                Text = member.ResultTime.ToString(), VerticalAlignment = VerticalAlignment.Center, FontSize = 16,
-                Foreground = _textColor
-            });
+                TimePicker resultTimePicker = new TimePicker
+                {
+                    Value = new DateTime().Date + member.ResultTime,
+                    Format = DateTimeFormat.Custom,
+                    FormatString = "HH:mm:ss",
+                    ShowDropDownButton = false,
+                    Width = 80,
+                    HorizontalAlignment = HorizontalAlignment.Left
+                };
+
+                grid.Children.Add(resultTimePicker);
+
+                resultTimePicker.DataContext = member;
+
+                Binding binding = new Binding("ResultTime");
+                binding.Mode = BindingMode.TwoWay;
+                binding.Converter = new TimeSpanToDateTimeConverter();
+                resultTimePicker.SetBinding(TimePicker.ValueProperty, binding);
+            }
+            else
+            {
+                grid.Children.Add(new TextBlock
+                {
+                    Text = member.ResultTime.ToString(), VerticalAlignment = VerticalAlignment.Center, FontSize = 16,
+                    Foreground = _textColor
+                });
+            }
+
             Grid.SetColumn(grid.Children[1], 1);
+
 
             grid.Children.Add(new TextBlock
             {
@@ -106,11 +142,34 @@ public partial class EventResult : Page
             });
             Grid.SetColumn(grid.Children[4], 4);
 
-            grid.Children.Add(new TextBlock
+            if (enableEdit)
             {
-                Text = member.Description, VerticalAlignment = VerticalAlignment.Center, FontSize = 16,
-                Foreground = _textColor
-            });
+                TextBox descriptionTextBox = new TextBox
+                {
+                    VerticalAlignment = VerticalAlignment.Center,
+                    FontSize = 16,
+                    Foreground = _textColor
+                };
+
+                grid.Children.Add(descriptionTextBox);
+
+                descriptionTextBox.DataContext = member;
+
+                Binding binding = new Binding("Description");
+                binding.Mode = BindingMode.TwoWay;
+                binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
+                descriptionTextBox.SetBinding(TextBox.TextProperty, binding);
+            }
+            else
+            {
+                grid.Children.Add(new TextBlock
+                {
+                    Text = member.Description, VerticalAlignment = VerticalAlignment.Center, FontSize = 16,
+                    Foreground = _textColor
+                });
+            }
+
+
             Grid.SetColumn(grid.Children[5], 5);
 
             Border border = new Border
@@ -123,8 +182,26 @@ public partial class EventResult : Page
                 Background = i % 2 == 0 ? _evenRowColor : _oddRowColor // Alternate row background color
             };
 
-
             ReportView.Children.Add(border);
+        }
+    }
+
+    public void SaveResults(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            foreach (var participant in EventResults.Participants)
+            {
+                participant.saveResultTime(_EventReportsRepository, _MainWindow.LoggedInMember);
+            }
+
+            ExceptionText.Text = "De resultaten zijn opgeslagen!";
+            ExceptionText.Foreground = Brushes.Lime;
+        }
+        catch (Exception exception)
+        {
+            ExceptionText.Text = exception.Message;
+            ExceptionText.Foreground = Brushes.Red;
         }
     }
 }
