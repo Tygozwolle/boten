@@ -11,10 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccessLibrary", "DataAc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RoeiVerenigingWPF", "RoeiVerenigingWPF\RoeiVerenigingWPF.csproj", "{14E9FAAA-ABC5-4E8B-BBE7-3E0728D94088}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestConsoleApp", "TestConsoleApp\TestConsoleApp.csproj", "{CEBB323B-9378-4746-9731-9C92ABB621BE}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RoeiVerenigingTestWPF", "RoeiVerenigingTestWPF\RoeiVerenigingTestWPF.csproj", "{2731D120-507A-4983-9643-8ABDA3F29591}"
-EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "RoeiverenigingInstaller", "RoeiverenigingInstaller\RoeiverenigingInstaller.vdproj", "{2ED4826E-2D65-4417-BB04-20C8FE980E84}"
 EndProject
 Global
@@ -84,34 +80,6 @@ Global
 		{14E9FAAA-ABC5-4E8B-BBE7-3E0728D94088}.IngelogtMateriaal|Any CPU.Build.0 = IngelogtMateriaal|Any CPU
 		{14E9FAAA-ABC5-4E8B-BBE7-3E0728D94088}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{14E9FAAA-ABC5-4E8B-BBE7-3E0728D94088}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CEBB323B-9378-4746-9731-9C92ABB621BE}.ConfigFileFilled|Any CPU.ActiveCfg = ConfigFileFilled|Any CPU
-		{CEBB323B-9378-4746-9731-9C92ABB621BE}.ConfigFileFilled|Any CPU.Build.0 = ConfigFileFilled|Any CPU
-		{CEBB323B-9378-4746-9731-9C92ABB621BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CEBB323B-9378-4746-9731-9C92ABB621BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CEBB323B-9378-4746-9731-9C92ABB621BE}.Ingelogd|Any CPU.ActiveCfg = Ingelogd|Any CPU
-		{CEBB323B-9378-4746-9731-9C92ABB621BE}.Ingelogd|Any CPU.Build.0 = Ingelogd|Any CPU
-		{CEBB323B-9378-4746-9731-9C92ABB621BE}.IngelogtBeheer|Any CPU.ActiveCfg = IngelogtBeheer|Any CPU
-		{CEBB323B-9378-4746-9731-9C92ABB621BE}.IngelogtBeheer|Any CPU.Build.0 = IngelogtBeheer|Any CPU
-		{CEBB323B-9378-4746-9731-9C92ABB621BE}.IngelogtEvent|Any CPU.ActiveCfg = IngelogtEvent|Any CPU
-		{CEBB323B-9378-4746-9731-9C92ABB621BE}.IngelogtEvent|Any CPU.Build.0 = IngelogtEvent|Any CPU
-		{CEBB323B-9378-4746-9731-9C92ABB621BE}.IngelogtMateriaal|Any CPU.ActiveCfg = IngelogtMateriaal|Any CPU
-		{CEBB323B-9378-4746-9731-9C92ABB621BE}.IngelogtMateriaal|Any CPU.Build.0 = IngelogtMateriaal|Any CPU
-		{CEBB323B-9378-4746-9731-9C92ABB621BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CEBB323B-9378-4746-9731-9C92ABB621BE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2731D120-507A-4983-9643-8ABDA3F29591}.ConfigFileFilled|Any CPU.ActiveCfg = ConfigFileFilled|Any CPU
-		{2731D120-507A-4983-9643-8ABDA3F29591}.ConfigFileFilled|Any CPU.Build.0 = ConfigFileFilled|Any CPU
-		{2731D120-507A-4983-9643-8ABDA3F29591}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2731D120-507A-4983-9643-8ABDA3F29591}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2731D120-507A-4983-9643-8ABDA3F29591}.Ingelogd|Any CPU.ActiveCfg = Release|Any CPU
-		{2731D120-507A-4983-9643-8ABDA3F29591}.Ingelogd|Any CPU.Build.0 = Release|Any CPU
-		{2731D120-507A-4983-9643-8ABDA3F29591}.IngelogtBeheer|Any CPU.ActiveCfg = Release|Any CPU
-		{2731D120-507A-4983-9643-8ABDA3F29591}.IngelogtBeheer|Any CPU.Build.0 = Release|Any CPU
-		{2731D120-507A-4983-9643-8ABDA3F29591}.IngelogtEvent|Any CPU.ActiveCfg = Release|Any CPU
-		{2731D120-507A-4983-9643-8ABDA3F29591}.IngelogtEvent|Any CPU.Build.0 = Release|Any CPU
-		{2731D120-507A-4983-9643-8ABDA3F29591}.IngelogtMateriaal|Any CPU.ActiveCfg = Release|Any CPU
-		{2731D120-507A-4983-9643-8ABDA3F29591}.IngelogtMateriaal|Any CPU.Build.0 = Release|Any CPU
-		{2731D120-507A-4983-9643-8ABDA3F29591}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2731D120-507A-4983-9643-8ABDA3F29591}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2ED4826E-2D65-4417-BB04-20C8FE980E84}.ConfigFileFilled|Any CPU.ActiveCfg = ConfigFileFilled
 		{2ED4826E-2D65-4417-BB04-20C8FE980E84}.Debug|Any CPU.ActiveCfg = Debug
 		{2ED4826E-2D65-4417-BB04-20C8FE980E84}.Ingelogd|Any CPU.ActiveCfg = Debug
