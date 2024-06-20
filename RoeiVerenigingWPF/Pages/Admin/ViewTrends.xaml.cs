@@ -13,7 +13,7 @@ public partial class ViewTrends : Page
 {
     public ViewTrends(List<Statistic> statistics)
     {
-        SelectedStatistics = statistics;
+        selectedStatistics = statistics;
     }
     
     public ViewTrends(MainWindow mainWindow, List<Statistic> selectedStatistics)
@@ -21,7 +21,7 @@ public partial class ViewTrends : Page
         InitializeComponent();
         Main = mainWindow;
         DataContext = this;
-        FillDropDown(selectedStatistics);
+        FillDropDown();
         _reservationService = new ReservationService(new ReservationRepository());
         _eventService = new EventService(new EventRepository());
         _damageService = new DamageService(new DamageRepository());
@@ -30,13 +30,13 @@ public partial class ViewTrends : Page
     }
     
     public MainWindow Main;
-    private List<Statistic> SelectedStatistics;
+    private List<Statistic> selectedStatistics;
     private ReservationService _reservationService;
     private DamageService _damageService;
     private EventService _eventService;
     private BoatService _boatService;
 
-    public void FillDropDown(List<Statistic> selectedStatistics)
+    public void FillDropDown()
     {
         ComboStats.Items.Add("Populairste boot");
         ComboStats.Items.Add("Minst populaire boot");
@@ -59,7 +59,6 @@ public partial class ViewTrends : Page
             LabelPlacement = LabelPlacement.Outside,
             LabelFormatString = "{0}"
         };
-        Label Label = new Label();
         
         // Add data points to the bar series
         for (int i = 0; i < amounts.Length; i++)
@@ -95,7 +94,7 @@ public partial class ViewTrends : Page
         return plotModel;
     }
 
-    public PlotModel plotLinegraph(double[] xAxis, double[] yAxis)
+    public PlotModel PlotLinegraph(double[] xAxis, double[] yAxis)
     {
         PlotModel plotModel = new PlotModel { Title = "Line Graph Example" };
 
@@ -144,7 +143,7 @@ public partial class ViewTrends : Page
         return plotModel;
     }
 
-    public void getData(object sender, SelectionChangedEventArgs e)
+    public void GetData(object sender, SelectionChangedEventArgs e)
     {
         ComboBox comboBox = sender as ComboBox;
         switch (comboBox.SelectedItem.ToString())
@@ -181,19 +180,19 @@ public partial class ViewTrends : Page
                 var weeklyReservationTime = _reservationService.GetWeeklyReservationTime(Main.LoggedInMember);
                 var yAxis = weeklyReservationTime.Values.ToArray();
                 var xAxis = weeklyReservationTime.Keys.ToArray();
-                PlotView.Model = plotLinegraph(xAxis, yAxis);
+                PlotView.Model = PlotLinegraph(xAxis, yAxis);
                 break;
             case "Open schademeldingen":
                 Title.Content = "Open schademeldingen";
-                var DamageReportData = _damageService.AllDamageReportsSorted();
-                PlotView.Model = PlotPiechart(DamageReportData);
+                var damageReportData = _damageService.AllDamageReportsSorted();
+                PlotView.Model = PlotPiechart(damageReportData);
                 break;
             case "Totaal aantal reserveringen":
                 Title.Content = "aantal reserveringen";
                 var weeklyReservations = _reservationService.GetAmountOfWeeklyreservations(Main.LoggedInMember);
                 yAxis = weeklyReservations.Values.ToArray();
                 xAxis = weeklyReservations.Keys.ToArray();
-                PlotView.Model = plotLinegraph(xAxis, yAxis);
+                PlotView.Model = PlotLinegraph(xAxis, yAxis);
                 break;
             case "Aantal boten":
                 Title.Content = "Boten gesorteerd op Niveau";
