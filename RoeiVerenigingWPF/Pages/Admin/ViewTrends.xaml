@@ -23,10 +23,10 @@
                            FontFamily="Franklin Gothic Medium" FontSize="32" Foreground="{x:Static helpers:CustomColors.HeaderColor}"/>
                     <oxy:PlotView x:Name="PlotView"
                                   HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                                  Margin="0,0,550,0"
+                                  Margin="0,0,450,0"
                                   Model="{Binding PlotModel}"
                                   MaxHeight="500"
-                                  MaxWidth="1100"/>
+                                  MaxWidth="1200"/>
                     <Rectangle
                         Width="400" Height="800" Fill="Transparent" Stroke="{x:Static helpers:CustomColors.OutsideBorderColor}" StrokeThickness="4"
                         RadiusX="20" RadiusY="20" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,25,0"/>

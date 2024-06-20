@@ -1,10 +1,6 @@
-﻿using System.IO.Compression;
-using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 using DataAccessLibrary;
 using OxyPlot;
-using OxyPlot.Axes;
-using OxyPlot.Legends;
 using OxyPlot.Series;
 using RoeiVerenigingLibrary;
 using RoeiVerenigingLibrary.Model;
@@ -33,8 +29,6 @@ public partial class ViewTrends : Page
         
     }
     
-    private TrendService _trend = new TrendService();
-    private ViewStatistics StatisticsWindow;
     public MainWindow Main;
     private List<Statistic> SelectedStatistics;
     private ReservationService _reservationService;
@@ -42,12 +36,15 @@ public partial class ViewTrends : Page
     private EventService _eventService;
     private BoatService _boatService;
 
-    public void FillDropDown(List<Statistic> SelectedStatistics)
+    public void FillDropDown(List<Statistic> selectedStatistics)
     {
-        foreach (var stat in SelectedStatistics)
-        {
-            ComboStats.Items.Add(stat.Name);
-        }
+        ComboStats.Items.Add("Populairste boot");
+        ComboStats.Items.Add("Minst populaire boot");
+        ComboStats.Items.Add("Grootste evenement");
+        ComboStats.Items.Add("Totale reserveringstijd");
+        ComboStats.Items.Add("Open schademeldingen");
+        ComboStats.Items.Add("Totaal aantal reserveringen");
+        ComboStats.Items.Add("Aantal boten");
     }
     
 
@@ -77,7 +74,9 @@ public partial class ViewTrends : Page
         var categoryAxis = new OxyPlot.Axes.CategoryAxis
         {
             Position = OxyPlot.Axes.AxisPosition.Bottom,
-            Key = "CategoryAxis"
+            Key = "CategoryAxis",
+            AbsoluteMaximum = 200,
+            AbsoluteMinimum = 1
         };
         plotModel.Axes.Add(categoryAxis);
 
@@ -87,7 +86,8 @@ public partial class ViewTrends : Page
             Position = OxyPlot.Axes.AxisPosition.Left,
             Title = "Boten",
             MinimumPadding = 0,
-            AbsoluteMinimum = 0,
+            AbsoluteMinimum = -5,
+            AbsoluteMaximum = 250,
             ItemsSource = labels
         };
         plotModel.Axes.Add(valueAxis);
@@ -149,7 +149,7 @@ public partial class ViewTrends : Page
         ComboBox comboBox = sender as ComboBox;
         switch (comboBox.SelectedItem.ToString())
         {
-            case "Populairste boot:":
+            case "Populairste boot":
                 Title.Content = "Populairste boot";
                 var topValues = _boatService.GetTopFiveBoats(_reservationService.GetReservations());
                 var getTop5 = topValues.OrderByDescending(pair => pair.Value)  //Linq query for getting top 5 values
@@ -159,7 +159,7 @@ public partial class ViewTrends : Page
                 double[] amounts = getTop5.Values.ToArray();
                 PlotView.Model = PlotBarGraph(amounts, boats);
                 break;
-            case "Minst populaire boot:":
+            case "Minst populaire boot":
                 Title.Content = "Minst populaire boot";
                 var dictionary = _boatService.GetTopFiveBoats(_reservationService.GetReservations());
                 var getLast5 = dictionary.OrderBy(pair => pair.Value)  //Linq query for getting top 5 values
@@ -169,21 +169,21 @@ public partial class ViewTrends : Page
                 amounts = getLast5.Values.ToArray();
                 PlotView.Model = PlotBarGraph(amounts, boats);
                 break;
-            case "Grootste evenement:":
+            case "Grootste evenement":
                 Title.Content = "Grootste Evenementen";
                 var biggest = _eventService.GetBiggest5EventspastMonth();
                 amounts = biggest.Values.ToArray();
                 var names = biggest.Keys.ToArray();
                 PlotView.Model = PlotBarGraph(amounts, names);
                 break;
-            case "Totale reserveringstijd:":
+            case "Totale reserveringstijd":
                 Title.Content = "Totale reserveringstijd per week"; //linegraph maken voor afgelopen 5 weken met hoeveelheid reserveringen voor de ingelogde member
                 var weeklyReservationTime = _reservationService.GetWeeklyReservationTime(Main.LoggedInMember);
                 var yAxis = weeklyReservationTime.Values.ToArray();
                 var xAxis = weeklyReservationTime.Keys.ToArray();
                 PlotView.Model = plotLinegraph(xAxis, yAxis);
                 break;
-            case "Open schademeldingen:":
+            case "Open schademeldingen":
                 Title.Content = "Open schademeldingen";
                 var DamageReportData = _damageService.AllDamageReportsSorted();
                 PlotView.Model = PlotPiechart(DamageReportData);
@@ -195,7 +195,7 @@ public partial class ViewTrends : Page
                 xAxis = weeklyReservations.Keys.ToArray();
                 PlotView.Model = plotLinegraph(xAxis, yAxis);
                 break;
-            case "Aantal boten:":
+            case "Aantal boten":
                 Title.Content = "Boten gesorteerd op Niveau";
                 var sortedBoats = _boatService.BoatsPerLevel();
                 PlotView.Model = PlotPiechart(sortedBoats);
