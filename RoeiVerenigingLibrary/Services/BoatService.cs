@@ -201,6 +201,38 @@ namespace RoeiVerenigingLibrary
             }
             return boatDictionary;
         }
+
+        public Dictionary<String, int> BoatsPerLevel()
+        {
+            Dictionary<string, int> sortedBoats = new Dictionary<string, int>();
+            sortedBoats.Add("Level 1", 0);
+            sortedBoats.Add("Level 2", 0);
+            sortedBoats.Add("Level 3", 0);
+            sortedBoats.Add("Level 4", 0);
+            sortedBoats.Add("Level 5", 0);
+            
+            var allBoats = GetBoats();
+            foreach (var boat in allBoats)
+            {
+                if (boat.Level == 1)
+                {
+                    sortedBoats["Level 1"]++;
+                }else if (boat.Level == 2)
+                {
+                    sortedBoats["Level 2"]++;
+                }else if (boat.Level == 3)
+                {
+                    sortedBoats["Level 3"]++;
+                }else if (boat.Level == 4)
+                {
+                    sortedBoats["Level 4"]++;
+                }else if (boat.Level == 5)
+                {
+                    sortedBoats["Level 5"]++;
+                }
+            }
+            return sortedBoats;
+        }
         
     }
 }

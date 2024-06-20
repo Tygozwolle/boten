@@ -196,14 +196,22 @@ namespace RoeiVerenigingLibrary.Services
                 throw new Exception("Je neemt al deel");
             }
         }
-        public List<Event> GetBiggest5EventspastMonth()
+        public Dictionary<string, double> GetBiggest5EventspastMonth()
         {
-            var allEvents = _eventRepository.GetAll();
-            var top5Events = allEvents.OrderByDescending(value => value.Participants)
-                .Where(value => value.EndDate < DateTime.Today)
-                .Take(5);
-
-            return top5Events.ToList();
+            Dictionary<string, double> eventDict = new Dictionary<string, double>();
+            List<Event> allEvents = _eventRepository.GetAll();
+    
+            var top5Events = allEvents
+                .Where(ev => ev.EndDate < DateTime.Today) // Filter events that ended before today
+                .OrderByDescending(ev => ev.Participants.Count) // Order by number of participants
+                .Take(5); // Take the top 5 events
+    
+            foreach (var ev in top5Events)
+            {
+                eventDict.Add(ev.Name, ev.Participants.Count);
+            }
+    
+            return eventDict;
         }
     }
 }

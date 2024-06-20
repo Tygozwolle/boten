@@ -82,5 +82,31 @@
         {
             return damages.Count(damage => damage.BoatFixed);
         }
+
+        public Dictionary<string, int> AllDamageReportsSorted()
+        {
+            Dictionary<string, int> divDict = new Dictionary<string, int>();
+            divDict.Add("Kapot", 0);
+            divDict.Add("Bruikbaar", 0);
+            divDict.Add("Gemaakt", 0);
+            var allReports = GetAll();
+            foreach (var damage in allReports)
+            {
+                if (damage.BoatFixed)
+                {
+                    divDict["Gemaakt"]++;
+                }
+                else if (damage.Usable)
+                {
+                    divDict["Bruikbaar"]++;
+                }
+                else
+                {
+                    divDict["Kapot"]++;
+                }
+            }
+
+            return divDict;
+        }
     }
 }

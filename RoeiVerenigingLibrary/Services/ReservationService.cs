@@ -250,5 +250,69 @@ namespace RoeiVerenigingLibrary
 
             return new List<Member>() { leastPopularMember, mostPopularMember };
         }
+        
+        public Dictionary<double, double> GetWeeklyReservationTime(Member member)
+        {
+            Dictionary<double, double> weeklyCounts = new Dictionary<double, double>();
+            var allReservations = GetReservations(member);
+            int currentWeek = GetWeekOfYear(DateTime.Today);
+            
+            for (int i = 0; i < 5; i++)
+            {
+                int week = currentWeek - i;
+                weeklyCounts[week] = 0;
+            }
+            
+            foreach (var res in allReservations)
+            {
+
+                int reservationWeek = GetWeekOfYear(res.EndTime);
+
+                if (reservationWeek >= currentWeek - 4 && reservationWeek <= currentWeek)
+                {
+                    var reservationTime = res.EndTime - res.StartTime;
+                    weeklyCounts[reservationWeek] = weeklyCounts[reservationWeek] + (double)reservationTime.Hours;
+                }
+            }
+
+            return weeklyCounts;
+        }
+
+        public Dictionary<double, double> GetAmountOfWeeklyreservations(Member member)
+        {
+            Dictionary<double, double> weeklyReservations = new Dictionary<double, double>();
+            var allReservations = GetReservations(member);
+            int currentWeek = GetWeekOfYear(DateTime.Today);
+            
+            for (int i = 0; i < 5; i++)
+            {
+                int week = currentWeek - i;
+                weeklyReservations[week] = 0;
+            }
+            
+            foreach (var res in allReservations)
+            {
+
+                int reservationWeek = GetWeekOfYear(res.EndTime);
+
+                if (reservationWeek >= currentWeek - 4 && reservationWeek <= currentWeek)
+                {
+                    weeklyReservations[reservationWeek]++;
+                }
+            }
+
+            return weeklyReservations;
+        }
+        
+        public static int GetWeekOfYear(DateTime date)
+        {
+            return System.Globalization.CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(
+                date,
+                System.Globalization.CalendarWeekRule.FirstFourDayWeek,
+                DayOfWeek.Monday
+            );
+        }
+
+        
     }
 }
