@@ -183,5 +183,24 @@ namespace RoeiVerenigingLibrary
 
             return new List<Boat>() { leastPopularBoat, mostPopularBoat };
         }
+
+        public Dictionary<Boat, int> GetTopFiveBoats(List<Reservation> reservations)
+        {
+            Dictionary<Boat, int > boatDictionary = new Dictionary<Boat, int>();
+
+            foreach (Reservation res in reservations)
+            {
+                if (boatDictionary.ContainsKey(res.Boat))
+                {
+                    boatDictionary[res.Boat]++;
+                }
+                else
+                {
+                    boatDictionary[res.Boat] = 1;
+                }
+            }
+            return boatDictionary;
+        }
+        
     }
 }

@@ -1,9 +1,13 @@
-﻿using System.Windows;
+﻿using System.IO.Compression;
+using System.Windows;
 using System.Windows.Controls;
+using DataAccessLibrary;
 using OxyPlot;
 using OxyPlot.Axes;
 using OxyPlot.Legends;
 using OxyPlot.Series;
+using RoeiVerenigingLibrary;
+using RoeiVerenigingLibrary.Model;
 using RoeiVerenigingLibrary.Services;
 using RoeiVerenigingWPF.Frames;
 
@@ -11,15 +15,32 @@ namespace RoeiVerenigingWPF.Pages.Admin;
 
 public partial class ViewTrends : Page
 {
-    public ViewTrends(MainWindow mainWindow)
+    public ViewTrends(List<Statistic> statistics)
+    {
+        SelectedStatistics = statistics;
+    }
+    
+    public ViewTrends(MainWindow mainWindow, List<Statistic> selectedStatistics)
     {
         InitializeComponent();
-        main = mainWindow;
+        Main = mainWindow;
+        DataContext = this;
+        FillDropDown(selectedStatistics);
+        _reservationService = new ReservationService(new ReservationRepository());
+        _eventService = new EventService(new EventRepository());
+        _damageService = new DamageService(new DamageRepository());
+        _boatService = new BoatService(new BoatRepository());
+        
     }
     
     private TrendService _trend = new TrendService();
     private ViewStatistics StatisticsWindow;
-    public MainWindow main;
+    public MainWindow Main;
+    private List<Statistic> SelectedStatistics;
+    private ReservationService _reservationService;
+    private DamageService _damageService;
+    private EventService _eventService;
+    private BoatService _boatService;
 
     private PlotModel AddLine(PlotModel model, double[] x, double[] y, int lineThick, OxyColor colorValue)
     {
@@ -59,16 +80,7 @@ public partial class ViewTrends : Page
         return model;
     }
     
-
-
     
-    //make a function to make a bargraph and one for line graphs
-    
-    /// <summary>
-    /// x and y are for the formula's for the x and y axis
-    /// </summary>
-    /// <param name="x"></param>
-    /// <param name="y"></param>
     public void PlotLineGraph()
     {
         //replace this with the actual data from database
@@ -96,10 +108,10 @@ public partial class ViewTrends : Page
         PlotView.Model = model;
     }
 
-    public void PlotBarGraph()
+    public void PlotBarGraph(double[] data)
     {
 
-        double[] data = { 1, 4, 9, 16, 25, 36, 49, 64, 81, 100 };
+        // double[] data = { 1, 4, 9, 16, 25, 36, 49, 64, 81, 100 };
         var model = new PlotModel { Title = "OxyPlot - Bar Series" };
         model.Axes.Add(new CategoryAxis
         {
@@ -117,7 +129,7 @@ public partial class ViewTrends : Page
         });
         PlotView.Model = model;
     }
-    private void columnSeries_Click(object sender, RoutedEventArgs e)
+    private void PlotCollumn(object sender, RoutedEventArgs e)
     {
         double[][] x = new double[2][];
         x[0] = new double[] { 1.2, 2.1, 2.9, 4.5, 5, 5.7, 6.9, 8.3, 9.12, 10.0 };
@@ -151,9 +163,124 @@ public partial class ViewTrends : Page
         
     }
 
-    public void PlotPieChart(IEnumerable<int> x, IEnumerable<int> y)
+    public void FillDropDown(List<Statistic> SelectedStatistics)
     {
+        foreach (var stat in SelectedStatistics)
+        {
+            ComboStats.Items.Add(stat.Name);
+        }
+    }
+
+    public PlotModel PlotBarGraph(double[] amounts, string[] labels)
+    {
+        var plotModel = new PlotModel();
+
+        // Create a bar series
+        var barGraph = new BarSeries
+        {
+            Title = "Amounts",
+            LabelPlacement = LabelPlacement.Outside,
+            LabelFormatString = "{0}"
+        };
+        Label Label = new Label();
+        
+        // Add data points to the bar series
+        for (int i = 0; i < amounts.Length; i++)
+        {
+            barGraph.Items.Add(new BarItem { Value = amounts[i]});
+        }
+
+        // Add the bar series to the plot model
+        plotModel.Series.Add(barGraph);
+
+        // Configure category axis
+        var categoryAxis = new OxyPlot.Axes.CategoryAxis
+        {
+            Position = OxyPlot.Axes.AxisPosition.Bottom,
+            Key = "CategoryAxis"
+        };
+        plotModel.Axes.Add(categoryAxis);
+
+        // Configure value axis
+        var valueAxis = new OxyPlot.Axes.CategoryAxis
+        {
+            Position = OxyPlot.Axes.AxisPosition.Left,
+            Title = "Boten",
+            MinimumPadding = 0,
+            AbsoluteMinimum = 0,
+            ItemsSource = labels
+        };
+        plotModel.Axes.Add(valueAxis);
+
+        return plotModel;
+    }
+
+    public void getData(object sender, SelectionChangedEventArgs e)
+    {
+        ComboBox comboBox = sender as ComboBox;
+        switch (comboBox.SelectedItem.ToString())
+        {
+            case "Populairste boot:":
+                Title.Content = "Populairste boot";
+                var topValues = _boatService.GetTopFiveBoats(_reservationService.GetReservations());
+                var getTop5 = topValues.OrderByDescending(pair => pair.Value)  //Linq query for getting top 5 values
+                    .Take(5)
+                    .ToDictionary(pair => pair.Key.Name, pair => (double)pair.Value);
+                string[] boats = getTop5.Keys.ToArray();
+                double[] amounts = getTop5.Values.ToArray();
+                PlotView.Model = PlotBarGraph(amounts, boats);
+                break;
+            case "Minst populaire boot":
+                Title.Content = "Minst populaire boot";
+                var dictionary = _boatService.GetTopFiveBoats(_reservationService.GetReservations());
+                var getLast5 = dictionary.OrderBy(pair => pair.Value)  //Linq query for getting top 5 values
+                    .Take(5)
+                    .ToDictionary(pair => pair.Key.Name, pair => (double)pair.Value);
+                boats = getLast5.Keys.ToArray();
+                amounts = getLast5.Values.ToArray();
+                PlotView.Model = PlotBarGraph(amounts, boats);
+                break;
+            case "Grootste Evenement:":
+                Title.Content = "Grootste Evenementen";
+                
+                var biggest = _eventService.GetBiggest5EventspastMonth();
+                amounts = new Double[biggest.Count];
+                var names = new string[biggest.Count];
+                for (int i = 0; i < biggest.Count; i++)
+                {
+                    names[i] = biggest[i].Name;
+                    amounts[i] = biggest[i].Participants.Count;
+                }
+
+                PlotView.Model = PlotBarGraph(amounts, names);
+                break;
+            case "Totale reserveringstijd:":
+                Title.Content = "Totale reserveringstijd";
+                break;
+            case "Open schademeldingen":
+                Title.Content = "Open schademeldingen";
+                break;
+            case "Actiefste lid":
+                Title.Content = "Actiefste lid";
+                break;
+            case "Minst actieve lid:":
+                Title.Content = "Minst actieve lid";
+                break;
+            case "Ongelukkigste lid:":
+                Title.Content = "Ongelukkigste lid";
+                break;
+            case "Aantal leden":
+                Title.Content = "Aantal leden";
+                break;
+            case "Totaal aantal reserveringen":
+                Title.Content = "aantal reserveringen";
+                break;
+            case "Aantal boten":
+                Title.Content = "Aantal boten";
+                break;
+        }
         
     }
+    
 
 }

@@ -3,14 +3,19 @@ using System.Runtime.InteropServices.JavaScript;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using DataAccessLibrary;
+using OxyPlot;
 using RoeiVerenigingLibrary;
 using RoeiVerenigingLibrary.Model;
 using RoeiVerenigingWPF.Frames;
 using RoeiVerenigingWPF.helpers;
+using RoeiVerenigingWPF.Pages.Admin;
 using Brushes = System.Windows.Media.Brushes;
+using HorizontalAlignment = System.Windows.HorizontalAlignment;
 using Image = System.Windows.Controls.Image;
+using VerticalAlignment = System.Windows.VerticalAlignment;
 
 namespace RoeiVerenigingWPF.Pages;
 
@@ -28,7 +33,7 @@ public partial class ViewStatistics : Page
     {
         InitializeComponent();
         MainWindow = mainWindow;
-
+        new ViewTrends(AllStatistics);
         FillAllStatistics();
         StatisticsScrollViewer.Visibility = Visibility.Visible;
         SelectStatisticsScrollViewer.Visibility = Visibility.Hidden;
@@ -59,7 +64,7 @@ public partial class ViewStatistics : Page
         try
         {
             AllStatistics.Add(
-                new Statistic(2, "Populaiste boot:", "Deze boot wordt het meeste gereserveerd!",
+                new Statistic(2, "Populairste boot:", "Deze boot wordt het meeste gereserveerd!",
                     _boatService.GetMostANdLeastPopulairBoat((_reservationService.GetReservations()))[1].Name, true));
         }
         catch (Exception e)
@@ -102,6 +107,7 @@ public partial class ViewStatistics : Page
             AllStatistics.Add(new Statistic(7, "Minst actieve lid:", "Dit lid heeft de minste reserveringen staan.",
                 _reservationService.GetMostAndLeastActiveMember(reservationsList)[0].GetFullName(),
                 true));
+            
         }
         catch (Exception e)
         {
@@ -198,9 +204,10 @@ public partial class ViewStatistics : Page
 
             grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(240) });
             grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(130) });
-
+            
+            
             grid.Tag = stat.Id;
-
+            
             grid.Children.Add(new TextBlock
             {
                 Text = stat.Name, VerticalAlignment = VerticalAlignment.Top, FontSize = 24,
@@ -227,7 +234,7 @@ public partial class ViewStatistics : Page
             });
             Grid.SetRow(grid.Children[2], 1);
             Grid.SetColumn(grid.Children[2], 1);
-
+            
             Border border = new Border
             {
                 BorderThickness = new Thickness(3),
@@ -238,8 +245,9 @@ public partial class ViewStatistics : Page
                 Margin = new Thickness(5),
                 Child = grid,
             };
-
+            
             StatisticsPanel.Children.Add(border);
+
         }
     }
 
@@ -258,12 +266,14 @@ public partial class ViewStatistics : Page
 
             grid.Tag = stat.Id;
 
-            grid.Children.Add(new TextBlock
+            TextBlock statName = new TextBlock
             {
                 Text = stat.Name, VerticalAlignment = VerticalAlignment.Top, FontSize = 24,
                 HorizontalAlignment = HorizontalAlignment.Center,
-                Foreground = CustomColors.HeaderColor
-            });
+                Foreground = CustomColors.HeaderColor,
+            };
+            
+            grid.Children.Add(statName);
             Grid.SetRow(grid.Children[0], 0);
             Grid.SetColumn(grid.Children[0], 0);
 
@@ -358,5 +368,10 @@ public partial class ViewStatistics : Page
 
             PopulateStatisticsGrid();
         }
+    }
+
+    private void TrendButton_OnClick(object sender, RoutedEventArgs e)
+    {
+        MainWindow.MainContent.Navigate(new ViewTrends(MainWindow, AllStatistics));
     }
 }

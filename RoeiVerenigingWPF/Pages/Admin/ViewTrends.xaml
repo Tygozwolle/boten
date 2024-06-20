@@ -3,7 +3,6 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:wpf="clr-namespace:InteractiveDataDisplay.WPF;assembly=InteractiveDataDisplay.WPF"
       xmlns:helpers="clr-namespace:RoeiVerenigingWPF.helpers"
       xmlns:oxy="http://oxyplot.org/wpf"
 
@@ -15,27 +14,19 @@
         <Grid.Effect>
             <DropShadowEffect Color="Black" Direction="320" ShadowDepth="10" Opacity="0.3" />
         </Grid.Effect>
-        <oxy:PlotView Name="PlotView"></oxy:PlotView>
         <Border CornerRadius="30" BorderThickness="5" BorderBrush="{x:Static helpers:CustomColors.OutsideBorderColor}">
             <Border CornerRadius="24" BorderThickness="8"
                     BorderBrush="{x:Static helpers:CustomColors.MainBackgroundColor}"
                     Background="{x:Static helpers:CustomColors.MainBackgroundColor}">
                 <Grid>
-                    <Label Name="Title" Content="Trends from {stat}" HorizontalAlignment="Center" VerticalAlignment="Top"
+                    <Label Name="Title" HorizontalAlignment="Center" VerticalAlignment="Top"
                            FontFamily="Franklin Gothic Medium" FontSize="32" Foreground="{x:Static helpers:CustomColors.HeaderColor}"/>
-                        <wpf:Chart Name="Plotter"
-                                   HorizontalAlignment="Left" VerticalAlignment="Center" 
-                                   MaxHeight="400" MaxWidth="900" 
-                                   Margin="50,0,0,0">
-                            <wpf:Chart.Title>
-                                <TextBlock HorizontalAlignment="Center" FontSize="18" Margin="0,5,0,5">Trend voor {statistiek}</TextBlock>
-                            </wpf:Chart.Title>
-                            <wpf:LineGraph x:Name="LineGraph" Description="speed" Stroke="Blue" StrokeThickness="3">
-                            </wpf:LineGraph>
-                            
-                        </wpf:Chart>
-                    <wpf:BarGraph Name="BarPlotter" Visibility="Hidden"></wpf:BarGraph>
-                    
+                    <oxy:PlotView x:Name="PlotView"
+                                  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                  Margin="0,0,550,0"
+                                  Model="{Binding PlotModel}"
+                                  MaxHeight="500"
+                                  MaxWidth="1100"/>
                     <Rectangle
                         Width="400" Height="800" Fill="Transparent" Stroke="{x:Static helpers:CustomColors.OutsideBorderColor}" StrokeThickness="4"
                         RadiusX="20" RadiusY="20" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,25,0"/>
@@ -51,7 +42,7 @@
                            FontFamily="Franklin Gothic Medium" FontSize="32" Foreground="{x:Static helpers:CustomColors.HeaderColor}"/>
                     <Label Name="NewestScore" Content="160" HorizontalAlignment="Right" Visibility="Hidden" Margin="0,550,180,0"
                            FontFamily="Franklin Gothic Medium" FontSize="32" Foreground="{x:Static helpers:CustomColors.DropShadowColor}"/>
-                        
+                    <ComboBox  Name="ComboStats" HorizontalAlignment="Right" VerticalAlignment="Top" MinWidth="200" MinHeight="30" Margin="0,0,120,0" SelectionChanged="getData"></ComboBox>
                 </Grid>
             </Border>
         </Border>

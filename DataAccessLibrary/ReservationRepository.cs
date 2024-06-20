@@ -30,6 +30,7 @@ public class ReservationRepository : IReservationRepository
 
                 command.ExecuteReader();
             }
+            connection.Close();
         }
 
         return null;
@@ -265,5 +266,41 @@ public class ReservationRepository : IReservationRepository
         }
 
         return null;
+    }
+
+    public List<int> GetOldReservationCount(DateTime today, Member member)
+    {
+        List<int> ReservationCount = new List<int>();
+
+        using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
+        {
+
+            for (int i = 0; i < 14; i++)
+            {
+                DateTime day = DateTime.Today.Subtract(new TimeSpan(i, 0, 0, 0));
+                DateTime nextDay = day.AddDays(1);
+
+                const string sql =
+                    "SELECT * FROM reservation WHERE 'creation_date' >= @day AND 'creation_date' < @nextDay";
+
+                using (MySqlCommand command = new MySqlCommand(sql, connection))
+                {
+                    command.Parameters.Add("@day", MySqlDbType.DateTime);
+                    command.Parameters["@day"].Value = day;
+
+                    command.Parameters.Add("@nextDay", MySqlDbType.DateTime);
+                    command.Parameters["@nextDay"].Value = nextDay;
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            ReservationCount.Add(reader.FieldCount);
+                        }
+                    }
+                }
+            }
+
+            return null;
+        }
     }
 }

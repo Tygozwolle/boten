@@ -40,10 +40,11 @@
                             Click="SelectIcon_OnClick">
                         <Image Height="40" Width="40" Source="../Images/Icons/scan.png" />
                     </Button>
-
+                    <Button Name="TrendButton" Click="TrendButton_OnClick"></Button>
                     <ScrollViewer Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" VerticalScrollBarVisibility="Auto"
                                   Name="StatisticsScrollViewer">
-                        <StackPanel Name="StatisticsPanel" />
+                        <StackPanel Name="StatisticsPanel"/>
+                        
                     </ScrollViewer>
                     <ScrollViewer Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" VerticalScrollBarVisibility="Auto"
                                   Name="SelectStatisticsScrollViewer">

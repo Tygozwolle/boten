@@ -196,5 +196,14 @@ namespace RoeiVerenigingLibrary.Services
                 throw new Exception("Je neemt al deel");
             }
         }
+        public List<Event> GetBiggest5EventspastMonth()
+        {
+            var allEvents = _eventRepository.GetAll();
+            var top5Events = allEvents.OrderByDescending(value => value.Participants)
+                .Where(value => value.EndDate < DateTime.Today)
+                .Take(5);
+
+            return top5Events.ToList();
+        }
     }
 }
