@@ -9,6 +9,7 @@ using DataAccessLibrary;
 using OxyPlot;
 using RoeiVerenigingLibrary;
 using RoeiVerenigingLibrary.Model;
+using RoeiVerenigingLibrary.Services;
 using RoeiVerenigingWPF.Frames;
 using RoeiVerenigingWPF.helpers;
 using RoeiVerenigingWPF.Pages.Admin;

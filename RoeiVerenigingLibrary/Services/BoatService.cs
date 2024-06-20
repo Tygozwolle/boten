@@ -1,10 +1,10 @@
 ﻿using RoeiVerenigingLibrary.Exceptions;
 
-namespace RoeiVerenigingLibrary
+namespace RoeiVerenigingLibrary.Services
 {
     public class BoatService(IBoatRepository repository)
     {
-        public List<Boat>? GetBoats()
+        public List<Boat> GetBoats()
         {
             return repository.GetBoats();
         }
@@ -80,7 +80,7 @@ namespace RoeiVerenigingLibrary
             }
         }
 
-        public List<Stream> getImageByReservation(List<Reservation> reservations)
+        public List<Stream> GetImageByReservation(List<Reservation> reservations)
         {
             List<Stream> images = new List<Stream>();
             foreach (var reservation in reservations)

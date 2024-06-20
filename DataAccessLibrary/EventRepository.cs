@@ -167,7 +167,7 @@ namespace DataAccessLibrary
             throw new Exception("System member not found");
         }
 
-        public Event Get(int Id)
+        public Event Get(int id)
         {
             Event events = null;
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))
@@ -179,12 +179,12 @@ namespace DataAccessLibrary
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {
                     command.Parameters.Add("@id", MySqlDbType.Int32);
-                    command.Parameters["@id"].Value = Id;
+                    command.Parameters["@id"].Value = id;
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
                         while (reader.Read())
                         {
-                            events = new Event(getMembers(reader.GetInt32("id")), reader.GetDateTime("start_time"),
+                            events = new Event(GetMembers(reader.GetInt32("id")), reader.GetDateTime("start_time"),
                                 reader.GetDateTime("end_time"), reader.GetString("description"),
                                 reader.GetString("name"),
                                 reader.GetInt32("id"), reader.GetInt32("max_participants"),
@@ -229,7 +229,7 @@ namespace DataAccessLibrary
             return list;
         }
 
-        private List<EventParticipant> getMembers(int eventId)
+        private List<EventParticipant> GetMembers(int eventId)
         {
             var list = new List<EventParticipant>();
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.GetString()))

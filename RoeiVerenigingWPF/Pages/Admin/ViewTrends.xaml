@@ -42,7 +42,7 @@
                            FontFamily="Franklin Gothic Medium" FontSize="32" Foreground="{x:Static helpers:CustomColors.HeaderColor}"/>
                     <Label Name="NewestScore" Content="160" HorizontalAlignment="Right" Visibility="Hidden" Margin="0,550,180,0"
                            FontFamily="Franklin Gothic Medium" FontSize="32" Foreground="{x:Static helpers:CustomColors.DropShadowColor}"/>
-                    <ComboBox  Name="ComboStats" HorizontalAlignment="Right" VerticalAlignment="Top" MinWidth="200" MinHeight="30" Margin="0,0,120,0" SelectionChanged="getData"></ComboBox>
+                    <ComboBox  Name="ComboStats" HorizontalAlignment="Right" VerticalAlignment="Top" MinWidth="200" MinHeight="30" Margin="0,0,120,0" SelectionChanged="GetData"></ComboBox>
                 </Grid>
             </Border>
         </Border>

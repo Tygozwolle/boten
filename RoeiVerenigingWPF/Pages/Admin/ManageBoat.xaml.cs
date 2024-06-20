@@ -8,6 +8,7 @@ using RoeiVerenigingWPF.Frames;
 using RoeiVerenigingWPF.helpers;
 using System.IO;
 using System.Windows.Media;
+using RoeiVerenigingLibrary.Services;
 
 namespace RoeiVerenigingWPF.Pages.Admin
 {

@@ -3,6 +3,7 @@ using RoeiVerenigingLibrary;
 using RoeiVerenigingTestWPF.Frames;
 using System.Windows;
 using System.Windows.Controls;
+using RoeiVerenigingLibrary.Services;
 
 namespace RoeiVerenigingTestWPF.Pages
 {

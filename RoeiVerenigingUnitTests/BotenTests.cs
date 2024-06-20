@@ -1,6 +1,7 @@
 ﻿using Moq;
 using RoeiVerenigingLibrary;
 using RoeiVerenigingLibrary.Exceptions;
+using RoeiVerenigingLibrary.Services;
 
 namespace RoeiVerenigingUnitTests
 {
